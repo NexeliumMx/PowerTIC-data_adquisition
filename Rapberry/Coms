@@ -1,0 +1,147 @@
+from pymodbus.client import ModbusSerialClient
+import time
+import json
+import os
+import firebase_admin
+from firebase_admin import credentials, db
+
+# config Firebase
+access = credentials.Certificate('/home/pi/Desktop/COMS/project-mtpower-firebase-adminsdk-qrhzl-3ea32a0cc0.json')
+firebase_admin.initialize_app(access,{
+	'databaseURL' : 'https://project-mtpower-default-rtdb.firebaseio.com/'
+})
+
+#Init Modbus
+client = ModbusSerialClient(
+	method='rtu',
+	port='/dev/ttyUSB0',
+	baudrate =19200,
+	parity='N',
+	stopbits=1,
+	bytesize=8,
+	timeout=5
+)
+def reading_meter():
+	data= {}
+	if client.connect():
+		print("Conexiòn exitosa")
+		
+		try:
+			#Lectura de registros de voltaje AN
+			VAN_Reg = client.read_holding_registers(0x104D, 1, 1)
+			if not VAN_Reg.isError():
+				VAN_Val = VAN_Reg.registers
+				data['Voltage AN'] = VAN_Val
+				print("Voltajes (V)", VAN_Reg)
+			else:
+				print("Error de lectura (V)",VAN_Reg)
+			
+			#Lectura de registros de voltaje BN
+			VBN_Reg = client.read_holding_registers(0x104E, 1, 1)
+			if not VBN_Reg.isError():
+				VBN_Val = VBN_Reg.registers
+				data['Voltage BN'] = VBN_Val
+				print("Voltajes (V)", VBN_Reg)
+			else:
+				print("Error de lectura (V)",VBN_Reg)
+			
+			#Lectura de registros de voltaje CN
+			VCN_Reg = client.read_holding_registers(0x104F, 1, 1)
+			if not VCN_Reg.isError():
+				VCN_Val = VCN_Reg.registers
+				data['Voltage CN'] = VCN_Val
+				print("Voltajes (V)", VCN_Reg)
+			else:
+				print("Error de lectura (V)",VCN_Reg)
+				
+			#lectura de registros de corriente (A A)
+			AA_Reg = client.read_holding_registers(0x1048, 1, 1)
+			if not AA_Reg.isError():
+				AA_Val=AA_Reg.registers
+				data['Current A']= AA_Val
+				print("Corriente (A):", AA_Val)
+			else:
+				print("Error de lectura (A):",AA_Reg)
+			
+			#lectura de registros de corriente (A B)
+			AB_Reg = client.read_holding_registers(0x1049, 1, 1)
+			if not AB_Reg.isError():
+				AB_Val=AB_Reg.registers
+				data['Current B']= AB_Val
+				print("Corriente (A):", AB_Val)
+			else:
+				print("Error de lectura (A):",AB_Reg)
+			
+			#lectura de registros de corriente (A C)
+			AC_Reg = client.read_holding_registers(0x104A, 1, 1)
+			if not AC_Reg.isError():
+				AC_Val=AC_Reg.registers
+				data['Current C']= AC_Val
+				print("Corriente (A):", AC_Val)
+			else:
+				print("Error de lectura (A):",AC_Reg)
+			
+			#lectura de registros de VAR
+			VAR_Reg = client.read_holding_registers(0x1060, 1, 1)
+			if not VAR_Reg.isError():
+				VAR_Val=VAR_Reg.registers
+				data['VAR']= VAR_Val
+				print("VAR (VAR):", VAR_Val)
+			else:
+				print("Error de lectura (VAR):",VAR_Reg)
+				
+			#lectura de registros de Total kW
+			kW_Reg = client.read_holding_registers(0x1057, 1, 1)
+			if not kW_Reg.isError():
+				kW_Val=kW_Reg.registers
+				data['Power']= kW_Val
+				print("Power (kW):", kW_Val)
+			else:
+				print("Error de lectura (kW):",kW_Reg)
+			
+			#lectura de registros de Power Factor
+			PF_Reg = client.read_holding_registers(0x1066, 1, 1)
+			if not PF_Reg.isError():
+				PF_Val=PF_Reg.registers
+				data['PF']= PF_Val
+				print("Power Factor (PF):", PF_Val)
+			else:
+				print("Error de lectura (PF):",PF_Reg)
+				
+			client.close()
+	
+		except Exception as e:
+			print("Exception: ", e)
+		finally:
+			client.close()
+			
+		#Local Storage
+		storage_path='/home/pi/Desktop/Data_Storage/meter_data.json'
+		
+		#Verify file
+		if not os.path.isfile(storage_path):
+			with open(storage_path, 'w') as f:
+				json.dump([], f)
+		
+		#file reading
+		with open(storage_path, 'r') as f:
+			file_data = json.load(f)
+			
+		#adding new logs
+		file_data.append(data)
+		
+		#Add new logs to file
+		with open(storage_path, 'w') as f:
+			json.dump(file_data, f, indent=4)
+			
+		#Add logs to Firebase DB
+		db_path = db.reference('medidor 1')
+		db_path.push(data)
+	
+	else:
+		print("Error de conexiòn con el medidor")
+
+#Code execution
+while True:
+	reading_meter()
+	time.sleep(5) #Running on 5 minute interval

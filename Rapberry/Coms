@@ -5,143 +5,199 @@ import os
 import firebase_admin
 from firebase_admin import credentials, db
 
-# config Firebase
+# Configuración de Firebase
 access = credentials.Certificate('/home/pi/Desktop/COMS/project-mtpower-firebase-adminsdk-qrhzl-3ea32a0cc0.json')
-firebase_admin.initialize_app(access,{
-	'databaseURL' : 'https://project-mtpower-default-rtdb.firebaseio.com/'
+firebase_admin.initialize_app(access, {
+    'databaseURL': 'https://project-mtpower-default-rtdb.firebaseio.com/'
 })
 
-#Init Modbus
+# Inicializar Modbus
 client = ModbusSerialClient(
-	method='rtu',
-	port='/dev/ttyUSB0',
-	baudrate =19200,
-	parity='N',
-	stopbits=1,
-	bytesize=8,
-	timeout=5
+    method='rtu',
+    port='/dev/ttyUSB0',
+    baudrate=19200,
+    parity='N',
+    stopbits=1,
+    bytesize=8,
+    timeout=5
 )
-def reading_meter():
-	data= {}
-	if client.connect():
-		print("Conexiòn exitosa")
-		
-		try:
-			#Lectura de registros de voltaje AN
-			VAN_Reg = client.read_holding_registers(0x104D, 1, 1)
-			if not VAN_Reg.isError():
-				VAN_Val = VAN_Reg.registers
-				data['Voltage AN'] = VAN_Val
-				print("Voltajes (V)", VAN_Reg)
-			else:
-				print("Error de lectura (V)",VAN_Reg)
-			
-			#Lectura de registros de voltaje BN
-			VBN_Reg = client.read_holding_registers(0x104E, 1, 1)
-			if not VBN_Reg.isError():
-				VBN_Val = VBN_Reg.registers
-				data['Voltage BN'] = VBN_Val
-				print("Voltajes (V)", VBN_Reg)
-			else:
-				print("Error de lectura (V)",VBN_Reg)
-			
-			#Lectura de registros de voltaje CN
-			VCN_Reg = client.read_holding_registers(0x104F, 1, 1)
-			if not VCN_Reg.isError():
-				VCN_Val = VCN_Reg.registers
-				data['Voltage CN'] = VCN_Val
-				print("Voltajes (V)", VCN_Reg)
-			else:
-				print("Error de lectura (V)",VCN_Reg)
-				
-			#lectura de registros de corriente (A A)
-			AA_Reg = client.read_holding_registers(0x1048, 1, 1)
-			if not AA_Reg.isError():
-				AA_Val=AA_Reg.registers
-				data['Current A']= AA_Val
-				print("Corriente (A):", AA_Val)
-			else:
-				print("Error de lectura (A):",AA_Reg)
-			
-			#lectura de registros de corriente (A B)
-			AB_Reg = client.read_holding_registers(0x1049, 1, 1)
-			if not AB_Reg.isError():
-				AB_Val=AB_Reg.registers
-				data['Current B']= AB_Val
-				print("Corriente (A):", AB_Val)
-			else:
-				print("Error de lectura (A):",AB_Reg)
-			
-			#lectura de registros de corriente (A C)
-			AC_Reg = client.read_holding_registers(0x104A, 1, 1)
-			if not AC_Reg.isError():
-				AC_Val=AC_Reg.registers
-				data['Current C']= AC_Val
-				print("Corriente (A):", AC_Val)
-			else:
-				print("Error de lectura (A):",AC_Reg)
-			
-			#lectura de registros de VAR
-			VAR_Reg = client.read_holding_registers(0x1060, 1, 1)
-			if not VAR_Reg.isError():
-				VAR_Val=VAR_Reg.registers
-				data['VAR']= VAR_Val
-				print("VAR (VAR):", VAR_Val)
-			else:
-				print("Error de lectura (VAR):",VAR_Reg)
-				
-			#lectura de registros de Total kW
-			kW_Reg = client.read_holding_registers(0x1057, 1, 1)
-			if not kW_Reg.isError():
-				kW_Val=kW_Reg.registers
-				data['Power']= kW_Val
-				print("Power (kW):", kW_Val)
-			else:
-				print("Error de lectura (kW):",kW_Reg)
-			
-			#lectura de registros de Power Factor
-			PF_Reg = client.read_holding_registers(0x1066, 1, 1)
-			if not PF_Reg.isError():
-				PF_Val=PF_Reg.registers
-				data['PF']= PF_Val
-				print("Power Factor (PF):", PF_Val)
-			else:
-				print("Error de lectura (PF):",PF_Reg)
-				
-			client.close()
-	
-		except Exception as e:
-			print("Exception: ", e)
-		finally:
-			client.close()
-			
-		#Local Storage
-		storage_path='/home/pi/Desktop/Data_Storage/meter_data.json'
-		
-		#Verify file
-		if not os.path.isfile(storage_path):
-			with open(storage_path, 'w') as f:
-				json.dump([], f)
-		
-		#file reading
-		with open(storage_path, 'r') as f:
-			file_data = json.load(f)
-			
-		#adding new logs
-		file_data.append(data)
-		
-		#Add new logs to file
-		with open(storage_path, 'w') as f:
-			json.dump(file_data, f, indent=4)
-			
-		#Add logs to Firebase DB
-		db_path = db.reference('medidor 1')
-		db_path.push(data)
-	
-	else:
-		print("Error de conexiòn con el medidor")
 
-#Code execution
+def reading_meter():
+    data = {}
+    if client.connect():
+        print("Conexión exitosa")
+        
+        try:
+            # Lectura de registros de voltaje AN
+            VAN_Reg = client.read_holding_registers(0x104D, 1, 1)
+            if not VAN_Reg.isError():
+                VAN_Val = VAN_Reg.registers[0]
+                data['Voltage AN'] = VAN_Val
+                print("Voltaje AN (V)", VAN_Val)
+            else:
+                print("Error de lectura (Voltaje AN)", VAN_Reg)
+            
+            # Lectura de registros de voltaje BN
+            VBN_Reg = client.read_holding_registers(0x104E, 1, 1)
+            if not VBN_Reg.isError():
+                VBN_Val = VBN_Reg.registers[0]
+                data['Voltage BN'] = VBN_Val
+                print("Voltaje BN (V)", VBN_Val)
+            else:
+                print("Error de lectura (Voltaje BN)", VBN_Reg)
+            
+            # Lectura de registros de voltaje CN
+            VCN_Reg = client.read_holding_registers(0x104F, 1, 1)
+            if not VCN_Reg.isError():
+                VCN_Val = VCN_Reg.registers[0]
+                data['Voltage CN'] = VCN_Val
+                print("Voltaje CN (V)", VCN_Val)
+            else:
+                print("Error de lectura (Voltaje CN)", VCN_Reg)
+                
+            # Lectura de registros de corriente A
+            AA_Reg = client.read_holding_registers(0x1048, 1, 1)
+            if not AA_Reg.isError():
+                AA_Val = AA_Reg.registers[0]
+                data['Current A'] = AA_Val
+                print("Corriente A (A):", AA_Val)
+            else:
+                print("Error de lectura (Corriente A):", AA_Reg)
+            
+            # Lectura de registros de corriente B
+            AB_Reg = client.read_holding_registers(0x1049, 1, 1)
+            if not AB_Reg.isError():
+                AB_Val = AB_Reg.registers[0]
+                data['Current B'] = AB_Val
+                print("Corriente B (A):", AB_Val)
+            else:
+                print("Error de lectura (Corriente B):", AB_Reg)
+            
+            # Lectura de registros de corriente C
+            AC_Reg = client.read_holding_registers(0x104A, 1, 1)
+            if not AC_Reg.isError():
+                AC_Val = AC_Reg.registers[0]
+                data['Current C'] = AC_Val
+                print("Corriente C (A):", AC_Val)
+            else:
+                print("Error de lectura (Corriente C):", AC_Reg)
+            
+            # Lectura de registros de VAR
+            VAR_Reg = client.read_holding_registers(0x1060, 1, 1)
+            if not VAR_Reg.isError():
+                VAR_Val = VAR_Reg.registers[0]
+                data['VAR'] = VAR_Val
+                print("VAR (VAR):", VAR_Val)
+            else:
+                print("Error de lectura (VAR):", VAR_Reg)
+                
+            # Lectura de registros de Total kW
+            kW_Reg = client.read_holding_registers(0x1057, 1, 1)
+            if not kW_Reg.isError():
+                kW_Val = kW_Reg.registers[0]
+                data['Power'] = kW_Val
+                print("Power (kW):", kW_Val)
+            else:
+                print("Error de lectura (kW):", kW_Reg)
+            
+            # Lectura de registros de Power Factor
+            PF_Reg = client.read_holding_registers(0x1066, 1, 1)
+            if not PF_Reg.isError():
+                PF_Val = PF_Reg.registers[0]
+                data['PF'] = PF_Val
+                print("Power Factor (PF):", PF_Val)
+            else:
+                print("Error de lectura (PF):", PF_Reg)
+            
+            # TimeStamp
+            Time_y = client.read_holding_registers(0x300, 1, 1)
+            if not Time_y.isError():
+                Time_y_Val = Time_y.registers[0]
+                print("Year", Time_y_Val)
+            else:
+                print("Error de lectura (Year)", Time_y)
+                Time_y_Val = None
+            
+            Time_mo = client.read_holding_registers(0x301, 1, 1)
+            if not Time_mo.isError():
+                Time_mo_Val = Time_mo.registers[0]
+                print("Month", Time_mo_Val)
+            else:
+                print("Error de lectura (Month)", Time_mo)
+                Time_mo_Val = None
+
+            Time_d = client.read_holding_registers(0x302, 1, 1)
+            if not Time_d.isError():
+                Time_d_Val = Time_d.registers[0]
+                print("Day", Time_d_Val)
+            else:
+                print("Error de lectura (Day)", Time_d)
+                Time_d_Val = None
+            
+            Time_h = client.read_holding_registers(0x303, 1, 1)
+            if not Time_h.isError():
+                Time_h_Val = Time_h.registers[0]
+                print("Hour", Time_h_Val)
+            else:
+                print("Error de lectura (Hour)", Time_h)
+                Time_h_Val = None
+                
+            Time_min = client.read_holding_registers(0x304, 1, 1)
+            if not Time_min.isError():
+                Time_min_Val = Time_min.registers[0]
+                print("Minutes", Time_min_Val)
+            else:
+                print("Error de lectura (Minutes)", Time_min)
+                Time_min_Val = None
+            
+            Time_s = client.read_holding_registers(0x305, 1, 1)
+            if not Time_s.isError():
+                Time_s_Val = Time_s.registers[0]
+                print("Seconds", Time_s_Val)
+            else:
+                print("Error de lectura (Seconds)", Time_s)
+                Time_s_Val = None
+
+            if None not in (Time_y_Val, Time_mo_Val, Time_d_Val, Time_h_Val, Time_min_Val, Time_s_Val):
+                data["TimeStamp"] = f"{Time_h_Val:02d}:{Time_min_Val:02d}:{Time_s_Val:02d}"
+                data["Date"] = f"{Time_y_Val:04d}-{Time_mo_Val:02d}-{Time_d_Val:02d}"
+            else:
+                print("Error en la lectura de una o más marcas de tiempo")
+            
+            client.close()
+    
+        except Exception as e:
+            print("Exception:", e)
+        finally:
+            client.close()
+            
+        # Almacenamiento Local
+        storage_path = '/home/pi/Desktop/Data_Storage/meter_data.json'
+        
+        # Verificar si el archivo existe
+        if not os.path.isfile(storage_path):
+            with open(storage_path, 'w') as f:
+                json.dump([], f)
+        
+        # Leer el archivo existente
+        with open(storage_path, 'r') as f:
+            file_data = json.load(f)
+            
+        # Añadir nuevos registros
+        file_data.append(data)
+        
+        # Escribir de nuevo en el archivo con los datos actualizados
+        with open(storage_path, 'w') as f:
+            json.dump(file_data, f, indent=4)
+            
+        # Añadir registros a Firebase DB
+        db_path = db.reference('medidor 1')
+        db_path.push(data)
+    
+    else:
+        print("Error de conexión con el medidor")
+
+# Ejecución del código
 while True:
-	reading_meter()
-	time.sleep(5) #Running on 5 minute interval
+    reading_meter()
+    time.sleep(300)  # Ejecutar cada 5 minutos

@@ -1,3 +1,4 @@
+from datetime import datetime
 from pymodbus.client import ModbusSerialClient
 import time
 import json
@@ -108,64 +109,14 @@ def reading_meter():
                 print("Power Factor (PF):", PF_Val)
             else:
                 print("Error de lectura (PF):", PF_Reg)
-            
+		
             # TimeStamp
-            Time_y = client.read_holding_registers(0x300, 1, 1)
-            if not Time_y.isError():
-                Time_y_Val = Time_y.registers[0]
-                print("Year", Time_y_Val)
-            else:
-                print("Error de lectura (Year)", Time_y)
-                Time_y_Val = None
-            
-            Time_mo = client.read_holding_registers(0x301, 1, 1)
-            if not Time_mo.isError():
-                Time_mo_Val = Time_mo.registers[0]
-                print("Month", Time_mo_Val)
-            else:
-                print("Error de lectura (Month)", Time_mo)
-                Time_mo_Val = None
-
-            Time_d = client.read_holding_registers(0x302, 1, 1)
-            if not Time_d.isError():
-                Time_d_Val = Time_d.registers[0]
-                print("Day", Time_d_Val)
-            else:
-                print("Error de lectura (Day)", Time_d)
-                Time_d_Val = None
-            
-            Time_h = client.read_holding_registers(0x303, 1, 1)
-            if not Time_h.isError():
-                Time_h_Val = Time_h.registers[0]
-                print("Hour", Time_h_Val)
-            else:
-                print("Error de lectura (Hour)", Time_h)
-                Time_h_Val = None
-                
-            Time_min = client.read_holding_registers(0x304, 1, 1)
-            if not Time_min.isError():
-                Time_min_Val = Time_min.registers[0]
-                print("Minutes", Time_min_Val)
-            else:
-                print("Error de lectura (Minutes)", Time_min)
-                Time_min_Val = None
-            
-            Time_s = client.read_holding_registers(0x305, 1, 1)
-            if not Time_s.isError():
-                Time_s_Val = Time_s.registers[0]
-                print("Seconds", Time_s_Val)
-            else:
-                print("Error de lectura (Seconds)", Time_s)
-                Time_s_Val = None
-
-            if None not in (Time_y_Val, Time_mo_Val, Time_d_Val, Time_h_Val, Time_min_Val, Time_s_Val):
-                data["TimeStamp"] = f"{Time_h_Val:02d}:{Time_min_Val:02d}:{Time_s_Val:02d}"
-                data["Date"] = f"{Time_y_Val:04d}-{Time_mo_Val:02d}-{Time_d_Val:02d}"
-            else:
-                print("Error en la lectura de una o más marcas de tiempo")
-            
-            client.close()
-    
+            dt = datetime.now()
+            data["Time"] = dt.strftime("%H:%M:%S")
+            data["Date"] = dt.strftime("%Y-%m-%d")
+            print("Date: ", dt.date())
+            print("Time: ", dt.time())
+		
         except Exception as e:
             print("Exception:", e)
         finally:

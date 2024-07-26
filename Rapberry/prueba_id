@@ -3,7 +3,7 @@
 SN1 = client.read_holding_registers(0x1034, 15, 1)
 if not SN1.isError():
     for i in SN1.registers:
-        SN1_Val += str(i)
+        SN1_Val += bytes(i).decode('utf-8')
        # data['PF'] = SN1_Val
     print("SN:", SN1_Val)
 else:

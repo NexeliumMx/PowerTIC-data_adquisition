@@ -6,6 +6,6 @@ if not SN1.isError():
     for i in SN1.registers:
         SN1_Val += bytes(i)
         # data['PF'] = SN1_Val
-    print("SN:", SN1_Val)
+    print("SN:", bytes(SN1.registers))
 else:
     print("Error de lectura (SN):", SN1)

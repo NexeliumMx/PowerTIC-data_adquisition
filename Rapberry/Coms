@@ -22,6 +22,9 @@ client = ModbusSerialClient(
     bytesize=8,
     timeout=5
 )
+#id set
+id_path = db.reference('ID/pasillo')
+id_path.set("E3T15060693")
 
 def reading_meter():
     data = {}
@@ -142,8 +145,9 @@ def reading_meter():
             json.dump(file_data, f, indent=4)
             
         # Añadir registros a Firebase DB
-        db_path = db.reference('medidor 1')
+        db_path = db.reference('lecturas/E3T15060693')
         db_path.push(data)
+
     
     else:
         print("Error de conexión con el medidor")

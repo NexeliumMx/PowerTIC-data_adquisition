@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "firebase-tools": "^13.14.2"
+  },
+  "scripts": {
+    "build": "echo 'No build step defined'"
+  }
+}

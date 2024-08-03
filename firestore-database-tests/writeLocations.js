@@ -1,22 +1,7 @@
-// Import the Firebase SDK
-const { initializeApp } = require("firebase/app");
-const { getFirestore, collection, doc, setDoc } = require("firebase/firestore");
-const { LOCATIONS_AND_POWERMETERS } = require("./medidores.js");
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDrK5vgZxLgU_7MFYCFu3oOIRSAgoc9XiU",
-  authDomain: "power-tic.firebaseapp.com",
-  projectId: "power-tic",
-  storageBucket: "power-tic.appspot.com",
-  messagingSenderId: "1076041377760",
-  appId: "1:1076041377760:web:b03cd97613eed942a16d85",
-  measurementId: "G-QRCSX7C51E"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Import the Firestore instance
+const { db } = require("../firebaseSDK.js");
+const { collection, doc, setDoc } = require("firebase/firestore");
+const { LOCATIONS_AND_POWERMETERS } = require("./assets/medidores.js");
 
 // Function to write locations and power meters to Firestore
 async function writeLocationsAndPowerMeters() {

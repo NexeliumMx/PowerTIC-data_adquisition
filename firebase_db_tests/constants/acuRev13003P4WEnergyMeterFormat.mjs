@@ -1,5 +1,8 @@
 import { serverTimestamp } from 'firebase/firestore';
 
+const brand = "AcuRev";
+const documentName = "acuRev_1300_3P4W_Energy_Meter";
+
 const powerMeterOutputFormat = {
   amps_total: [0, 9999, 'A'],
   amps_phase_A: [0, 9999, 'A'],
@@ -54,4 +57,4 @@ const powerMeterOutputFormat = {
   timestamp_power_meter: "2024-07-26T14:23:03Z"
 };
 
-export default powerMeterOutputFormat;
+export { brand, documentName, powerMeterOutputFormat };

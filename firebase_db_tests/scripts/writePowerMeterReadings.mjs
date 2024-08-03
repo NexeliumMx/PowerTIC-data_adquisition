@@ -1,3 +1,11 @@
+/**
+ * This script writes the contents of examplePowerMeterReading.js to Firestore.
+ * The script prompts the user to choose between writing to a default path or 
+ * providing a custom path. The document ID is generated based on the current timestamp.
+ * The path used is either the default path or the user-provided path, 
+ * both ending with /E3T150600001/readings.
+ */
+
 // Import the Firebase app and other required functions from firebaseSDK.mjs
 import app from '../firebaseSDK.mjs';
 import { getFirestore, collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
@@ -26,7 +34,7 @@ function promptUser(query) {
 
 // Function to determine the write path
 async function determineWritePath() {
-  const userInput = await promptUser("Write in default path? '/power_meters' (Y/N): ");
+  const userInput = await promptUser("Write in default path? 'power_meters_readings' (Y/N): ");
 
   if (["y", "Y", "yes", "Yes"].includes(userInput)) {
     return defaultPath;

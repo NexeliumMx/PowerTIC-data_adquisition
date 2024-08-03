@@ -1,6 +1,6 @@
-const { serverTimestamp } = require("firebase/firestore");
+import { serverTimestamp } from 'firebase/firestore';
 
-const powerMeterOutput = {
+const powerMeterOutputFormat = {
   amps_total: [0, 9999, 'A'],
   amps_phase_A: [0, 9999, 'A'],
   amps_phase_B: [0, 9999, 'A'],
@@ -54,4 +54,4 @@ const powerMeterOutput = {
   timestamp_power_meter: "2024-07-26T14:23:03Z"
 };
 
-module.exports = { powerMeterOutput };
+export default powerMeterOutputFormat;

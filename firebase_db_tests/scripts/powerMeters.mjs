@@ -27,4 +27,4 @@ const LOCATIONS_AND_POWERMETERS = [
   },
 ];
 
-module.exports = { LOCATIONS_AND_POWERMETERS };
+export default LOCATIONS_AND_POWERMETERS;

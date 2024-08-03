@@ -1,4 +1,4 @@
-const { serverTimestamp } = require("firebase/firestore");
+import { serverTimestamp } from 'firebase/firestore';
 
 const data = {
   "Current A": 0,
@@ -15,4 +15,4 @@ const data = {
   "timestamp": serverTimestamp()
 };
 
-module.exports = { data };
+export default data;

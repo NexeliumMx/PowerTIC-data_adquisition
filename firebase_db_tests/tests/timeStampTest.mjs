@@ -1,5 +1,5 @@
 // Import the Firebase app and other required functions from firebaseSDK.mjs
-import app from './firebaseSDK.mjs';
+import app from '../firebaseSDK.mjs';
 import { getFirestore, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 // Initialize Firestore

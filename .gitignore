@@ -1,7 +1,11 @@
+#- Llaves SDK FIREBASE
+power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json
 firebaseSDK.mjs
+
+#- Otros
 .DS_Store
 node_modules
-power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json
+
 
 #-----Node template-------
 #https://github.com/github/gitignore/blob/main/Node.gitignore

@@ -3,6 +3,8 @@ from pymodbus.client import ModbusSerialClient
 import time
 import json
 import os
+from pathlib import Path
+from Firestore_subroutine import upload,imprint
 # import firebase_admin
 # from firebase_admin import credentials, db
 
@@ -37,9 +39,17 @@ while True:
             # Limpiar caracteres nulos
             SN1_Val = SN1_Val.replace('\x00', '')
             print("SN:", SN1_Val)
+            imprint(SN1_Val)
             break
         else:
             print("Error de lectura (SN):", SN1)
+        #Luis aqui escribe para conseguir "'ID'": "'JHHJ87621'",
+        #"'manufacturer'": "'acuRev'",
+        #"'model'": "acuRev13003P4WEnergyMeter",
+        #"'version'": "'v283.02'",
+        #"'SN'": "'E3T150600001'",
+        #"'timestamp_server'": "serverTimestamp()",
+        #"location": "San Angel"
     else:
         print("Error de conexión con el medidor")
 
@@ -543,7 +553,8 @@ def reading_meter():
             client.close()
             
         # Almacenamiento Local
-        storage_path = '/home/pi/Desktop/Data_Storage/meter_data.json'
+        PROJECT_DIR = Path(__file__).parent
+        storage_path = PROJECT_DIR/'meter_data.json'
         
         # Verificar si el archivo existe
         if not os.path.isfile(storage_path):
@@ -560,7 +571,7 @@ def reading_meter():
         # Escribir de nuevo en el archivo con los datos actualizados
         with open(storage_path, 'w') as f:
             json.dump(file_data, f, indent=4)
-        
+        upload(storage_path,SN1_Val)
         # # Añadir registros a Firebase DB
         # direction = 'lecturas/' + SN1_Val
         # db_path = db.reference(direction)

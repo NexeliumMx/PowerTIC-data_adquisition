@@ -4,7 +4,7 @@ import time
 import json
 import os
 from pathlib import Path
-from Firestore_subroutine import upload,imprint
+#from Firestore_subroutine import upload,imprint
 # import firebase_admin
 # from firebase_admin import credentials, db
 
@@ -30,49 +30,101 @@ client = ModbusSerialClient(
 
 # Lectura de registros de Power Factor
 SN_Val = ''
+Manufacturer_Val=''
+Model_Val=''
+Version_Val=''
+#Settings Acquisition
 while True:
     if client.connect():
-        settings = {}
-        #Serial Number Aquisition
-        SN = client.read_holding_registers(0x1034, 15, 1)
-        if not SN.isError():
-            for i in SN.registers:
-                SN_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-            # Limpiar caracteres nulos
-            SN_Val = SN_Val.replace('\x00', '')
-            settings['SN'] = SN_Val
-            print("SN:", SN_Val)
-            imprint(SN_Val)
-            #break
-        else:
-            print("Error de lectura (SN):", SN)
+        print("Conexión exitosa")
+        try:
+            settings = {}
+            #Serial Number Aquisition
+            SN = client.read_holding_registers(0x1034, 15, 1)
+            if not SN.isError():
+                for i in SN.registers:
+                    SN_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                # Limpiar caracteres nulos
+                SN_Val = SN_Val.replace('\x00', '')
+                settings['SN'] = SN_Val
+                print("SN:", SN_Val)
+                #imprint(SN_Val)
+                #break
+            else:
+                print("Error de lectura (SN):", SN)
 
-        #ID acquisition
-        ID_Reg=client.read_holding_registers(0x1002, 1, 1)
-        if not ID_Reg.isError():
-            ID_Val = ID_Reg.registers[0]
-            settings['ID'] = ID_Val
-            print("ID", ID_Val)
-        else:
-            print("Error de lectura ID")
+            #ID acquisition
+            ID_Reg=client.read_holding_registers(0x1002, 1, 1)
+            if not ID_Reg.isError():
+                ID_Val = ID_Reg.registers[0]
+                settings['ID'] = ID_Val
+                print("ID", ID_Val)
+            else:
+                print("Error de lectura ID")
+            
+            #Manufacturer Acquisition
+            Manufacturer_Reg=client.read_holding_registers(0x1004, 15, 1)
+            if not Manufacturer_Reg.isError():
+                for i in Manufacturer_Reg.registers:
+                    Manufacturer_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                # Limpiar caracteres nulos
+                Manufacturer_Val = Manufacturer_Val.replace('\x00', '')
+                settings['Manufacturer'] = Manufacturer_Val
+                print("Manufacturer:", Manufacturer_Val)
+            else:
+                print("Error de lectura Manufacturer", Manufacturer_Reg)
+
+            #Model Acquisition
+            Model_Reg=client.read_holding_registers(0x1014, 15, 1)
+            if not Model_Reg.isError():
+                for i in Model_Reg.registers:
+                    Model_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                # Limpiar caracteres nulos
+                Model_Val = Model_Val.replace('\x00', '')
+                settings['Model'] = Model_Val
+                print("Model:", Model_Val)
+            else:
+                print("Error de lectura Model", Model_Reg)
+            
+            #Version acquisition
+            Version_Reg=client.read_holding_registers(0x102C, 7, 1)
+            if not Version_Reg.isError():
+                for i in Version_Reg.registers:
+                    Version_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                # Limpiar caracteres nulos
+                Version_Val = Version_Val.replace('\x00', '')
+                settings['Version'] = Version_Val
+                print("Version:", Version_Val)
+                break
+            else:
+                print("Error de lectura Version", Version_Reg)
+            #"'timestamp_server'": "serverTimestamp()",
+            #"location": "San Angel"
+            
+        except Exception as e:
+            print("Exception:", e)
+        finally:
+            client.close()
+            
+        # Almacenamiento Local
+        SETTINGS_DIR = Path(__file__).parent
+        storage_Settings_path = SETTINGS_DIR/'meter_data.json'
         
-        #Manufacturer Acquisition
-        Manufacturer_Reg=client.read_holding_registers(0x1004, 15, 1)
-        if not Manufacturer_Reg.isError():
-            Manufacturer_Val = Manufacturer_Reg.registers
-            settings['Manufacturer']=Manufacturer_Val
-            print("Manufacturer", Manufacturer_Val)
-        else:
-            print("Error de lectura Manufacturer", Manufacturer_Reg)
+        # Verificar si el archivo existe
+        if not os.path.isfile(storage_Settings_path):
+            with open(storage_Settings_path, 'w') as f:
+                json.dump([], f)
         
-        #Model Acquisition
-        #Luis aqui escribe para conseguir "'ID'": "'JHHJ87621'",
-        #"'manufacturer'": "'acuRev'",
-        #"'model'": "acuRev13003P4WEnergyMeter",
-        #"'version'": "'v283.02'",
-        #"'SN'": "'E3T150600001'",
-        #"'timestamp_server'": "serverTimestamp()",
-        #"location": "San Angel"
+        # Leer el archivo existente
+        with open(storage_Settings_path, 'r') as f:
+            file_data = json.load(f)
+            
+        # Añadir nuevos registros
+        file_data.append(settings)
+        
+        # Escribir de nuevo en el archivo con los datos actualizados
+        with open(storage_Settings_path, 'w') as f:
+            json.dump(file_data, f, indent=4)
     else:
         print("Error de conexión con el medidor")
 
@@ -81,7 +133,6 @@ while True:
 def reading_meter():
     data = {}
     if client.connect():
-        print("Conexión exitosa")
         
         try:
             # Lectura de registros de voltaje LN promedio
@@ -594,7 +645,7 @@ def reading_meter():
         # Escribir de nuevo en el archivo con los datos actualizados
         with open(storage_path, 'w') as f:
             json.dump(file_data, f, indent=4)
-        upload(storage_path,SN_Val)
+        #upload(storage_path,SN_Val)
         # # Añadir registros a Firebase DB
         # direction = 'lecturas/' + SN1_Val
         # db_path = db.reference(direction)

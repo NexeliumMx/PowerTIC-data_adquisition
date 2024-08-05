@@ -26,16 +26,17 @@ client = ModbusSerialClient(
 id_path = db.reference('ID/pasillo')
 # Lectura de registros de Power Factor
 while(1):
-    SN1_Val=''
-    if client.connect():
-        SN1 = client.read_holding_registers(0x1034, 15, 1)
-        if not SN1.isError():
-            for i in SN1.registers:
-                SN1_Val += chr((i&0b1111111100000000)>>8)+chr(i&0b0000000011111111)
-            print("SN:", SN1_Val)
-            break
-        else:
-   	 	    print("Error de lectura (SN):", SN1)
+	if client.connect():
+		SN1 = client.read_holding_registers(0x1034, 15, 1)
+		SN1_Val=""
+		if not SN1.isError():
+   		 for i in SN1.registers:
+        		SN1_Val += chr((i&0b1111111100000000)>>8)+chr(i&0b0000000011111111)
+        
+    		 print("SN:", SN1_Val)
+		 break
+		else:
+   	 	 print("Error de lectura (SN):", SN1)
 	 
 id_path.set(SN1_Val)
 
@@ -158,8 +159,7 @@ def reading_meter():
             json.dump(file_data, f, indent=4)
             
         # Añadir registros a Firebase DB
-        direction= 'lecturas/'+SN1_Val
-        db_path = db.reference('lecturas/%s',str(SN1_Val))
+        db_path = db.reference('lecturas/E3T15060693')
         db_path.push(data)
 
     

@@ -29,20 +29,43 @@ client = ModbusSerialClient(
 # id_path = db.reference('ID/pasillo')
 
 # Lectura de registros de Power Factor
-SN1_Val = ''
+SN_Val = ''
 while True:
     if client.connect():
-        SN1 = client.read_holding_registers(0x1034, 15, 1)
-        if not SN1.isError():
-            for i in SN1.registers:
-                SN1_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+        settings = {}
+        #Serial Number Aquisition
+        SN = client.read_holding_registers(0x1034, 15, 1)
+        if not SN.isError():
+            for i in SN.registers:
+                SN_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
             # Limpiar caracteres nulos
-            SN1_Val = SN1_Val.replace('\x00', '')
-            print("SN:", SN1_Val)
-            imprint(SN1_Val)
-            break
+            SN_Val = SN_Val.replace('\x00', '')
+            settings['SN'] = SN_Val
+            print("SN:", SN_Val)
+            imprint(SN_Val)
+            #break
         else:
-            print("Error de lectura (SN):", SN1)
+            print("Error de lectura (SN):", SN)
+
+        #ID acquisition
+        ID_Reg=client.read_holding_registers(0x1002, 1, 1)
+        if not ID_Reg.isError():
+            ID_Val = ID_Reg.registers[0]
+            settings['ID'] = ID_Val
+            print("ID", ID_Val)
+        else:
+            print("Error de lectura ID")
+        
+        #Manufacturer Acquisition
+        Manufacturer_Reg=client.read_holding_registers(0x1004, 15, 1)
+        if not Manufacturer_Reg.isError():
+            Manufacturer_Val = Manufacturer_Reg.registers
+            settings['Manufacturer']=Manufacturer_Val
+            print("Manufacturer", Manufacturer_Val)
+        else:
+            print("Error de lectura Manufacturer", Manufacturer_Reg)
+        
+        #Model Acquisition
         #Luis aqui escribe para conseguir "'ID'": "'JHHJ87621'",
         #"'manufacturer'": "'acuRev'",
         #"'model'": "acuRev13003P4WEnergyMeter",
@@ -571,7 +594,7 @@ def reading_meter():
         # Escribir de nuevo en el archivo con los datos actualizados
         with open(storage_path, 'w') as f:
             json.dump(file_data, f, indent=4)
-        upload(storage_path,SN1_Val)
+        upload(storage_path,SN_Val)
         # # Añadir registros a Firebase DB
         # direction = 'lecturas/' + SN1_Val
         # db_path = db.reference(direction)

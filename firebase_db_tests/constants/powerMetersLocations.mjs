@@ -1,23 +1,23 @@
 // Array of Objects
 const LOCATIONS_AND_POWERMETERS = [
   {
-    location: "San Angel",
+    location: "san_angel",
     powerMeters: ["E3T150600001"],
   },
   {
-    location: "Club America",
+    location: "club_america",
     powerMeters: ["E3T150600002", "E3T150600003"],
   },
   {
-    location: "Estadio Azteca",
+    location: "estadio_azteca",
     powerMeters: ["E3T150600004"],
   },
   {
-    location: "Radiopolis",
+    location: "radiopolis",
     powerMeters: ["E3T150600005"],
   },
   {
-    location: "Club America",
+    location: "corp_santa_fe",
     powerMeters: [
       "E3T150600006",
       "E3T150600007",

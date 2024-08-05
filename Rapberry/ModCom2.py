@@ -533,11 +533,9 @@ def reading_meter():
                 print("Error de lectura total_VAR_hours_imported_Q1_phase_C (varh):", total_VAR_hours_imported_Q1_phase_C_H_Val+total_VAR_hours_imported_Q1_phase_C_L_Val)
 
             # TimeStamp
-            dt = datetime.now()
-            data["Time"] = dt.strftime("%H:%M:%S")
-            data["Date"] = dt.strftime("%Y-%m-%d")
-            print("Date: ", dt.date())
-            print("Time: ", dt.time())
+            dt = datetime.utcnow()
+            data["timestamp"] = dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+            print("Timestamp: ", data["timestamp"])
         
         except Exception as e:
             print("Exception:", e)
@@ -575,3 +573,4 @@ def reading_meter():
 while True:
     reading_meter()
     time.sleep(300)  # Ejecutar cada 5 minutos
+

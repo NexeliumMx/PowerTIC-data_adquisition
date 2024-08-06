@@ -21,7 +21,7 @@ timeRead=0
 while (1):  
 
     if time.time()-timeRead >299:
-        upload('/home/guillermo/MICO/PowerTIc/PowerTIC/Rapberry/meter_data.json','pruebamesta')
+        upload(reading_meter(),SN)
         timeRead=time.time()
 
 

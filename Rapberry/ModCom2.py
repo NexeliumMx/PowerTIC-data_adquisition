@@ -4,15 +4,7 @@ import time
 import json
 import os
 from pathlib import Path
-#from Firestore_subroutine import upload,imprint
-# import firebase_admin
-# from firebase_admin import credentials, db
 
-# Configuración de Firebase
-# access = credentials.Certificate('/home/pi/Desktop/COMS/project-mtpower-firebase-adminsdk-qrhzl-3ea32a0cc0.json')
-# firebase_admin.initialize_app(access, {
-    # 'databaseURL': 'https://project-mtpower-default-rtdb.firebaseio.com/'
-# })
 
 # Inicializar Modbus
 client = ModbusSerialClient(
@@ -34,99 +26,102 @@ Manufacturer_Val=''
 Model_Val=''
 Version_Val=''
 #Settings Acquisition
-while True:
-    if client.connect():
-        print("Conexión exitosa")
-        try:
-            settings = {}
-            #Serial Number Aquisition
-            SN = client.read_holding_registers(0x1034, 15, 1)
-            if not SN.isError():
-                for i in SN.registers:
-                    SN_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                # Limpiar caracteres nulos
-                SN_Val = SN_Val.replace('\x00', '')
-                settings['SN'] = SN_Val
-                print("SN:", SN_Val)
-                #imprint(SN_Val)
-                #break
-            else:
-                print("Error de lectura (SN):", SN)
+def meterParam():
+    while True:
+        if client.connect():
+            print("Conexión exitosa")
+            try:
+                settings = {}
+                #Serial Number Aquisition
+                SN = client.read_holding_registers(0x1034, 15, 1)
+                if not SN.isError():
+                    for i in SN.registers:
+                        SN_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                    # Limpiar caracteres nulos
+                    SN_Val = SN_Val.replace('\x00', '')
+                    settings['SN'] = SN_Val
+                    print("SN:", SN_Val)
+                    #imprint(SN_Val)
+                    #break
+                else:
+                    print("Error de lectura (SN):", SN)
 
-            #ID acquisition
-            ID_Reg=client.read_holding_registers(0x1002, 1, 1)
-            if not ID_Reg.isError():
-                ID_Val = ID_Reg.registers[0]
-                settings['ID'] = ID_Val
-                print("ID", ID_Val)
-            else:
-                print("Error de lectura ID")
-            
-            #Manufacturer Acquisition
-            Manufacturer_Reg=client.read_holding_registers(0x1004, 15, 1)
-            if not Manufacturer_Reg.isError():
-                for i in Manufacturer_Reg.registers:
-                    Manufacturer_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                # Limpiar caracteres nulos
-                Manufacturer_Val = Manufacturer_Val.replace('\x00', '')
-                settings['Manufacturer'] = Manufacturer_Val
-                print("Manufacturer:", Manufacturer_Val)
-            else:
-                print("Error de lectura Manufacturer", Manufacturer_Reg)
+                #ID acquisition
+                ID_Reg=client.read_holding_registers(0x1002, 1, 1)
+                if not ID_Reg.isError():
+                    ID_Val = ID_Reg.registers[0]
+                    settings['ID'] = ID_Val
+                    print("ID", ID_Val)
+                else:
+                    print("Error de lectura ID")
+                
+                #Manufacturer Acquisition
+                Manufacturer_Reg=client.read_holding_registers(0x1004, 15, 1)
+                if not Manufacturer_Reg.isError():
+                    for i in Manufacturer_Reg.registers:
+                        Manufacturer_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                    # Limpiar caracteres nulos
+                    Manufacturer_Val = Manufacturer_Val.replace('\x00', '')
+                    settings['Manufacturer'] = Manufacturer_Val
+                    print("Manufacturer:", Manufacturer_Val)
+                else:
+                    print("Error de lectura Manufacturer", Manufacturer_Reg)
 
-            #Model Acquisition
-            Model_Reg=client.read_holding_registers(0x1014, 15, 1)
-            if not Model_Reg.isError():
-                for i in Model_Reg.registers:
-                    Model_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                # Limpiar caracteres nulos
-                Model_Val = Model_Val.replace('\x00', '')
-                settings['Model'] = Model_Val
-                print("Model:", Model_Val)
-            else:
-                print("Error de lectura Model", Model_Reg)
+                #Model Acquisition
+                Model_Reg=client.read_holding_registers(0x1014, 15, 1)
+                if not Model_Reg.isError():
+                    for i in Model_Reg.registers:
+                        Model_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                    # Limpiar caracteres nulos
+                    Model_Val = Model_Val.replace('\x00', '')
+                    settings['Model'] = Model_Val
+                    print("Model:", Model_Val)
+                else:
+                    print("Error de lectura Model", Model_Reg)
+                
+                #Version acquisition
+                Version_Reg=client.read_holding_registers(0x102C, 7, 1)
+                if not Version_Reg.isError():
+                    for i in Version_Reg.registers:
+                        Version_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                    # Limpiar caracteres nulos
+                    Version_Val = Version_Val.replace('\x00', '')
+                    settings['Version'] = Version_Val
+                    print("Version:", Version_Val)
+                    break
+                else:
+                    print("Error de lectura Version", Version_Reg)
+                #"'timestamp_server'": "serverTimestamp()",
+                #"location": "San Angel"
+                
+            except Exception as e:
+                print("Exception:", e)
+            finally:
+                client.close()
+                
+            # Almacenamiento Local
+            SETTINGS_DIR = Path(__file__).parent
+            storage_Settings_path = SETTINGS_DIR/'meter_data.json'
             
-            #Version acquisition
-            Version_Reg=client.read_holding_registers(0x102C, 7, 1)
-            if not Version_Reg.isError():
-                for i in Version_Reg.registers:
-                    Version_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                # Limpiar caracteres nulos
-                Version_Val = Version_Val.replace('\x00', '')
-                settings['Version'] = Version_Val
-                print("Version:", Version_Val)
-                break
-            else:
-                print("Error de lectura Version", Version_Reg)
-            #"'timestamp_server'": "serverTimestamp()",
-            #"location": "San Angel"
+            # Verificar si el archivo existe
+            if not os.path.isfile(storage_Settings_path):
+                with open(storage_Settings_path, 'w') as f:
+                    json.dump([], f)
             
-        except Exception as e:
-            print("Exception:", e)
-        finally:
-            client.close()
+            # Leer el archivo existente
+            with open(storage_Settings_path, 'r') as f:
+                file_data = json.load(f)
+                
+            # Añadir nuevos registros
+            file_data.append(settings)
             
-        # Almacenamiento Local
-        SETTINGS_DIR = Path(__file__).parent
-        storage_Settings_path = SETTINGS_DIR/'meter_data.json'
-        
-        # Verificar si el archivo existe
-        if not os.path.isfile(storage_Settings_path):
+            # Escribir de nuevo en el archivo con los datos actualizados
             with open(storage_Settings_path, 'w') as f:
-                json.dump([], f)
-        
-        # Leer el archivo existente
-        with open(storage_Settings_path, 'r') as f:
-            file_data = json.load(f)
-            
-        # Añadir nuevos registros
-        file_data.append(settings)
-        
-        # Escribir de nuevo en el archivo con los datos actualizados
-        with open(storage_Settings_path, 'w') as f:
-            json.dump(file_data, f, indent=4)
-    else:
-        print("Error de conexión con el medidor")
+                json.dump(file_data, f, indent=4)
+            return SN_Val
+        else:
+            print("Error de conexión con el medidor")
+            return None
 
 #id_path.set(SN1_Val)
 
@@ -655,7 +650,4 @@ def reading_meter():
         print("Error de conexión con el medidor")
 
 # Ejecución del código
-while True:
-    reading_meter()
-    time.sleep(300)  # Ejecutar cada 5 minutos
 

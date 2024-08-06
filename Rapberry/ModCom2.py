@@ -17,7 +17,8 @@ from pathlib import Path
 # Inicializar Modbus
 client = ModbusSerialClient(
     method='rtu',
-    port='/dev/ttyUSB0',
+    port='COM4',
+    #port='/dev/ttyUSB0',
     baudrate=19200,
     parity='N',
     stopbits=1,

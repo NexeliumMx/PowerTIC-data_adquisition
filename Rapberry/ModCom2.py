@@ -115,7 +115,6 @@ def meterParam():
             # Añadir nuevos registros
             file_data.append(settings)
             
-<<<<<<< HEAD
             # Escribir de nuevo en el archivo con los datos actualizados
             with open(storage_Settings_path, 'w') as f:
                 json.dump(file_data, f, indent=4)
@@ -123,7 +122,6 @@ def meterParam():
         else:
             print("Error de conexión con el medidor")
             return None
-=======
         # Almacenamiento Local
         SETTINGS_DIR = Path(__file__).parent
         storage_Settings_path = SETTINGS_DIR/'meterData.json'
@@ -145,7 +143,6 @@ def meterParam():
             json.dump(file_Settings_data, f, indent=4)
     else:
         print("Error de conexión con el medidor")
->>>>>>> 7c231d1def9f5752e016e921bc1615e1e3bfe8b2
 
 #id_path.set(SN1_Val)
 

@@ -108,7 +108,7 @@ while True:
             
         # Almacenamiento Local
         SETTINGS_DIR = Path(__file__).parent
-        storage_Settings_path = SETTINGS_DIR/'meter_data.json'
+        storage_Settings_path = SETTINGS_DIR/'meterData.json'
         
         # Verificar si el archivo existe
         if not os.path.isfile(storage_Settings_path):
@@ -117,14 +117,14 @@ while True:
         
         # Leer el archivo existente
         with open(storage_Settings_path, 'r') as f:
-            file_data = json.load(f)
+            file_Settings_data = json.load(f)
             
         # Añadir nuevos registros
-        file_data.append(settings)
+        file_Settings_data.append(settings)
         
         # Escribir de nuevo en el archivo con los datos actualizados
         with open(storage_Settings_path, 'w') as f:
-            json.dump(file_data, f, indent=4)
+            json.dump(file_Settings_data, f, indent=4)
     else:
         print("Error de conexión con el medidor")
 

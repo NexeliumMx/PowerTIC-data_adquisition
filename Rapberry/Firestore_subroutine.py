@@ -11,7 +11,8 @@ def upload(Json_Path,SerialNumber):
     f = open(Json_Path)
     data = json.load(f)
     for i in data:
-        doc_ref.document(i).set({data["timestamp_power_meter"]: data[i]},merge=True)
+        print(i)
+        doc_ref.document(i).set({data["timestamp"]: data[i]},merge=True)
 
     f.close()
     

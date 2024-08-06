@@ -8,9 +8,8 @@ from pathlib import Path
 
 # Inicializar Modbus
 client = ModbusSerialClient(
-    method='rtu',
-    port='COM4',
-    #port='/dev/ttyUSB0',
+    
+    port='/dev/ttyUSB0',
     baudrate=19200,
     parity='N',
     stopbits=1,
@@ -22,12 +21,13 @@ client = ModbusSerialClient(
 # id_path = db.reference('ID/pasillo')
 
 # Lectura de registros de Power Factor
-SN_Val = ''
-Manufacturer_Val=''
-Model_Val=''
-Version_Val=''
+
 #Settings Acquisition
 def meterParam():
+    SN_Val = ''
+    Manufacturer_Val=''
+    Model_Val=''
+    Version_Val=''
     while True:
         if client.connect():
             print("Conexión exitosa")
@@ -42,7 +42,6 @@ def meterParam():
                     SN_Val = SN_Val.replace('\x00', '')
                     settings['SN'] = SN_Val
                     print("SN:", SN_Val)
-                    #imprint(SN_Val)
                     #break
                 else:
                     print("Error de lectura (SN):", SN)
@@ -119,10 +118,11 @@ def meterParam():
             # Escribir de nuevo en el archivo con los datos actualizados
             with open(storage_Settings_path, 'w') as f:
                 json.dump(file_data, f, indent=4)
-            return SN_Val
+            
         else:
             print("Error de conexión con el medidor")
             return None
+    return SN_Val
         
 #id_path.set(SN1_Val)
 
@@ -626,27 +626,15 @@ def reading_meter():
         PROJECT_DIR = Path(__file__).parent
         storage_path = PROJECT_DIR/'meter_data.json'
         
-        # Verificar si el archivo existe
-        if not os.path.isfile(storage_path):
-            with open(storage_path, 'w') as f:
-                json.dump([], f)
-        
-        # Leer el archivo existente
-        with open(storage_path, 'r') as f:
-            file_data = json.load(f)
-            
-        # Añadir nuevos registros
-        file_data.append(data)
-        
         # Escribir de nuevo en el archivo con los datos actualizados
         with open(storage_path, 'w') as f:
-            json.dump(file_data, f, indent=4)
+            json.dump(data, f, indent=4)
         #upload(storage_path,SN_Val)
         # # Añadir registros a Firebase DB
         # direction = 'lecturas/' + SN1_Val
         # db_path = db.reference(direction)
         # db_path.push(data)
-    
+        return storage_path
     else:
         print("Error de conexión con el medidor")
 

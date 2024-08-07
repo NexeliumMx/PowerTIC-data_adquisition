@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 
-# Inicializar Modbus
+# Modbus Initialization
 client = ModbusSerialClient(
     
     port='/dev/ttyUSB0',
@@ -16,11 +16,6 @@ client = ModbusSerialClient(
     bytesize=8,
     timeout=5
 )
-
-# # ID set
-# id_path = db.reference('ID/pasillo')
-
-# Lectura de registros de Power Factor
 
 #Settings Acquisition
 def meterParam():
@@ -38,11 +33,10 @@ def meterParam():
                 if not SN.isError():
                     for i in SN.registers:
                         SN_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                    # Limpiar caracteres nulos
+                    # Null values erasing
                     SN_Val = SN_Val.replace('\x00', '')
                     settings['SN'] = SN_Val
                     print("SN:", SN_Val)
-                    #break
                 else:
                     print("Error de lectura (SN):", SN)
 
@@ -60,7 +54,7 @@ def meterParam():
                 if not Manufacturer_Reg.isError():
                     for i in Manufacturer_Reg.registers:
                         Manufacturer_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                    # Limpiar caracteres nulos
+                    #Null characters erasing
                     Manufacturer_Val = Manufacturer_Val.replace('\x00', '')
                     settings['Manufacturer'] = Manufacturer_Val
                     print("Manufacturer:", Manufacturer_Val)
@@ -84,36 +78,45 @@ def meterParam():
                 if not Version_Reg.isError():
                     for i in Version_Reg.registers:
                         Version_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                    # Limpiar caracteres nulos
+                    #Null Characters erasing
                     Version_Val = Version_Val.replace('\x00', '')
                     settings['Version'] = Version_Val
                     print("Version:", Version_Val)
-                    break
+                    #break
                 else:
                     print("Error de lectura Version", Version_Reg)
-                #"'timestamp_server'": "serverTimestamp()",
-                #"location": "San Angel"
+
                 
             except Exception as e:
                 print("Exception:", e)
             finally:
                 client.close()
                 
-            # Almacenamiento Local
+            # Settings local storage
             SETTINGS_DIR = Path(__file__).parent
             storage_Settings_path = SETTINGS_DIR/'meter_data.json'
-        
+            
+            # Verify Storage file
+            if not os.path.isfile(storage_Settings_path):
+                with open(storage_Settings_path, 'w') as f:
+                    json.dump([], f)
+            
+            #Read existing file
+            with open(storage_Settings_path, 'r') as f:
+                file_Settings_data = json.load(f)
+                
+            # Añadir nuevos registros
+            file_Settings_data.append(settings)
             
             # Escribir de nuevo en el archivo con los datos actualizados
             with open(storage_Settings_path, 'w') as f:
-                json.dump(settings, f, indent=4)
-            
+                json.dump(file_Settings_data, f, indent=4)
+            break
         else:
             print("Error de conexión con el medidor")
             return None
     return SN_Val
         
-#id_path.set(SN1_Val)
 
 def reading_meter():
     data = {}

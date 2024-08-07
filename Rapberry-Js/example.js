@@ -17,6 +17,7 @@ ref.on('child_changed', (snapshot) => {
     console.log('The updated post title is ' + changedPost);
     sh('bash /home/guillermo/MICO/PowerTIc/PowerTIC/try.sh')
   });
+ref.onDisconnect().update({"Status":false})
 async function sh(cmd_to_execute) {
     return new Promise(function (resolve, reject) {
         childProcess.exec(cmd_to_execute, (err, stdout, stderr) => {

@@ -4,6 +4,7 @@ import time
 import json
 import os
 from pathlib import Path
+import time
 
 
 # Inicializar Modbus
@@ -110,7 +111,9 @@ def meterParam():
             
         else:
             print("Error de conexión con el medidor")
+            time.sleep(10)
             return None
+            
     return SN_Val
         
 #id_path.set(SN1_Val)
@@ -626,6 +629,7 @@ def reading_meter():
         return storage_path
     else:
         print("Error de conexión con el medidor")
+        time.sleep(10)
 
 # Ejecución del código
 

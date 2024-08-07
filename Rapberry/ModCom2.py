@@ -91,27 +91,15 @@ def meterParam():
                 #break
             else:
                 print("Error de lectura Version", Version_Reg)
-            
-            # Verify Storage file
-            if not os.path.isfile(storage_Settings_path):
-                with open(storage_Settings_path, 'w') as f:
-                    json.dump([], f)
-            
-            #Read existing file
-            with open(storage_Settings_path, 'r') as f:
-                file_Settings_data = json.load(f)
-                
-            # Añadir nuevos registros
-            file_Settings_data.append(settings)
-            
-            # Escribir de nuevo en el archivo con los datos actualizados
-            with open(storage_Settings_path, 'w') as f:
-                json.dump(file_Settings_data, f, indent=4)
 
         except Exception as e:
             print("Exception:", e)
         finally:
             client.close()
+    
+        # Escribir de nuevo en el archivo con los datos actualizados
+        with open(storage_Settings_path, 'w') as f:
+            json.dump(settings, f, indent=4)
     else:
         print("Error de conexión con el medidor")
         return None
@@ -386,14 +374,14 @@ def reading_meter():
 
             # Lectura de registros de total_real_energy_exported
             total_real_energy_exported_H_Reg = client.read_holding_registers(0x106B, 1, 1)
-            total_real_energy_exported_L_Reg = client.read_holding_registers(0x106C, 1, 1)
-            if not total_real_energy_exported_L_Reg.isError():
+            #total_real_energy_exported_L_Reg = client.read_holding_registers(0x106C, 1, 1)
+            if not total_real_energy_exported_H_Reg.isError():
                 total_real_energy_exported_H_Val = total_real_energy_exported_H_Reg.registers[0]
-                total_real_energy_exported_L_Val = total_real_energy_exported_L_Reg.registers[0]
-                data['total_real_energy_exported'] = total_real_energy_exported_H_Val+total_real_energy_exported_L_Val
-                print("total_real_energy_exported (Wh):", total_real_energy_exported_H_Val+total_real_energy_exported_L_Val)
+                #total_real_energy_exported_L_Val = total_real_energy_exported_L_Reg.registers[0]
+                data['total_real_energy_exported'] = total_real_energy_exported_H_Val#+total_real_energy_exported_L_Val
+                print("total_real_energy_exported (Wh):", total_real_energy_exported_H_Val)#+total_real_energy_exported_L_Val)
             else:
-                print("Error de lectura total_real_energy_exported (Wh):", total_real_energy_exported_H_Val+total_real_energy_exported_L_Val)
+                print("Error de lectura total_real_energy_exported (Wh):", total_real_energy_exported_H_Val)#+total_real_energy_exported_L_Val)
 
             # Lectura de registros de total_real_energy_exported_phase_A
             total_real_energy_exported_phase_A_H_Reg = client.read_holding_registers(0x106D, 1, 1)

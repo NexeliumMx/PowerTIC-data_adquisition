@@ -1,7 +1,7 @@
 {
     "SN": "E3T15060693",
-    "ID": 1,
     "Manufacturer": "ACCUENERGY",
     "Model": "AcuRev1300",
-    "Version": "H:1.04 S:1.01 "
+    "Version": "H:1.04 S:1.01 ",
+    "ID": 1
 }

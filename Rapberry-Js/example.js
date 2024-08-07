@@ -12,6 +12,7 @@ admin.initializeApp({
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 var db = admin.database();
 var ref = db.ref("/Meters/E3T15060693/Firmware");
+ref.update({"Status":true})
 ref.on('child_changed', (snapshot) => {
     const changedPost = snapshot.val();
     console.log('The updated post title is ' + changedPost);

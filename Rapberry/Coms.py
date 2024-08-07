@@ -26,9 +26,9 @@ SETTINGS_PATH.touch(exist_ok=True)
 METER_DATA_PATH.touch(exist_ok=True)
 
 # Initialize the settings file if it is empty
-if os.stat(SETTINGS_PATH).st_size == 0:
+if SETTINGS_PATH.stat().st_size == 0:
     with open(SETTINGS_PATH, 'w') as f:
-        json.dump([], f)
+        json.dump({}, f, indent=4)  # Changed to a dictionary instead of a list
 
 # Settings Acquisition
 def meter_param():
@@ -94,23 +94,15 @@ def meter_param():
                 print("Version:", version_val)
             else:
                 print("Error de lectura Version:", version_reg)
-
-            # Settings local storage
-            with open(SETTINGS_PATH, 'r') as f:
-                try:
-                    file_settings_data = json.load(f)
-                except json.JSONDecodeError:
-                    file_settings_data = []
-
-            file_settings_data.append(settings)
-
-            with open(SETTINGS_PATH, 'w') as f:
-                json.dump(file_settings_data, f, indent=4)
-                
+               
         except Exception as e:
             print("Exception:", e)
         finally:
             client.close()
+            
+        # Settings local storage
+        with open(SETTINGS_PATH, 'w') as f:
+            json.dump(settings, f, indent=4)
     else:
         print("Error de conexión con el medidor")
     return sn_val

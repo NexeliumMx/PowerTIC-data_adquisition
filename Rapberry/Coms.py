@@ -25,6 +25,11 @@ METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
 SETTINGS_PATH.touch(exist_ok=True)
 METER_DATA_PATH.touch(exist_ok=True)
 
+# Initialize the settings file if it is empty
+if os.stat(SETTINGS_PATH).st_size == 0:
+    with open(SETTINGS_PATH, 'w') as f:
+        json.dump([], f)
+
 # Settings Acquisition
 def meter_param():
     sn_val = ''
@@ -92,8 +97,11 @@ def meter_param():
 
             # Settings local storage
             with open(SETTINGS_PATH, 'r') as f:
-                file_settings_data = json.load(f)
-            
+                try:
+                    file_settings_data = json.load(f)
+                except json.JSONDecodeError:
+                    file_settings_data = []
+
             file_settings_data.append(settings)
 
             with open(SETTINGS_PATH, 'w') as f:

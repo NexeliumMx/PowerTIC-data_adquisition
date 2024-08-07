@@ -1,8 +1,18 @@
 {
-  "type": "module",
+  
   "dependencies": {
-    "firebase": "^10.12.5",
-    "firebase-admin": "^12.3.0",
-    "modbus-serial": "^8.0.17"
+  
+    
+  "child_process": "^1.0.2",
+  
+    
+  "firebase": "^10.12.5",
+  
+    
+  "firebase-admin": "^12.3.0",
+  
+    
+  "modbus-serial": "^8.0.17"
+  
   }
 }

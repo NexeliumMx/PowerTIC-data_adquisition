@@ -631,4 +631,7 @@ def reading_meter():
         print("Error de conexión con el medidor")
 
 # Ejecución del código
-
+while True: 
+    meterParam()
+    reading_meter()
+    time.sleep(30)

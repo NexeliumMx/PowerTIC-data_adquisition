@@ -17,12 +17,13 @@ client = ModbusSerialClient(
     timeout=5
 )
 
+SN_Val = ''
+Manufacturer_Val=''
+Model_Val=''
+Version_Val=''
+
 #Settings Acquisition
 def meterParam():
-    SN_Val = ''
-    Manufacturer_Val=''
-    Model_Val=''
-    Version_Val=''
     while True:
         if client.connect():
             print("Conexión exitosa")
@@ -94,7 +95,7 @@ def meterParam():
                 
             # Settings local storage
             SETTINGS_DIR = Path(__file__).parent
-            storage_Settings_path = SETTINGS_DIR/'meter_data.json'
+            storage_Settings_path = SETTINGS_DIR/'settingsData.json'
             
             # Verify Storage file
             if not os.path.isfile(storage_Settings_path):
@@ -622,10 +623,6 @@ def reading_meter():
         with open(storage_path, 'w') as f:
             json.dump(data, f, indent=4)
         #upload(storage_path,SN_Val)
-        # # Añadir registros a Firebase DB
-        # direction = 'lecturas/' + SN1_Val
-        # db_path = db.reference(direction)
-        # db_path.push(data)
         return storage_path
     else:
         print("Error de conexión con el medidor")

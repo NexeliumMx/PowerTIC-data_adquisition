@@ -5,8 +5,10 @@ import os
 import time
 from Firestore_subroutine import imprint,upload
 from ModCom2 import reading_meter,meterParam
-cred = credentials.Certificate("/home/guillermo/MICO/PowerTIc/PowerTIC/Rapberry/power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json")
-if not os.path.isfile('Rapberry\\meterData.json'):
+SN=None
+cred = credentials.Certificate("/home/power-tic/MICO/PowerTIC/Rapberry/power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json")
+if  not os.path.isfile('Rapberry\\meterData.json'):
+    print("entre")
     while (1):
         SN=meterParam()
         if not (SN==None):
@@ -23,5 +25,6 @@ while (1):
     if time.time()-timeRead >299:
         upload(reading_meter(),SN)
         timeRead=time.time()
+        print("lei")
 
 

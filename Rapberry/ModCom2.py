@@ -4,6 +4,7 @@ import time
 import json
 import os
 from pathlib import Path
+import time
 
 
 # Modbus Initialization
@@ -100,9 +101,11 @@ def meterParam():
         # Escribir de nuevo en el archivo con los datos actualizados
         with open(storage_Settings_path, 'w') as f:
             json.dump(settings, f, indent=4)
-    else:
-        print("Error de conexión con el medidor")
-        return None
+        else:
+            print("Error de conexión con el medidor")
+            time.sleep(10)
+            return None
+            
     return SN_Val
         
 
@@ -608,6 +611,7 @@ def reading_meter():
         return storage_path
     else:
         print("Error de conexión con el medidor")
+        time.sleep(10)
 
 # Ejecución del código
 while True: 

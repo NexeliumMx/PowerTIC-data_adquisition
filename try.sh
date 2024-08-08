@@ -1,6 +1,16 @@
 #!/bin/bash
 shell=True
-sleep 10s
+exec 3>&1 1>"log.log" 2>&1
+pkill -9 -f deploy.py
+cd ~
+cd MICO/PowerTIC
+git remote set-url origin git@github.com:AVargas-C/PowerTIC.git
+ssh-agent -s
+ssh-add /.ssh/id_ed25519
 git pull
-python deploy.py
-fi
+echo 'MAMO'
+git checkout JSOTA
+git pull
+echo "update success"
+source .venv/bin/activate
+python Rapberry/deploy.py & echo "running"

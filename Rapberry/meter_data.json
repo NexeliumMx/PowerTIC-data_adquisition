@@ -38,10 +38,9 @@
     "pf_phase_b": 1000,
     "pf_phase_c": 1000,
     "power_factor_scale_factor": 65533,
-    "totwh_sf": 65533,
     "totvah_sf_sunspec": 65533,
     "totvarh_sf": 65533,
     "sunspec_end_id_sunspec": 65535,
     "sunspec_end_lenth_sunspec": 0,
-    "timestamp": "2024-08-07T23:51:57Z"
+    "timestamp": "2024-08-08T14:07:01Z"
 }

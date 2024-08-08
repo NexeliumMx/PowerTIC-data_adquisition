@@ -74,13 +74,7 @@ def meter_param():
         print("Error de conexión con el medidor")
     return settings
 
-def reading_meter():
-    # Constantes
-    PROJECT_DIR = Path(__file__).parent
-    METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
-    # Asegurar que el archivo de datos del medidor existe
-    METER_DATA_PATH.touch(exist_ok=True)
-
+def extract_sql():
     # Cargar el contenido del archivo SQL
     file_path = '/home/luis08islas/VScode/PowerTIC/Rapberry/measurement_address.sql'
 
@@ -109,11 +103,28 @@ def reading_meter():
     data_dicts = [dict(zip(columns, row)) for row in data]
 
     # Crear un diccionario que mapea cada parameter_description a su correspondiente modbus_address_dec
-    parameter_to_address = {row['parameter_description']: row['modbus_address_dec'] for row in data_dicts if row['modbus_address_dec']}
+    parameter_to_address = {}
+    for row in data_dicts:
+        address_dec = row['modbus_address_hex']
+        if address_dec and address_dec.endswith('H'):
+            try:
+                address = int(address_dec[:-1], 16)
+                parameter_to_address[row['parameter_description']] = address
+            except ValueError:
+                print(f"Skipping invalid address: {address_dec}")
 
     # Imprimir el diccionario resultante
     for parameter, address in parameter_to_address.items():
         print(f"{parameter}: {address}")
+
+    return parameter_to_address
+
+def reading_meter(parameter_to_address):
+    # Constantes
+    PROJECT_DIR = Path(__file__).parent
+    METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
+    # Asegurar que el archivo de datos del medidor existe
+    METER_DATA_PATH.touch(exist_ok=True)
 
     data = {}
     if client.connect():
@@ -151,7 +162,9 @@ def reading_meter():
         print("Error de conexión con el medidor")
 
 # Ejecución del código
-while True: 
+while True:
     meter_param()
-    reading_meter()
+    parameter_to_address = extract_sql()
+    if parameter_to_address:  # Verificar que parameter_to_address no esté vacío
+        reading_meter(parameter_to_address)
     time.sleep(30)

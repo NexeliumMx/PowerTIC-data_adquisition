@@ -7,10 +7,11 @@ cd MICO/PowerTIC
 git remote set-url origin git@github.com:AVargas-C/PowerTIC.git
 ssh-agent -s
 ssh-add /.ssh/id_ed25519
+git stash 
+git stash pop
+git checkout OTA
 git pull
 echo 'MAMO'
-git checkout JSOTA
-git pull
 echo "update success"
 source .venv/bin/activate
-python Rapberry/deploy.py & echo "running"
+python Rapberry/deploy.py > python.txt   & echo "running" 

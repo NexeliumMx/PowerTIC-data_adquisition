@@ -1,13 +1,13 @@
 import firebase_admin
 from firebase_admin import credentials,db
 import os 
-
 import time
 from Firestore_subroutine import imprint,upload
 from ModCom2 import reading_meter,meterParam
-SN=None
+print("start")
+
 cred = credentials.Certificate("/home/power-tic/MICO/PowerTIC/Rapberry/power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json")
-if  not os.path.isfile('Rapberry\\meterData.json'):
+if  not os.path.isfile('Rapberry\\settingsData.json'):
     print("entre")
     while (1):
         SN=meterParam()

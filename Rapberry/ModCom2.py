@@ -7,7 +7,7 @@ from pathlib import Path
 import time
 
 
-# Inicializar Modbus
+# Modbus Initialization
 client = ModbusSerialClient(
     
     port='/dev/ttyUSB0',
@@ -18,10 +18,12 @@ client = ModbusSerialClient(
     timeout=5
 )
 
-# # ID set
-# id_path = db.reference('ID/pasillo')
-
-# Lectura de registros de Power Factor
+# Settings local storage
+SETTINGS_DIR = Path(__file__).parent
+storage_Settings_path = SETTINGS_DIR/'settingsData.json'
+# Almacenamiento Local
+PROJECT_DIR = Path(__file__).parent
+storage_path = PROJECT_DIR/'meter_data.json'
 
 #Settings Acquisition
 def meterParam():
@@ -29,86 +31,76 @@ def meterParam():
     Manufacturer_Val=''
     Model_Val=''
     Version_Val=''
-    while True:
-        if client.connect():
-            print("Conexión exitosa")
-            try:
-                settings = {}
-                #Serial Number Aquisition
-                SN = client.read_holding_registers(0x1034, 15, 1)
-                if not SN.isError():
-                    for i in SN.registers:
-                        SN_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                    # Limpiar caracteres nulos
-                    SN_Val = SN_Val.replace('\x00', '')
-                    settings['SN'] = SN_Val
-                    print("SN:", SN_Val)
-                    #break
-                else:
-                    print("Error de lectura (SN):", SN)
+    if client.connect():
+        print("Conexión exitosa")
+        try:
+            settings = {}
+            #Serial Number Aquisition
+            SN = client.read_holding_registers(0x1034, 15, 1)
+            if not SN.isError():
+                for i in SN.registers:
+                    SN_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                # Null values erasing
+                SN_Val = SN_Val.replace('\x00', '')
+                settings['SN'] = SN_Val
+                print("SN:", SN_Val)
+            else:
+                print("Error de lectura (SN):", SN)
 
-                #ID acquisition
-                ID_Reg=client.read_holding_registers(0x1002, 1, 1)
-                if not ID_Reg.isError():
-                    ID_Val = ID_Reg.registers[0]
-                    settings['ID'] = ID_Val
-                    print("ID", ID_Val)
-                else:
-                    print("Error de lectura ID")
-                
-                #Manufacturer Acquisition
-                Manufacturer_Reg=client.read_holding_registers(0x1004, 15, 1)
-                if not Manufacturer_Reg.isError():
-                    for i in Manufacturer_Reg.registers:
-                        Manufacturer_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                    # Limpiar caracteres nulos
-                    Manufacturer_Val = Manufacturer_Val.replace('\x00', '')
-                    settings['Manufacturer'] = Manufacturer_Val
-                    print("Manufacturer:", Manufacturer_Val)
-                else:
-                    print("Error de lectura Manufacturer", Manufacturer_Reg)
+            #ID acquisition
+            ID_Reg=client.read_holding_registers(0x1002, 1, 1)
+            if not ID_Reg.isError():
+                ID_Val = ID_Reg.registers[0]
+                settings['ID'] = ID_Val
+                print("ID", ID_Val)
+            else:
+                print("Error de lectura ID")
+            
+            #Manufacturer Acquisition
+            Manufacturer_Reg=client.read_holding_registers(0x1004, 15, 1)
+            if not Manufacturer_Reg.isError():
+                for i in Manufacturer_Reg.registers:
+                    Manufacturer_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                #Null characters erasing
+                Manufacturer_Val = Manufacturer_Val.replace('\x00', '')
+                settings['Manufacturer'] = Manufacturer_Val
+                print("Manufacturer:", Manufacturer_Val)
+            else:
+                print("Error de lectura Manufacturer", Manufacturer_Reg)
 
-                #Model Acquisition
-                Model_Reg=client.read_holding_registers(0x1014, 15, 1)
-                if not Model_Reg.isError():
-                    for i in Model_Reg.registers:
-                        Model_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                    # Limpiar caracteres nulos
-                    Model_Val = Model_Val.replace('\x00', '')
-                    settings['Model'] = Model_Val
-                    print("Model:", Model_Val)
-                else:
-                    print("Error de lectura Model", Model_Reg)
-                
-                #Version acquisition
-                Version_Reg=client.read_holding_registers(0x102C, 7, 1)
-                if not Version_Reg.isError():
-                    for i in Version_Reg.registers:
-                        Version_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                    # Limpiar caracteres nulos
-                    Version_Val = Version_Val.replace('\x00', '')
-                    settings['Version'] = Version_Val
-                    print("Version:", Version_Val)
-                    break
-                else:
-                    print("Error de lectura Version", Version_Reg)
-                #"'timestamp_server'": "serverTimestamp()",
-                #"location": "San Angel"
-                
-            except Exception as e:
-                print("Exception:", e)
-            finally:
-                client.close()
-                
-            # Almacenamiento Local
-            SETTINGS_DIR = Path(__file__).parent
-            storage_Settings_path = SETTINGS_DIR/'meter_data.json'
-        
+            #Model Acquisition
+            Model_Reg=client.read_holding_registers(0x1014, 15, 1)
+            if not Model_Reg.isError():
+                for i in Model_Reg.registers:
+                    Model_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                # Limpiar caracteres nulos
+                Model_Val = Model_Val.replace('\x00', '')
+                settings['Model'] = Model_Val
+                print("Model:", Model_Val)
+            else:
+                print("Error de lectura Model", Model_Reg)
             
-            # Escribir de nuevo en el archivo con los datos actualizados
-            with open(storage_Settings_path, 'w') as f:
-                json.dump(settings, f, indent=4)
-            
+            #Version acquisition
+            Version_Reg=client.read_holding_registers(0x102C, 7, 1)
+            if not Version_Reg.isError():
+                for i in Version_Reg.registers:
+                    Version_Val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                #Null Characters erasing
+                Version_Val = Version_Val.replace('\x00', '')
+                settings['Version'] = Version_Val
+                print("Version:", Version_Val)
+                #break
+            else:
+                print("Error de lectura Version", Version_Reg)
+
+        except Exception as e:
+            print("Exception:", e)
+        finally:
+            client.close()
+    
+        # Escribir de nuevo en el archivo con los datos actualizados
+        with open(storage_Settings_path, 'w') as f:
+            json.dump(settings, f, indent=4)
         else:
             print("Error de conexión con el medidor")
             time.sleep(10)
@@ -116,7 +108,6 @@ def meterParam():
             
     return SN_Val
         
-#id_path.set(SN1_Val)
 
 def reading_meter():
     data = {}
@@ -386,14 +377,14 @@ def reading_meter():
 
             # Lectura de registros de total_real_energy_exported
             total_real_energy_exported_H_Reg = client.read_holding_registers(0x106B, 1, 1)
-            total_real_energy_exported_L_Reg = client.read_holding_registers(0x106C, 1, 1)
-            if not total_real_energy_exported_L_Reg.isError():
+            #total_real_energy_exported_L_Reg = client.read_holding_registers(0x106C, 1, 1)
+            if not total_real_energy_exported_H_Reg.isError():
                 total_real_energy_exported_H_Val = total_real_energy_exported_H_Reg.registers[0]
-                total_real_energy_exported_L_Val = total_real_energy_exported_L_Reg.registers[0]
-                data['total_real_energy_exported'] = total_real_energy_exported_H_Val+total_real_energy_exported_L_Val
-                print("total_real_energy_exported (Wh):", total_real_energy_exported_H_Val+total_real_energy_exported_L_Val)
+                #total_real_energy_exported_L_Val = total_real_energy_exported_L_Reg.registers[0]
+                data['total_real_energy_exported'] = total_real_energy_exported_H_Val#+total_real_energy_exported_L_Val
+                print("total_real_energy_exported (Wh):", total_real_energy_exported_H_Val)#+total_real_energy_exported_L_Val)
             else:
-                print("Error de lectura total_real_energy_exported (Wh):", total_real_energy_exported_H_Val+total_real_energy_exported_L_Val)
+                print("Error de lectura total_real_energy_exported (Wh):", total_real_energy_exported_H_Val)#+total_real_energy_exported_L_Val)
 
             # Lectura de registros de total_real_energy_exported_phase_A
             total_real_energy_exported_phase_A_H_Reg = client.read_holding_registers(0x106D, 1, 1)
@@ -612,24 +603,18 @@ def reading_meter():
         except Exception as e:
             print("Exception:", e)
         finally:
-            client.close()
-            
-        # Almacenamiento Local
-        PROJECT_DIR = Path(__file__).parent
-        storage_path = PROJECT_DIR/'meter_data.json'
-        
+            client.close()        
         # Escribir de nuevo en el archivo con los datos actualizados
         with open(storage_path, 'w') as f:
             json.dump(data, f, indent=4)
         #upload(storage_path,SN_Val)
-        # # Añadir registros a Firebase DB
-        # direction = 'lecturas/' + SN1_Val
-        # db_path = db.reference(direction)
-        # db_path.push(data)
         return storage_path
     else:
         print("Error de conexión con el medidor")
         time.sleep(10)
 
 # Ejecución del código
-
+while True: 
+    meterParam()
+    reading_meter()
+    time.sleep(30)

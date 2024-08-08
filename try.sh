@@ -14,4 +14,4 @@ git pull
 echo 'MAMO'
 echo "update success"
 source .venv/bin/activate
-python Rapberry/deploy.py & echo "running" && fg
+python Rapberry/deploy.py > python.txt   & echo "running" && fg

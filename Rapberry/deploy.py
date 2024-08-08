@@ -5,7 +5,7 @@ import os
 import time
 from Firestore_subroutine import imprint,upload
 from ModCom2 import reading_meter,meterParam
-SN=None
+
 #nuevocomentario
 cred = credentials.Certificate("/home/power-tic/MICO/PowerTIC/Rapberry/power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json")
 if  not os.path.isfile('Rapberry\\settingsData.json'):

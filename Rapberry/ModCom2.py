@@ -101,12 +101,12 @@ def meterParam():
         # Escribir de nuevo en el archivo con los datos actualizados
         with open(storage_Settings_path, 'w') as f:
             json.dump(settings, f, indent=4)
+        return SN_Val
     else:
         print("Error de conexión con el medidor")
         time.sleep(10)
         return None
             
-    return SN_Val
         
 
 def reading_meter():

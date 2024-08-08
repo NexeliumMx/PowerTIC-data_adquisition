@@ -3,6 +3,7 @@ from firebase_admin import firestore
 import json
 from pathlib import Path
 def upload(Json_Path,SerialNumber):
+    print("upload")
     db = firestore.client()
     doc_ref = db.document('power_meters/power_readings')
     doc_ref = doc_ref.collection(str(SerialNumber))
@@ -16,6 +17,7 @@ def upload(Json_Path,SerialNumber):
     f.close()
     
 def imprint(SerialNumber):
+    print("imprint")
     PROJECT_DIR = Path(__file__).parent
     db = firestore.client()
     doc_ref = db.document('power_meters/power_readings')

@@ -30,5 +30,5 @@ async function sh(cmd_to_execute) {
           });
       });
   }
-  while(1){}
+  
   

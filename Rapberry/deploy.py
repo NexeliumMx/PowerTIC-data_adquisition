@@ -8,7 +8,7 @@ from ModCom2 import reading_meter,meterParam
 SN=None
 #nuevocomentario
 cred = credentials.Certificate("/home/power-tic/MICO/PowerTIC/Rapberry/power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json")
-if  not os.path.isfile('Rapberry\\meterData.json'):
+if  not os.path.isfile('Rapberry\\settingsData.json'):
     print("entre")
     while (1):
         SN=meterParam()

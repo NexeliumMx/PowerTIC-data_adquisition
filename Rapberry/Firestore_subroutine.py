@@ -20,7 +20,7 @@ def imprint(SerialNumber):
     db = firestore.client()
     doc_ref = db.document('power_meters/power_readings')
     doc_ref = doc_ref.collection(str(SerialNumber))
-    doc_ref.document('meter_data').set(json.load(open(PROJECT_DIR/'meterData.json')))
+    doc_ref.document('meter_data').set(json.load(open(PROJECT_DIR/'settingsData.json')))
     f = open(PROJECT_DIR/'.powerReadingsLocal.json')
     data = json.load(f)
     for i in data:

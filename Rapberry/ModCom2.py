@@ -27,8 +27,8 @@ storage_path = PROJECT_DIR/'meter_data.json'
 
 #Settings Acquisition
 def meterParam():
-    if __name__ == "__main__":
-        
+    if True:
+        print("si jalo")
         SN_Val = ''
         Manufacturer_Val=''
         Model_Val=''
@@ -112,7 +112,8 @@ def meterParam():
         
 
 def reading_meter():
-    if __name__ == "__main__":
+
+    if True:
         data = {}
         if client.connect():
             

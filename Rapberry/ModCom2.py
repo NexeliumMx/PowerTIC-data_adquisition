@@ -27,7 +27,8 @@ storage_path = PROJECT_DIR/'meter_data.json'
 
 #Settings Acquisition
 def meterParam():
-    if __name__ == "__meterParam__":
+    if __name__ == "__main__":
+        
         SN_Val = ''
         Manufacturer_Val=''
         Model_Val=''
@@ -111,7 +112,7 @@ def meterParam():
         
 
 def reading_meter():
-    if __name__ == "__reading_meter__":
+    if __name__ == "__main__":
         data = {}
         if client.connect():
             

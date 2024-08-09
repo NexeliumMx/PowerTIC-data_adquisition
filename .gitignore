@@ -5,7 +5,7 @@ firebaseSDK.mjs
 #- Otros
 .DS_Store
 node_modules
-
+__pycache__
 
 #-----Node template-------
 #https://github.com/github/gitignore/blob/main/Node.gitignore

@@ -76,7 +76,7 @@ def meter_param():
 
 def extract_sql():
     # Cargar el contenido del archivo SQL
-    file_path = '/home/MICO/PowerTIC/Rapberry/measurement_address.sql'
+    file_path = '/home/power-tic/MICO/PowerTIC/Rapberry/measurement_address.sql'
 
     with open(file_path, 'r') as file:
         sql_content = file.read()
@@ -119,8 +119,9 @@ def extract_sql():
 
     return parameter_to_address
 
-def reading_meter(parameter_to_address):
+def reading_meter():
     # Constantes
+    parameter_to_address=extract_sql()
     PROJECT_DIR = Path(__file__).parent
     METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
     # Asegurar que el archivo de datos del medidor existe
@@ -162,3 +163,4 @@ def reading_meter(parameter_to_address):
         print("Error de conexión con el medidor")
 
 # Ejecución del código
+

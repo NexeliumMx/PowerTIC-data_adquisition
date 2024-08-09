@@ -30,5 +30,15 @@ async function sh(cmd_to_execute) {
           });
       });
   }
+  function keepAlive() {
+    fetch('/keep-alive')
+      .then(response => {
+        console.log('Keep-alive successful');
+      })
+      .catch(error => {
+        console.error('Keep-alive failed:', error);
+      });
+  }
   
+  setInterval(keepAlive, 60000); // Send a request every minute
   

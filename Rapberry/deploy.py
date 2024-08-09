@@ -3,14 +3,14 @@ from firebase_admin import credentials,db
 import os 
 import time
 from Firestore_subroutine import imprint,upload
-from ComsTests import reading_meter,meter_Param
+from ComsTests import reading_meter,meter_param
 print("start")
 
 cred = credentials.Certificate("/home/power-tic/MICO/PowerTIC/Rapberry/power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json")
 if  not os.path.isfile('Rapberry\\settingsData.json'):
     print("entre")
     while (1):
-        SN=meterParam()
+        SN=meter_param()
         if not (SN==None):
             firebase_admin.initialize_app(cred, {
                 'databaseURL': 'https://power-tic-default-rtdb.firebaseio.com/'

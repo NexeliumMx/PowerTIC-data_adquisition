@@ -3,7 +3,7 @@ from firebase_admin import credentials,db
 import os 
 import time
 from Firestore_subroutine import imprint,upload
-from ModCom2 import reading_meter,meterParam
+from ComsTests import reading_meter,meterParam
 print("start")
 
 cred = credentials.Certificate("/home/power-tic/MICO/PowerTIC/Rapberry/power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json")

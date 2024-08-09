@@ -72,11 +72,11 @@ def meter_param():
             json.dump(settings, f, indent=4)
     else:
         print("Error de conexión con el medidor")
-    return settings
+    return settings['SN']
 
 def extract_sql():
     # Cargar el contenido del archivo SQL
-    file_path = '/home/luis08islas/VScode/PowerTIC/Rapberry/measurement_address.sql'
+    file_path = '/home/MICO/PowerTIC/Rapberry/measurement_address.sql'
 
     with open(file_path, 'r') as file:
         sql_content = file.read()
@@ -162,9 +162,3 @@ def reading_meter(parameter_to_address):
         print("Error de conexión con el medidor")
 
 # Ejecución del código
-while True:
-    meter_param()
-    parameter_to_address = extract_sql()
-    if parameter_to_address:  # Verificar que parameter_to_address no esté vacío
-        reading_meter(parameter_to_address)
-    time.sleep(30)

@@ -1,0 +1,6 @@
+Conexión exitosa
+acquiered value: E3T15060693
+acquiered value: ACCUENERGY
+acquiered value: AcuRev1300
+acquiered value: H:1.04 S:1.01 
+ID: 1

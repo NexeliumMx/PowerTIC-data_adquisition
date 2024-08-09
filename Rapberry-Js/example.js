@@ -31,7 +31,7 @@ async function sh(cmd_to_execute) {
       });
   }
   function keepAlive() {
-    fetch('/keep-alive')
+    ref.get('/status')
       .then(response => {
         console.log('Keep-alive successful');
       })

@@ -9,7 +9,7 @@
 // Import the Firebase app and other required functions from firebaseSDK.mjs
 import app from '../firebaseSDK.mjs';
 import { getFirestore, collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
-import examplePowerMeterReading from '../data/examplePowerMeterReading.js';
+import examplePowerMeterReading from '../json data/examplePowerMeterReading.js';
 import readline from 'readline';
 
 // Initialize Firestore

@@ -72,56 +72,12 @@ def meter_param():
             json.dump(settings, f, indent=4)
     else:
         print("Error de conexión con el medidor")
-    return settings['SN']
+    return settings.get('SN')
 
-def extract_sql():
-    # Cargar el contenido del archivo SQL
-    file_path = '/home/power-tic/MICO/PowerTIC/Rapberry/measurement_address.sql'
 
-    with open(file_path, 'r') as file:
-        sql_content = file.read()
-
-    # Extraer datos de las sentencias INSERT INTO
-    insert_statements = re.findall(
-        r"INSERT INTO measurements_address \((.*?)\) VALUES \((.*?)\);",
-        sql_content,
-        re.DOTALL
-    )
-
-    # Extraer nombres de columnas
-    columns = [col.strip() for col in insert_statements[0][0].split(',')]
-
-    # Extraer filas de datos
-    data = []
-    for statement in insert_statements:
-        values = re.findall(r"'(?:[^'\\]|\\.)*'|[^,]+", statement[1])
-        values = [val.strip().strip("'") for val in values]
-        if len(values) == len(columns):
-            data.append(values)
-
-    # Convertir datos a una lista de diccionarios
-    data_dicts = [dict(zip(columns, row)) for row in data]
-
-    # Crear un diccionario que mapea cada parameter_description a su correspondiente modbus_address_dec
-    parameter_to_address = {}
-    for row in data_dicts:
-        address_dec = row['modbus_address_hex']
-        if address_dec and address_dec.endswith('H'):
-            try:
-                address = int(address_dec[:-1], 16)
-                parameter_to_address[row['parameter_description']] = address
-            except ValueError:
-                print(f"Skipping invalid address: {address_dec}")
-
-    # Imprimir el diccionario resultante
-    for parameter, address in parameter_to_address.items():
-        print(f"{parameter}: {address}")
-
-    return parameter_to_address
 
 def reading_meter():
     # Constantes
-    parameter_to_address=extract_sql()
     PROJECT_DIR = Path(__file__).parent
     METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
     # Asegurar que el archivo de datos del medidor existe
@@ -164,3 +120,8 @@ def reading_meter():
 
 # Ejecución del código
 
+while True: 
+    meter_param()
+    extract_sql()
+    reading_meter()
+    time.sleep(30)

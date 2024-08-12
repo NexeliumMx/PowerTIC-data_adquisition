@@ -4,8 +4,10 @@ import time
 import json
 import os
 from pathlib import Path
+import re
+import pytz  # Importar pytz para manejo de zonas horarias
 
-# Modbus Initialization
+# Inicialización de Modbus
 client = ModbusSerialClient(
     port='/dev/ttyUSB0',
     baudrate=19200,
@@ -15,41 +17,44 @@ client = ModbusSerialClient(
     timeout=5
 )
 
-# Settings Acquisition
 def meter_param():
-    #Constants
+    # Constantes
     SETTINGS_DIR = Path(__file__).parent
     SETTINGS_PATH = SETTINGS_DIR / 'settingsData.json'
-    #Ensure Settings file exist
+
+    # Asegurar que el archivo de configuración existe
     SETTINGS_PATH.touch(exist_ok=True)
-    # Initialize the settings file if it is empty
+    
+    # Inicializar el archivo de configuración si está vacío
     if SETTINGS_PATH.stat().st_size == 0:
         with open(SETTINGS_PATH, 'w') as f:
-            json.dump({}, f, indent=4)  # Changed to a dictionary instead of a list
+            json.dump({}, f, indent=4)
 
-    #Decode adresses
-    address_settings=[0x1034,0x1004,0x1014,0x102C]
-    reg_num=[15,15,15,7]
-    parameters=['SN','Manufacturer','Model','Version']
+    # Decodificar direcciones
+    address_settings = [0x1034, 0x1004, 0x1014, 0x102C]
+    reg_num = [15, 15, 15, 7]
+    parameters = ['SN', 'Manufacturer', 'Model', 'Version']
+    
+    settings = {}  # Inicializar configuración antes del bloque try
+    
     if client.connect():
         print("Conexión exitosa")
         try:
-            settings = {}
-            #Settings Acquisition
-            for k in range(0,len(parameters)):
+            # Adquisición de configuración
+            for k in range(len(parameters)):
                 set_val = ''
-                set = client.read_holding_registers(address_settings[k], reg_num[k], 1)
-                if not set.isError():
-                    for i in set.registers:
+                result = client.read_holding_registers(address_settings[k], reg_num[k])
+                if not result.isError():
+                    for i in result.registers:
                         set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
                     set_val = set_val.replace('\x00', '')
                     settings[parameters[k]] = set_val
-                    print("acquiered value:", set_val)
+                    print("Adquirido valor:", set_val)
                 else:
-                    print("Error de lectura (SN):", set)
+                    print(f"Error de lectura ({parameters[k]}):", result)
 
-            # ID Acquisition
-            id_reg = client.read_holding_registers(0x1002, 1, 1)
+            # Adquisición de ID
+            id_reg = client.read_holding_registers(0x1002, 1)
             if not id_reg.isError():
                 id_val = id_reg.registers[0]
                 settings['ID'] = id_val
@@ -62,40 +67,91 @@ def meter_param():
         finally:
             client.close()
             
-        # Settings local storage
+        # Almacenamiento local de configuración
         with open(SETTINGS_PATH, 'w') as f:
             json.dump(settings, f, indent=4)
     else:
         print("Error de conexión con el medidor")
-    return set_val
+    return settings.get('SN')
+
+def extract_sql():
+    # Cargar el contenido del archivo SQL desde el archivo proporcionado
+    file_path = Path(r'Rapberry/corrected_measurement_address.sql')
+
+    with open(file_path, 'r') as file:
+        sql_content = file.read()
+
+    # Extraer datos de las sentencias INSERT INTO
+    insert_statements = re.findall(
+        r"INSERT INTO measurements_address \((.*?)\) VALUES \((.*?)\);",
+        sql_content,
+        re.DOTALL
+    )
+
+    # Extraer nombres de columnas
+    if insert_statements:
+        columns = [col.strip() for col in insert_statements[0][0].split(',')]
+
+        # Extraer filas de datos
+        data = []
+        for statement in insert_statements:
+            values = re.findall(r"'(?:[^'\\]|\\.)*'|[^,]+", statement[1])
+            values = [val.strip().strip("'") for val in values]
+            if len(values) == len(columns):
+                data.append(values)
+
+        # Convertir datos a una lista de diccionarios
+        data_dicts = [dict(zip(columns, row)) for row in data]
+
+        # Crear un diccionario que mapea cada parameter_description a su correspondiente modbus_address_dec
+        parameter_to_address = {}
+        for row in data_dicts:
+            address_hex = row['modbus_address_hex']
+            if address_hex and address_hex.endswith('H'):
+                try:
+                    address = int(address_hex[:-1], 16)
+                    parameter_to_address[row['parameter_description']] = address
+                except ValueError:
+                    print(f"Skipping invalid address: {address_hex}")
+
+        # Imprimir el diccionario resultante
+        for parameter, address in parameter_to_address.items():
+            print(f"{parameter}: {address}")
+
+        return parameter_to_address
+    else:
+        print("No se encontraron sentencias INSERT en el archivo SQL.")
+        return {}
 
 def reading_meter():
-    # Constants
+    # Constantes
+    parameter_to_address = extract_sql()
     PROJECT_DIR = Path(__file__).parent
     METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
-    # Ensure meter data files exist
+    # Asegurar que el archivo de datos del medidor existe
     METER_DATA_PATH.touch(exist_ok=True)
 
-    #Meter addresses
-    meter_addresses = [0x104C,0x104D,0x104E,0x104F,0x1050,0x1051,0x1052,0x1053,0x1055,0x1058,0x1059,0x105A,0x105C,0x105D,0x105E,0x105F,0x1047,0x1048,0x1049,0x104A,0x1061,0x1062,0x1063,0x1064,0x1057,0x1066,0x1067,0x1068,0x1069,0x106B,0x106D,0x106F,0x1071,0x1073,0x1075,0x1077,0x1079,0x107C,0x107E,0x1080,0x1082,0x1084,0x1086,0x1088,0x108A,0x108D,0x108F,0x1091,0x1093]
-    meas_param = ['voltage_average_LN','phase_voltage_AN','phase_voltage_BN','phase_voltage_CN','voltage_average_LL','phase_voltage_AB','phase_voltage_BC','phase_voltage_CA','frequency','watts_phase_A','watts_phase_B','watts_phase_C','AC_Apparent','VA_phase_A','VA_phase_B','VA_phase_C','amps_total','amps_phase_A','amps_phase_B','amps_phase_C','reactive_power_VAR','VAR_phase_A','VAR_phase_B','VAR_phase_C','total_real_power','power_factor','pf_phase_A','pf_phase_B','pf_phase_C','total_real_energy_exported','total_real_energy_exported_phase_A','total_real_energy_exported_phase_B','total_real_energy_exported_phase_C','total_real_energy_imported','total_real_energy_imported_phase_A','total_real_energy_imported_phase_B','total_real_energy_imported_phase_C','total_VA_hours_exported','total_VA_hours_exported_phase_A','total_VA_hours_exported_phase_B','total_VA_hours_exported_phase_C','total_VA_hours_imported','total_VA_hours_imported_phase_A','total_VA_hours_imported_phase_B','total_VA_hours_imported_phase_C','total_VAR_hours_imported_Q1','total_VAR_hours_imported_Q1_phase_A','total_VAR_hours_imported_Q1_phase_B','total_VAR_hours_imported_Q1_phase_C']
-    regs=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
-    print("Corriente por fase: ", meas_param('amps_phase_A'))
     data = {}
     if client.connect():
         try:
-            for j in range(0,len(meas_param)):
-                meas_val=''
-                # Data
-                meas = client.read_holding_registers(meter_addresses[j], regs[j], 1)
+            for parameter, address in parameter_to_address.items():
+                meas_val = ''
+                try:
+                    address_int = int(address)
+                except ValueError:
+                    print(f"Invalid address for {parameter}: {address}")
+                    continue
+                # Datos
+                meas = client.read_holding_registers(address_int, 1)
                 if not meas.isError():
                     meas_val = meas.registers[0]
-                    data[meas_param[j]] = meas_val
-                    print(meas_param[j], meas_val)
+                    data[parameter] = meas_val
+                    print(parameter, meas_val)
                 else:
-                    print("Error de lectura"+meas_param[j], meas)
-            # TimeStamp
-            dt = datetime.utcnow()
+                    print(f"Error de lectura {parameter}:", meas)
+            # Timestamp
+            mexico_city_tz = pytz.timezone('America/Mexico_City')
+            dt = datetime.now(mexico_city_tz)
             data["timestamp"] = dt.strftime("%Y-%m-%dT%H:%M:%SZ")
             print("Timestamp: ", data["timestamp"])
 
@@ -111,7 +167,9 @@ def reading_meter():
         print("Error de conexión con el medidor")
 
 # Ejecución del código
+
 while True: 
     meter_param()
+    extract_sql()
     reading_meter()
     time.sleep(30)

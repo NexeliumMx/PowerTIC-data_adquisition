@@ -7,7 +7,7 @@
 // Import the Firebase app and other required functions from firebaseSDK.mjs
 import app from '../firebaseSDK.mjs';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import examplePowerMeterSettings from '../constants/examplePowerMeterSettings.mjs';
+import examplePowerMeterSettings from '../data/examplePowerMeterSettings.js';
 
 // Initialize Firestore
 const db = getFirestore(app);

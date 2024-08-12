@@ -7,7 +7,7 @@
 // Import the Firebase app and other required functions from firebaseSDK.mjs
 import app from '../firebaseSDK.mjs';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import { brand, documentName, powerMeterOutputFormat } from '../constants/acuRev13003P4WEnergyMeterFormat.mjs';
+import { brand, documentName, powerMeterOutputFormat } from '../data/acuRev13003P4WEnergyMeterFormat.mjs';
 
 // Initialize Firestore
 const db = getFirestore(app);

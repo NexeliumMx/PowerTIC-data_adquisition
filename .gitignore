@@ -1,7 +1,7 @@
 .venv
 #- Llaves SDK FIREBASE
 power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json
-firebaseSDK.mjs
+firebaseSDK.js
 
 #- Otros
 .DS_Store

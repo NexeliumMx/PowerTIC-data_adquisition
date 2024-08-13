@@ -2,10 +2,12 @@ from datetime import datetime
 from pymodbus.client import ModbusSerialClient
 import time
 import json
-import os
 from pathlib import Path
+import csv
+import ast
+import pytz  # Importar pytz para manejo de zonas horarias
 
-# Modbus Initialization
+# Inicialización de Modbus
 client = ModbusSerialClient(
     port='/dev/ttyUSB0',
     baudrate=19200,
@@ -15,130 +17,148 @@ client = ModbusSerialClient(
     timeout=5
 )
 
-# Constants
-SETTINGS_DIR = Path(__file__).parent
-SETTINGS_PATH = SETTINGS_DIR / 'settingsData.json'
-PROJECT_DIR = Path(__file__).parent
-METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
-
-# Ensure settings and meter data files exist
-SETTINGS_PATH.touch(exist_ok=True)
-METER_DATA_PATH.touch(exist_ok=True)
-
-# Initialize the settings file if it is empty
-if SETTINGS_PATH.stat().st_size == 0:
-    with open(SETTINGS_PATH, 'w') as f:
-        json.dump({}, f, indent=4)  # Changed to a dictionary instead of a list
-
-# Settings Acquisition
 def meter_param():
-    sn_val = ''
-    manufacturer_val = ''
-    model_val = ''
-    version_val = ''
+    # Constantes
+    SETTINGS_DIR = Path(__file__).parent
+    SETTINGS_PATH = SETTINGS_DIR / 'settingsData.json'
+
+    # Asegurar que el archivo de configuración existe
+    SETTINGS_PATH.touch(exist_ok=True)
     
-    if client.connect():
-        print("Conexión exitosa")
-        try:
-            settings = {}
-
-            # Serial Number Acquisition
-            sn = client.read_holding_registers(0x1034, 15, 1)
-            if not sn.isError():
-                for i in sn.registers:
-                    sn_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                sn_val = sn_val.replace('\x00', '')
-                settings['SN'] = sn_val
-                print("SN:", sn_val)
-            else:
-                print("Error de lectura (SN):", sn)
-
-            # ID Acquisition
-            id_reg = client.read_holding_registers(0x1002, 1, 1)
-            if not id_reg.isError():
-                id_val = id_reg.registers[0]
-                settings['ID'] = id_val
-                print("ID:", id_val)
-            else:
-                print("Error de lectura ID")
-
-            # Manufacturer Acquisition
-            manufacturer_reg = client.read_holding_registers(0x1004, 15, 1)
-            if not manufacturer_reg.isError():
-                for i in manufacturer_reg.registers:
-                    manufacturer_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                manufacturer_val = manufacturer_val.replace('\x00', '')
-                settings['Manufacturer'] = manufacturer_val
-                print("Manufacturer:", manufacturer_val)
-            else:
-                print("Error de lectura Manufacturer:", manufacturer_reg)
-
-            # Model Acquisition
-            model_reg = client.read_holding_registers(0x1014, 15, 1)
-            if not model_reg.isError():
-                for i in model_reg.registers:
-                    model_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                model_val = model_val.replace('\x00', '')
-                settings['Model'] = model_val
-                print("Model:", model_val)
-            else:
-                print("Error de lectura Model:", model_reg)
-
-            # Version Acquisition
-            version_reg = client.read_holding_registers(0x102C, 7, 1)
-            if not version_reg.isError():
-                for i in version_reg.registers:
-                    version_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                version_val = version_val.replace('\x00', '')
-                settings['Version'] = version_val
-                print("Version:", version_val)
-            else:
-                print("Error de lectura Version:", version_reg)
-               
-        except Exception as e:
-            print("Exception:", e)
-        finally:
-            client.close()
-            
-        # Settings local storage
+    # Inicializar el archivo de configuración si está vacío
+    if SETTINGS_PATH.stat().st_size == 0:
         with open(SETTINGS_PATH, 'w') as f:
-            json.dump(settings, f, indent=4)
-    else:
-        print("Error de conexión con el medidor")
-    return sn_val
+            json.dump({}, f, indent=4)
+            
+    with open(r'Rapberry/CSV_tests/meter_config_info_address.csv', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        settings = {}  # Inicializar configuración antes del bloque try
+    
+        if client.connect():
+            print("Conexión exitosa")
+            try:
+                # Adquisición de configuración
+                for row in reader:
+                    parameter = row['parameter_description']
+                    regs = len(modbus_addresses)
+                    try:
+                        modbus_addresses = ast.literal_eval(row['modbus_address_DEC'])
+                    except (ValueError, SyntaxError):
+                        modbus_addresses = int(row['modbus_address_DEC'])
+                    
+                    if isinstance(modbus_addresses, list):
+                        for modbus_address in modbus_addresses:
+                            try:
+
+                                result = client.read_holding_registers(modbus_address, regs)
+                                if not result.isError():
+                                    for i in result.registers:
+                                        set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                                    set_val = set_val.replace('\x00', '')
+                                    settings[parameter] = set_val
+                                    print("Adquirido valor:", set_val)
+                                else:
+                                    print(f"Error de lectura ({parameter}):", result)
+                            except ValueError:
+                                print(f"Invalid address for {parameter}: {modbus_address}:")
+                                continue
+                    else:
+                        #Data acquisition for single address
+                        result = client.read_holding_registers(modbus_addresses,1)
+                        if not result.isError():
+                            set_val = result.registers[0]
+                            settings[parameter] = set_val
+                            print(f"{parameter}:{set_val}")
+                        else:
+                            print(f"Error de lectura {parameter} en {modbus_addresses}", result)
+    
+            except Exception as e:
+                print("Exception:", e)
+            finally:
+                client.close()
+                
+            # Almacenamiento local de configuración
+            with open(SETTINGS_PATH, 'w') as f:
+                json.dump(settings, f, indent=4)
+        else:
+            print("Error de conexión con el medidor")
+    return settings.get('SN')
+
 
 def reading_meter():
+    # Constantes
+    PROJECT_DIR = Path(__file__).parent
+    METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
+    # Asegurar que el archivo de datos del medidor existe
+    METER_DATA_PATH.touch(exist_ok=True)
     data = {}
-    if client.connect():
-        try:
-            # Voltage LN average
-            voltage_average_ln_reg = client.read_holding_registers(0x104C, 1, 1)
-            if not voltage_average_ln_reg.isError():
-                voltage_average_ln_val = voltage_average_ln_reg.registers[0]
-                data['voltage_average_LN'] = voltage_average_ln_val
-                print("Voltaje LN (V):", voltage_average_ln_val)
-            else:
-                print("Error de lectura (Voltaje LN):", voltage_average_ln_reg)
 
-            # (Omitido por brevedad: resto de las lecturas y manejo de errores)
+    # Extracting Modbus addresses from the CSV
+    with open(r'Rapberry/CSV_tests/measurement_address.csv', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        address = []
+        if client.connect():
+            try:        
+                for row in reader:
+                    parameter = row['parameter_description']
+                    
+                    # Convert the string to a list of integers or a single integer
+                    try:
+                        modbus_addresses = ast.literal_eval(row['modbus_address_DEC'])
+                    except (ValueError, SyntaxError):
+                        modbus_addresses = int(row['modbus_address_DEC'])
 
-            # TimeStamp
-            dt = datetime.utcnow()
-            data["timestamp"] = dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-            print("Timestamp: ", data["timestamp"])
+                    if isinstance(modbus_addresses, list):
+                        # Iterate over each address in the list
+                        for modbus_address in modbus_addresses:
+                            try:
+                                # Data acquisition for each address
+                                meas = client.read_holding_registers(modbus_address, 1)
+                                if not meas.isError():
+                                    meas_val = meas.registers[0]
+                                    data[f"{parameter}_{modbus_address}"] = meas_val
+                  #                  print(f"{parameter}_{modbus_address}: {meas_val}")
+                                else:
+                                    print(f"Error de lectura {parameter} en {modbus_address}:", meas)
+                            except ValueError:
+                                print(f"Invalid address for {parameter}: {modbus_address}")
+                                continue
+                 #       print(f"Número de elementos en la lista: {len(modbus_addresses)}")
+                    else:
+                        # Data acquisition for a single address
+                        meas = client.read_holding_registers(modbus_addresses, 1)
+                        if not meas.isError():
+                            meas_val = meas.registers[0]
+                            data[parameter] = meas_val
+                            print(f"{parameter}: {meas_val}")
+                        else:
+                            print(f"Error de lectura {parameter} en {modbus_addresses}", meas)
+                    
+                    # Append the address to the list
+                    address.append(modbus_addresses)
+                #    print(f"Dirección: {modbus_addresses}, Parámetro: {parameter}")
+                        
+                # Print the complete list of addresses
+               # print("Lista completa de direcciones:", address)
 
-        except Exception as e:
-            print("Exception:", e)
-        finally:
-            client.close()
+                # Timestamp
+                mexico_city_tz = pytz.timezone('America/Mexico_City')
+                dt = datetime.now(mexico_city_tz)
+                data["timestamp"] = dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+                print("Timestamp: ", data["timestamp"])
 
-        with open(METER_DATA_PATH, 'w') as f:
-            json.dump(data, f, indent=4)
-        return METER_DATA_PATH
-    else:
-        print("Error de conexión con el medidor")
+            except Exception as e:
+                print("Exception: ", e)
+            finally:
+                client.close()
+                with open(METER_DATA_PATH, 'w') as f:
+                    json.dump(data, f, indent=4)
+                return METER_DATA_PATH
+        else:
+            print("Error de conexión con el medidor")
 
 # Ejecución del código
+
 while True: 
     meter_param()
     reading_meter()

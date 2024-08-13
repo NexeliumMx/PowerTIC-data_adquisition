@@ -32,15 +32,15 @@ function printParameterDescriptions(filePath) {
 }
 
 function askUserForFile() {
-    rl.question('Which CSV file do you want to read?\n1 measurement_address.csv\n2 meter_config_info_address.csv\nType 1 or 2: ', (answer) => {
+    rl.question('Which CSV file do you want to read?\n1 readings_addresses.csv\n2 device_info_addresses.csv\nType 1 or 2: ', (answer) => {
         let filePath;
 
         switch (answer.trim()) {
             case '1':
-                filePath = path.join(process.cwd(), 'measurement_address.csv');
+                filePath = path.join(process.cwd(), 'readings_addresses.csv');
                 break;
             case '2':
-                filePath = path.join(process.cwd(), 'meter_config_info_address.csv');
+                filePath = path.join(process.cwd(), 'device_info_addresses.csv');
                 break;
             default:
                 console.log('Invalid selection. Please type 1 or 2.');

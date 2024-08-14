@@ -1,14 +1,13 @@
-
 CREATE TABLE readings_addresses (
     id SERIAL PRIMARY KEY,
     modbus_address JSONB,
     parameter_description TEXT,
-    standard CHARACTER(10),
-    data_type CHARACTER(10),
-    rw CHARACTER(3),
+    standard VARCHAR(50),
+    data_type VARCHAR(20),
+    rw VARCHAR(3),
     data_range JSONB,
-    measurement_units CHARACTER(5),
-    default_value NUMERIC,
+    measurement_units VARCHAR(10),
+    default_value VARCHAR(100),
     model JSONB,
     register_number INTEGER
 );

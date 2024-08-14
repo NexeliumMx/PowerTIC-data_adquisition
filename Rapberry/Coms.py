@@ -156,3 +156,8 @@ def reading_meter():
                 return METER_DATA_PATH
         else:
             print("Error de conexión con el medidor")
+
+while True:
+    meter_param()
+    reading_meter()
+    time.sleep(30)

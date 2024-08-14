@@ -15,7 +15,7 @@ try:
     print('Connected to the database.')
 
     # Execute the query
-    cursor.execute('SELECT parameter_description FROM measurement_address')
+    cursor.execute('SELECT parameter_description FROM readings_addresses')
     
     # Fetch all the results
     rows = cursor.fetchall()

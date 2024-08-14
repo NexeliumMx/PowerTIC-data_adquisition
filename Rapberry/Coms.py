@@ -30,7 +30,7 @@ def meter_param():
         with open(SETTINGS_PATH, 'w') as f:
             json.dump({}, f, indent=4)
             
-    with open(r'Rapberry/CSV_tests/meter_config_info_address.csv', newline='') as csvfile:
+    with open(r'CSV_tests/meter_config_info_address.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         settings = {}  # Inicializar configuración antes del bloque try
     
@@ -103,7 +103,7 @@ def reading_meter():
     data = {}
 
     # Extracting Modbus addresses from the CSV
-    with open(r'Rapberry/CSV_tests/measurement_address.csv', newline='') as csvfile:
+    with open(r'CSV_tests/measurement_address.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         address = []
         if client.connect():

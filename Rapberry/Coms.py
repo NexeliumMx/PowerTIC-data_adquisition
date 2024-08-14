@@ -46,29 +46,33 @@ def meter_param():
                     except (ValueError, SyntaxError):
                         modbus_addresses = int(row['modbus_address_DEC'])
                     
-                    set_val = ""  # Inicializar set_val para cada parámetro
+                    
                     
                     if isinstance(modbus_addresses, list):
                         regs = len(modbus_addresses)
+                        set_val = ""  # Inicializar set_val para cada parámetro
                         for modbus_address in modbus_addresses:
                             try:
+                                
                                 result = client.read_holding_registers(modbus_address, 1)
                                 if not result.isError():
                                     for i in result.registers:
-                                        set_val += chr((i & 0xFF00) >> 8) + chr(i & 0x00FF)
+                                        set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
                                     set_val = set_val.replace('\x00', '')
                                     settings[parameter] = set_val
-                                    print(f"Adquirido valor para {parameter}: {set_val}")
+                                    
                                 else:
                                     print(f"Error de lectura ({parameter}):", result)
                             except ValueError:
                                 print(f"Invalid address for {parameter}: {modbus_address}")
                                 continue
+                        print(f"Adquirido valor para {parameter}: {set_val}")
                     else:
+                        set_val = ""  # Inicializar set_val para cada parámetro
                         # Data acquisition for single address
                         result = client.read_holding_registers(modbus_addresses, 1)
                         if not result.isError():
-                            set_val = ''.join(chr((result.registers[0] >> 8) & 0xFF) + chr(result.registers[0] & 0xFF)).replace('\x00', '')
+                            set_val = result.registers[0]
                             settings[parameter] = set_val
                             print(f"{parameter}: {set_val}")
                         else:

@@ -11,17 +11,24 @@ const client = new Client({
   port: 5432,
 });
 
-// Connect to the database
+// Function to print parameter descriptions from a specified table
+const printParameterDescriptions = (tableName) => {
+  return client.query(`SELECT parameter_description FROM ${tableName}`)
+    .then(res => {
+      console.log(`\nParameter Descriptions from ${tableName}:`);
+      res.rows.forEach(row => {
+        console.log(row.parameter_description);
+      });
+    });
+};
+
+// Connect to the database and perform the queries
 client.connect()
   .then(() => {
     console.log('Connected to the database.');
-    return client.query('SELECT parameter_description FROM measurement_address');
-  })
-  .then(res => {
-    // Print all the parameter_description values
-    res.rows.forEach(row => {
-      console.log(row.parameter_description);
-    });
+    // Print parameter descriptions from both tables
+    return printParameterDescriptions('readings_addresses')
+      .then(() => printParameterDescriptions('device_info_addresses'));
   })
   .catch(err => {
     console.error('Error executing query', err.stack);

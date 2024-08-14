@@ -1,7 +1,18 @@
+# branch gitignore
+.github/
+PowerTIC-WebApp/
+Rapberry/
+readme.md
+
+.venv
 #- Llaves SDK FIREBASE
 power-tic-firebase-adminsdk-9u1tt-ce3f981b49.json
+
 firebaseSDK.mjs
 .venv
+firebaseSDK.js
+
+
 #- Otros
 .DS_Store
 node_modules

@@ -1,0 +1,17 @@
+{
+    "id": 203,
+    "length": 105,
+    "device_address": 1,
+    "current_scale_factor": 65533,
+    "voltage_scale_factor": 65534,
+    "frequency_scale_factor": 0,
+    "real_power_scale_factor": 0,
+    "apparent_power_scale_factor": 0,
+    "reactive_power_scale_factor": 0,
+    "power_factor_scale_factor": 65533,
+    "totwh_sf": 65533,
+    "totvah_sf_sunspec": 65533,
+    "totvarh_sf": 65533,
+    "sunspec_end_id_sunspec": 65535,
+    "sunspec_end_length_sunspec": 0
+}

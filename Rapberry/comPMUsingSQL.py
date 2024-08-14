@@ -3,6 +3,9 @@ from pymodbus.client import ModbusSerialClient
 import time
 import json
 from pathlib import Path
+import csv
+import ast
+import pytz  # Importar pytz para manejo de zonas horarias
 import psycopg2
 
 #PostgreSQL Init
@@ -47,7 +50,11 @@ def meter_param(table_name):
             print("Conexión exitosa")
             try:
                 # Adquisición de configuración
-                for row in rows:                                   
+                for row in rows:                    
+                    #try:
+                     #   modbus_addresses = ast.literal_eval(row['modbus_address_DEC'])
+                    #except (ValueError, SyntaxError):
+                    #    modbus_addresses = int(row['modbus_address_DEC'])                 
                     if isinstance(row[1], list):
                         parameter = row[0]
                         regs = row[2]
@@ -60,7 +67,8 @@ def meter_param(table_name):
                                     for i in result.registers:
                                         set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
                                     set_val = set_val.replace('\x00', '')
-                                    settings[parameter] = set_val  
+                                    settings[parameter] = set_val
+                                    
                                 else:
                                     print(f"Error de lectura ({parameter}):", result)
                             except ValueError:
@@ -79,7 +87,8 @@ def meter_param(table_name):
                             settings[parameter] = set_val
                             print(f"{parameter}: {set_val}")
                         else:
-                            print(f"Error de lectura {parameter} en {modbus_address}", result)       
+                            print(f"Error de lectura {parameter} en {modbus_address}", result)
+                    
             except Exception as e:
                 print("Exception:", e)
             finally:
@@ -89,7 +98,9 @@ def meter_param(table_name):
                 json.dump(settings, f, indent=4)
         else:
             print("Error de conexión con el medidor")
+    
     print(settings.get("serial_number", "serial_number not found"))
+
     return settings.get('serial_number')
 
 
@@ -136,6 +147,13 @@ def reading_meter(table_name):
                             print(f"{parameter}: {meas_val}")
                         else:
                             print(f"Error de lectura {parameter} en {modbus_address}", meas)
+
+                # Timestamp
+                mexico_city_tz = pytz.timezone('America/Mexico_City')
+                dt = datetime.now(mexico_city_tz)
+                data["timestamp"] = dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+                print("Timestamp: ", data["timestamp"])
+
             except Exception as e:
                 print("Exception:", e)
             finally:

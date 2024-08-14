@@ -1,7 +1,7 @@
 {
     "sunspec_id": "SunS",
     "id": 203,
-    "lenth": 105,
+    "length": 105,
     "manufacturer": "ACCUENERGY",
     "model": "AcuRev1300",
     "options": "AcuRev1303",
@@ -20,5 +20,5 @@
     "totvarh_sf": 65533,
     "meter_event_flags": "",
     "sunspec_end_id_sunspec": 65535,
-    "sunspec_end_lenth_sunspec": 0
+    "sunspec_end_length_sunspec": 0
 }

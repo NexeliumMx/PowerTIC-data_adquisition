@@ -146,7 +146,3 @@ def reading_meter(table_name):
         else:
             print("Error de conexión con el medidor")
 
-while True:
-    meter_param('device_info_addresses')
-    reading_meter('readings_addresses')
-    time.sleep(30)

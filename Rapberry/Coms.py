@@ -77,7 +77,7 @@ def meter_param():
                             print(f"{parameter}: {set_val}")
                         else:
                             print(f"Error de lectura {parameter} en {modbus_addresses}", result)
-    
+                    
             except Exception as e:
                 print("Exception:", e)
             finally:
@@ -88,7 +88,10 @@ def meter_param():
                 json.dump(settings, f, indent=4)
         else:
             print("Error de conexión con el medidor")
-    return settings.get('SN')
+    
+    print(settings.get("serial_number", "serial_number not found"))
+
+    return settings.get('serial_number')
 
 
 def reading_meter():

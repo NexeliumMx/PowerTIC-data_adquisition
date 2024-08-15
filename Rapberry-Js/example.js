@@ -8,7 +8,7 @@ admin.initializeApp({
   // The database URL depends on the location of the database
   databaseURL: "https://power-tic-default-rtdb.firebaseio.com/"
 });
-
+sh('python /home/power-tic/MICO/PowerTIC/Rapberry/initialize.py & echo "initialized"')
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 var db = admin.database();
 var ref = db.ref("/Meters/E3T15060693/Firmware");
@@ -39,6 +39,9 @@ async function sh(cmd_to_execute) {
         console.error('Keep-alive failed:', error);
       });
   }
-  
+  function read() {
+    sh('python /home/power-tic/MICO/PowerTIC/Rapberry/deploy.py & echo "reading"')
+  }
+  setInterval(read, 300000); 
   setInterval(keepAlive, 60000); // Send a request every minute
   

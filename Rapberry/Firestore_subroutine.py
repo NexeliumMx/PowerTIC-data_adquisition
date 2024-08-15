@@ -12,7 +12,7 @@ def upload(Json_Path,SerialNumber):
     data = json.load(f)
     for i in data:
         print(i)
-        doc_ref.document(i).set({data["timestamp"]: data[i]},merge=True)
+        #doc_ref.document(i).set({data["timestamp"]: data[i]},merge=True)
 
     f.close()
     

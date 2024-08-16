@@ -1,5 +1,5 @@
 var admin = require("firebase-admin");
-var serviceAccount = require("/home/power-tic/MICO/PowerTIC/Rapberry-Js/power-tic-firebase-adminsdk-9u1tt-190471deb9.json");
+var serviceAccount = require("Rapberry-Js/power-tic-firebase-adminsdk-9u1tt-190471deb9.json");
 const childProcess = require('child_process');
 
 // Initialize the app with a service account, granting admin privileges
@@ -16,7 +16,7 @@ ref.update({"Status":true})
 ref.on('child_changed', (snapshot) => {
     const changedPost = snapshot.val();
     console.log('The updated post title is ' + changedPost);
-    sh('bash /home/power-tic/MICO/PowerTIC/try.sh & echo "running"')
+    sh('bash try.sh & echo "running"')
   });
 ref.onDisconnect().update({"Status":false})
 async function sh(cmd_to_execute) {
@@ -40,7 +40,7 @@ async function sh(cmd_to_execute) {
       });
   }
   function read() {
-    sh('python /home/power-tic/MICO/PowerTIC/Rapberry/deploy.py & echo "reading"')
+    sh('python Rapberry/deploy.py & echo "reading"')
   }
   setInterval(read, 300000); 
   setInterval(keepAlive, 60000); // Send a request every minute

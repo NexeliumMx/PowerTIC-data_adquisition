@@ -10,4 +10,3 @@ git stash pop
 git checkout OTA
 git pull
 echo "update success"
-

@@ -25,7 +25,7 @@ client = ModbusSerialClient(
     timeout=5
 )
 serialnumb=''
-def meter_param(table_name):
+def meter_param():
     # Constantes
     SETTINGS_DIR = Path(__file__).parent
     SETTINGS_PATH = SETTINGS_DIR / 'settingsData.json'
@@ -39,7 +39,7 @@ def meter_param(table_name):
             json.dump({}, f, indent=4)
             
     with conn.cursor() as cursor:
-        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,setup FROM {table_name}")
+        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,setup FROM powertic.modbusqueries")
         rows = cursor.fetchall()
         settings = {}  # Inicializar configuración antes del bloque try
         forquery='('
@@ -115,7 +115,7 @@ def meter_param(table_name):
     return settings.get('serial_number')
 
 
-def reading_meter(table_name,sn):
+def reading_meter(sn):
     # Constantes
     PROJECT_DIR = Path(__file__).parent
     METER_DATA_PATH = PROJECT_DIR / 'meter_data.json'
@@ -125,7 +125,7 @@ def reading_meter(table_name,sn):
 
     # Extracting Modbus addresses from the CSV
     with conn.cursor() as cursor:
-        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM {table_name}")
+        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM powertic.measurements")
         rows = cursor.fetchall()
         print(rows)
         address = []

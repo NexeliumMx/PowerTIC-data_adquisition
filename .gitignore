@@ -1,7 +1,7 @@
 # branch gitignore
 .github/
 PowerTIC-WebApp/
-Rapberry/
+
 readme.md
 
 .venv

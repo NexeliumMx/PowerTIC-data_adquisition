@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS ModbusQueries (
 
 CREATE TABLE IF NOT EXISTS Measurements (
   idMeasurements SERIAL PRIMARY KEY,
-  "Timestamp" TEXT NOT NULL,
+  "timestamp" TEXT NOT NULL,
   amps_total SMALLINT NOT NULL,
   amps_phase_a SMALLINT NOT NULL,
   amps_phase_b SMALLINT NOT NULL,
@@ -97,14 +97,14 @@ CREATE TABLE IF NOT EXISTS Measurements (
   total_var_hours_imported_q2_phase_a INT NOT NULL,
   total_var_hours_imported_q2_phase_b INT NOT NULL,
   total_var_hours_imported_q2_phase_c INT NOT NULL,
-  total_var_hours_imported_q3 INT NOT NULL,
-  total_var_hours_imported_q3_phase_a INT NOT NULL,
-  total_var_hours_imported_q3_phase_b INT NOT NULL,
-  total_var_hours_imported_q3_phase_c INT NOT NULL,
-  total_var_hours_imported_q4 INT NOT NULL,
-  total_var_hours_imported_q4_phase_a INT NOT NULL,
-  total_var_hours_imported_q4_phase_b INT NOT NULL,
-  total_var_hours_imported_q4_phase_c INT NOT NULL,
+  total_var_hours_exported_q3 INT NOT NULL,
+  total_var_hours_exported_q3_phase_a INT NOT NULL,
+  total_var_hours_exported_q3_phase_b INT NOT NULL,
+  total_var_hours_exported_q3_phase_c INT NOT NULL,
+  total_var_hours_exported_q4 INT NOT NULL,
+  total_var_hours_exported_q4_phase_a INT NOT NULL,
+  total_var_hours_exported_q4_phase_b INT NOT NULL,
+  total_var_hours_exported_q4_phase_c INT NOT NULL,
   SerialNumb TEXT NOT NULL,
   FOREIGN KEY (SerialNumb)
     REFERENCES Meters (SerialNumb)

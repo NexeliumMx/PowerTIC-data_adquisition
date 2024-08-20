@@ -6,30 +6,30 @@ SET search_path TO PowerTIC;
 CREATE TABLE IF NOT EXISTS Locations (
   LocationID SMALLINT PRIMARY KEY,
   NumbMeters INT,
-  Name TEXT NOT NULL
+  "Name" TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Meters (
-  SerialNumb TEXT PRIMARY KEY,
+  serial_number TEXT PRIMARY KEY,
   sunspec_id TEXT NOT NULL,
-  identif TEXT NOT NULL,
-  Manufacturer TEXT NOT NULL,
-  Model TEXT NOT NULL,
-  Vers TEXT NOT NULL,
+  id TEXT NOT NULL,
+  manufacturer TEXT NOT NULL,
+  model TEXT NOT NULL,
+  "version" TEXT NOT NULL,
   Locations_LocationID SMALLINT NOT NULL,
   RegisterYear SMALLINT NOT NULL,
   FOREIGN KEY (Locations_LocationID)
     REFERENCES Locations (LocationID)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  UNIQUE (SerialNumb, Locations_LocationID)
+  UNIQUE (serial_number, Locations_LocationID)
 );
 
 CREATE TABLE IF NOT EXISTS ModbusQueries (
   Serial INT PRIMARY KEY,
   modbus_Address JSONB NOT NULL,
   parameter_description TEXT NOT NULL,
-  standard TEXT NOT NULL,
+  "standard" TEXT NOT NULL,
   data_type TEXT NOT NULL,
   data_range TEXT NOT NULL,
   model TEXT NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Measurements (
   amps_phase_a SMALLINT NOT NULL,
   amps_phase_b SMALLINT NOT NULL,
   amps_phase_c SMALLINT NOT NULL,
-  volatge_ln_average SMALLINT NOT NULL,
+  voltage_ln_average SMALLINT NOT NULL,
   phase_voltage_an SMALLINT NOT NULL,
   phase_voltage_bn SMALLINT NOT NULL,
   phase_voltage_cn SMALLINT NOT NULL,
@@ -105,9 +105,9 @@ CREATE TABLE IF NOT EXISTS Measurements (
   total_var_hours_exported_q4_phase_a INT NOT NULL,
   total_var_hours_exported_q4_phase_b INT NOT NULL,
   total_var_hours_exported_q4_phase_c INT NOT NULL,
-  SerialNumb TEXT NOT NULL,
-  FOREIGN KEY (SerialNumb)
-    REFERENCES Meters (SerialNumb)
+  serial_number TEXT NOT NULL,
+  FOREIGN KEY (serial_number)
+    REFERENCES Meters (serial_number)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );

@@ -9,8 +9,8 @@ import psycopg2
 conn = psycopg2.connect(
     user="postgres",
     host="localhost",
-    database="powerTic",
-    password="Tono2002",  # luis: Tono2002 //Arturo: 2705
+    database="powerticapp",
+    password="postgres",  # luis: Tono2002 //Arturo: 2705
     port=5432
 )
 print('Connected to the database.')

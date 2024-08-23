@@ -9,7 +9,7 @@
  */
 
 // Import the Firebase app and other required functions from firebaseSDK.mjs
-import app from '../../../firebaseSDK.mjs';
+import app from '../../../firebaseSDK.js';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 // Initialize Firestore

@@ -113,7 +113,7 @@ def reading_meter(sn):
     # Asegurar que el archivo de datos del medidor existe
     METER_DATA_PATH.touch(exist_ok=True)
     data = {}
-    if not os.path.exists('temp.txt'):
+    if not os.path.exists(r'Rapberry/temp.txt'):
         f=open(r"Rapberry/temp.txt","x")
     else:
         f=os.remove(r"Rapberry/temp.txt")

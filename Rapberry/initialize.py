@@ -5,7 +5,7 @@ print("start")
 
 print('Connected to the database.')
 
-if not os.isdir(r'/Rapberry/sn.txt'):
+if not os.path.exists(r'/Rapberry/sn.txt'):
     SN=meter_param()
     f=open(r"Rapberry/sn.txt","x")
     f.write(SN)

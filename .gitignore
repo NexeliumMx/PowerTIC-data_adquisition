@@ -1,7 +1,7 @@
 # branch gitignore
 .github/
 PowerTIC-WebApp/
-
+sn.txt
 readme.md
 
 .venv

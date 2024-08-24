@@ -4,7 +4,7 @@ import time
 import json
 from pathlib import Path
 import psycopg2
-
+import os
 #PostgreSQL Init
 conn = psycopg2.connect(
     user="postgres",
@@ -28,15 +28,7 @@ serialnumb=''
 def meter_param():
     # Constantes
     SETTINGS_DIR = Path(__file__).parent
-    SETTINGS_PATH = SETTINGS_DIR / 'settingsData.json'
-
-    # Asegurar que el archivo de configuración existe
-    SETTINGS_PATH.touch(exist_ok=True)
-    
-    # Inicializar el archivo de configuración si está vacío
-    if SETTINGS_PATH.stat().st_size == 0:
-        with open(SETTINGS_PATH, 'w') as f:
-            json.dump({}, f, indent=4)
+    tempquery = SETTINGS_DIR / 'tempquery.txt'
             
     with conn.cursor() as cursor:
         cursor.execute(f"SELECT parameter_description, modbus_address, register_number,setup FROM powertic.modbusqueries")
@@ -100,13 +92,12 @@ def meter_param():
             finally:
                 client.close()
             # Almacenamiento local de configuración
-            with open(SETTINGS_PATH, 'w') as f:
-                json.dump(settings, f, indent=4)
+            fil=open(tempquery, 'x')
             forquery+=', registeryear,locations_locationid)'
             forqueryVal+=',\''+str(time.ctime(time.time()))+'\',0)'
             print(forquery)
             print(forqueryVal)
-            cursor.execute(f'insert into powertic.meters '+forquery+'values'+forqueryVal)
+            fil.write('insert into powertic.meters '+forquery+'values'+forqueryVal)
             conn.commit()
         else:
             print("Error de conexión con el medidor")
@@ -122,7 +113,11 @@ def reading_meter(sn):
     # Asegurar que el archivo de datos del medidor existe
     METER_DATA_PATH.touch(exist_ok=True)
     data = {}
-
+    if not os.path.exists('temp.txt'):
+        f=open(r"Rapberry/temp.txt","x")
+    else:
+        f=os.remove(r"Rapberry/temp.txt")
+        f=open(r"Rapberry/temp.txt","x")
     # Extracting Modbus addresses from the CSV
     with conn.cursor() as cursor:
         cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM powertic.modbusqueries")
@@ -181,12 +176,13 @@ def reading_meter(sn):
             finally:
                 client.close()
                 forquery+=', Timestamp,serialnumb)'
-                forqueryVal+=','+str(time.time())+',\''+sn+'\')'
+                timestamp=str(time.time())
+                forqueryVal+=','+timestamp+')'
                 print(forquery)
                 print(forqueryVal)
                 with open(METER_DATA_PATH, 'w') as f:
                     json.dump(data, f, indent=4)
-                cursor.execute(f'insert into powerTic.measurements '+forquery+'values'+forqueryVal)
+                f.write('insert into powerTic.measurements '+forquery+'values'+forqueryVal)
                 conn.commit()
                 return METER_DATA_PATH
             

@@ -10,7 +10,8 @@ def uploadloc(path):
     f=open(path,'r')
     q=f.read()
     query=conn.cursor(q)
-    query.execute()
+    query.execute(q)
+    conn.commit()
 def uploadcloud(path):
     conn = psycopg2.connect(
     user="superadmin",
@@ -23,3 +24,4 @@ def uploadcloud(path):
     q=f.read()
     query=conn.cursor(q)
     query.execute(q)
+    conn.commit()

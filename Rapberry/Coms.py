@@ -102,7 +102,6 @@ def meter_param():
             print(forquery)
             print(forqueryVal)
             f.write('insert into powertic.meters '+forquery+'values'+forqueryVal)
-            conn.commit()
         else:
             print("Error de conexión con el medidor")
     

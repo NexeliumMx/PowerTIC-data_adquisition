@@ -1,10 +1,10 @@
 from Coms import meter_param
 import os
 from upload import uploadloc,uploadcloud
-print("start")
+print("codigo")
 
 
-if not os.path.exists(r'/Rapberry/sn.txt'):
+if not os.path.exists(r'Rapberry/sn.txt'):
     SN=meter_param()
     f=open(r"Rapberry/sn.txt","x")
     f.write(SN)

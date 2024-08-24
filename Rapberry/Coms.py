@@ -92,12 +92,16 @@ def meter_param():
             finally:
                 client.close()
             # Almacenamiento local de configuración
-            fil=open(tempquery, 'x')
+            if not os.path.exists(r'Rapberry/temp.txt'):
+                f=open(r"Rapberry/temp.txt","x")
+            else:
+                f=os.remove(r"Rapberry/temp.txt")
+                f=open(r"Rapberry/temp.txt","x")
             forquery+=', registeryear,locations_locationid)'
             forqueryVal+=',\''+str(time.ctime(time.time()))+'\',0)'
             print(forquery)
             print(forqueryVal)
-            fil.write('insert into powertic.meters '+forquery+'values'+forqueryVal)
+            f.write('insert into powertic.meters '+forquery+'values'+forqueryVal)
             conn.commit()
         else:
             print("Error de conexión con el medidor")

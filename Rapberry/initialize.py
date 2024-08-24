@@ -3,7 +3,6 @@ import os
 from upload import uploadloc,uploadcloud
 print("start")
 
-print('Connected to the database.')
 
 if not os.path.exists(r'/Rapberry/sn.txt'):
     SN=meter_param()

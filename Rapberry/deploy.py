@@ -10,11 +10,11 @@ if  os.path.exists(r'/Rapberry/sn.txt'):
         uploadloc(r'Rapberry/temp.txt')
     except Exception as e: 
     # Save the error message to a file 
-        with open('error_logloc.txt', 'a') as l: 
+        with open(r'Rapberry/error_logloc.txt', 'a') as l: 
             l.write(str(e) + '\n')
         print('not able to upload locally')
     try :
-        with open('error_logcloud.txt', 'a') as l: 
+        with open(r'Rapberry/error_logcloud.txt', 'a') as l: 
             l.write(str(e) + '\n')
         uploadcloud(r'Rapberry/temp.txt')
     except:

@@ -22,4 +22,4 @@ def uploadcloud(path):
     f=open(path,'r')
     q=f.read()
     query=conn.cursor(q)
-    query.execute()
+    query.execute(q)

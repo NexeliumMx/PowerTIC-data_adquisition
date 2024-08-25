@@ -9,7 +9,7 @@ if not os.path.exists(r'Rapberry/sn.txt'):
     f=open(r"Rapberry/sn.txt","x")
     f.write(SN)
     try:
-        uploadloc(r'Rapberry/tempquery.txt')
+        uploadloc(r'Rapberry/temp.txt')
     except Exception as e: 
     # Save the error message to a file 
         with open(r'Rapberry/error_logloc.txt', 'a') as l: 
@@ -18,9 +18,9 @@ if not os.path.exists(r'Rapberry/sn.txt'):
     try :
         with open(r'Rapberry/error_logcloud.txt', 'a') as l: 
             l.write(str(e) + '\n')
-        uploadcloud(r'Rapberry/tempquery.txt')
+        uploadcloud(r'Rapberry/temp.txt')
     except:
         print('not able to upload to cloud')
-    os.remove(r'Rapberry/tempquery.txt')
+    os.remove(r'Rapberry/temp.txt')
 else :
     print('already exists')

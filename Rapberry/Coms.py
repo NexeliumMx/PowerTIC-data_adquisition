@@ -173,7 +173,7 @@ def reading_meter(sn):
                 print("Exception:", e)
             finally:
                 client.close()
-                forquery+=', Timestamp,serialnumb)'
+                forquery+=', Timestamp,serial_number)'
                 timestamp=str(time.time())
                 forqueryVal+=','+timestamp+')'
                 print(forquery)

@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Meters (
   model TEXT NOT NULL,
   "version" TEXT NOT NULL,
   Locations_LocationID SMALLINT NOT NULL,
-  RegisterYear SMALLINT NOT NULL,
+  RegisterYear TEXT NOT NULL,
   FOREIGN KEY (Locations_LocationID)
     REFERENCES Locations (LocationID)
     ON DELETE NO ACTION

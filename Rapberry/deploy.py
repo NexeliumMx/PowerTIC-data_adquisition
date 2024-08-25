@@ -5,7 +5,7 @@ fil = open(r"Rapberry/sn.txt", "r")
 sn= fil.read()
 if  os.path.exists(r'Rapberry/sn.txt'):
     f=open(r"Rapberry/sn.txt","r")
-    sn=f.read
+    sn=f.read()
     reading_meter(sn)
     try:
         uploadloc(r'Rapberry/temp.txt')

@@ -3,7 +3,7 @@ import os
 from upload import uploadcloud,uploadloc
 fil = open(r"Rapberry/sn.txt", "r")
 sn= fil.read()
-if  os.path.exists(r'/Rapberry/sn.txt'):
+if  os.path.exists(r'Rapberry/sn.txt'):
     f=open(r"Rapberry/sn.txt","r")
     SN=reading_meter(f.read())
     try:

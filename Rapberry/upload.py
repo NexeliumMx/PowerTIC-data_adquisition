@@ -9,7 +9,7 @@ def uploadloc(path):
 )
     f=open(path,'r')
     q=f.read()
-    query=conn.cursor(q)
+    query=conn.cursor()
     query.execute(q)
     conn.commit()
 def uploadcloud(path):
@@ -22,6 +22,6 @@ def uploadcloud(path):
 )
     f=open(path,'r')
     q=f.read()
-    query=conn.cursor(q)
+    query=conn.cursor()
     query.execute(q)
     conn.commit()

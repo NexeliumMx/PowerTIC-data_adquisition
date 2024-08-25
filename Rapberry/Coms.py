@@ -97,7 +97,7 @@ def meter_param():
             else:
                 f=os.remove(r"Rapberry/temp.txt")
                 f=open(r"Rapberry/temp.txt","x")
-            forquery+=', registeryear,locations_locationid)'
+            forquery+=', registeryear,locationid)'
             forqueryVal+=',\''+str(time.ctime(time.time()))+'\',0)'
             print(forquery)
             print(forqueryVal)

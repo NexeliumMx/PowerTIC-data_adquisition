@@ -8,7 +8,6 @@ if not os.path.exists(r'Rapberry/sn.txt'):
     SN=meter_param()
     f=open(r"Rapberry/sn.txt","x")
     f.write(SN)
-    uploadloc(r'Rapberry/temp.txt')
     try:
         uploadloc(r'Rapberry/temp.txt')
     except Exception as e: 
@@ -18,7 +17,7 @@ if not os.path.exists(r'Rapberry/sn.txt'):
         print('not able to upload locally')
     try :
         uploadcloud(r'Rapberry/temp.txt')
-    except:
+    except Exception as e:
         with open(r'Rapberry/error_logcloud.txt', 'a') as l: 
             l.write(str(e) + '\n')
         print('not able to upload to cloud')

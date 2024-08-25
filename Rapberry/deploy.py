@@ -19,7 +19,7 @@ if  os.path.exists(r'/Rapberry/sn.txt'):
         uploadcloud(r'Rapberry/temp.txt')
     except:
         print('not able to upload to cloud')
-    os.remove(r'Rapberry/temp.txt')
+    #os.remove(r'Rapberry/temp.txt')
 else :
     print('run imprint')
 

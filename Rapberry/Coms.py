@@ -116,11 +116,6 @@ def reading_meter(sn):
     # Asegurar que el archivo de datos del medidor existe
     METER_DATA_PATH.touch(exist_ok=True)
     data = {}
-    if not os.path.exists(r'Rapberry/temp.txt'):
-        f=open(r"Rapberry/temp.txt","x")
-    else:
-        f=os.remove(r"Rapberry/temp.txt")
-        f=open(r"Rapberry/temp.txt","x")
     # Extracting Modbus addresses from the CSV
     with conn.cursor() as cursor:
         cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM powertic.modbusqueries")
@@ -183,8 +178,11 @@ def reading_meter(sn):
                 forqueryVal+=','+timestamp+')'
                 print(forquery)
                 print(forqueryVal)
-                with open(METER_DATA_PATH, 'w') as f:
-                    json.dump(data, f, indent=4)
+                if not os.path.exists(r'Rapberry/temp.txt'):
+                    f=open(r"Rapberry/temp.txt","x")
+                else:
+                    f=os.remove(r"Rapberry/temp.txt")
+                    f=open(r"Rapberry/temp.txt","x")
                 f.write('insert into powerTic.measurements '+forquery+'values'+forqueryVal)
                 conn.commit()
                 return METER_DATA_PATH

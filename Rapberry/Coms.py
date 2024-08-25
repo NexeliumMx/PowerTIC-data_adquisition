@@ -175,7 +175,7 @@ def reading_meter(sn):
                 client.close()
                 forquery+=', Timestamp,serial_number)'
                 timestamp=str(time.time())
-                forqueryVal+=','+timestamp+','+str(sn)+')'
+                forqueryVal+=','+timestamp+',\''+str(sn)+'\')'
                 print(forquery)
                 print(forqueryVal)
                 if not os.path.exists(r'Rapberry/temp.txt'):

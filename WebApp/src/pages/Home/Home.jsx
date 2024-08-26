@@ -6,8 +6,8 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ backgroundColor: 'white', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      <h1>Home Title H1</h1>
+    <div className='home-container'>
+      <h1>Title H1</h1>
       <h2>Title h2</h2>
       <h3>Title h3</h3>
       <h4>Title h4</h4>

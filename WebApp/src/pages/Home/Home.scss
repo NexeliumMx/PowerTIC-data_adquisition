@@ -1,5 +1,14 @@
 @import '../../styles/variables';
 
+.home-container {
+  background-color: $color1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .button-color1 {
   background-color: $color1;
   color: white;

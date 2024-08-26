@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NotFound from './pages/NotFound/NotFound';
 import './styles/global.scss';  // Import the global stylesheet
+import 'boxicons/css/boxicons.min.css';  // Import the Boxicons styles
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

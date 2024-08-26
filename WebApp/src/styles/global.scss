@@ -1,0 +1,30 @@
+@import 'variables';
+@import 'mixins';
+
+h1 {
+  font-family: $font-h1;
+}
+
+h2 {
+  font-family: $font-h2;
+}
+
+h3 {
+  font-family: $font-h3;
+}
+
+h4 {
+  font-family: $font-h4;
+}
+
+h5 {
+  font-family: $font-h5;
+}
+
+h6 {
+  font-family: $font-h6;
+}
+
+p {
+  font-family: $font-p;
+}

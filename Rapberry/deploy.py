@@ -36,7 +36,7 @@ else :
 if os.path.exists(r'Rapberry/failedcqueries.txt'):
     try:
         t=open(r'Rapberry/failedcqueries.txt')
-        text=str(t.readlines())
+        text=(t.readlines())
         for a in text:
             print(encript(a))
             print('sent 1')

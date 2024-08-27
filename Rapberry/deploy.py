@@ -17,7 +17,7 @@ if  os.path.exists(r'Rapberry/sn.txt'):
         with open(r'Rapberry/error_logloc.txt', 'a') as l: 
             l.write(str(e) + '\n')
         print('not able to upload locally')
-        with open(r'Rapberry/failedlqueries', 'a') as l: 
+        with open(r'Rapberry/failedlqueries.txt', 'a') as l: 
             l.write(str(encript(q)) + '/')
     try :
         uploadcloud(r'Rapberry/temp.txt')
@@ -25,7 +25,7 @@ if  os.path.exists(r'Rapberry/sn.txt'):
         with open(r'Rapberry/error_logcloud.txt', 'a') as l: 
             l.write(str(e) + '\n')
         print('not able to upload to cloud')
-        with open(r'Rapberry/failedcqueries', 'a') as l: 
+        with open(r'Rapberry/failedcqueries.txt', 'a') as l: 
             l.write(str(encript(q)) + '/')
     os.remove(r'Rapberry/temp.txt')
 else :

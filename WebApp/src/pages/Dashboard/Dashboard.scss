@@ -1,4 +1,5 @@
-/* src/pages/Dashboard/Dashboard.scss */
+/* Dashboard.scss */
+
 @import '../../styles/variables';
 
 .dashboard-container {
@@ -8,7 +9,7 @@
 
 .dashboard-content {
   flex: 1; /* Take up the remaining space */
-  padding: 2rem;
+  padding: 0rem;
   transition: margin-left 0.3s ease;
 }
 
@@ -18,4 +19,23 @@
 
 .sidebar-container:not(.collapsed) + .dashboard-content {
   margin-left: $sidebar-expanded-width; /* Use the variable for expanded width */
+}
+
+.small-tiles-container {
+  background-color: pink;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  .tile-container {
+    flex: 1; /* Make each tile take up an equal amount of space */
+    min-width: 0; /* Ensure the tiles don't overflow */
+  }
+}
+.big-tiles-container {
+  background-color: yellow;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
 }

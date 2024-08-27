@@ -19,3 +19,12 @@
 .sidebar-container:not(.collapsed) + .dashboard-content {
   margin-left: $sidebar-expanded-width; /* Use the variable for expanded width */
 }
+
+.small-tiles-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Ensures the tiles wrap if the screen size is too small */
+  background-color: pink;
+  padding: 0rem;
+  box-sizing: border-box;
+}

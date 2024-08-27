@@ -183,7 +183,7 @@ def reading_meter(sn):
                 else:
                     f=os.remove(r"Rapberry/temp.txt")
                     f=open(r"Rapberry/temp.txt","x")
-                f.write('insert into powerTic.measurements '+forquery+'values'+forqueryVal)
+                f.write('insert into powerTic.measurements '+forquery+' values'+forqueryVal)
                 conn.commit()
                 return METER_DATA_PATH
             

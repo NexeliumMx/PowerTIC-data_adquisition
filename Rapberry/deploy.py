@@ -29,7 +29,7 @@ if  os.path.exists(r'Rapberry/sn.txt'):
             l.write(str(e) + '\n')
         print('not able to upload to cloud')
         with open(r'Rapberry/failedcqueries.txt', 'a') as l: 
-            l.write(str(encript(encript(q))) + '/')
+            l.write(str((encript(q))) + '/')
     os.remove(r'Rapberry/temp.txt')
 else :
     print('run imprint')

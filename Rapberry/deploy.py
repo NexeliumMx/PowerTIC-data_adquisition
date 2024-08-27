@@ -38,8 +38,8 @@ if os.path.exists(r'Rapberry/failedcqueries.txt'):
         t=open(r'Rapberry/failedcqueries.txt')
         text=str(t.read())
         b=text.split('/')
-        print(b)
         for a in b:
+            print('sent 1')
             uploadcloudback(str(encript(a)))
     except Exception as e:
         with open(r'Rapberry/error_logback.txt', 'a') as l: 

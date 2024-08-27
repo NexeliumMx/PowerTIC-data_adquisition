@@ -1,0 +1,40 @@
+@import '../../styles/variables';
+
+.home-container {
+  background-color: $color1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-color1 {
+  background-color: $color1;
+  color: white;
+}
+
+.button-color2 {
+  background-color: $color2;
+  color: white;
+}
+
+.button-color3 {
+  background-color: $color3;
+  color: white;
+}
+
+.button-color4 {
+  background-color: $color4;
+  color: white;
+}
+
+.button-color5 {
+  background-color: $color5;
+  color: black; /* Use black text for contrast */
+}
+
+.button-color6 {
+  background-color: $color6;
+  color: black; /* Black text on white background */
+}

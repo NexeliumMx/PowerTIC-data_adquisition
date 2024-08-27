@@ -1,0 +1,30 @@
+/* src/pages/Dashboard/Dashboard.scss */
+@import '../../styles/variables';
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+.dashboard-content {
+  flex: 1; /* Take up the remaining space */
+  padding: 0rem;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar-container.collapsed + .dashboard-content {
+  margin-left: $sidebar-collapsed-width; /* Use the variable for collapsed width */
+}
+
+.sidebar-container:not(.collapsed) + .dashboard-content {
+  margin-left: $sidebar-expanded-width; /* Use the variable for expanded width */
+}
+
+.small-tiles-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Ensures the tiles wrap if the screen size is too small */
+  background-color: pink;
+  padding: 0rem;
+  box-sizing: border-box;
+}

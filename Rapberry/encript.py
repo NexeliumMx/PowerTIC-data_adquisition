@@ -4,5 +4,5 @@ def encript(value):
     print(key)
     out=''
     for i in range(0,len(value)):
-        out+=str(int(value[i])^int(key[(i)%len(key)]))[0]
+        out+=chr(ord(value[i])^ord(key[(i)%len(key)]))
     return out

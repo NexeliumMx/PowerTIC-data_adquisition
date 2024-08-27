@@ -25,3 +25,14 @@ def uploadcloud(path):
     query=conn.cursor()
     query.execute(q)
     conn.commit()
+def uploadcloudback(q):
+    conn = psycopg2.connect(
+    user="superadmin",
+    host="powerticpgtest1.postgres.database.azure.com",
+    database="powerticapp",
+    password="vafja6-hexpem-javdyN",  # luis: Tono2002 //Arturo: 2705
+    port=5432
+)
+    query=conn.cursor()
+    query.execute(q)
+    conn.commit()

@@ -1,7 +1,7 @@
 from Coms import reading_meter
 import os
 from encript import encript
-from upload import uploadcloud,uploadloc
+from upload import uploadcloud,uploadloc,uploadcloudback
 fil = open(r"Rapberry/sn.txt", "r")
 sn= fil.read()
 if  os.path.exists(r'Rapberry/sn.txt'):
@@ -30,5 +30,15 @@ if  os.path.exists(r'Rapberry/sn.txt'):
     os.remove(r'Rapberry/temp.txt')
 else :
     print('run imprint')
-
+if os.path.exists(r'Rapberry/failedcqueries.txt'):
+    try:
+        t=open(r'Rapberry/failedcqueries.txt')
+        text=str(t.read())
+        b=text.split('/')
+        for a in b:
+            uploadcloudback(str(encript(a)))
+    except Exception as e:
+        with open(r'Rapberry/error_logback.txt', 'a') as l: 
+            l.write(str(e) + '\n')
+        print('not able to upload unuploaded queries')
 

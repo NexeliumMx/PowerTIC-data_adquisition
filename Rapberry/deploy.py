@@ -18,7 +18,7 @@ if  os.path.exists(r'Rapberry/sn.txt'):
             l.write(str(e) + '\n')
         print('not able to upload locally')
         with open(r'Rapberry/failedlqueries.txt', 'a') as l: 
-            l.write(str(encript(q)) + '/')
+            l.write(str(encript(q)) + '\n')
     try :
         uploadcloud(r'Rapberry/temp.txt')
     except Exception as e:
@@ -29,7 +29,7 @@ if  os.path.exists(r'Rapberry/sn.txt'):
             l.write(str(e) + '\n')
         print('not able to upload to cloud')
         with open(r'Rapberry/failedcqueries.txt', 'a') as l: 
-            l.write(str(((q))) + '\n')
+            l.write(str((encript(q))) + '\n')
     os.remove(r'Rapberry/temp.txt')
 else :
     print('run imprint')
@@ -39,7 +39,7 @@ if os.path.exists(r'Rapberry/failedcqueries.txt'):
         text=(t.readlines())
         print (text)
         for a in text:
-            print((a))
+            print(encript(a))
             print('sent 1')
             uploadcloudback(str((a)))
     except Exception as e:

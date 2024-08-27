@@ -1,6 +1,6 @@
 // src/pages/Dashboard/components/Configuracion.jsx
 import React from 'react';
-import Tile from './Tile'; // Import the Tile component
+import Tile from './Tileconfig'; // Import the Tile component
 import './Configuración.scss';
 
 

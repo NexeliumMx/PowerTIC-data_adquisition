@@ -21,7 +21,7 @@ if  os.path.exists(r'Rapberry/sn.txt'):
             l.write(str(encript(q)) + '/')
     try :
         uploadcloud(r'Rapberry/temp.txt')
-    except:
+    except Exception as e:
         with open(r'Rapberry/error_logcloud.txt', 'a') as l: 
             l.write(str(e) + '\n')
         print('not able to upload to cloud')

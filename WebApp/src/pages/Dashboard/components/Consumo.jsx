@@ -1,7 +1,7 @@
-// src/pages/Dashboard/components/Consumo.jsx
 import React from 'react';
 import Tile from './Tile'; // Import the Tile component
 import { Activity, BatteryCharging, Gauge, Clock } from 'lucide-react';
+import './Consumo.scss'; // Import the styles for Consumo
 
 const Consumo = () => {
   return (

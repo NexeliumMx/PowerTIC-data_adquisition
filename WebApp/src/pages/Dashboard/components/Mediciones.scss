@@ -1,0 +1,38 @@
+@import '../../../styles/variables';
+
+.mediciones-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0rem; /* Adjust spacing between columns */
+  height: 20rem; /* Ensure the container takes the full height */
+}
+
+.mediciones-left,
+.mediciones-center,
+.mediciones-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Adjust spacing between tiles */
+}
+
+.mediciones-left {
+  background-color: red;
+  flex: 1; /* Adjust flex values to distribute space between columns */
+}
+
+.mediciones-center {
+  background-color: green;
+  flex: 1;
+}
+
+.mediciones-right {
+  background-color: blue;
+  flex: 1;
+  justify-content: space-between;
+}
+
+/* Make the Potencias tile take the full height of its container */
+.mediciones-right > .tile-container {
+  flex-grow: 1;
+  height: 100%;
+}

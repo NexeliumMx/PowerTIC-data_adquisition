@@ -1,0 +1,32 @@
+@import '../../../styles/variables';
+
+/* Tile.scss */
+.tile-container {
+  background-color: $color2;
+  border-radius: 10px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  margin: 1rem;
+}
+
+.tile-header {
+  display: flex;
+  align-items: center;
+}
+
+.tile-icon {
+  margin-right: 0.5rem;
+  font-size: 1.5rem; /* Adjust icon size if necessary */
+}
+
+.tile-title {
+  font-family: $font-h3;
+}
+
+.tile-content {
+  margin-top: 1rem;
+  font-family: $font-p;
+}

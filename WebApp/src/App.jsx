@@ -6,6 +6,7 @@ import Home from './pages/Home/Home.jsx';
 import LoadCenter from './pages/LoadCenter/LoadCenter.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
 import Users from './pages/Users/Users.jsx';
+import TestPage from './pages/TestPage/TestPage.jsx';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Route path="/load-center" element={<LoadCenter />} />
       <Route path="/users" element={<Users />} />
       <Route path="*" element={<NotFound />} />
+      <Route path="/testpage" element={<TestPage />} />
     </Routes>
   );
 };

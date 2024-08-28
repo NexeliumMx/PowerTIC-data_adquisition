@@ -24,11 +24,11 @@ function Sidebar() {
       <ul className="sidebar-menu">
         <li>
           <i className="bx bx-building-house"></i> 
-          <span>Centroa de Carga</span>
+          <span>Centros de Carga</span>
         </li>
         <li>
           <i className="bx bx-building-house"></i> 
-          <span>CDashboard</span>
+          <span>Dashboard</span>
         </li>
         <li>
           <i className="bx bx-building-house"></i> 
@@ -48,7 +48,7 @@ function Sidebar() {
         </li>
         <li>
           <i className="bx bx-building-house"></i> 
-          <span>Descarga</span>
+          <span>Descargas</span>
         </li>
       </ul>
     </div>

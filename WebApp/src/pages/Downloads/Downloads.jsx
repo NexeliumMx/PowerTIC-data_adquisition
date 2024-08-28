@@ -5,9 +5,9 @@ import './Downloads.scss';
 
 function Downloads() {
   return (
-    <div className="page-container">
+    <div className="downloads-container">
       <Sidebar />
-      <div className="page-content">
+      <div className="downloads-content">
         <Navbar title="Downloads" />
         {/* The rest of the page will be blank */}
       </div>

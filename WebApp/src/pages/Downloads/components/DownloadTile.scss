@@ -1,0 +1,37 @@
+@import '../../../styles/variables';
+
+.download-tile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1A2B44;
+    border-radius: 10px;
+    border: 1px solid #3A4D6D;
+    padding: 10px;
+    color: #ffffff;
+  }
+  
+  .download-tile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1; /* Ocupa igual espacio para cada sección */
+    text-align: center;
+  }
+  
+  .download-tile-label {
+    font-size: 0.75rem;
+    color: #8F98A8;
+    margin-bottom: 0.5rem;
+  }
+  
+  .download-tile-value {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .download-tile-icon .download-tile-value {
+    font-size: 2rem; /* Tamaño mayor para el ícono */
+    color: #76c7c0; /* Color del ícono */
+  }
+  

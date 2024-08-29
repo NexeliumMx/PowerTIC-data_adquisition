@@ -1,9 +1,7 @@
-import React from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
-import './LoadCenter.scss';
 
-function LoadCenter() {
+export default function LoadCenter() {
   return (
     <div className="page-container">
       <Sidebar />
@@ -14,5 +12,3 @@ function LoadCenter() {
     </div>
   );
 }
-
-export default LoadCenter;

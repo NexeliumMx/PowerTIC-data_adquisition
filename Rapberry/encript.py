@@ -1,6 +1,6 @@
 def encript(value):
     f=open(r"Rapberry/sn.txt","r")
-    key=str(hash(str(f.read())))
+    key=str(hash(str(f.read()).strip('\n')))
     
     out=''
     for i in range(0,len(value)):

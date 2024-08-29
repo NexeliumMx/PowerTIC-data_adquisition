@@ -1,0 +1,32 @@
+@import '../../styles/variables';
+
+.page-container {
+  background-color: aquamarine;
+  display: flex;
+  height: 100vh; /* Ensure full viewport height */
+  
+}
+
+.page-content {
+  flex: 1;
+  overflow-y: auto; /* Allow the content to scroll independently */
+  //*** Elemenate this code *** 
+  background-color: rgb(80, 73, 64);
+  //*** Elemenate this code *** 
+}
+
+
+
+//*** Elemenate this code *** 
+.lorem-container{
+  background-color: red;
+}
+
+.text-container{
+  background-color: blue;
+}
+
+.buttons-container{
+  background-color: green;
+}
+//*** Elemenate this code *** 

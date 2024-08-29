@@ -7,7 +7,7 @@ def rundeploy():
     sn= fil.read()
     if  os.path.exists(r'vals/sn.txt'):
         f=open(r"vals/sn.txt","r")
-        sn=f.read()
+        sn=f.readline(1)
         print('seviene')
         print(sn)
         reading_meter(sn)

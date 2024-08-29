@@ -1,6 +1,7 @@
 @import '../../../styles/variables';
 
 .header-container {
+    background-color: fade-out($color:purple, $amount: 1);
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -8,3 +9,4 @@
   align-items: center;
   padding: 0 2rem;
 }
+

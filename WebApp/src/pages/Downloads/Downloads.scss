@@ -1,28 +1,25 @@
 @import '../../styles/variables';
 
-.dowloads-tile-container{
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas con el ancho ajustado */
-  grid-template-rows: repeat(6,auto); /* Seis filas automáticas */
-  gap: 1rem; /* Espacio entre las columnas y filas */
-  padding: 20px;
-  background-color: #1A2B44; /* color de fondo oscuro */
-  border-radius: 10px;
-  border: 1px solid #3A4D6D; /* color de borde similar al diseño */
+.page-container {
+  display: flex;
+  height: 100vh;
 }
 
-.downloads-ENE,
-.downloads-FEB,
-.downloads-MAR,
-.downloads-ABR,
-.downloads-MAY,
-.downloads-JUN,
-.downloads-JUL,
-.downloads-AGO,
-.downloads-SEPT,
-.downloads-OCT,
-.downloads-NOV,
-.downloads-DIC {
+.page-content {
+  flex: 1;
+  padding: 0rem;
+  transition: margin-left 0.2s ease-out;
+}
+
+.downloads-tile-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
+  grid-template-rows: repeat(6, auto); /* Seis filas automáticas */
+  gap: 1rem; /* Espacio entre los tiles */
+  padding: 20px;
+}
+
+.download-tile {
   background-color: #2B3A5A;
   border-radius: 5px;
   border: 1px solid #3A4D6D;
@@ -31,74 +28,3 @@
   justify-content: space-between;
   align-items: center;
 }
-
-/* Primera columna: Enero a Junio */
-.downloads-ENE {
-  grid-column: 1 / 2; /* Primera columna */
-  grid-row: 1 / 2; /* Primera fila */
-}
-
-.downloads-FEB {
-  grid-column: 1 / 2; /* Primera columna */
-  grid-row: 2 / 3; /* Segunda fila */
-}
-
-.downloads-MAR {
-  grid-column: 1 / 2; /* Primera columna */
-  grid-row: 3 / 4; /* Tercera fila */
-}
-
-.downloads-ABR {
-  grid-column: 1 / 2; /* Primera columna */
-  grid-row: 4 / 5; /* Cuarta fila */
-}
-
-.downloads-MAY {
-  grid-column: 1 / 2; /* Primera columna */
-  grid-row: 5 / 6; /* Quinta fila */
-}
-
-.downloads-JUN {
-  grid-column: 1 / 2; /* Primera columna */
-  grid-row: 6 / 7; /* Sexta fila */
-}
-
-/* Segunda columna: Julio a Diciembre */
-.downloads-JUL {
-  grid-column: 2 / 3; /* Segunda columna */
-  grid-row: 1 / 2; /* Primera fila */
-}
-
-.downloads-AGO {
-  grid-column: 2 / 3; /* Segunda columna */
-  grid-row: 2 / 3; /* Segunda fila */
-}
-
-.downloads-SEPT {
-  grid-column: 2 / 3; /* Segunda columna */
-  grid-row: 3 / 4; /* Tercera fila */
-}
-
-.downloads-OCT {
-  grid-column: 2 / 3; /* Segunda columna */
-  grid-row: 4 / 5; /* Cuarta fila */
-}
-
-.downloads-NOV {
-  grid-column: 2 / 3; /* Segunda columna */
-  grid-row: 5 / 6; /* Quinta fila */
-}
-
-.downloads-DIC {
-  grid-column: 2 / 3; /* Segunda columna */
-  grid-row: 6 / 7; /* Sexta fila */
-}
-
-.sidebar-container.collapsed + .downloads-content {
-  margin-left: $sidebar-collapsed-width; /* Use the variable for collapsed width */
-}
-
-.sidebar-container:not(.collapsed) + .downloads-content {
-  margin-left: $sidebar-expanded-width; /* Use the variable for expanded width */
-}
-

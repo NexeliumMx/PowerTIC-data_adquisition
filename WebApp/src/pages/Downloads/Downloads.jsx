@@ -1,62 +1,35 @@
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
 import Header from './components/Header.jsx';
-import Tile from './components/DownloadTile';
-import { FileBarChartIcon } from 'lucide-react';
+import DownloadTile from './components/DownloadTile';
+import { FileBarChart } from 'lucide-react';
 import './Downloads.scss';
 
 
-export default function Downloads() {
-  return (
-    <div className="page-container">
-      <Sidebar />
-
-      <div className="page-content">
-        <Navbar title="Descargas"/>
-        <Header/>
-
-        <div classname="downloads-tile-container">
-          <div classname="downloads-ENE">
-             <Tile title= "Enero" year="2024"/>
-          </div>
-
-          <div classname="downloads-FEB">
-             <Tile title= "Febrero" year="2024"/>
-          </div>
-          <div classname="downloads-MAR">
-             <Tile title= "Marzo" year="2024"/>
-          </div>
-          <div classname="downloads-ABR">
-             <Tile title= "Abril" year="2024"/>
-          </div>
-          <div classname="downloads-MAY">
-             <Tile title= "Mayo" year="2024"/>
-          </div>
-          <div classname="downloads-JUN">
-             <Tile title= "Junio" year="2024"/>
-          </div>
-          <div classname="downloads-JUL">
-             <Tile title= "Julio" year="2024"/>
-          </div>
-          <div classname="downloads-AGO">
-             <Tile title= "Agosto" year="2024"/>
-          </div>
-          <div classname="downloads-SEPT">
-             <Tile title= "Septiembre" year="2023"/>
-          </div>
-          <div classname="downloads-OCT">
-             <Tile title= "Octubre" year="2023"/>
-          </div>
-          <div classname="downloads-NOV">
-             <Tile title= "Noviembre" year="2023"/>
-          </div>
-          <div classname="downloads-DIC">
-             <Tile title= "Diciembre" year="2023"/>
-          </div>
-        </div>
-        
-      </div>
-
-    </div>
-  );
-}
+function Downloads() {
+   return (
+     <div className="page-container">
+       <Sidebar />
+       <div className="page-content">
+         <Navbar title="Descargas" />
+         <Header />
+         <div className="downloads-tile-container"> {/* Este es el contenedor grid */}
+           <DownloadTile title='Enero' year='2024'/> 
+           <DownloadTile title='Febrero' year='2024'/> 
+           <DownloadTile title='Marzo' year='2024'/> 
+           <DownloadTile title='Abril' year='2024'/> 
+           <DownloadTile title='Mayo' year='2024'/> 
+           <DownloadTile title='Junio' year='2024' /> 
+           <DownloadTile title='Julio' year='2024'/> 
+           <DownloadTile title='Agosto' year='2024'/> 
+           <DownloadTile title='Septiembre' year='2024'  /> 
+           <DownloadTile title='Octubre' year='2024'  /> 
+           <DownloadTile title='Noviembre' year='2024'  /> 
+           <DownloadTile title='Diciembre' year='2024' /> 
+         </div>
+       </div>
+     </div>
+   );
+ }
+ 
+ export default Downloads;

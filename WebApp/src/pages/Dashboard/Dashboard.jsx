@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
-import Header from './components/Header.jsx';  // Import Header directly
+import Header from './components/Header.jsx';
+
+
 import Consumo from './components/Consumo';
 import Mediciones from './components/Mediciones';
 import Configuracion from './components/Configuracion';
-
-import CustomPieChart from './components/charts/CustomPieChart.jsx';
 
 export default function Dashboard() {
   const [activeContent, setActiveContent] = useState('consumo');
@@ -27,7 +27,6 @@ export default function Dashboard() {
         <Navbar title="Dashboard" />
         <Header setActiveContent={setActiveContent} />
 
-        {/* Render the active content */}
         {content}
       </div>
     </div>

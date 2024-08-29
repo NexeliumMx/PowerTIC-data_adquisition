@@ -8,6 +8,8 @@ def rundeploy():
     if  os.path.exists(r'vals/sn.txt'):
         f=open(r"vals/sn.txt","r")
         sn=f.read()
+        print('seviene')
+        print(sn)
         reading_meter(sn)
         try:
             uploadloc(r'vals/temp.txt')
@@ -30,7 +32,7 @@ def rundeploy():
                 l.write(str(e) + '\n')
             print('not able to upload to cloud')
             with open(r'vals/failedcqueries.txt', 'a') as l: 
-                l.write(str((encript(q))) + 'mlgsmg')
+                l.write(str(((q))) + 'mlgsmg')
         os.remove(r'vals/temp.txt')
     else :
         print('run imprint')
@@ -42,7 +44,7 @@ def rundeploy():
             for a in text.split('mlgsmg'):
                 print(encript(a))
                 print('sent 1')
-                uploadcloudback(str(encript(a)))
+                uploadcloudback(str((a)))
         except Exception as e:
             with open(r'vals/error_logback.txt', 'a') as l: 
                 l.write(str(e) + '\n')

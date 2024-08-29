@@ -1,4 +1,3 @@
-import React from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
 import Header from './components/Header.jsx';
@@ -7,11 +6,11 @@ import { FileBarChartIcon } from 'lucide-react';
 import './Downloads.scss';
 
 
-function Downloads() {
+export default function Downloads() {
   return (
-    <div className="downloads-container">
+    <div className="page-container">
       <Sidebar />
-      <div className="downloads-content">
+      <div className="page-content">
         <Navbar title="Descargas"/>
         <Header/>
 
@@ -60,5 +59,3 @@ function Downloads() {
     </div>
   );
 }
-
-export default Downloads;

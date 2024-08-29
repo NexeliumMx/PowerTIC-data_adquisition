@@ -1,10 +1,9 @@
-import React from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
 import Header from './Components/Header.jsx';
 import './Users.scss';
 
-function Users() {
+export default function Users() {
   return (
     <div className="page-container">
       <Sidebar/>
@@ -16,5 +15,3 @@ function Users() {
     </div>
   );
 }
-
-export default Users;

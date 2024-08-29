@@ -1,6 +1,19 @@
 @import 'variables';
 @import 'mixins';
 
+//Page template styles with sidebar support
+.page-container {
+  display: flex;
+  height: 100vh; /* Ensure full viewport height */
+}
+
+.page-content {
+  flex: 1;
+  overflow-y: auto;
+}
+//
+
+
 body {
   background-color: $color1; /* Set the default background color */
   margin: 0; /* Remove default margin */

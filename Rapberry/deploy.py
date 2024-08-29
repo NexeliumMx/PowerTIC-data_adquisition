@@ -2,7 +2,7 @@ from Coms import reading_meter
 import os
 from encript import encript
 from upload import uploadcloud,uploadloc,uploadcloudback
-def rundeploy():
+def rundeploy(SN):
     fil = open(r"vals/sn.txt", "r")
     sn= fil.read()
     if  os.path.exists(r'vals/sn.txt'):
@@ -10,7 +10,7 @@ def rundeploy():
         sn=f.readline(1)
         print('seviene')
         print(sn)
-        reading_meter(sn)
+        reading_meter(SN)
         try:
             uploadloc(r'vals/temp.txt')
         except Exception as e: 

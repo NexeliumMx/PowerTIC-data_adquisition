@@ -14,6 +14,7 @@ while(1):
     if not os.path.exists(r'vals/sn.txt'):
         SN=meter_param()
         f=open(r"vals/sn.txt","x")
+        print(SN)
         f.write(SN)
         try:
             uploadloc(r'vals/temp.txt')
@@ -32,5 +33,5 @@ while(1):
         rundeploy()
         
     if (a-time.time())>300:
-        rundeploy()
+        rundeploy(SN)
         a=time.time()

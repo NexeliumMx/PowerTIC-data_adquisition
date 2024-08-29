@@ -33,6 +33,6 @@ while(1):
         os.remove(r'vals/temp.txt')
         rundeploy(SN)
         
-    if (a-time.time())>300:
+    if (time.time()-a)>300:
         rundeploy(SN)
         a=time.time()

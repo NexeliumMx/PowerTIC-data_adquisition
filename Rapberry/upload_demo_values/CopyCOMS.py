@@ -107,7 +107,7 @@ def meter_param():
                             case 18:
                                 set_val=int(vavrg*(math.sqrt(3)/3))
                             case 19:
-                                set_val=(pavrg/3)
+                                set_val=(pavrg)
                             case 20:
                                 set_val=int(vav*math.cos(vap))
                                 tir+=set_val
@@ -176,7 +176,7 @@ def meter_param():
                 f=os.remove(r"temp.txt")
                 f=open(r"temp.txt","x")
             forquery+=', Timestamp,serial_number)'
-            timestamp=str(then+DT.timedelta(seconds=(300*min+(d)*86400)))
+            timestamp=(then+DT.timedelta(seconds=(300*min+(d)*86400))).isoformat()
             forqueryVal+=',\''+timestamp+'\',\''+'demosn65563'+'\')'
             f.write('insert into demopowertic.measurements '+forquery+'values'+forqueryVal)
             uploadcloud(('insert into demopowertic.measurements '+forquery+'values'+forqueryVal))

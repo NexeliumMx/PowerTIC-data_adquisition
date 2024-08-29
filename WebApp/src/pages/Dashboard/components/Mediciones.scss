@@ -16,17 +16,17 @@
 }
 
 .mediciones-left {
-  background-color: red;
+  //background-color: red;
   flex: 1; /* Adjust flex values to distribute space between columns */
 }
 
 .mediciones-center {
-  background-color: green;
+  //background-color: green;
   flex: 1;
 }
 
 .mediciones-right {
-  background-color: blue;
+  //background-color: blue;
   flex: 1;
   justify-content: space-between;
 }
@@ -34,5 +34,9 @@
 /* Make the Potencias tile take the full height of its container */
 .mediciones-right > .tile-container {
   flex-grow: 1;
-  height: 100%;
+  height: auto; /* Allows the height to adapt to the content */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 }

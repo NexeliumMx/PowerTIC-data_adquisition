@@ -1,17 +1,11 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
 
-const data = [
-  { name: 'Filled', value: 75 },
-  { name: 'Unfilled', value: 25 },
-];
-
-const COLORS = ['#69B2A6', '#F2A007'];
-
-export default function CustomPieChart() {
+export default function PowerFactor({ data, colors }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <ResponsiveContainer width={300} height={200}>
-        <PieChart>
+    <div style={{ display: 'flex', alignItems: 'center'}}>
+
+      <div style={{ width: '300px', height: '200px'}}>
+        <PieChart width={300} height={200}>
           <Pie
             data={data}
             innerRadius={60}
@@ -22,11 +16,12 @@ export default function CustomPieChart() {
             endAngle={-270}
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
             ))}
           </Pie>
         </PieChart>
-      </ResponsiveContainer>
+      </div>
+
       <div
         style={{
           marginLeft: '-60px',

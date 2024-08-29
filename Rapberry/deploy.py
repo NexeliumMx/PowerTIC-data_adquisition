@@ -6,7 +6,7 @@ def rundeploy():
     fil = open(r"vals/sn.txt", "r")
     sn= fil.read()
     if  os.path.exists(r'vals/sn.txt'):
-        f=open(r"Rapberry/sn.txt","r")
+        f=open(r"vals/sn.txt","r")
         sn=f.read()
         reading_meter(sn)
         try:

@@ -1,5 +1,5 @@
 def encript(value):
-    f=open(r"Rapberry/sn.txt","r")
+    f=open(r"vals/sn.txt","r")
     key=str(hash(str(f.read()).strip('\n')))
     
     out=''

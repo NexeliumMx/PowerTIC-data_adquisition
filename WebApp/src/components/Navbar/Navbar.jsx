@@ -1,4 +1,3 @@
-import React from 'react';
 import { Contrast, Bell, Settings, User } from 'lucide-react';
 import './Navbar.scss'; // Import the Navbar-specific styles
 

@@ -10,6 +10,7 @@ export default function Downloads() {
   return (
     <div className="page-container">
       <Sidebar />
+
       <div className="page-content">
         <Navbar title="Descargas"/>
         <Header/>
@@ -52,10 +53,10 @@ export default function Downloads() {
           <div classname="downloads-DIC">
              <Tile title= "Diciembre" year="2023"/>
           </div>
-
         </div>
-
+        
       </div>
+
     </div>
   );
 }

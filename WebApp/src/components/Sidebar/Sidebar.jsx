@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MoreVertical, ChevronLast, ChevronFirst, Home, Settings, Users, Download, LayoutDashboard, UtilityPole, FlaskConical} from "lucide-react"; // Add icons as needed
 import "./Sidebar.scss";
@@ -15,6 +15,30 @@ const routes = [
   { text: "Test Page", to: "/testpage", icon: <FlaskConical size={24} /> },
 ];
 
+function SidebarItem({ icon, text, to, active, alert }) {
+  const { expanded } = useContext(SidebarContext);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(to);  // Navigate to the desired route when the item is clicked
+  };
+
+  return (
+    <li
+      className={`sidebar-item ${active ? "active" : ""} ${expanded ? "expanded" : "collapsed"}`}
+      onClick={handleClick} // Attach the handleClick function to the onClick event
+    >
+      {icon}
+      <span className="item-text">{text}</span>
+      {alert && <div className="item-alert" />}
+      {!expanded && (
+        <div className="item-tooltip">
+          {text}
+        </div>
+      )}
+    </li>
+  );
+}
 
 
 export default function Sidebar() {
@@ -67,30 +91,5 @@ export default function Sidebar() {
         </div>
       </nav>
     </aside>
-  );
-}
-
-export function SidebarItem({ icon, text, to, active, alert }) {
-  const { expanded } = useContext(SidebarContext);
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(to);  // Navigate to the desired route when the item is clicked
-  };
-
-  return (
-    <li
-      className={`sidebar-item ${active ? "active" : ""} ${expanded ? "expanded" : "collapsed"}`}
-      onClick={handleClick} // Attach the handleClick function to the onClick event
-    >
-      {icon}
-      <span className="item-text">{text}</span>
-      {alert && <div className="item-alert" />}
-      {!expanded && (
-        <div className="item-tooltip">
-          {text}
-        </div>
-      )}
-    </li>
   );
 }

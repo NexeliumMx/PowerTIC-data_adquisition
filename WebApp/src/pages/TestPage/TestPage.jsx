@@ -1,4 +1,5 @@
-import Sidebar from "../../components/Sidebar/Sidebar.jsx";
+import Sidebar from '../../components/Sidebar/Sidebar.jsx';
+import Navbar from '../../components/Navbar/Navbar.jsx';
 
 // Example Elements
 import LoremIpsum from "../../components/LoremIpsum/LoremIpsum.jsx";
@@ -10,6 +11,7 @@ export default function TestPage() {
       <Sidebar />
 
       <div className="page-content">
+        <Navbar title="Test Page Template" />
         <LoremIpsum />
         <StylesExample />
         <LoremIpsum />

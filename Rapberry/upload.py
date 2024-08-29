@@ -14,7 +14,7 @@ def uploadloc(path):
     conn.commit()
 def uploadcloud(path):
     conn = psycopg2.connect(
-    user="sueradmin",
+    user="superadmin",
     host="powerticpgtest1.postgres.database.azure.com",
     database="powerticapp",
     password="vafja6-hexpem-javdyN",  # luis: Tono2002 //Arturo: 2705

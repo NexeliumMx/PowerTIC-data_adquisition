@@ -1,0 +1,78 @@
+@import '../../styles/variables';
+.page-container {
+    display: flex;
+    height: 100vh;
+}
+  
+.page-content {
+    flex: 1;
+    padding: 0rem;
+    transition: margin-left 0.2s ease-out;
+}
+
+.users-tile-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas con el ancho ajustado */
+    grid-template-rows: repeat(3,auto); /* Tres filas automáticas */
+    gap: 1rem; /* Espacio entre las columnas y filas */
+    padding: 20px;
+    background-color: #1A2B44; /* color de fondo oscuro */
+    border-radius: 10px;
+    border: 1px solid #3A4D6D; /* color de borde similar al diseño */
+}
+
+.user-1,
+.user-2,
+.user-3,
+.user-4,
+.user-5,
+.user-6 {
+  background-color: #2B3A5A;
+  border-radius: 5px;
+  border: 1px solid #3A4D6D;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-1{
+    grid-column: 1 / 2; /* Primera columna */
+    grid-row: 1 / 2; /* Primera fila */
+}
+  
+.user-2 {
+    grid-column: 1 / 2; /* Primera columna */
+    grid-row: 2 / 3; /* Segunda fila */
+}
+  
+.user-3 {
+    grid-column: 1 / 2; /* Primera columna */
+    grid-row: 3 / 4; /* Tercera fila */
+}
+
+.user-4 {
+    grid-column: 2 / 3; /* Segunda columna */
+    grid-row: 1 / 2; /* Primera fila */
+}
+  
+.user-5 {
+    grid-column: 2 / 3; /* Segunda columna */
+    grid-row: 2 / 3; /* Segunda fila */
+}
+
+.user-6 {
+    grid-column: 2 / 3; /* Segunda columna */
+    grid-row: 3 / 4; /* Tercera fila */
+}
+
+
+
+.sidebar-container.collapsed + .downloads-content {
+    margin-left: $sidebar-collapsed-width; /* Use the variable for collapsed width */
+}
+
+
+.sidebar-container:not(.collapsed) + .downloads-content {
+    margin-left: $sidebar-expanded-width; /* Use the variable for expanded width */
+}

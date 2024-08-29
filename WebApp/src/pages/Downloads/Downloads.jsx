@@ -3,6 +3,7 @@ import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
 import Header from './components/Header.jsx';
 import Tile from './components/DownloadTile';
+import { FileBarChartIcon } from 'lucide-react';
 import './Downloads.scss';
 
 
@@ -11,7 +12,7 @@ function Downloads() {
     <div className="downloads-container">
       <Sidebar />
       <div className="downloads-content">
-        <Navbar title="Downloads" />
+        <Navbar title="Descargas"/>
         <Header/>
 
         <div classname="downloads-tile-container">

@@ -68,11 +68,3 @@
 
 
 
-.sidebar-container.collapsed + .downloads-content {
-    margin-left: $sidebar-collapsed-width; /* Use the variable for collapsed width */
-}
-
-
-.sidebar-container:not(.collapsed) + .downloads-content {
-    margin-left: $sidebar-expanded-width; /* Use the variable for expanded width */
-}

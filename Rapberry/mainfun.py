@@ -2,27 +2,36 @@ from Coms import meter_param
 import os
 from upload import uploadloc,uploadcloud
 from deploy import rundeploy
-print("codigo")
+import subprocess
+import time
+# From Python3.7 you can add 
+# keyword argument capture_output
+print(subprocess.run(["mkdir", "Geeks for geeks"], 
+                     capture_output=True))
+a=0
 while(1):
-
-    if not os.path.exists(r'Rapberry/sn.txt'):
+    
+    if not os.path.exists(r'vals/sn.txt'):
         SN=meter_param()
-        f=open(r"Rapberry/sn.txt","x")
+        f=open(r"vals/sn.txt","x")
         f.write(SN)
         try:
-            uploadloc(r'Rapberry/temp.txt')
+            uploadloc(r'vals/temp.txt')
         except Exception as e: 
         # Save the error message to a file 
-            with open(r'Rapberry/error_logloc.txt', 'a') as l: 
+            with open(r'vals/error_logloc.txt', 'a') as l: 
                 l.write(str(e) + '\n')
             print('not able to upload locally')
         try :
-            uploadcloud(r'Rapberry/temp.txt')
+            uploadcloud(r'vals/temp.txt')
         except Exception as e:
-            with open(r'Rapberry/error_logcloud.txt', 'a') as l: 
+            with open(r'vals/error_logcloud.txt', 'a') as l: 
                 l.write(str(e) + '\n')
             print('not able to upload to cloud')
-        os.remove(r'Rapberry/temp.txt')
+        os.remove(r'vals/temp.txt')
+        rundeploy()
     else :
         print('already exists')
-    rundeploy()
+    if (a-time.time())>300:
+        rundeploy()
+        a=time.time()

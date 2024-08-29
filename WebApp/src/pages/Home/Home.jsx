@@ -1,26 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Home.scss';  // Import the Home-specific styles
-
-function Home() {
-  const navigate = useNavigate();
-
+export default function Home() {
   return (
-    <div className='home-container'>
-      <button onClick={() => navigate('/dashboard')} style={{ margin: '10px', padding: '10px 20px', cursor: 'pointer' }}>
-        Go to Dashboard
-      </button>
-      <button onClick={() => navigate('/downloads')} style={{ margin: '10px', padding: '10px 20px', cursor: 'pointer' }}>
-        Go to Downloads
-      </button>
-      <button onClick={() => navigate('/testpage')} style={{ margin: '10px', padding: '10px 20px', cursor: 'pointer' }}>
-        Go to Test Page
-      </button>
-      <button onClick={() => navigate('/nonexistent')} style={{ margin: '10px', padding: '10px 20px', cursor: 'pointer' }}>
-        Go to NotFound
-      </button>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <h1>PowerTIC</h1>
     </div>
   );
 }
-
-export default Home;

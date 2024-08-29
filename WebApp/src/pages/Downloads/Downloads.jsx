@@ -1,17 +1,18 @@
-import React from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
 import Header from './components/Header.jsx';
 import Tile from './components/DownloadTile';
+import { FileBarChartIcon } from 'lucide-react';
 import './Downloads.scss';
 
 
-function Downloads() {
+export default function Downloads() {
   return (
-    <div className="downloads-container">
+    <div className="page-container">
       <Sidebar />
-      <div className="downloads-content">
-        <Navbar title="Downloads" />
+
+      <div className="page-content">
+        <Navbar title="Descargas"/>
         <Header/>
 
         <div classname="downloads-tile-container">
@@ -52,12 +53,10 @@ function Downloads() {
           <div classname="downloads-DIC">
              <Tile title= "Diciembre" year="2023"/>
           </div>
-
         </div>
-
+        
       </div>
+
     </div>
   );
 }
-
-export default Downloads;

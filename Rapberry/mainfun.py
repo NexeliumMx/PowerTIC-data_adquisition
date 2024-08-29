@@ -30,7 +30,7 @@ while(1):
                 l.write(str(e) + '\n')
             print('not able to upload to cloud')
         os.remove(r'vals/temp.txt')
-        rundeploy()
+        rundeploy(SN)
         
     if (a-time.time())>300:
         rundeploy(SN)

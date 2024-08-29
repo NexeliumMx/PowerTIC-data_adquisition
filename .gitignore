@@ -11,6 +11,7 @@ error_logcloud.txt
 failedcqueries.txt
 # C extensions
 *.so
+temp.txt
 
 # Distribution / packaging
 .Python

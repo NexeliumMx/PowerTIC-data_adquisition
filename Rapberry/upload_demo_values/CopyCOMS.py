@@ -1,4 +1,5 @@
 import datetime as DT
+from datetime import timezone 
 import time
 import math
 import json
@@ -14,9 +15,9 @@ def meter_param():
     tempquery = SETTINGS_DIR / 'tempquery.txt'
     r=open('datademo.txt')
     rows = r.readlines()
-    now = DT.datetime.now()
+    now = DT.datetime.now(timezone.utc)
     then = now - DT.timedelta(days=365)
-   
+    print(str(now))
     vavc=0
     tva=0
     vbvc=0
@@ -175,7 +176,7 @@ def meter_param():
                 f=os.remove(r"temp.txt")
                 f=open(r"temp.txt","x")
             forquery+=', Timestamp,serial_number)'
-            timestamp=(then+DT.timedelta(seconds=(300*min))).isoformat()
+            timestamp=str(then+DT.timedelta(seconds=(300*min+(d)*86400)))
             forqueryVal+=',\''+timestamp+'\',\''+'demosn65563'+'\')'
             f.write('insert into demopowertic.measurements '+forquery+'values'+forqueryVal)
             uploadcloud(('insert into demopowertic.measurements '+forquery+'values'+forqueryVal))

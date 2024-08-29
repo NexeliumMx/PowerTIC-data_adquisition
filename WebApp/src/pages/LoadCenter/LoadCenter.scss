@@ -10,7 +10,7 @@
     transition: margin-left 0.2s ease-out;
   }
   
-  .users-tile-container {
+  .LC-tile-container {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Dos columnas */
     grid-template-rows: repeat(3, auto); /* Tres filas */
@@ -18,12 +18,12 @@
     padding: 20px;
   }
   
-  .user-1,
-  .user-2,
-  .user-3,
-  .user-4,
-  .user-5,
-  .user-6 {
+  .LC-1,
+  .LC-2,
+  .LC-3,
+  .LC-4,
+  .LC-5,
+  .LC-6 {
     background-color: #2B3A5A;
     border-radius: 5px;
     border: 1px solid #3A4D6D;

@@ -6,7 +6,8 @@ import subprocess
 import time
 # From Python3.7 you can add 
 # keyword argument capture_output
-print(subprocess.run(["mkdir", "vals"], 
+if not os.path.exists(r'vals'):
+    print(subprocess.run(["mkdir", "vals"], 
                      capture_output=True))
 a=0
 while(1):

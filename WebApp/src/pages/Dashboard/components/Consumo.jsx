@@ -3,6 +3,10 @@ import Tile from './Tile'; // Import the Tile component
 import { Activity, BatteryCharging, Gauge, Clock } from 'lucide-react';
 import './Consumo.scss'; // Import the styles for Consumo
 
+import CustomPieChart from './charts/CustomPieChart';
+import CustomBarChart from './charts/CustomBarChart'; 
+import CustomLineChart from './charts/CustomLineChart';
+
 const Consumo = () => {
   return (
     <div className="content-wrapper">
@@ -23,7 +27,7 @@ const Consumo = () => {
         <Tile 
           title="Factor de Potencia" 
           icon={Gauge} 
-          content="0.75" 
+          content={<CustomPieChart />} 
           width="23%"
         />
         <Tile 
@@ -39,13 +43,13 @@ const Consumo = () => {
         <Tile 
           title="Perfil de Demanda" 
           icon={Activity} 
-          content={<div>Your custom content here</div>} 
+          content={<CustomLineChart />} 
           width="57%"
         />
         <Tile 
           title="Historial de Consumo" 
           icon={BatteryCharging} 
-          content={<div>Your custom content here</div>} 
+          content={<CustomBarChart />}
           width="43%"
         />
       </div>

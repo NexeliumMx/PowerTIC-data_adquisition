@@ -1,4 +1,3 @@
-import React from 'react';
 import './Tile.scss'; // Create this file for styles
 
 const Tile = ({ title, icon: Icon, content, width }) => {

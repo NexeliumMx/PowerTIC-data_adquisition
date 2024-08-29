@@ -30,8 +30,7 @@ while(1):
             print('not able to upload to cloud')
         os.remove(r'vals/temp.txt')
         rundeploy()
-    else :
-        print('already exists')
+        
     if (a-time.time())>300:
         rundeploy()
         a=time.time()

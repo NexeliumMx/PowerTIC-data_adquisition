@@ -11,14 +11,6 @@ export default function Users() {
       <Sidebar />
       <div className="page-content">
         <Navbar title="Users" />
-        <div className="users-tile-container"> {/* Este es el contenedor grid */}
-          <UsersTile title='SAN ÁNGEL' number='1' /> 
-          <UsersTile title='CLUB AMÉRICA' number='2' /> 
-          <UsersTile title='ESTADIO AZTECA' number='1' /> 
-          <UsersTile title='RADIOPOLIS' number='1' /> 
-          <UsersTile title='CORP. SANTA FE' number='4' /> 
-          <UsersTile title='CENTRO DE CARGA 6' number='#' /> 
-        </div>
       </div>
     </div>
   );

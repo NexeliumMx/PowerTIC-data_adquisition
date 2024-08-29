@@ -6,6 +6,8 @@ import Consumo from './components/Consumo';
 import Mediciones from './components/Mediciones';
 import Configuracion from './components/Configuracion';
 
+import CustomPieChart from './components/charts/CustomPieChart.jsx';
+
 export default function Dashboard() {
   const [activeContent, setActiveContent] = useState('consumo');
 

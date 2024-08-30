@@ -1,9 +1,0 @@
-#!/bin/bash
-
-exec > /home/pi/init_modbus.log 2>&1
-
-sleep 30
-
-. /home/pi/modbus1/bin/activate
-
-python3 /home/pi/Desktop/COMS/ModCom2.py

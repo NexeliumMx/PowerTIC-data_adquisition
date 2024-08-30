@@ -1,0 +1,86 @@
+﻿id,modbus_address,parameter_description,standard,data_type,data_range,model,mod_default,register_number,indb,setup
+1,"[4148, 4149, 4150, 4151, 4152, 4153, 4154, 4155]",serial_number,Acurev 1300,string,Manufacturer specific value (32 chars),"[1, 4]",NULL,16,0,1
+2,"[4096, 4097]",sunspec_id,sunspec,Uint16,0x53756e53,"[1, 4]",1,2,0,1
+3,4098,id,Acurev 1300,Uint16,1,"[1, 4]",1,1,0,1
+4,4099,lenth,Acurev 1300,Uint16,65,"[1, 4]",65,1,0,0
+5,"[4100, 4101, 4102, 4103, 4104, 4105, 4106, 4107]",manufacturer,Acurev 1300,string,Well known value registered with SunSpec for compliance,"[1, 4]",Accuenergy,16,0,1
+6,"[4116, 4117, 4118, 4119, 4120, 4121, 4122, 4123]",model,Acurev 1300,string,Manufacturer specific value (32 chars),"[1, 4]",AcuRev1300,16,0,1
+7,"[4132, 4133, 4134, 4135, 4136, 4137, 4138, 4139]",options,Acurev 1300,string,Manufacturer specific value (16 chars),"[1, 4]",AcuRev130X,8,0,0
+8,"[4140, 4141, 4142, 4143, 4144, 4145, 4146, 4147]",version,Acurev 1300,string,Manufacturer specific value (16 chars),"[1, 4]",H:1.10 S:1.01,8,0,1
+9,4164,device_address,Acurev 1300,uint16,Modbus device address,"[1, 4]",NULL,1,0,0
+10,4165,id,Acurev 1300,Uint16,Meter (Single Phase) single phase (AN or AB) meter --201 split single phase (ABN) meter â€“202 wye-connect three phase (abcn) meterâ€”203 delta-connect three phase (abc) meter --204,"[1, 4]",NULL,1,0,0
+11,4166,lenth,Acurev 1300,Uint16,105,"[1, 4]",NULL,1,0,0
+12,4171,current_scale_factor,sunspec,sunssf,-3~+5 (used as exponent of a power of 10),"[1, 4]",NULL,1,0,0
+13,4180,voltage_scale_factor,sunspec,sunssf,-2~2,"[1, 4]",NULL,1,0,0
+14,4182,frequency_scale_factor,Acurev 1300,sunssf,-2,"[1, 4]",NULL,1,0,0
+15,4187,real_power_scale_factor,sunspec,sunssf,0 ~ 4,"[1, 4]",NULL,1,0,0
+16,4192,apparent_power_scale_factor,sunspec,sunssf,0 ~ 4,"[1, 4]",NULL,1,0,0
+17,4197,reactive_power_scale_factor,sunspec,sunssf,0 ~ 4,"[1, 4]",NULL,1,0,0
+18,4202,power_factor_scale_factor,sunspec,sunssf,-3,"[1, 4]",NULL,1,0,0
+19,4219,totwh_sf,sunspec,acc32,-3 ~ 0,"[1, 4]",NULL,1,0,0
+20,4236,totvah_sf_sunspec,sunspec,sunssf,-3 ~ 0,"[2, 4]",NULL,1,0,0
+21,4269,totvarh_sf,sunspec,0,NULL,"[2, 4]",NULL,1,0,0
+22,"[4270, 4271]",meter_event_flags,0,bitfield32,0,"[1, 4]",0,2,0,0
+23,4272,sunspec_end_id_sunspec,sunspec,uint16,0xFFFF,"[1, 4]",NULL,1,0,0
+24,4273,sunspec_end_lenth_sunspec,sunspec,uint16,0x0000,"[1, 4]",NULL,1,0,0
+25,4167,amps_total,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+26,4168,amps_phase_a,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+27,4169,amps_phase_b,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+28,4170,amps_phase_c,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+29,4172,voltage_ln_average,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+30,4173,phase_voltage_an,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+31,4174,phase_voltage_bn,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+32,4175,phase_voltage_cn,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+33,4176,voltage_ll_average,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+34,4177,phase_voltage_ab,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+35,4178,phase_voltage_bc,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+36,4179,phase_voltage_ca,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+37,4181,frequency,Acurev 1300,int16,"[45 , 65]","[1, 4]",NULL,1,1,0
+38,4183,total_real_power,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+39,4184,watts_phase_a,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+40,4185,watts_phase_b,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+41,4186,watts_phase_c,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+42,4188,ac_apparent_power_va,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+43,4189,va_phase_a,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+44,4190,va_phase_b,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+45,4191,va_phase_c,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+46,4193,reactive_power_var,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+47,4194,var_phase_a,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+48,4195,var_phase_b,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+49,4196,var_phase_c,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,1,0
+50,4198,power_factor,sunspec,int16,"[-1000, 1000]","[1, 4]",NULL,1,1,0
+51,4199,pf_phase_a,sunspec,int16,"[-1000, 1000]","[1, 4]",NULL,1,1,0
+52,4200,pf_phase_b,sunspec,int16,"[-1000, 1000]","[1, 4]",NULL,1,1,0
+53,4201,pf_phase_c,sunspec,int16,"[-1000, 1000]","[1, 4]",NULL,1,1,0
+54,"[4203, 4204]",total_real_energy_exported,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+55,"[4205, 4206]",total_watt_hours_exported_in_phase_a,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+56,"[4207, 4208]",total_watt_hours_exported_in_phase_b,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+57,"[4209, 4210]",total_watt_hours_exported_in_phase_c,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+58,"[4211, 4212]",total_real_energy_imported,sunspec,acc32,"[0, 999999999]","[1, 4]",NULL,2,1,0
+59,"[4213, 4214]",total_watt_hours_imported_phase_a,sunspec,acc32,"[0, 999999999]","[1, 4]",NULL,2,1,0
+60,"[4215, 4216]",total_watt_hours_imported_phase_b,sunspec,acc32,"[0, 999999999]","[1, 4]",NULL,2,1,0
+61,"[4217, 4218]",total_watt_hours_imported_phase_c,sunspec,acc32,"[0, 999999999]","[1, 4]",NULL,2,1,0
+62,"[4220, 4221]",total_va_hours_exported,sunspec,acc32,"[0, 999999999]","[3, 4]",NULL,2,1,0
+63,"[4222, 4223]",total_va_hours_exported_phase_a,sunspec,acc32,"[0, 999999999]","[3, 4]",NULL,2,1,0
+64,"[4224, 4225]",total_va_hours_exported_phase_b,sunspec,acc32,"[0, 999999999]","[3, 4]",NULL,2,1,0
+65,"[4226, 4227]",total_va_hours_exported_phase_c,sunspec,acc32,"[0, 999999999]","[3, 4]",NULL,2,1,0
+66,"[4228, 4229]",total_va_hours_imported,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+67,"[4230, 4231]",total_va_hours_imported_phase_a,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+68,"[4232, 4233]",total_va_hours_imported_phase_b,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+69,"[4234, 4235]",total_va_hours_imported_phase_c,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+70,"[4237, 4238]",total_var_hours_imported_q1,sunspec,bitfield32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+71,"[4239, 4240]",total_var_hours_imported_q1_phase_a,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+72,"[4241, 4242]",total_var_hours_imported_q1_phase_b,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+73,"[4243, 4244]",total_var_hours_imported_q1_phase_c,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+74,"[4245, 4246]",total_var_hours_imported_q2,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+75,"[4247, 4248]",total_var_hours_imported_q2_phase_a,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+76,"[4249, 4250]",total_var_hours_imported_q2_phase_b,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+77,"[4251, 4252]",total_var_hours_imported_q2_phase_c,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+78,"[4253, 4254]",total_var_hours_exported_q3,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+79,"[4255, 4256]",total_var_hours_exported_q3_phase_a,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+80,"[4257, 4258]",total_var_hours_exported_q3_phase_b,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+81,"[4259, 4260]",total_var_hours_exported_q3_phase_c,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+82,"[4261, 4262]",total_var_hours_exported_q4,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+83,"[4263, 4264]",total_var_hours_exported_q4_phase_a,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+84,"[4265, 4266]",total_var_hours_exported_q4_phase_b,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0
+85,"[4267, 4268]",total_var_hours_exported_q4_phase_c,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,1,0

@@ -36,9 +36,4 @@ def main(event: func.EventGridEvent):
             conn.commit()
             logging.info('Data inserted successfully')
     
-    except Exception as e:
-        logging.error('Error inserting data into PostgreSQL: %s', str(e))
-        conn.rollback()
-    
-    finally:
-        conn.close()
+    except Exception

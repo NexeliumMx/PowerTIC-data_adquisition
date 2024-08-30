@@ -1,0 +1,33 @@
+/* src/components/Navbar/Navbar.scss */
+
+@import '../../styles/variables';
+
+.navbar-container {
+  //background-color: #4d9751;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+}
+
+.navbar-title {
+  font-family: $font-h1;
+  font-size: 1.5rem;
+  color: $colorWhite;
+}
+
+.navbar-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-icon {
+  cursor: pointer;
+  color: $colorWhite;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $color5; /* Change color on hover */
+  }
+}

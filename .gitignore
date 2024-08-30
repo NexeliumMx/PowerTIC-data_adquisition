@@ -1,4 +1,16 @@
 .venv
+
+#Azure FUNCIONS LUIS
+.git*
+.vscode
+__azurite_db*__.json
+__blobstorage__
+__queuestorage__
+local.settings.json
+test
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

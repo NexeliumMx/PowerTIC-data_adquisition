@@ -1,21 +1,13 @@
-.venv
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-.vscode
-sn.txt
-error_logloc.txt
-failedlqueries.txt
-error_logcloud.txt
-failedcqueries.txt
+
 # C extensions
 *.so
 
 # Distribution / packaging
 .Python
-*.dist
-*.build
 build/
 develop-eggs/
 dist/

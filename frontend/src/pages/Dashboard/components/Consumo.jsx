@@ -3,6 +3,16 @@ import Tile from './Tile'; // Import the Tile component
 import { Activity, BatteryCharging, Gauge, Clock } from 'lucide-react';
 import './Consumo.scss'; // Import the styles for Consumo
 
+import ConsumptionHistory from './charts/ConsumptionHistory.jsx'; 
+import DemandProfile from './charts/DemandProfile.jsx';
+import PowerFactor from './charts/PowerFactor.jsx';
+import TextDisplay from './charts/TextDisplay.jsx';
+
+
+import COLORS from '../../../styles/chartColors.js';
+import data from './charts/pieChartData.js';
+
+
 const Consumo = () => {
   return (
     <div className="content-wrapper">
@@ -11,25 +21,25 @@ const Consumo = () => {
         <Tile 
           title="Demanda Máxima" 
           icon={Activity} 
-          content="12,000 kW" 
+          content={<TextDisplay display="10 000 kW"/>}
           width="23%"
         />
         <Tile 
           title="Consumo Acumulado" 
           icon={BatteryCharging} 
-          content="70,000 kWh" 
+          content={<TextDisplay display="70 000 kWh"/>} 
           width="23%"
         />
         <Tile 
           title="Factor de Potencia" 
           icon={Gauge} 
-          content="0.75" 
+          content={<PowerFactor data={data} colors={COLORS}/>} 
           width="23%"
         />
         <Tile 
           title="Tiempo" 
           icon={Clock} 
-          content="03 de Agosto de 2024 17:23" 
+          content={<TextDisplay display="03 de Agosto de 2024 17:23"/>} 
           width="23%"
         />
       </div>
@@ -39,13 +49,13 @@ const Consumo = () => {
         <Tile 
           title="Perfil de Demanda" 
           icon={Activity} 
-          content={<div>Your custom content here</div>} 
+          content={<DemandProfile />} 
           width="57%"
         />
         <Tile 
           title="Historial de Consumo" 
           icon={BatteryCharging} 
-          content={<div>Your custom content here</div>} 
+          content={<ConsumptionHistory />}
           width="43%"
         />
       </div>

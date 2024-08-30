@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
-import Header from './components/Header.jsx';  // Import Header directly
+import Header from './components/Header.jsx';
+
+
 import Consumo from './components/Consumo';
 import Mediciones from './components/Mediciones';
 import Configuracion from './components/Configuracion';
-import './Dashboard.scss';
 
-function Dashboard() {
+export default function Dashboard() {
   const [activeContent, setActiveContent] = useState('consumo');
 
   let content;
@@ -20,17 +21,14 @@ function Dashboard() {
   }
 
   return (
-    <div className="dashboard-container">
+    <div className="page-container">
       <Sidebar />
-      <div className="dashboard-content">
+      <div className="page-content">
         <Navbar title="Dashboard" />
         <Header setActiveContent={setActiveContent} />
 
-        {/* Render the active content */}
         {content}
       </div>
     </div>
   );
 }
-
-export default Dashboard;

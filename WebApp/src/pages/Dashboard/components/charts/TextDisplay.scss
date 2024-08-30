@@ -1,0 +1,11 @@
+.text-display-container {
+  background-color: #83C5B1; /* Background color */
+  color: white; /* Text color */
+  padding: 20px 40px; /* Padding for space around text */
+  font-size: 2rem; /* Adjust the font size */
+  font-weight: bold; /* Make the text bold */
+  border-radius: 50px; /* Rounded corners */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+.page-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .page-content {
+    flex: 1;
+    padding: 0rem;
+    transition: margin-left 0.2s ease-out;
+  }  

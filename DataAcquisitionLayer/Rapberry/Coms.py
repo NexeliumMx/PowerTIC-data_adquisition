@@ -92,11 +92,11 @@ def meter_param():
             finally:
                 client.close()
             # Almacenamiento local de configuración
-            if not os.path.exists(r'Rapberry/temp.txt'):
-                f=open(r"Rapberry/temp.txt","x")
+            if not os.path.exists(r'vals/temp.txt'):
+                f=open(r"vals/temp.txt","x")
             else:
-                f=os.remove(r"Rapberry/temp.txt")
-                f=open(r"Rapberry/temp.txt","x")
+                f=os.remove(r"vals/temp.txt")
+                f=open(r"vals/temp.txt","x")
             forquery+=', registeryear,locations_locationid)'
             forqueryVal+=',\''+str(time.ctime(time.time()))+'\',0)'
             print(forquery)
@@ -178,13 +178,13 @@ def reading_meter(sn):
                 forqueryVal+=','+timestamp+',\''+str(sn)+'\')'
                 print(forquery)
                 print(forqueryVal)
-                if not os.path.exists(r'Rapberry/temp.txt'):
-                    f=open(r"Rapberry/temp.txt","x")
+                if not os.path.exists(r'vals/temp.txt'):
+                    f=open(r"vals/temp.txt","x")
                 else:
-                    f=os.remove(r"Rapberry/temp.txt")
-                    f=open(r"Rapberry/temp.txt","x")
+                    f=os.remove(r"vals/temp.txt")
+                    f=open(r"vals/temp.txt","x")
                 f.write('insert into powerTic.measurements '+forquery+' values'+forqueryVal)
-                conn.commit()
+            
                 return METER_DATA_PATH
             
         else:

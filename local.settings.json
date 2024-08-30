@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "ConnectionTest_RootManageSharedAccessKey_EVENTHUB": "Endpoint=sb://connectiontest.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=C8bNCS2F6gaCCWz1pTs7Y3qJ2jA1ZCKIp+AEhPABwFE=;EntityPath=ConnectionTest-b46a15d592"
+  }
+}

@@ -38,11 +38,10 @@ with local_conn.cursor() as cursor:
         row = list(row)  # Convert tuple to list to make it mutable
         modbus_address_index = column_names.index('modbus_address')  # Find the index of the modbus_address column
         
-        # If modbus_address is a list, extract the first element or None if the list is empty
+        # If modbus_address is a list, extract the first element, otherwise leave it as is
         if isinstance(row[modbus_address_index], list) and len(row[modbus_address_index]) > 0:
             row[modbus_address_index] = row[modbus_address_index][0]  # First element as an integer
-        else:
-            row[modbus_address_index] = None  # Set to None if the array is empty or not a list
+        # If it's not a list, it will be inserted as is (assumed to be a number already)
         
         # Execute the insert query
         cursor.execute(insert_query, row)

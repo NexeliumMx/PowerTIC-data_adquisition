@@ -32,9 +32,9 @@ with local_conn.cursor() as cursor:
     # Prepare the SQL INSERT statement with placeholders for parameters
     columns_str = ", ".join(column_names)
     placeholders = ", ".join(["%s"] * len(column_names))
-    insert_query = f"INSERT INTO public.modbusqueries {columns_str} VALUES {placeholders}"
+    insert_query = f"INSERT INTO public.modbusqueries ({columns_str}) VALUES ({placeholders})"
     
-    # Insert each row into the localtest table
+    # Insert each row into the modbusqueries table
     for row in rows:
         # Assuming the "modbus_address" is in the column number X (replace X with actual index)
         # Cast the modbus_address (if it's an integer array) to jsonb[]
@@ -45,6 +45,7 @@ with local_conn.cursor() as cursor:
         if isinstance(row[modbus_address_index], list):
             row[modbus_address_index] = json.dumps(row[modbus_address_index])
 
+        # Execute the insert query
         cursor.execute(insert_query, row)
     
     # Commit the transaction

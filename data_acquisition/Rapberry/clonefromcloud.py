@@ -39,12 +39,11 @@ with local_conn.cursor() as cursor:
         row = list(row)  # Convert tuple to list to make it mutable
         modbus_address_index = column_names.index('modbus_address')  # Find the index of the modbus_address column
         
-        # If the modbus_address is an integer array, format it as a JSONB array for PostgreSQL
+        # If the modbus_address is an integer array, convert it to a JSON string
         if isinstance(row[modbus_address_index], list):
-            # Convert the Python list to JSON string and cast it as jsonb[]
-            row[modbus_address_index] = json.dumps(row[modbus_address_index])
+            row[modbus_address_index] = json.dumps(row[modbus_address_index])  # Convert to JSON format
         
-        # Execute the insert query, casting the modbus_address to jsonb[]
+        # Execute the insert query with explicit type casting for modbus_address as jsonb[]
         cursor.execute(insert_query, row)
     
     # Commit the transaction

@@ -106,7 +106,7 @@ def meter_param():
             print("Error de conexión con el medidor")
     
     print(settings.get("serial_number", "serial_number not found"))
-    return str(settings.get('serial_number'))
+    return settings.get('serial_number')
 
 
 def reading_meter(sn):

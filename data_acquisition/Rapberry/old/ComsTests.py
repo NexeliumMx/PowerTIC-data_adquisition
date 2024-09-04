@@ -12,8 +12,8 @@ import psycopg2
 conn = psycopg2.connect(
     user="postgres",
     host="localhost",
-    database="Acurev1313_ModbusAddress",
-    password="Tono2002",  # luis: Tono2002 //Arturo: 2705
+    database="postgres",
+    password="postgres",  # luis: Tono2002 //Arturo: 2705
     port=5432
 )
 print('Connected to the database.')

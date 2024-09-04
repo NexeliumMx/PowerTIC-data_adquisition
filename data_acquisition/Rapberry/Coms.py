@@ -118,7 +118,7 @@ def reading_meter(sn):
     data = {}
     # Extracting Modbus addresses from the CSV
     with conn.cursor() as cursor:
-        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM powertic.modbusqueries")
+        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM public.modbusqueries")
         rows = cursor.fetchall()
         print(rows)
         address = []

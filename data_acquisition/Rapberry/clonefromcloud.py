@@ -1,5 +1,4 @@
 import psycopg2
-import json
 
 # Connect to Azure PostgreSQL
 azure_conn = psycopg2.connect(
@@ -39,10 +38,11 @@ with local_conn.cursor() as cursor:
         row = list(row)  # Convert tuple to list to make it mutable
         modbus_address_index = column_names.index('modbus_address')  # Find the index of the modbus_address column
         
-        # If modbus_address is a list, convert it to PostgreSQL array format
-        if isinstance(row[modbus_address_index], list):
-            # Format list as a PostgreSQL array and cast it as jsonb[]
-            row[modbus_address_index] = '{' + ','.join(map(str, row[modbus_address_index])) + '}'
+        # If modbus_address is a list, extract the first element or None if the list is empty
+        if isinstance(row[modbus_address_index], list) and len(row[modbus_address_index]) > 0:
+            row[modbus_address_index] = row[modbus_address_index][0]  # First element as an integer
+        else:
+            row[modbus_address_index] = None  # Set to None if the array is empty or not a list
         
         # Execute the insert query
         cursor.execute(insert_query, row)

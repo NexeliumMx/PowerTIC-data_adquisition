@@ -1,4 +1,5 @@
 import psycopg2
+import json
 
 # Connect to Azure PostgreSQL
 azure_conn = psycopg2.connect(
@@ -31,17 +32,21 @@ with local_conn.cursor() as cursor:
     # Prepare the SQL INSERT statement with placeholders for parameters
     columns_str = ", ".join(column_names)
     placeholders = ", ".join(["%s"] * len(column_names))
-    insert_query = f"INSERT INTO public.modbusqueries ({columns_str}) VALUES ({placeholders})"
+    insert_query = f"INSERT INTO local.modbusqueries ({columns_str}) VALUES ({placeholders})"
     
     # Insert each row into the modbusqueries table
     for row in rows:
         row = list(row)  # Convert tuple to list to make it mutable
         modbus_address_index = column_names.index('modbus_address')  # Find the index of the modbus_address column
         
-        # If modbus_address is a list, extract the first element, otherwise leave it as is
-        if isinstance(row[modbus_address_index], list) and len(row[modbus_address_index]) > 0:
-            row[modbus_address_index] = row[modbus_address_index][0]  # First element as an integer
-        # If it's not a list, it will be inserted as is (assumed to be a number already)
+        # If modbus_address is a list, convert it to PostgreSQL array format
+        if isinstance(row[modbus_address_index], list):
+            # Convert list to PostgreSQL array literal
+            row[modbus_address_index] = '{' + ','.join(map(str, row[modbus_address_index])) + '}'
+        
+        # If modbus_address is an integer, convert it to a single-element array
+        elif isinstance(row[modbus_address_index], int):
+            row[modbus_address_index] = '{' + str(row[modbus_address_index]) + '}'
         
         # Execute the insert query
         cursor.execute(insert_query, row)
@@ -50,7 +55,7 @@ with local_conn.cursor() as cursor:
     local_conn.commit()
 
     # Optional: Verify that the data has been inserted
-    cursor.execute("SELECT * FROM public.modbusqueries;")
+    cursor.execute("SELECT * FROM local.modbusqueries;")
     inserted_rows = cursor.fetchall()
     print("Inserted rows into local PostgreSQL:")
     for inserted_row in inserted_rows:

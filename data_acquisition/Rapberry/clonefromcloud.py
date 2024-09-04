@@ -32,7 +32,7 @@ with local_conn.cursor() as cursor:
     # Prepare the SQL INSERT statement with placeholders for parameters
     columns_str = ", ".join(column_names)
     placeholders = ", ".join(["%s"] * len(column_names))
-    insert_query = f"INSERT INTO local.modbusqueries ({columns_str}) VALUES ({placeholders})"
+    insert_query = f"INSERT INTO public.modbusqueries ({columns_str}) VALUES ({placeholders})"
     
     # Insert each row into the modbusqueries table
     for row in rows:
@@ -55,7 +55,7 @@ with local_conn.cursor() as cursor:
     local_conn.commit()
 
     # Optional: Verify that the data has been inserted
-    cursor.execute("SELECT * FROM local.modbusqueries;")
+    cursor.execute("SELECT * FROM public.modbusqueries;")
     inserted_rows = cursor.fetchall()
     print("Inserted rows into local PostgreSQL:")
     for inserted_row in inserted_rows:

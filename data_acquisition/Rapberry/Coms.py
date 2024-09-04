@@ -9,7 +9,7 @@ import os
 conn = psycopg2.connect(
     user="postgres",
     host="localhost",
-    database="powerticapp",
+    database="postgres",
     password="postgres",  # luis: Tono2002 //Arturo: 2705
     port=5432
 )
@@ -31,7 +31,7 @@ def meter_param():
     tempquery = SETTINGS_DIR / 'tempquery.txt'
             
     with conn.cursor() as cursor:
-        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,setup FROM powertic.modbusqueries")
+        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,setup FROM public.modbusqueries")
         rows = cursor.fetchall()
         settings = {}  # Inicializar configuración antes del bloque try
         forquery='('

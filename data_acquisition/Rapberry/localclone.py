@@ -11,7 +11,7 @@ azure_conn = psycopg2.connect(
 
 # Fetch data from Azure PostgreSQL
 with azure_conn.cursor() as cursor:
-    cursor.execute("SELECT * FROM powertic.locations;")
+    cursor.execute("SELECT * FROM powertic.meters;")
     rows = cursor.fetchall()
     
     # Fetch column names
@@ -31,7 +31,7 @@ with local_conn.cursor() as cursor:
     # Prepare the SQL INSERT statement with placeholders for parameters
     columns_str = ", ".join(column_names)
     placeholders = ", ".join(["%s"] * len(column_names))
-    insert_query = f"INSERT INTO public.locations ({columns_str}) VALUES ({placeholders})"
+    insert_query = f"INSERT INTO public.meters ({columns_str}) VALUES ({placeholders})"
     
     # Insert each row into the localtest table
     for row in rows:
@@ -41,7 +41,7 @@ with local_conn.cursor() as cursor:
     local_conn.commit()
 
     # Optional: Verify that the data has been inserted
-    cursor.execute("SELECT * FROM public.locations;")
+    cursor.execute("SELECT * FROM public.meters;")
     inserted_rows = cursor.fetchall()
     print("Inserted rows into local PostgreSQL:")
     for inserted_row in inserted_rows:

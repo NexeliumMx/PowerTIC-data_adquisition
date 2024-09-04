@@ -34,5 +34,6 @@ while(1):
         rundeploy(SN)
         
     if (time.time()-a)>300:
+        SN=meter_param()
         rundeploy(SN)
         a=time.time()

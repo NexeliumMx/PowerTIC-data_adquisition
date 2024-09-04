@@ -36,15 +36,13 @@ with local_conn.cursor() as cursor:
     
     # Insert each row into the modbusqueries table
     for row in rows:
-        # Assuming the "modbus_address" is in the column number X (replace X with actual index)
-        # Cast the modbus_address (if it's an integer array) to jsonb[]
         row = list(row)  # Convert tuple to list to make it mutable
         modbus_address_index = column_names.index('modbus_address')  # Find the index of the modbus_address column
         
-        # If the modbus_address is of integer array type, convert it to a JSON string
+        # If the modbus_address is an integer array, convert it to a JSON array
         if isinstance(row[modbus_address_index], list):
-            row[modbus_address_index] = json.dumps(row[modbus_address_index])
-
+            row[modbus_address_index] = json.dumps(row[modbus_address_index])  # Properly format the JSON array
+        
         # Execute the insert query
         cursor.execute(insert_query, row)
     

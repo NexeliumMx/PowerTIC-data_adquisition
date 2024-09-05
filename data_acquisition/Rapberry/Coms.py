@@ -194,11 +194,11 @@ def reading_meter(sn):
             finally:
                 client.close()
                 forquery+=', Timestamp,serial_number)'
-                from datetime import datetime
+                
+                # Format the current date and time with time zone in the desired format
+                timestamp = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S%z')
 
-                # Format the current timestamp in the format 'YYYY-MM-DD HH:MM:SS ±HH:MM'
-                timestamp = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S %z')
-                # Add colon to the timezone offset (e.g., convert from -0800 to -08:00)
+                # Insert a colon in the time zone offset to match the required format
                 formatted_timestamp = f"{timestamp[:-2]}:{timestamp[-2:]}"
                 forqueryVal+=','+formatted_timestamp+',\''+str(sn)+'\')'
                 print(forquery)

@@ -194,13 +194,8 @@ def reading_meter(sn):
             finally:
                 client.close()
                 forquery+=', Timestamp,serial_number)'
-                
-                # Format the current date and time with time zone in the desired format
-                timestamp = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S%z')
-
-                # Insert a colon in the time zone offset to match the required format
-                formatted_timestamp = f"{timestamp[:-2]}:{timestamp[-2:]}"
-                forqueryVal+=','+formatted_timestamp+',\''+str(sn)+'\')'
+                timestamp=str(time.time())
+                forqueryVal+=','+timestamp+',\''+str(sn)+'\')'
                 print(forquery)
                 print(forqueryVal)
                 if not os.path.exists(r'vals/temp.txt'):

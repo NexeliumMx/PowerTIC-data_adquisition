@@ -43,13 +43,17 @@ def meter_param():
                 # Adquisición de configuración
                 for row in rows:       
                     if row[3]==True: 
+
                         #Debug
                         print(row[0])
                         print(row[1][0])                            
+                        
                         if isinstance(row[1], list):
+                        
                            #Test print row
                             print(row[0])
                             print(row[1][0][0])
+                        
                             parameter = row[0]
                             regs = row[2]
                             set_val = ""  # Inicializar set_val para cada parámetro
@@ -75,11 +79,13 @@ def meter_param():
                             forquery+=parameter
                             forqueryVal+='\''+str(set_val)+'\''
                         else:
+                        
                             #Debug
                             print(row[0])
                             print(row[1]) 
+                        
                             parameter = row[0]
-                            modbus_address = row[1][0]
+                            modbus_address = row[1]
                             regs = row[2]
                             set_val = ""  # Inicializar set_val para cada parámetro
                             # Data acquisition for single address

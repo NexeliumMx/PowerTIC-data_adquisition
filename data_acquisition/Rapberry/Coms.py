@@ -31,7 +31,7 @@ def meter_param():
     tempquery = SETTINGS_DIR / 'tempquery.txt'
             
     with conn.cursor() as cursor:
-        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,setup FROM public.modbusqueries")
+        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,setup FROM powertic.modbusqueries")
         rows = cursor.fetchall()
         settings = {}  # Inicializar configuración antes del bloque try
         forquery='('
@@ -120,7 +120,7 @@ def meter_param():
             forqueryVal+=',\''+str(time.ctime(time.time()))+'\',0)'
             print(forquery)
             print(forqueryVal)
-            f.write('insert into public.meters '+forquery+'values'+forqueryVal)
+            f.write('insert into powertic.meters '+forquery+'values'+forqueryVal)
         else:
             print("Error de conexión con el medidor")
     
@@ -138,7 +138,7 @@ def reading_meter(sn):
     data = {}
     # Extracting Modbus addresses from the CSV
     with conn.cursor() as cursor:
-        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM public.modbusqueries")
+        cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM powertic.modbusqueries")
         rows = cursor.fetchall()
         address = []
         forquery='('
@@ -148,13 +148,13 @@ def reading_meter(sn):
             try:        
                 for row in rows:
                     #Debug
-                    print(row)
-                    print(row[0])
-                    print(row[1])
-                    print(row[1][0])  
+                    #print(row)
+                    #print(row[0])
+                    #print(row[1])
+                    #print(row[1][0])  
                     if row[3]==True:
                         if isinstance(row[1][0], list):
-                            print(row[1][0][0]) 
+                            #print(row[1][0][0]) 
                             parameter = row[0]
                             
                             modbus_address = row[1][0][0]
@@ -208,7 +208,7 @@ def reading_meter(sn):
                 else:
                     f=os.remove(r"vals/temp.txt")
                     f=open(r"vals/temp.txt","x")
-                f.write('insert into public.measurements '+forquery+' values'+forqueryVal)
+                f.write('insert into powertic.measurements '+forquery+' values'+forqueryVal)
             
                 return METER_DATA_PATH
             

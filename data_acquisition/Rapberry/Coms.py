@@ -44,6 +44,8 @@ def meter_param():
                 for row in rows:       
                     if row[3]==True:                            
                         if isinstance(row[1], list):
+                           #Test print row
+                            print(row[0])
                             parameter = row[0]
                             regs = row[2]
                             set_val = ""  # Inicializar set_val para cada parámetro

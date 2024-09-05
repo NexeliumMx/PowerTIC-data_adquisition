@@ -211,3 +211,4 @@ def reading_meter(sn):
             print("Error de conexión con el medidor")
 
 print(meter_param())
+print(reading_meter())

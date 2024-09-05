@@ -48,11 +48,20 @@ with local_conn.cursor() as cursor:
         elif isinstance(row[modbus_address_index], int):
             row[modbus_address_index] = '[' + str(row[modbus_address_index]) + ']'
         for i in range(0,len(row)):
-            strq+=str(row[i])
-            if i!=len(row):
-                strq+=','
+            if isinstance(row[i],int):
+                strq+=str(row[i])
             else:
-                strq*=')'
+                strq+='\''+str(row[i])
+            if i!=len(row):
+                if isinstance(row[i],int):
+                    strq+=','
+                else:
+                    strq+='\','
+            else:
+                if isinstance(row[i],int):
+                    strq+=')'
+                else:
+                    strq+='\')'
         # Execute the insert query
         print(insert_query+strq)
         print(row)

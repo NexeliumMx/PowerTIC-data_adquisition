@@ -151,7 +151,8 @@ def reading_meter(sn):
                     print(row)
                     print(row[0])
                     print(row[1])
-                    print(row[1][0])   
+                    print(row[1][0]) 
+                    print(row[1][0][0])  
                     if row[3]==True:
                         if isinstance(row[1][0], list):
                             parameter = row[0]

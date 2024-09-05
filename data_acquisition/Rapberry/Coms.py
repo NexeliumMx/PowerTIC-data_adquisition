@@ -47,6 +47,7 @@ def meter_param():
                         #Debug
                         print(row)
                         print(row[0])
+                        print(row[1])
                         print(row[1][0])                            
                         
                         if isinstance(row[1], list):

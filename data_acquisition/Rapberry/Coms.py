@@ -120,7 +120,7 @@ def meter_param():
             forqueryVal+=',\''+str(time.ctime(time.time()))+'\',0)'
             print(forquery)
             print(forqueryVal)
-            f.write('insert into powertic.meters '+forquery+'values'+forqueryVal)
+            f.write('insert into public.meters '+forquery+'values'+forqueryVal)
         else:
             print("Error de conexión con el medidor")
     
@@ -203,7 +203,7 @@ def reading_meter(sn):
                 else:
                     f=os.remove(r"vals/temp.txt")
                     f=open(r"vals/temp.txt","x")
-                f.write('insert into powerTic.measurements '+forquery+' values'+forqueryVal)
+                f.write('insert into public.measurements '+forquery+' values'+forqueryVal)
             
                 return METER_DATA_PATH
             

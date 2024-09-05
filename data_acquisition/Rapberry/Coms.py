@@ -153,10 +153,10 @@ def reading_meter(sn):
                     print(row[1])
                     print(row[1][0])   
                     if row[3]==True:
-                        if isinstance(row[1], list):
+                        if isinstance(row[1][0], list):
                             parameter = row[0]
                             
-                            modbus_address = row[1]
+                            modbus_address = row[1][0]
                             # Iterate over each address in the list
                             for modbus_address in row[1]:
                                 try:
@@ -178,7 +178,7 @@ def reading_meter(sn):
                             forqueryVal+=str(meas_val)
                         else:
                             parameter = row[0]
-                            modbus_address = row[1]
+                            modbus_address = row[1][0]
                             # Data acquisition for a single address
                             meas = client.read_holding_registers(modbus_address, 1)
                             if not meas.isError():

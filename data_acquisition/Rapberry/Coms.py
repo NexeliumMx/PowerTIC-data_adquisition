@@ -45,17 +45,18 @@ def meter_param():
                     if row[3]==True: 
 
                         #Debug
-                        print(row)
-                        print(row[0])
-                        print(row[1])
-                        print(row[1][0])                            
+                        #print(row)
+                        #print(row[0])
+                        #print(row[1])
+                        #print(row[1][0])                            
                         
                         if isinstance(row[1], list):
                         
-                           #Test print row
+                            #Debug
+                            print(row)
                             print(row[0])
-                            print(row[1][0][0])
-                        
+                            print(row[1])
+                            print(row[1][0]) 
                             parameter = row[0]
                             regs = row[2]
                             set_val = ""  # Inicializar set_val para cada parámetro
@@ -83,9 +84,10 @@ def meter_param():
                         else:
                         
                             #Debug
+                            print(row)
                             print(row[0])
-                            print(row[1]) 
-                        
+                            print(row[1])
+                            print(row[1][0]) 
                             parameter = row[0]
                             modbus_address = row[1]
                             regs = row[2]

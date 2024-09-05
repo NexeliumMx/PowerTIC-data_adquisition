@@ -140,7 +140,6 @@ def reading_meter(sn):
     with conn.cursor() as cursor:
         cursor.execute(f"SELECT parameter_description, modbus_address, register_number,indb FROM public.modbusqueries")
         rows = cursor.fetchall()
-        print(rows)
         address = []
         forquery='('
         forqueryVal='('
@@ -148,6 +147,11 @@ def reading_meter(sn):
         if client.connect():
             try:        
                 for row in rows:
+                    #Debug
+                    print(row)
+                    print(row[0])
+                    print(row[1])
+                    print(row[1][0])   
                     if row[3]==True:
                         if isinstance(row[1], list):
                             parameter = row[0]

@@ -52,7 +52,7 @@ with local_conn.cursor() as cursor:
                 strq+=str(row[i])
             else:
                 strq+='\''+str(row[i])
-            if i!=len(row):
+            if i!=len(row)-1:
                 if isinstance(row[i],int):
                     strq+=','
                 else:

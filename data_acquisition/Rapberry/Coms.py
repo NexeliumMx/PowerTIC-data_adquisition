@@ -50,7 +50,7 @@ def meter_param():
                         print(row[1])
                         print(row[1][0])                            
                         
-                        if isinstance(row[1], list):
+                        if isinstance(row[1][0], list):
                         
                             #Debug
                             #print(row)

@@ -43,7 +43,7 @@ with local_conn.cursor() as cursor:
         if isinstance(row[modbus_address_index], list):
             # Convert list to PostgreSQL array literal
             row[modbus_address_index] ='{' + '[' + ','.join(map(str, row[modbus_address_index])) + ']'+'}'
-        
+            print(row[modbus_address_index])
         # If modbus_address is an integer, convert it to a single-element array
         elif isinstance(row[modbus_address_index], int):
             row[modbus_address_index] = '[' + str(row[modbus_address_index]) + ']'

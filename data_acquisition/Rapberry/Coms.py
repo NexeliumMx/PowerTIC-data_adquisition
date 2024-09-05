@@ -159,7 +159,7 @@ def reading_meter(sn):
                             
                             modbus_address = row[1][0][0]
                             # Iterate over each address in the list
-                            for modbus_address in row[1]:
+                            for modbus_address in row[1][0]:
                                 try:
                                     # Data acquisition for each address
                                     meas = client.read_holding_registers(modbus_address, 1)

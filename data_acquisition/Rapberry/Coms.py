@@ -89,7 +89,7 @@ def meter_param():
                             #print(row[1])
                             #print(row[1][0]) 
                             parameter = row[0]
-                            modbus_address = row[1]
+                            modbus_address = row[1][0]
                             regs = row[2]
                             set_val = ""  # Inicializar set_val para cada parámetro
                             # Data acquisition for single address

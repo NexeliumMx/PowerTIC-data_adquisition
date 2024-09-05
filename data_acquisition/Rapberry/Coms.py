@@ -72,11 +72,11 @@ def meter_param():
                             forquery+=parameter
                             forqueryVal+='\''+str(set_val)+'\''
                         else:
-                            parameter = row[0]
-                            modbus_address = row[1]
                             #Debug
                             print(row[0])
                             print(row[1]) 
+                            parameter = row[0]
+                            modbus_address = row[1]
                             regs = row[2]
                             set_val = ""  # Inicializar set_val para cada parámetro
                             # Data acquisition for single address

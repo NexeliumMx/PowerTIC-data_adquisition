@@ -50,7 +50,7 @@ def meter_param():
                             parameter = row[0]
                             regs = row[2]
                             set_val = ""  # Inicializar set_val para cada parámetro
-                            for modbus_address in row[1]:
+                            for modbus_address in row[1][0]:
                                 try:
                                     
                                     result = client.read_holding_registers(modbus_address, 1)

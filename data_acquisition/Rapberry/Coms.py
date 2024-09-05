@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,timezone
 from pymodbus.client import ModbusSerialClient
 import time
 import json
@@ -199,7 +199,7 @@ def reading_meter(sn):
             finally:
                 client.close()
                 forquery+=', Timestamp,serial_number)'
-                timestamp = datetime.now().astimezone().isoformat()
+                timestamp = datetime.datetime.now(timezone.utc).isoformat()
                 forqueryVal+=','+timestamp+',\''+str(sn)+'\')'
                 print(forquery)
                 print(forqueryVal)

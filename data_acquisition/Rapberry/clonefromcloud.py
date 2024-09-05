@@ -49,7 +49,8 @@ with local_conn.cursor() as cursor:
             row[modbus_address_index] = '[' + str(row[modbus_address_index]) + ']'
         
         # Execute the insert query
-        print(insert_query)
+        print(insert_query,row)
+        print(row)
         cursor.execute(insert_query, row)
     
     # Commit the transaction

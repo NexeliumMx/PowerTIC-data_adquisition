@@ -42,7 +42,10 @@ def meter_param():
             try:
                 # Adquisición de configuración
                 for row in rows:       
-                    if row[3]==True:                            
+                    if row[3]==True: 
+                        #Debug
+                        print(row[0])
+                        print(row[1])                            
                         if isinstance(row[1], list):
                            #Test print row
                             print(row[0])

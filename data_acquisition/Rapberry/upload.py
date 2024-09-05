@@ -3,7 +3,7 @@ def uploadloc(path):
     conn = psycopg2.connect(
     user="postgres",
     host="localhost",
-    database="powerticapp",
+    database="postgres",
     password="postgres",  # luis: Tono2002 //Arturo: 2705
     port=5432
 )

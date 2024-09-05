@@ -201,7 +201,7 @@ def reading_meter(sn):
                 client.close()
                 forquery+=', Timestamp,serial_number)'
                 timestamp = datetime.now().astimezone().isoformat()
-                forqueryVal+=','+timestamp+',\''+str(sn)+'\')'
+                forqueryVal+=','+str(timestamp)+',\''+str(sn)+'\')'
                 print(forquery)
                 print(forqueryVal)
                 if not os.path.exists(r'vals/temp.txt'):

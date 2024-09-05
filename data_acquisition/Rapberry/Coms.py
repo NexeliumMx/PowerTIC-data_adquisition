@@ -151,10 +151,10 @@ def reading_meter(sn):
                     print(row)
                     print(row[0])
                     print(row[1])
-                    print(row[1][0]) 
-                    print(row[1][0][0])  
+                    print(row[1][0])  
                     if row[3]==True:
                         if isinstance(row[1][0], list):
+                            print(row[1][0][0]) 
                             parameter = row[0]
                             
                             modbus_address = row[1][0][0]

@@ -200,7 +200,7 @@ def reading_meter(sn):
             finally:
                 client.close()
                 forquery+=', Timestamp,serial_number)'
-                timestamp = datetime.now().astimezone().isoformat()
+                timestamp = datetime.datetime.now(timezone.utc).isoformat()
                 forqueryVal+=','+str(timestamp)+',\''+str(sn)+'\')'
                 print(forquery)
                 print(forqueryVal)

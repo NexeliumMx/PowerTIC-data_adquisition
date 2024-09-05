@@ -53,12 +53,12 @@ with local_conn.cursor() as cursor:
             else:
                 strq+='\''+str(row[i])
             if i!=len(row)-1:
-                if isinstance(row[i],int):
+                if isinstance(row[i],int) | isinstance(row[i],list):
                     strq+=','
                 else:
                     strq+='\','
             else:
-                if isinstance(row[i],int):
+                if isinstance(row[i],int)| isinstance(row[i],list):
                     strq+=')'
                 else:
                     strq+='\')'

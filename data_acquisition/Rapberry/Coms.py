@@ -194,7 +194,9 @@ def reading_meter(sn):
             finally:
                 client.close()
                 forquery+=', Timestamp,serial_number)'
-                timestamp = datetime.now().astimezone().isoformat()
+                from datetime import datetime
+
+                timestamp = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S%z')
                 forqueryVal+=','+timestamp+',\''+str(sn)+'\')'
                 print(forquery)
                 print(forqueryVal)

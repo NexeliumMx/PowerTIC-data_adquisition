@@ -196,7 +196,7 @@ def reading_meter(sn):
                 forquery+=', Timestamp,serial_number)'
                 from datetime import datetime
 
-                timestamp = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S%z')
+                timestamp = datetime.now().astimezone().strftime('%H:%M:%S%z')
                 forqueryVal+=','+timestamp+',\''+str(sn)+'\')'
                 print(forquery)
                 print(forqueryVal)

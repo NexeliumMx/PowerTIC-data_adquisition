@@ -156,7 +156,7 @@ def reading_meter(sn):
                         if isinstance(row[1][0], list):
                             parameter = row[0]
                             
-                            modbus_address = row[1][0]
+                            modbus_address = row[1][0][0]
                             # Iterate over each address in the list
                             for modbus_address in row[1]:
                                 try:

@@ -1,4 +1,5 @@
-from datetime import datetime,timezone
+import datetime
+from datetime import timezone
 from pymodbus.client import ModbusSerialClient
 import time
 import json

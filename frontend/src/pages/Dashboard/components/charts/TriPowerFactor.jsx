@@ -1,38 +1,39 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Text } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
+// Datos ejemplo para 60 minutos con intervalos de 5 minutos
 const data = [
-  { name: 'Promedio', value: 0.98, color: '#69B2A6' },
-  { name: 'Fase A', value: 0.98, color: '#83C5B1' },
-  { name: 'Fase B', value: 1.0, color: '#83C5B1' },
-  { name: 'Fase C', value: 0.96, color: '#83C5B1' },
+  { name: '0 min', promedio: 0.95 },
+  { name: '5 min', promedio: 0.96 },
+  { name: '10 min', promedio: 0.97 },
+  { name: '15 min', promedio: 0.98 },
+  { name: '20 min', promedio: 0.99 },
+  { name: '25 min', promedio: 1.00 },
+  { name: '30 min', promedio: 0.98 },
+  { name: '35 min', promedio: 0.97 },
+  { name: '40 min', promedio: 0.96 },
+  { name: '45 min', promedio: 0.95 },
+  { name: '50 min', promedio: 0.96 },
+  { name: '55 min', promedio: 0.97 },
+  { name: '60 min', promedio: 0.98 }
 ];
-
-const renderCustomLabel = ({ x, y, width, value }) => (
-  <Text x={x + width / 2} y={y} fill="#69B2A6" textAnchor="middle" dy={-10} fontSize={20}>
-    {value}
-  </Text>
-);
 
 const TriPowerFactor = () => {
   return (
     <ResponsiveContainer width="100%" height={400}>
-      <BarChart data={data} margin={{ top: 20, right: 30, left: 30, bottom: 5 }}>
+      <LineChart data={data} margin={{ top: 20, right: 30, left: 30, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-        <XAxis dataKey="name" tick={{ fill: '#ccc', fontSize: 18 }} />
-        <YAxis tick={{ fill: '#ccc', fontSize: 18 }} domain={[0.8, 1.0]} />
+        <XAxis dataKey="name" tick={{ fill: '#ccc', fontSize: 18 }} reversed={true}/>
+        <YAxis 
+          tick={{ fill: '#ccc', fontSize: 18 }} 
+          domain={[0.90, 1.0]} // Cambiamos el dominio para que comience en 0.85
+          ticks={[0.92, 0.94,0.96,0.98, 1.00]} // Ajustamos los ticks para que comiencen en 0.85
+        />
         <Tooltip />
-        <Bar dataKey="value" fill="#8884d8">
-          {data.map((entry, index) => (
-            <Bar key={`bar-${index}`} fill={entry.color} />
-          ))}
-          {data.map((entry, index) => (
-            <text key={`label-${index}`} x={entry.x} y={entry.y} dy={-10} fontSize={18} fill={entry.color}>
-              {entry.value}
-            </text>
-          ))}
-        </Bar>
-      </BarChart>
+        <Legend />
+        {/* Línea solo para el promedio */}
+        <Line type="monotone" dataKey="promedio" stroke="#69B2A6" name="Promedio" strokeWidth={2} />
+      </LineChart>
     </ResponsiveContainer>
   );
 };

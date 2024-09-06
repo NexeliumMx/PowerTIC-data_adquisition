@@ -4,7 +4,7 @@ import './Mediciones.scss'; // Import the styles
 
 
 import Current from './charts/Current';
-import VoltageLL from './charts/VoltageLL';
+import ConsumoHist from './charts/ConsumoHist';
 import TriPowerFactor from './charts/TriPowerFactor';
 import RealPower from './charts/RealPower';
 import ReactivePower from './charts/ReactivePower';
@@ -23,7 +23,7 @@ const Mediciones = () => {
   <Tile className="potencias" title="Potencia Reactiva" content1={<ReactivePower/>}/>
 </div>
 <div className="consumo-historico-container">
-  <Tile className="consumo-historico" title="Consumo histórico" content1={<VoltageLL />} />
+  <Tile className="consumo-historico" title="Consumo histórico" content1={<ConsumoHist />} />
 </div>
 
 

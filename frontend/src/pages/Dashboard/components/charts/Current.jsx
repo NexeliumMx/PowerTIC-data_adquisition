@@ -10,7 +10,7 @@ const data = [
 ];
 
 const renderCustomLabel = ({ x, y, width, value }) => (
-  <Text x={x + width / 2} y={y} fill={value >= 0.5 ? '#F2A007' : '#69B2A6'} textAnchor="middle" dy={-10} fontSize={20}>
+  <Text x={x + width / 2} y={y} fill={value >= 0.5 ? '#F2A007' : '#69B2A6'} textAnchor="middle" dy={-10} fontSize={18}>
     {value}
   </Text>
 );
@@ -25,12 +25,7 @@ const Current = () => {
         <Tooltip />
         <Bar dataKey="value" fill="#8884d8">
           {data.map((entry, index) => (
-            <Bar key={`bar-${index}`} fill={entry.color} />
-          ))}
-          {data.map((entry, index) => (
-            <text key={`label-${index}`} x={entry.x} y={entry.y} dy={-10} fontSize={18} fill={entry.color}>
-              {entry.value}
-            </text>
+            <Bar key={`bar-${index}`} dataKey="value" fill={entry.color} label={renderCustomLabel} />
           ))}
         </Bar>
       </BarChart>

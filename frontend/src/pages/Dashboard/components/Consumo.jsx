@@ -21,25 +21,27 @@ const Consumo = () => {
         <Tile 
           title="Demanda Máxima" 
           icon={Activity} 
-          content={<TextDisplay display="10 000 kW"/>}
-          width="23%"
+          content1={<TextDisplay display="10 000 kW"/>}
+          content2={<TextDisplay display="10 000 kVar"/>}
+          width="21%"
         />
         <Tile 
           title="Consumo Acumulado" 
           icon={BatteryCharging} 
-          content={<TextDisplay display="70 000 kWh"/>} 
-          width="23%"
+          content1={<TextDisplay display="70 000 kWh"/>} 
+          content2={<TextDisplay display="70 000 kWh"/>}
+          width="21%"
         />
         <Tile 
           title="Factor de Potencia" 
           icon={Gauge} 
-          content={<PowerFactor data={data} colors={COLORS}/>} 
+          content1={<PowerFactor data={data} colors={COLORS}/>} 
           width="23%"
         />
         <Tile 
           title="Tiempo" 
           icon={Clock} 
-          content={<TextDisplay display="03 de Agosto de 2024 17:23"/>} 
+          content1={<TextDisplay display="03 de Agosto de 2024 17:23"/>} 
           width="23%"
         />
       </div>
@@ -49,13 +51,13 @@ const Consumo = () => {
         <Tile 
           title="Perfil de Demanda" 
           icon={Activity} 
-          content={<DemandProfile />} 
+          content1={<DemandProfile />} 
           width="57%"
         />
         <Tile 
           title="Historial de Consumo" 
           icon={BatteryCharging} 
-          content={<ConsumptionHistory />}
+          content1={<ConsumptionHistory />}
           width="43%"
         />
       </div>

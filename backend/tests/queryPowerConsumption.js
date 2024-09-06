@@ -3,14 +3,14 @@
  * Last Modified: 2024-09-06, by Arturo Vargas Cuevas
  * 
  * This script connects to the PostgreSQL database and fetches the latest values
- * for total_real_energy_imported and total_va_hours_imported from the
- * "powertic.measurements" table.
+ * for total_real_energy_imported, total_var_hours_imported_q1, and total_var_hours_imported_q2
+ * from the "powertic.measurements" table.
  * 
- * The results are printed directly to the terminal without any surrounding text or labels.
+ * The results are divided by 1000 and printed in kWh and kvarh with descriptive labels.
  * 
  *  Output Order:
- * - First, it prints total_real_energy_imported.
- * - Then, it prints total_va_hours_imported.
+ * - First, it prints total_real_energy_imported in kWh.
+ * - Then, it prints total_var_hours_imported_q1 and total_var_hours_imported_q2 in kvarh.
  */
 
 import client from './dbCredentials.js';
@@ -20,7 +20,7 @@ client.connect()
   .then(() => {
     // Query to get the latest power consumption values from the powertic.measurements table
     const query = `
-      SELECT total_real_energy_imported, total_va_hours_imported
+      SELECT total_real_energy_imported, total_var_hours_imported_q1, total_var_hours_imported_q2
       FROM "powertic"."measurements"
       ORDER BY idmeasurements DESC LIMIT 1;
     `;
@@ -30,12 +30,15 @@ client.connect()
   .then(result => {
     if (result.rows.length > 0) {
       const row = result.rows[0];
-      const totalRealEnergyImported = row.total_real_energy_imported;
-      const totalVAHoursImported = row.total_va_hours_imported;
+      const totalRealEnergyImported = (row.total_real_energy_imported / 1000).toFixed(3); // Convert to kWh
+      const totalVarHoursImportedQ1 = (row.total_var_hours_imported_q1 / 1000).toFixed(3); // Convert to kvarh
+      const totalVarHoursImportedQ2 = (row.total_var_hours_imported_q2 / 1000).toFixed(3); // Convert to kvarh
 
-      // Print the values without any strings
-      console.log(totalRealEnergyImported);
-      console.log(totalVAHoursImported);
+      // Print the values with labels
+      console.log("Accumulated Consumption / Consumo Acumulado:");
+      console.log(`Total Real Energy Imported: ${totalRealEnergyImported} kWh`);
+      console.log(`Total var hours imported q1: ${totalVarHoursImportedQ1} kvarh`);
+      console.log(`Total var hours imported q2: ${totalVarHoursImportedQ2} kvarh`);
     } else {
       console.log('No records found in the table.');
     }

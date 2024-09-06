@@ -2,13 +2,13 @@
  * Author: Rogelio Akin Leon Garcia
  * Last Modified: 2024-09-06, by Rogelio Akin Leon Garcia
  * 
- * This script connects to the PostgreSQL database and fetches the latest 12 values
- * of the 'power_factor' field from the "powertic.measurements" table.
+ * This script connects to the PostgreSQL database and fetches the latest power factor value
+ * from the "powertic.measurements" table.
  * 
- * The results are printed directly to the terminal without any surrounding text or labels.
+ * The result is normalized from -1000 to +1000 to -1 to 1 and printed with a label.
  * 
- *  Output Order:
- * - The values are printed in descending order, with the most recent 'power_factor' printed first.
+ *  Output:
+ * - The power factor is printed with a descriptive label.
  */
 
 import client from './dbCredentials.js';
@@ -32,7 +32,10 @@ client.connect()
 
       // Normalize the power factor
       const normalizedPowerFactor = normalizePowerFactor(powerFactor);
-      console.log(normalizedPowerFactor);
+
+      // Print the result with a label
+      console.log("Power Factor / Factor de Potencia:");
+      console.log(normalizedPowerFactor.toFixed(3)); // Print with 3 decimal places
     } else {
       console.log('No records found in the table.');
     }

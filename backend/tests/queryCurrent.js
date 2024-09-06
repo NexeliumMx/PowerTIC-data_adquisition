@@ -6,14 +6,13 @@
  * for amps_total, amps_phase_a, amps_phase_b, and amps_phase_c from the
  * "powertic.measurements" table.
  * 
- * The results are printed directly to the terminal without any surrounding text or labels.
+ * It also calculates the percentage of current imbalance between the phases, 
+ * printing the results in a formatted way to the terminal.
  * 
- *  Output Order:
- * - First, it prints amps_total.
- * - Then, it prints amps_phase_a.
- * - Then, it prints amps_phase_b.
- * - Finally, it prints amps_phase_c.
- * - Then, it prints the percentage of current imbalance.
+ * Output:
+ * - It prints amps_total.
+ * - It prints amps_phase_a, amps_phase_b, and amps_phase_c.
+ * - Then, it prints the percentage of current imbalance (range 0 to 100).
  */
 
 import client from './dbCredentials.js';
@@ -48,24 +47,21 @@ client.connect()
   .then(result => {
     if (result.rows.length > 0) {
       const row = result.rows[0];
-      const ampsTotal = row.amps_total || 0; // Handle null or undefined values
+      const ampsTotal = row.amps_total || 0;  // Handle null or undefined values
       const ampsPhaseA = row.amps_phase_a || 0;
       const ampsPhaseB = row.amps_phase_b || 0;
       const ampsPhaseC = row.amps_phase_c || 0;
 
-      // Print the amps values without any strings
-      console.log(ampsTotal);
-      console.log(ampsPhaseA);
-      console.log(ampsPhaseB);
-      console.log(ampsPhaseC);
+      // Print the amps values with labels and a new header "Current / Corriente"
+      console.log("Current / Corriente:");
+      console.log(`Total current: ${ampsTotal}`);
+      console.log(`Phase A current: ${ampsPhaseA}`);
+      console.log(`Phase B current: ${ampsPhaseB}`);
+      console.log(`Phase C current: ${ampsPhaseC}`);
 
-      // Calculate and print the imbalance percentage if valid
-      if (ampsPhaseA !== 0 && ampsPhaseB !== 0 && ampsPhaseC !== 0) {
-        const imbalance = calculateImbalance(ampsPhaseA, ampsPhaseB, ampsPhaseC);
-        console.log(imbalance.toFixed(2));  // Print with 2 decimal places
-      } else {
-        console.log(0);  // No imbalance if currents are zero
-      }
+      // Calculate and print the imbalance percentage
+      const imbalance = calculateImbalance(ampsPhaseA, ampsPhaseB, ampsPhaseC);
+      console.log(`Current imbalance: ${imbalance.toFixed(2)}%`);
     } else {
       console.log('No records found in the table.');
     }

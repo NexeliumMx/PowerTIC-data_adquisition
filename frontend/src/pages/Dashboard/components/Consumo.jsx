@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Tile from './Tile'; // Import the Tile component
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import Tile from './Tile';
 import { Activity, BatteryCharging, Gauge, Clock } from 'lucide-react';
-import './Consumo.scss'; // Import the styles for Consumo
+import './Consumo.scss'; 
 
 import ConsumptionHistory from './charts/ConsumptionHistory.jsx'; 
 import DemandProfile from './charts/DemandProfile.jsx';
@@ -11,35 +12,34 @@ import TextDisplay from './charts/TextDisplay.jsx';
 import COLORS from '../../../styles/chartColors.js';
 import data from './charts/pieChartData.js';
 
-const Consumo = () => {
-  const [timestamp, setTimestamp] = useState(''); // State to hold the fetched timestamp
+const socket = io('http://localhost:3001');
 
+const Consumo = () => {
+  const [timestamp, setTimestamp] = useState('');
+
+  // Fetch the timestamp initially when the component mounts
   useEffect(() => {
-    // Fetch the timestamp from the backend API
-    const fetchTimestamp = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/api/timestamp'); // Adjust URL as needed
-        const data = await response.json();
-        console.log('Fetched timestamp:', data.timestamp); // Log the fetched timestamp
-        setTimestamp(data.timestamp); // Set the fetched timestamp
-      } catch (error) {
-        console.error('Error fetching timestamp:', error);
-      }
+    const fetchInitialTimestamp = async () => {
+      const response = await fetch('http://localhost:3001/api/timestamp');
+      const data = await response.json();
+      setTimestamp(data.timestamp);
     };
 
-    // Call the function to fetch the timestamp
-    fetchTimestamp();
+    fetchInitialTimestamp();
 
-    // Optionally, you can set an interval to periodically fetch the timestamp if needed
-    const intervalId = setInterval(fetchTimestamp, 60000); // Fetch timestamp every minute
+    // Listen for WebSocket events for real-time updates
+    socket.on('newTimestamp', (newTimestamp) => {
+      setTimestamp(newTimestamp);
+    });
 
-    // Cleanup interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []); // Empty dependency array ensures this runs once when the component mounts
+    // Clean up the socket connection on unmount
+    return () => {
+      socket.off('newTimestamp');
+    };
+  }, []);
 
   return (
     <div className="content-wrapper">
-      {/* Small Tiles Container */}
       <div className="small-tiles-container">
         <Tile 
           title="Demanda Máxima" 
@@ -64,12 +64,11 @@ const Consumo = () => {
         <Tile 
           title="Tiempo" 
           icon={Clock} 
-          content1={<TextDisplay display={timestamp}/>} // Display the fetched timestamp
+          content1={<TextDisplay display={timestamp}/>} // Automatically update the timestamp
           width="23%"
         />
       </div>
 
-      {/* Big Tiles Container */}
       <div className="big-tiles-container">
         <Tile 
           title="Perfil de Demanda" 

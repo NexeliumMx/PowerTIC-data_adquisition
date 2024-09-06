@@ -33,7 +33,8 @@ if not os.path.exists(r'vals/sn.txt'):
         print('not able to upload to cloud')
     os.remove(r'vals/temp.txt')
     rundeploy(SN)
-    
-
-rundeploy(SN)
-a=time.time()
+else:    
+    y=open(r"vals/sn.txt")
+    SN = y.read()
+    rundeploy(SN)
+    a=time.time()

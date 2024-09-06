@@ -2,7 +2,7 @@ import datetime
 from datetime import timezone
 from pymodbus.client import ModbusSerialClient
 import time
-import json
+import pytz
 from pathlib import Path
 import psycopg2
 import os
@@ -200,7 +200,12 @@ def reading_meter(sn):
             finally:
                 client.close()
                 forquery+=', Timestamp,serial_number)'
-                timestamp = datetime.datetime.now(timezone.utc).isoformat()
+                # Define Mexico City's timezone
+                mexico_timezone = pytz.timezone('America/Mexico_City')
+
+                # Get the current time in Mexico City and format it as an ISO 8601 string
+                timestamp = datetime.datetime.now(mexico_timezone).isoformat()
+                
                 #forqueryVal+=','+timestamp+',\''+str(sn)+'\')'
                 forqueryVal+=f", '{timestamp}', '{str(sn)}')"
                 print(forquery)

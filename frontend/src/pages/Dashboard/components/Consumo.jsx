@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Tile from './Tile'; // Import the Tile component
 import { Activity, BatteryCharging, Gauge, Clock } from 'lucide-react';
 import './Consumo.scss'; // Import the styles for Consumo
@@ -8,12 +8,22 @@ import DemandProfile from './charts/DemandProfile.jsx';
 import PowerFactor from './charts/PowerFactor.jsx';
 import TextDisplay from './charts/TextDisplay.jsx';
 
-
+import getFormattedTimestamp from '../../../scripts/queryTimestamp.js'; // Import the timestamp function
 import COLORS from '../../../styles/chartColors.js';
 import data from './charts/pieChartData.js';
 
-
 const Consumo = () => {
+  const [timestamp, setTimestamp] = useState('');
+
+  useEffect(() => {
+    const fetchTimestamp = async () => {
+      const result = await getFormattedTimestamp();
+      setTimestamp(result);
+    };
+    
+    fetchTimestamp();
+  }, []);
+
   return (
     <div className="content-wrapper">
       {/* Small Tiles Container */}
@@ -41,7 +51,7 @@ const Consumo = () => {
         <Tile 
           title="Tiempo" 
           icon={Clock} 
-          content1={<TextDisplay display="03 de Agosto de 2024 17:23"/>} 
+          content1={<TextDisplay display={timestamp}/>} // Use the fetched timestamp here
           width="23%"
         />
       </div>

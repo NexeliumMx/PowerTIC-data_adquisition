@@ -1,10 +1,9 @@
 import { PieChart, Pie, Cell } from 'recharts';
 
-export default function PowerFactor({ data, colors }) {
+export default function PowerFactor({ data, colors, powerFactor }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center'}}>
-
-      <div style={{ width: '300px', height: '200px'}}>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ width: '300px', height: '200px' }}>
         <PieChart width={300} height={200}>
           <Pie
             data={data}
@@ -33,7 +32,7 @@ export default function PowerFactor({ data, colors }) {
           color: 'white',
         }}
       >
-        0.75
+        {powerFactor} {/* Dynamically display the power factor */}
       </div>
     </div>
   );

@@ -1,18 +1,18 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
-  { name: 'Ene', value: 57000 },
-  { name: 'Feb', value: 74779 },
-  { name: 'Mar', value: 19027 },
-  { name: 'Abr', value: 43887 },
-  { name: 'May', value: 22000 },
-  { name: 'Jun', value: 67000 },
-  { name: 'Jul', value: 78200 },
-  { name: 'Ago', value: 51286 },
-  { name: 'Sept', value: 40200 },
-  { name: 'Oct', value: 58736 },
-  { name: 'Nov', value: 68739 },
-  { name: 'Dic', value: 62000 },
+  { name: 'Ene', value: 0 },
+  { name: 'Feb', value: 0 },
+  { name: 'Mar', value: 0 },
+  { name: 'Abr', value: 0 },
+  { name: 'May', value: 0 },
+  { name: 'Jun', value: 0 },
+  { name: 'Jul', value: 0 },
+  { name: 'Ago', value: 0 },
+  { name: 'Sept', value: 0 },
+  { name: 'Oct', value: 0 },
+  { name: 'Nov', value: 0 },
+  { name: 'Dic', value: 0 },
 ];
 
 export default function ConsumptionHistory () {

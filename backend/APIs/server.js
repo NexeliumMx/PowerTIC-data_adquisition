@@ -1,5 +1,8 @@
 import express from 'express';
 import { fetchTimestamp } from './fetchTimestamp.js';
+import fetchMaxDemand from './fetchMaxDemand.js'; // Import max demand function
+import fetchPowerConsumption from './fetchPowerConsumption.js'; // Import power consumption function
+import fetchLastPF from './fetchLastPF.js'; // Import last power factor function
 import cors from 'cors';
 import client from './postgresCredentials.js';
 import { Server } from 'socket.io';
@@ -18,6 +21,15 @@ const io = new Server(server, {
 
 app.use(cors());
 
+// Connect to the PostgreSQL database once when the server starts
+client.connect()
+  .then(() => {
+    console.log('Connected to PostgreSQL');
+  })
+  .catch(err => {
+    console.error('Failed to connect to PostgreSQL:', err.stack);
+  });
+
 // Define the /api/timestamp endpoint
 app.get('/api/timestamp', async (req, res) => {
   try {
@@ -28,11 +40,42 @@ app.get('/api/timestamp', async (req, res) => {
   }
 });
 
+// Define the /api/maxdemand endpoint
+app.get('/api/maxdemand', async (req, res) => {
+  try {
+    const maxDemand = await fetchMaxDemand(); // Fetch max demand data
+    res.status(200).send(maxDemand); // Send the data as a JSON response
+  } catch (error) {
+    console.error('Error occurred while fetching max demand:', error);
+    res.status(500).send({ error: 'Failed to fetch maximum demand' });
+  }
+});
+
+// Define the /api/powerconsumption endpoint
+app.get('/api/powerconsumption', async (req, res) => {
+  try {
+    const powerConsumption = await fetchPowerConsumption(); // Fetch power consumption data
+    res.status(200).send(powerConsumption); // Send the data as a JSON response
+  } catch (error) {
+    console.error('Error occurred while fetching power consumption:', error);
+    res.status(500).send({ error: 'Failed to fetch power consumption' });
+  }
+});
+
+// Define the /api/lastpf endpoint
+app.get('/api/lastpf', async (req, res) => {
+  try {
+    const powerFactor = await fetchLastPF(); // Fetch last power factor data
+    res.status(200).send(powerFactor); // Send the data as a JSON response
+  } catch (error) {
+    console.error('Error occurred while fetching power factor:', error);
+    res.status(500).send({ error: 'Failed to fetch power factor' });
+  }
+});
+
 // Function to listen for notifications
 async function listenForNotifications() {
   try {
-    await client.connect();
-
     // Listen for 'new_measurement' notifications
     await client.query('LISTEN new_measurement');
 

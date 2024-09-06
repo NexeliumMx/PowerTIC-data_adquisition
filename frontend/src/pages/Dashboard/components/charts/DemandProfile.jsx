@@ -2,18 +2,18 @@ import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
-  { name: 'Enero', value: 250 },
-  { name: 'Febrero', value: 800 },
-  { name: 'Marzo', value: 300 },
-  { name: 'Abril', value: 100 },
-  { name: 'Mayo', value: 100 },
-  { name: 'Junio', value: 500 },
-  { name: 'Julio', value: 400 },
-  { name: 'Agosto', value: 200 },
-  { name: 'Septiembre', value: 950 },
-  { name: 'Octubre', value: 100 },
-  { name: 'Noviembre', value: 900 },
-  { name: 'Diciembre', value: 1000 },
+  { name: 'Enero', value: 0 },
+  { name: 'Febrero', value: 0 },
+  { name: 'Marzo', value: 0 },
+  { name: 'Abril', value: 0 },
+  { name: 'Mayo', value: 0 },
+  { name: 'Junio', value: 0 },
+  { name: 'Julio', value: 0 },
+  { name: 'Agosto', value: 0 },
+  { name: 'Septiembre', value: 0 },
+  { name: 'Octubre', value: 0 },
+  { name: 'Noviembre', value: 0 },
+  { name: 'Diciembre', value: 0 },
 ];
 
 const DemandProfile = () => {

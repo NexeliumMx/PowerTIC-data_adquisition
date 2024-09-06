@@ -3,9 +3,9 @@ import client from './dbCredentials.js';
 // Connect to the PostgreSQL database
 client.connect()
   .then(() => {
-    // Query to get the latest 12 reactive power var values from the powertic.measurements table
+    // Query to get the latest 12 total real power values from the powertic.measurements table
     const query = `
-      SELECT reactive_power_var
+      SELECT total_real_power
       FROM "powertic"."measurements"
       ORDER BY idmeasurements DESC LIMIT 12;
     `;
@@ -14,9 +14,9 @@ client.connect()
   })
   .then(result => {
     if (result.rows.length > 0) {
-      // Loop through the results and print each reactive_power_var value
+      // Loop through the results and print each total_real_power value
       result.rows.forEach(row => {
-        console.log(row.reactive_power_var);  // Print each reactive_power_var value
+        console.log(row.total_real_power);  // Print each total_real_power value
       });
     } else {
       console.log('No records found in the table.');

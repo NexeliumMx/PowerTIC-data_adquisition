@@ -1,39 +1,56 @@
-import client from '../tests/dbCredentials.js'; // Import the PostgreSQL client
-import moment from 'moment-timezone'; // Import moment-timezone
+import client from './postgresCredentials.js'; // Import the PostgreSQL client
 
-// Function to fetch and format the latest timestamp
-async function fetchTimestamp(timezone = 'America/Mexico_City') {
-  try {
-    // Query the latest timestamp from the 'measurements' table
-    const result = await client.query('SELECT timestamp FROM "powertic"."measurements" ORDER BY idmeasurements DESC LIMIT 1;');
-    const originalTimestamp = result.rows[0].timestamp;
-    
-    // Format the timestamp
-    return formatTimestamp(originalTimestamp, timezone);
-  } catch (error) {
-    console.error('Error fetching timestamp:', error);
-    throw error; // Throw the error to handle it in the calling function
-  }
-}
-
-// Helper function to format the timestamp using moment-timezone
-function formatTimestamp(timestamp, timezone) {
+// Helper function to format the timestamp and adjust it to the local time zone
+function formatTimestamp(timestamp) {
   const months = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
   ];
 
-  // Convert the UTC timestamp to local time in the provided timezone
-  const localDate = moment.utc(timestamp).tz(timezone);
+  // Convert the timestamp from UTC to local time zone
+  const date = new Date(timestamp);
 
-  // Extract day, month, year, hours, and minutes
-  const day = localDate.format('DD');
-  const month = months[localDate.month()]; // Get the month name from the array
-  const year = localDate.format('YYYY');
-  const hours = localDate.format('HH');
-  const minutes = localDate.format('mm');
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, '0'); 
+  const minutes = String(date.getMinutes()).padStart(2, '0');
 
   return `${day} de ${month} de ${year} ${hours}:${minutes}`;
 }
 
-export default fetchTimestamp; // Export the fetchTimestamp function
+async function fetchTimestamp() {
+  try {
+    // Add log to see if the function is called
+    console.log('Fetching timestamp from database...');
+    
+    // Connect to the PostgreSQL database
+    await client.connect();
+
+    // Query to get the latest timestamp from the powertic.measurements table
+    const query = 'SELECT timestamp FROM "powertic"."measurements" ORDER BY idmeasurements DESC LIMIT 1;';
+    
+    const result = await client.query(query);
+
+    if (result.rows.length > 0) {
+      const originalTimestamp = result.rows[0].timestamp;
+      console.log('Fetched timestamp:', originalTimestamp);
+      
+      const formattedTimestamp = formatTimestamp(originalTimestamp); // Format the timestamp
+      console.log('Formatted timestamp:', formattedTimestamp);
+      
+      return formattedTimestamp; // Return the formatted timestamp
+    } else {
+      console.log('No timestamp found');
+      return 'No timestamp found'; // Handle case where no rows are found
+    }
+  } catch (err) {
+    console.error('Error fetching timestamp:', err);
+    throw new Error('Error fetching timestamp'); // Rethrow the error
+  } finally {
+    await client.end(); // Close the database connection
+    console.log('Database connection closed');
+  }
+}
+
+export default fetchTimestamp;

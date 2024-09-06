@@ -8,34 +8,33 @@ import DemandProfile from './charts/DemandProfile.jsx';
 import PowerFactor from './charts/PowerFactor.jsx';
 import TextDisplay from './charts/TextDisplay.jsx';
 
-import { io } from 'socket.io-client'; // Import Socket.IO client
 import COLORS from '../../../styles/chartColors.js';
 import data from './charts/pieChartData.js';
 
 const Consumo = () => {
-  const [timestamp, setTimestamp] = useState('');
+  const [timestamp, setTimestamp] = useState(''); // State to hold the fetched timestamp
 
   useEffect(() => {
-    // Connect to the WebSocket server
-    const socket = io('http://localhost:3001'); // Adjust URL as needed
-
-    // Get the user's time zone from the browser
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    console.log('User Time Zone:', timeZone); // Log the time zone to check
-
-    // Request the timestamp in the user's time zone
-    socket.emit('requestTimestamp', timeZone);
-
-    // Listen for 'timestamp' events from the server
-    socket.on('timestamp', (newTimestamp) => {
-      console.log('Received timestamp from server:', newTimestamp); // Log the received timestamp
-      setTimestamp(newTimestamp); // Update the timestamp state
-    });
-
-    // Cleanup the WebSocket connection when the component unmounts
-    return () => {
-      socket.disconnect();
+    // Fetch the timestamp from the backend API
+    const fetchTimestamp = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/timestamp'); // Adjust URL as needed
+        const data = await response.json();
+        console.log('Fetched timestamp:', data.timestamp); // Log the fetched timestamp
+        setTimestamp(data.timestamp); // Set the fetched timestamp
+      } catch (error) {
+        console.error('Error fetching timestamp:', error);
+      }
     };
+
+    // Call the function to fetch the timestamp
+    fetchTimestamp();
+
+    // Optionally, you can set an interval to periodically fetch the timestamp if needed
+    const intervalId = setInterval(fetchTimestamp, 60000); // Fetch timestamp every minute
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
   return (
@@ -65,7 +64,7 @@ const Consumo = () => {
         <Tile 
           title="Tiempo" 
           icon={Clock} 
-          content1={<TextDisplay display={timestamp}/>} // Display the timestamp received from WebSocket
+          content1={<TextDisplay display={timestamp}/>} // Display the fetched timestamp
           width="23%"
         />
       </div>

@@ -1,3 +1,24 @@
+/**
+ * Author: Arturo Vargas Cuevas
+ * Last Modified: 2024-09-06, by Arturo Vargas Cuevas
+ * 
+ * Description:
+ * This script connects to the PostgreSQL database and fetches the maximum values for 
+ * total_real_power and reactive_power_var from the "powertic.measurements" table.
+ * 
+ * The values are converted to kilowatts (kW) and kilovolt-amperes reactive (kVAR) 
+ * by dividing them by 1000 and are returned as part of a JSON object.
+ * 
+ * If no records are found, it returns a message indicating no data is available.
+ * 
+ * Output:
+ * - max_total_real_power: The maximum real power value in kW, or 'No data' if no records are found.
+ * - max_reactive_power_var: The maximum reactive power value in kVAR, or 'No data' if no records are found.
+ * 
+ * Test:
+ * curl http://localhost:3001/api/maxdemand
+ */
+
 import client from './postgresCredentials.js';
 
 // Function to fetch the maximum demand values

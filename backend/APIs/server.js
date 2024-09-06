@@ -1,8 +1,13 @@
 import express from 'express';
 import { fetchTimestamp } from './fetchTimestamp.js';
-import fetchMaxDemand from './fetchMaxDemand.js'; // Import max demand function
-import fetchPowerConsumption from './fetchPowerConsumption.js'; // Import power consumption function
-import fetchLastPF from './fetchLastPF.js'; // Import last power factor function
+import fetchMaxDemand from './fetchMaxDemand.js';
+import fetchPowerConsumption from './fetchPowerConsumption.js';
+import fetchLastPF from './fetchLastPF.js';
+import fetchCurrent from './fetchCurrent.js';
+import fetchHistoricPF from './fetchHistoricPF.js';
+import fetchHistoricRealPower from './fetchHistoricRealPower.js';
+import fetchHistoricReactivePower from './fetchHistoricReactivePower.js';
+import fetchHistoricPowerConsumption from './fetchHistoricPowerConsumption.js'; // Import the new function
 import cors from 'cors';
 import client from './postgresCredentials.js';
 import { Server } from 'socket.io';
@@ -43,10 +48,9 @@ app.get('/api/timestamp', async (req, res) => {
 // Define the /api/maxdemand endpoint
 app.get('/api/maxdemand', async (req, res) => {
   try {
-    const maxDemand = await fetchMaxDemand(); // Fetch max demand data
-    res.status(200).send(maxDemand); // Send the data as a JSON response
+    const maxDemand = await fetchMaxDemand();
+    res.status(200).send(maxDemand);
   } catch (error) {
-    console.error('Error occurred while fetching max demand:', error);
     res.status(500).send({ error: 'Failed to fetch maximum demand' });
   }
 });
@@ -54,10 +58,9 @@ app.get('/api/maxdemand', async (req, res) => {
 // Define the /api/powerconsumption endpoint
 app.get('/api/powerconsumption', async (req, res) => {
   try {
-    const powerConsumption = await fetchPowerConsumption(); // Fetch power consumption data
-    res.status(200).send(powerConsumption); // Send the data as a JSON response
+    const powerConsumption = await fetchPowerConsumption();
+    res.status(200).send(powerConsumption);
   } catch (error) {
-    console.error('Error occurred while fetching power consumption:', error);
     res.status(500).send({ error: 'Failed to fetch power consumption' });
   }
 });
@@ -65,38 +68,77 @@ app.get('/api/powerconsumption', async (req, res) => {
 // Define the /api/lastpf endpoint
 app.get('/api/lastpf', async (req, res) => {
   try {
-    const powerFactor = await fetchLastPF(); // Fetch last power factor data
-    res.status(200).send(powerFactor); // Send the data as a JSON response
+    const powerFactor = await fetchLastPF();
+    res.status(200).send(powerFactor);
   } catch (error) {
-    console.error('Error occurred while fetching power factor:', error);
     res.status(500).send({ error: 'Failed to fetch power factor' });
+  }
+});
+
+// Define the /api/current endpoint
+app.get('/api/current', async (req, res) => {
+  try {
+    const currentValues = await fetchCurrent();
+    res.status(200).send(currentValues);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to fetch current values' });
+  }
+});
+
+// Define the /api/historicpf endpoint
+app.get('/api/historicpf', async (req, res) => {
+  try {
+    const historicPF = await fetchHistoricPF();
+    res.status(200).send(historicPF);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to fetch historic power factor' });
+  }
+});
+
+// Define the /api/historicrealpower endpoint
+app.get('/api/historicrealpower', async (req, res) => {
+  try {
+    const historicRealPower = await fetchHistoricRealPower();
+    res.status(200).send(historicRealPower);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to fetch historic real power' });
+  }
+});
+
+// Define the /api/historicreactivepower endpoint
+app.get('/api/historicreactivepower', async (req, res) => {
+  try {
+    const historicReactivePower = await fetchHistoricReactivePower();
+    res.status(200).send(historicReactivePower);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to fetch historic reactive power' });
+  }
+});
+
+// Define the /api/historicpowerconsumption endpoint
+app.get('/api/historicpowerconsumption', async (req, res) => {
+  try {
+    const historicPowerConsumption = await fetchHistoricPowerConsumption();
+    res.status(200).send(historicPowerConsumption);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to fetch historic power consumption' });
   }
 });
 
 // Function to listen for notifications
 async function listenForNotifications() {
   try {
-    // Listen for 'new_measurement' notifications
     await client.query('LISTEN new_measurement');
-
     console.log('Listening for new measurements...');
 
-    // When a notification is received
     client.on('notification', async (msg) => {
       if (msg.channel === 'new_measurement') {
         console.log('New measurement received:', msg.payload);
-
-        // Fetch the latest timestamp
         const latestTimestamp = await fetchTimestamp();
-
-        // Send the new timestamp to all connected clients
         io.emit('newTimestamp', latestTimestamp);
-
-        // Log that it's still listening after receiving the new measurement
         console.log('Listening for new measurements...');
       }
     });
-
   } catch (error) {
     console.error('Error listening for notifications:', error);
   }

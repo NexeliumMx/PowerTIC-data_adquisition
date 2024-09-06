@@ -1,3 +1,22 @@
+/**
+ * Author: Arturo Vargas Cuevas
+ * Last Modified: 2024-09-06, by Arturo Vargas Cuevas
+ * 
+ * Description:
+ * This script connects to the PostgreSQL database and fetches the latest power_factor value
+ * from the "powertic.measurements" table. The power factor value is normalized from the range
+ * of -1000 to +1000 into a range of -1 to 1. The normalized value is returned with 3 decimal
+ * places as part of a JSON object.
+ * 
+ * If no records are found, it returns a message indicating no data is available.
+ * 
+ * Output:
+ * - power_factor: The normalized power factor value, or 'No data' if no records are found.
+ * 
+ * Test:
+ * curl http://localhost:3001/api/lastpf
+ */
+
 import client from './postgresCredentials.js';
 
 // Helper function to normalize the power factor value from -1000 to +1000 to -1 to 1

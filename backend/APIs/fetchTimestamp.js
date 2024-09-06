@@ -1,4 +1,20 @@
-// fetchTimestamp.js
+/**
+ * Author: Arturo Vargas Cuevas
+ * Last Modified: 2024-09-06, by Arturo Vargas Cuevas
+ * 
+ * Description:
+ * This script connects to the PostgreSQL database and fetches the latest timestamp from the 
+ * "powertic.measurements" table. The timestamp is formatted into the "DD de Month de YYYY HH:MM" 
+ * format, adjusting for the local time zone based on the user's computer settings.
+ * 
+ * If no records are found, it returns a message indicating no data is available.
+ * 
+ * Output:
+ * - A formatted timestamp string in the form of "DD de Month de YYYY HH:MM".
+ * 
+ * Test:
+ * curl http://localhost:3001/api/timestamp
+ */
 import client from './postgresCredentials.js';
 
 // Function to fetch the latest timestamp from the database

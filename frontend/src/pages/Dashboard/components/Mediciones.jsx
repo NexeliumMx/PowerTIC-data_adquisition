@@ -4,10 +4,10 @@ import './Mediciones.scss'; // Import the styles
 
 
 import Current from './charts/Current';
-import ConsumoHist from './charts/ConsumoHist';
-import TriPowerFactor from './charts/TriPowerFactor';
-import RealPower from './charts/RealPower';
-import ReactivePower from './charts/ReactivePower';
+import HistoricPowerConsumption from './charts/HistoricPowerConsumption';
+import HistoricPF from './charts/HistoricPF';
+import HistoricRealPower from './charts/HistoricRealPower';
+import HistoricReactivePower from './charts/HistoricReactivePower';
 
 const Mediciones = () => {
   return (
@@ -15,15 +15,15 @@ const Mediciones = () => {
 
 <div className="CFP-container">
   <Tile className="corriente" title="Corriente" content1={<Current />} />
-  <Tile className="factor-potencia" title="Factor de Potencia" content1={<TriPowerFactor />} />
+  <Tile className="factor-potencia" title="Factor de Potencia" content1={<HistoricPF />} />
 </div>
 
 <div className="potencias-container">
-  <Tile className="potencias" title="Potencia Real" content1={<RealPower/>}/>
-  <Tile className="potencias" title="Potencia Reactiva" content1={<ReactivePower/>}/>
+  <Tile className="potencias" title="Potencia Real" content1={<HistoricRealPower/>}/>
+  <Tile className="potencias" title="Potencia Reactiva" content1={<HistoricReactivePower/>}/>
 </div>
 <div className="consumo-historico-container">
-  <Tile className="consumo-historico" title="Consumo histórico" content1={<ConsumoHist />} />
+  <Tile className="consumo-historico" title="Consumo histórico" content1={<HistoricPowerConsumption />} />
 </div>
 
 

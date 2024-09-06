@@ -1,42 +1,50 @@
 @import '../../../styles/variables';
 
 .mediciones-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 0rem; /* Adjust spacing between columns */
-  height: 20rem; /* Ensure the container takes the full height */
+  display: grid;
+  gap: 1rem;
+  width: 100%;
 }
 
-.mediciones-left,
-.mediciones-center,
-.mediciones-right {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem; /* Adjust spacing between tiles */
+
+.consumo-historico-container{
+  display: grid;
+  grid-template-columns: 1fr; /* Un solo grid item por fila */
+  grid-template-rows: auto;
+  height: 100%;
+}
+.CFP-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Un solo grid item por fila */
+  grid-template-rows: 1;
+  height: 100%;
 }
 
-.mediciones-left {
-  //background-color: red;
-  flex: 1; /* Adjust flex values to distribute space between columns */
+.potencias-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Un solo grid item por fila */
+  grid-template-rows: 1;
+  height: 100%;
 }
 
-.mediciones-center {
-  //background-color: green;
-  flex: 1;
+.CFP {
+  background-color: $color1;
+  padding: 16px;
+  border-radius: 8px;
+  height: 100%;
 }
 
-.mediciones-right {
-  //background-color: blue;
-  flex: 1;
-  justify-content: space-between;
+
+.consumo-historico {
+  background-color: $color1;
+  padding: 16px;
+  border-radius: 8px;
+  height: 100%;
 }
 
-/* Make the Potencias tile take the full height of its container */
-.mediciones-right > .tile-container {
-  flex-grow: 1;
-  height: auto; /* Allows the height to adapt to the content */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
+.potencias {
+  background-color: $color1;
+  padding: 16px;
+  border-radius: 8px;
+  height: 100%;
 }

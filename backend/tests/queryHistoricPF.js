@@ -1,6 +1,6 @@
 /**
- * Author: Arturo Vargas Cuevas
- * Last Modified: 2024-09-06, by Arturo Vargas Cuevas
+ * Author: Arturo Vargas Cuevas & Rogelio Akin Leon Garcia
+ * Last Modified: 2024-09-06, by Rogelio Akin Leon Garcia
  * 
  * This script connects to the PostgreSQL database and fetches the latest 12 values
  * of the 'power_factor' field from the "powertic.measurements" table.

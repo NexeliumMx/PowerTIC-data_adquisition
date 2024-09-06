@@ -1,3 +1,8 @@
+/**
+ * Author: Arturo Vargas Cuevas
+ * Last Modified: 2024-09-06, by Arturo Vargas Cuevas
+*/
+
 import pkg from 'pg';
 const { Client } = pkg;
 

@@ -13,6 +13,11 @@
 
 import client from './dbCredentials.js';
 
+// Helper function to normalize the power factor value from -1000 to +1000 to -1 to 1
+function normalizeHistoricPF(HistoricPF) {
+  return HistoricPF / 1000;
+}
+
 // Connect to the PostgreSQL database
 client.connect()
   .then(() => {
@@ -27,9 +32,10 @@ client.connect()
   })
   .then(result => {
     if (result.rows.length > 0) {
-      // Loop through the results and print each power_factor value
+      // Loop through the results, normalize each power_factor value, and print it
       result.rows.forEach(row => {
-        console.log(row.power_factor);  // Print each power_factor value
+        const normalizedPowerFactor = normalizeHistoricPF(row.power_factor);  // Normalize the value
+        console.log(normalizedPowerFactor);  // Print the normalized value
       });
     } else {
       console.log('No records found in the table.');

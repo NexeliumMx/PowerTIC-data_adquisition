@@ -10,7 +10,7 @@ if not os.path.isdir(r'vals'):
     print(subprocess.run(["mkdir", "vals"], 
                      capture_output=True))
 a=0
-while(1):
+"""while(1):
     
     if not os.path.exists(r'vals/sn.txt'):
         SN=meter_param()
@@ -35,4 +35,4 @@ while(1):
         
     if (time.time()-a)>300:
         rundeploy(SN)
-        a=time.time()
+        a=time.time()"""

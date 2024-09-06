@@ -1,3 +1,18 @@
+/**
+ * Author: Arturo Vargas Cuevas
+ * Last Modified: 2024-09-06, by Arturo Vargas Cuevas
+ * 
+ * This script connects to the PostgreSQL database and fetches the latest timestamp
+ * from the "powertic.measurements" table. It then converts and formats the timestamp
+ * to display the date in "DD de Month de YYYY HH:MM" format, adjusting for UTC-5 
+ * (Mexico City time).
+ * 
+ * The result is printed directly to the terminal.
+ * 
+ * Output:
+ * - The formatted timestamp is printed to the terminal.
+ */
+
 import client from './dbCredentials.js';
 
 // Helper function to format the timestamp

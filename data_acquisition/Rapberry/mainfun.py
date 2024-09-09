@@ -33,4 +33,3 @@ else:
     y=open(r"vals/sn.txt")
     SN = y.read()
     rundeploy(SN)
-    a=time.time()

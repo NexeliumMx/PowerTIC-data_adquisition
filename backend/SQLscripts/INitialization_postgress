@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS ModbusQueries (
 );
 
 CREATE TABLE IF NOT EXISTS Measurements (
-  "timestamp" TEXT NOT NULL,
+  "timestamp" TIMESTAMPTZ NOT NULL,
   amps_total SMALLINT NOT NULL,
   amps_phase_a SMALLINT NOT NULL,
   amps_phase_b SMALLINT NOT NULL,

@@ -45,6 +45,7 @@ def rundeploy(SN):
                 print(encript(a))
                 print('sent 1')
                 uploadcloudback(str((a)))
+            os.remove(r'vals/failedcqueries.txt')
         except Exception as e:
             with open(r'vals/error_logback.txt', 'a') as l: 
                 l.write(str(e) + '\n')

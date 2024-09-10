@@ -23,11 +23,11 @@ register_address = 0x20A  # The first register address (adjust for 0-based if ne
 value_to_write = 0  # The 32-bit value you want to write
 
 # Convert the 32-bit value into two 16-bit registers
-high_word = (value_to_write >> 16) & 0xFFFF  # High 16 bits
-low_word = value_to_write & 0xFFFF           # Low 16 bits
+#high_word = (value_to_write >> 16) & 0xFFFF  # High 16 bits
+#low_word = value_to_write & 0xFFFF           # Low 16 bits
 
 # Write the two registers using function code 16 (0x10)
-response = client.write_registers(register_address, [high_word, low_word], 1)
+response = client.write_registers(register_address, value_to_write, 1)
 
 # Check if the write was successful
 if response.isError():

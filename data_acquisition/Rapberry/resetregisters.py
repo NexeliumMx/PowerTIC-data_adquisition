@@ -1,5 +1,7 @@
-import pymodbus
-
+from pymodbus.client.sync import ModbusSerialClient
+from pymodbus.constants import Endian
+from pymodbus.payload import BinaryPayloadBuilder
+import struct
 # Inicialización de Modbus
 client = ModbusSerialClient(
     port='/dev/ttyUSB0',

@@ -1,12 +1,13 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MoreVertical, ChevronLast, ChevronFirst, Home, Settings, Users, Download, LayoutDashboard, UtilityPole, FlaskConical} from "lucide-react"; // Add icons as needed
+import { MoreVertical, ChevronLast, ChevronFirst, Home, Settings, Users, Download, LayoutDashboard, UtilityPole, FlaskConical, HousePlug} from "lucide-react"; // Add icons as needed
 import "./Sidebar.scss";
 
 const SidebarContext = createContext();
 
 const routes = [
   { text: "Home", to: "/", icon: <Home size={24} /> },
+  { text: "Locations", to: "/locations", icon: <HousePlug size={24} /> },
   { text: "Load Center", to: "/load-center", icon: <UtilityPole size={24} /> },
   { text: "Dashboard", to: "/dashboard", icon: <LayoutDashboard size={24} /> },  
   { text: "Downloads", to: "/downloads", icon: <Download size={24} /> },

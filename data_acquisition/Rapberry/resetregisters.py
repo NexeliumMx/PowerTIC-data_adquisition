@@ -16,7 +16,7 @@ connection = client.connect()
 if connection:
     print("Connection Succesful")
 
-response = client.write_register(4211,0,1)
+response = client.write_registers(4211,0,1)
 if response.isError():
     print(f"Vlaió madre: {response}")
 else:

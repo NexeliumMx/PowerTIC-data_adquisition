@@ -1,23 +1,8 @@
 import azure.functions as func
 import logging
-import json
 import psycopg2
 
 app = func.FunctionApp()
-
-@app.function_name(name="eventgridtrigger")
-@app.event_grid_trigger(arg_name="event")
-def test_function(event: func.EventGridEvent):
-
-    result = json.dumps({
-        'id': event.id,
-        'data': event.get_json(),
-        'topic': event.topic,
-        'subject': event.subject,
-        'event_type': event.event_type,
-    })
-
-    logging.info('Python EventGrid trigger processed an event: %s', result)
 
 @app.route(route="InfoUploadAPI", auth_level=func.AuthLevel.ANONYMOUS)
 def InfoUploadAPI(req: func.HttpRequest) -> func.HttpResponse:

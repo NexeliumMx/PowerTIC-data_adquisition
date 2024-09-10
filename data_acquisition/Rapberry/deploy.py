@@ -37,16 +37,20 @@ def rundeploy(SN):
     else :
         print('run imprint')
     if os.path.exists(r'vals/failedcqueries.txt'):
-        try:
             t=open(r'vals/failedcqueries.txt')
             text=str(t.read())
             print (text.split('mlgsmg'))
             for a in text.split('mlgsmg'):
-                print(encript(a))
-                print('sent 1')
-                uploadcloudback(str((a)))
-        except Exception as e:
-            with open(r'vals/error_logback.txt', 'a') as l: 
-                l.write(str(e) + '\n')
-            print('not able to upload unuploaded queries')
+                try:
+                    print(encript(a))
+                    print('sent 1')
+                    uploadcloudback(str((a)))
+                    text.strip(a)                    
+                except Exception as e:
+                    with open(r'vals/error_logback.txt', 'a') as l: 
+                        l.write(str(e) + '\n')
+                    print('not able to upload unuploaded queries')
+            os.remove(r'vals/failedcqueries.txt')
+            a=open(r'vals/failedcqueries.txt','x')
+            a.write(text)
 

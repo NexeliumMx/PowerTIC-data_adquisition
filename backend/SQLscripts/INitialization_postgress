@@ -42,8 +42,7 @@ CREATE TABLE IF NOT EXISTS ModbusQueries (
 );
 
 CREATE TABLE IF NOT EXISTS Measurements (
-  idMeasurements SERIAL PRIMARY KEY,
-  "timestamp" TEXT NOT NULL,
+  "timestamp" TIMESTAMPTZ NOT NULL,
   amps_total SMALLINT NOT NULL,
   amps_phase_a SMALLINT NOT NULL,
   amps_phase_b SMALLINT NOT NULL,
@@ -106,6 +105,7 @@ CREATE TABLE IF NOT EXISTS Measurements (
   total_var_hours_exported_q4_phase_b INT NOT NULL,
   total_var_hours_exported_q4_phase_c INT NOT NULL,
   serial_number TEXT NOT NULL,
+  PRIMARY KEY  ("timestamp",serial_number),
   FOREIGN KEY (serial_number)
     REFERENCES Meters (serial_number)
     ON DELETE NO ACTION
@@ -113,3 +113,5 @@ CREATE TABLE IF NOT EXISTS Measurements (
 );
 
 SET CONSTRAINTS ALL IMMEDIATE;
+
+insert into powertic.locations (locationid,numbmeters,"Name") values (0,0,'not_set')

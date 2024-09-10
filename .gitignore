@@ -11,7 +11,7 @@ Azure
 __pycache__/
 *.py[cod]
 *$py.class
-
+sn.txt
 # C extensions
 *.so
 

@@ -9,10 +9,6 @@ import time
 if not os.path.isdir(r'vals'):
     print(subprocess.run(["mkdir", "vals"], 
                      capture_output=True))
-a=0
-
-
-
 if not os.path.exists(r'vals/sn.txt'):
     SN=meter_param()
     f=open(r"vals/sn.txt","x")
@@ -37,4 +33,3 @@ else:
     y=open(r"vals/sn.txt")
     SN = y.read()
     rundeploy(SN)
-    a=time.time()

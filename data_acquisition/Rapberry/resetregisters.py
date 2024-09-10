@@ -1,4 +1,4 @@
-from pymodbus.client.sync import ModbusSerialClient
+from pymodbus.client import ModbusSerialClient
 from pymodbus.constants import Endian
 from pymodbus.payload import BinaryPayloadBuilder
 import struct

@@ -261,7 +261,7 @@ Temporary Items
 # https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore        #
 # Edit: Arturo Vargas Cuevas 29/08/2024                                                  #
 ##########################################################################################	
-.vscode/
+
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

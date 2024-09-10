@@ -1,6 +1,7 @@
 import azure.functions as func
 import logging
 import json
+import psycopg2
 
 app = func.FunctionApp()
 
@@ -22,19 +23,43 @@ def test_function(event: func.EventGridEvent):
 def InfoUploadAPI(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    name = req.params.get('name')
-    if not name:
+    data = req.params.get('data')
+    if not data:
         try:
             req_body = req.get_json()
         except ValueError:
             pass
         else:
-            name = req_body.get('name')
+            data = req_body.get('data')
 
-    if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+    if data:
+        conn = psycopg2.connect(
+            user="superadmin",
+            host="powerticpgtest1.postgres.database.azure.com",
+            database="powerticapp",
+            password="vafja6-hexpem-javdyN",  # luis: Tono2002 //Arturo: 2705
+            port=5432
+        )
+
+        with conn.cursor() as cursor:
+            print(data)
+            column_names = data[0]
+            print(column_names)
+            # Prepare the SQL INSERT statement with placeholders for parameters
+            columns_str = ", ".join(column_names)
+            placeholders = ", ".join(["%s"] * len(column_names))
+            print(columns_str)
+            print(placeholders)
+            insert_query = f"INSERT INTO powertic.locationsbackup ({columns_str}) VALUES ({placeholders})"
+
+            # Insert each row into the locationsbackup table
+            for row in data:
+                cursor.execute(insert_query, row)
+            
+            conn.commit()  # Commit the transaction to the database
+        return func.HttpResponse(f"Hello, {data}. This HTTP triggered function executed successfully.")
     else:
         return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+             "This HTTP triggered function executed successfully. But there is no data receieved",
              status_code=200
         )

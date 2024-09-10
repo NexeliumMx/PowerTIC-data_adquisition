@@ -1,15 +1,15 @@
 import express from 'express';
-import { fetchTimestamp } from './fetchTimestamp.js';
-import fetchMaxDemand from './fetchMaxDemand.js';
-import fetchPowerConsumption from './fetchPowerConsumption.js';
-import fetchLastPF from './fetchLastPF.js';
-import fetchCurrent from './fetchCurrent.js';
-import fetchHistoricPF from './fetchHistoricPF.js';
-import fetchHistoricRealPower from './fetchHistoricRealPower.js';
-import fetchHistoricReactivePower from './fetchHistoricReactivePower.js';
-import fetchHistoricPowerConsumption from './fetchHistoricPowerConsumption.js'; // Import the new function
+import { fetchTimestamp } from './scripts/fetchTimestamp.js';
+import fetchMaxDemand from './scripts/fetchMaxDemand.js';
+import fetchPowerConsumption from './scripts/fetchPowerConsumption.js';
+import fetchLastPF from './scripts/fetchLastPF.js';
+import fetchCurrent from './scripts/fetchCurrent.js';
+import fetchHistoricPF from './scripts/fetchHistoricPF.js';
+import fetchHistoricRealPower from './scripts/fetchHistoricRealPower.js';
+import fetchHistoricReactivePower from './scripts/fetchHistoricReactivePower.js';
+import fetchHistoricPowerConsumption from './scripts/fetchHistoricPowerConsumption.js'; // Import the new function
 import cors from 'cors';
-import client from './postgresCredentials.js';
+import client from './scripts/postgresCredentials.js';
 import { Server } from 'socket.io';
 import http from 'http';
 

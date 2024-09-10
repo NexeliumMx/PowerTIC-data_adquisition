@@ -12,7 +12,7 @@ client = ModbusSerialClient(
     timeout=5
 )
 
-connection = client,connect()
+connection = client.connect()
 if connection:
     print("Connection Succesful")
 

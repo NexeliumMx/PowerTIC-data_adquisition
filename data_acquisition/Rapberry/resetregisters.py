@@ -19,7 +19,7 @@ else:
     print("Failed to connect to Modbus client")
 
 # Define the register address and the value to write
-register_address = 0x20A  # The first register address (adjust for 0-based if necessary)
+register_address = 0x20D  # The first register address (adjust for 0-based if necessary)
 value_to_write = 0  # The 32-bit value you want to write
 
 # Convert the 32-bit value into two 16-bit registers

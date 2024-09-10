@@ -20,7 +20,7 @@ else:
 
 # Define the register address and the value to write
 register_address = 0x20D  # The first register address (adjust for 0-based if necessary)
-value_to_write = 0  # The 32-bit value you want to write
+value_to_write = 0b0000000000000000  # The 32-bit value you want to write
 
 # Convert the 32-bit value into two 16-bit registers
 #high_word = (value_to_write >> 16) & 0xFFFF  # High 16 bits

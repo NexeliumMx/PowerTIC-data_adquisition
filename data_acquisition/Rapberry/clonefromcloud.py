@@ -32,7 +32,7 @@ with local_conn.cursor() as cursor:
     # Prepare the SQL INSERT statement with placeholders for parameters
     columns_str = ", ".join(column_names)
     placeholders = ", ".join(["%s"] * len(column_names))
-    insert_query = f'INSERT INTO public.modbusqueries ({columns_str}) VALUES ('
+    insert_query = f'INSERT INTO powertic.modbusqueries ({columns_str}) VALUES ('
     
     # Insert each row into the modbusqueries table
     for row in rows:

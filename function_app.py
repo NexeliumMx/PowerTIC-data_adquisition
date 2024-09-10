@@ -1,8 +1,7 @@
-import azure.functions as func
 import logging
 import psycopg2
-
-app = func.FunctionApp()
+import azure.functions as func
+import os
 
 @app.route(route="InfoUploadAPI", auth_level=func.AuthLevel.ANONYMOUS)
 def InfoUploadAPI(req: func.HttpRequest) -> func.HttpResponse:
@@ -12,39 +11,50 @@ def InfoUploadAPI(req: func.HttpRequest) -> func.HttpResponse:
     if not data:
         try:
             req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
             data = req_body.get('data')
+        except ValueError:
+            return func.HttpResponse(
+                "Invalid JSON received.", 
+                status_code=400
+            )
 
     if data:
-        conn = psycopg2.connect(
-            user="superadmin",
-            host="powerticpgtest1.postgres.database.azure.com",
-            database="powerticapp",
-            password="vafja6-hexpem-javdyN",  # luis: Tono2002 //Arturo: 2705
-            port=5432
-        )
+        try:
+            conn = psycopg2.connect(
+                user=os.getenv("DB_USER"),  # Use environment variables
+                host=os.getenv("DB_HOST"),
+                database=os.getenv("DB_NAME"),
+                password=os.getenv("DB_PASSWORD"),
+                port=5432
+            )
 
-        with conn.cursor() as cursor:
-            print(data)
-            column_names = data[0]
-            print(column_names)
-            # Prepare the SQL INSERT statement with placeholders for parameters
-            columns_str = ", ".join(column_names)
-            placeholders = ", ".join(["%s"] * len(column_names))
-            print(columns_str)
-            print(placeholders)
-            insert_query = f"INSERT INTO powertic.locationsbackup ({columns_str}) VALUES ({placeholders})"
+            with conn.cursor() as cursor:
+                # Extract the column names from the first row
+                column_names = data[0]
+                columns_str = ", ".join(column_names)
+                placeholders = ", ".join(["%s"] * len(column_names))
+                
+                insert_query = f"INSERT INTO powertic.locationsbackup ({columns_str}) VALUES ({placeholders})"
 
-            # Insert each row into the locationsbackup table
-            for row in data:
-                cursor.execute(insert_query, row)
-            
-            conn.commit()  # Commit the transaction to the database
-        return func.HttpResponse(f"Hello, {data}. This HTTP triggered function executed successfully.")
+                # Insert each row into the locationsbackup table, skipping the first row
+                for row in data[1:]:
+                    cursor.execute(insert_query, row)
+                
+                conn.commit()  # Commit the transaction to the database
+
+            return func.HttpResponse(
+                f"Data successfully inserted: {len(data[1:])} rows", 
+                status_code=200
+            )
+
+        except psycopg2.Error as e:
+            logging.error(f"Database error: {e}")
+            return func.HttpResponse(
+                "Error inserting data into the database.", 
+                status_code=500
+            )
     else:
         return func.HttpResponse(
-             "This HTTP triggered function executed successfully. But there is no data receieved",
-             status_code=200
+             "No data received.",
+             status_code=400
         )

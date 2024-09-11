@@ -22,7 +22,7 @@ print(escaped_column_names)
 
 # Construct the insert query (correcting the table name)
 placeholders = ", ".join(["%s"] * len(column_names))
-insert_query = f'INSERT INTO "public.modbusqueries(old)" ({", ".join(escaped_column_names)}) VALUES ({placeholders})'
+insert_query = f'INSERT INTO "public.modbusqueries" ({", ".join(escaped_column_names)}) VALUES ({placeholders})'
 
 # Loop through rows and process data
 with local_conn.cursor() as cursor:

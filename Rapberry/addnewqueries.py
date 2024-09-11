@@ -16,11 +16,11 @@ df = pd.read_excel('NewModbusQueries.xlsx')
 # Get column names
 column_names = df.columns.tolist()
 
-# Wrap column names in double quotes only where needed
+# Wrap column names in double quotes only if necessary (for special characters)
 escaped_column_names = [f'"{col}"' if any(c in col for c in [' ', '-']) else col for col in column_names]
 print(escaped_column_names)
 
-# Construct the insert query
+# Construct the insert query (correcting the table name)
 placeholders = ", ".join(["%s"] * len(column_names))
 insert_query = f'INSERT INTO public.modbusqueries(old) ({", ".join(escaped_column_names)}) VALUES ({placeholders})'
 

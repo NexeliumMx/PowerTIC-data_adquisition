@@ -19,7 +19,7 @@ print(column_names)
 
 # Construct the insert query
 placeholders = ", ".join(["%s"] * len(column_names))
-insert_query = f'INSERT INTO public.modbusqueries ({", ".join(column_names)}) VALUES ({placeholders})'
+insert_query = f'INSERT INTO public.modbusqueries(old) ({", ".join(column_names)}) VALUES ({placeholders})'
 
 # Loop through rows and process data
 with local_conn.cursor() as cursor:

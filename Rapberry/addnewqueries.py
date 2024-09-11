@@ -10,41 +10,48 @@ local_conn = psycopg2.connect(
     port=5432
 )
 
-# Read the Excel file
+
 df = pd.read_excel('NewModbusQueries.xlsx')
 
-# Get column names
-column_names = df.columns.tolist()
+column_names= df.columns.tolist()
+print(column_names)
 
-# Wrap column names in double quotes only if necessary (for special characters)
-escaped_column_names = [f'"{col}"' if any(c in col for c in [' ', '-']) else col for col in column_names]
-print(escaped_column_names)
+for index, row in df.iterrows():
+    print(row.tolist())
 
-# Construct the insert query (correcting the table name)
-placeholders = ", ".join(["%s"] * len(column_names))
-insert_query = f'INSERT INTO "public.modbusqueries" ({", ".join(escaped_column_names)}) VALUES ({placeholders})'
-
-# Loop through rows and process data
 with local_conn.cursor() as cursor:
+    placeholders = ", ".join(["%s"] * len(column_names))
+    insert_query = f'INSERT INTO powertic.modbusqueries({column_names}) VALUES ('
     for index, row in df.iterrows():
-        row_data = list(row)
-
-        # Handle modbus_address if it's a list or int
-        modbus_address_index = column_names.index('modbus_address')
-        
-        if isinstance(row_data[modbus_address_index], list):
-            row_data[modbus_address_index] = '{' + ','.join(map(str, row_data[modbus_address_index])) + '}'
-        elif isinstance(row_data[modbus_address_index], int):
-            row_data[modbus_address_index] = '{' + str(row_data[modbus_address_index]) + '}'
-
-        # Convert row data to tuple for cursor execution
-        row_data_tuple = tuple(row_data)
-        
+        row = list(row)
+        strq=''
+        modbus_address = column_names.index('modbus_address')
+        if isinstance(row[modbus_address],list):
+            row[modbus_address] = 'ARRAY [' + ','.join(map(str,row(modbus_address)))+']'
+            print(row[modbus_address])
+        elif isinstance(row[modbus_address], int):
+            row[modbus_address] = '{'+ str(row[modbus_address]) + '}'
+        for i in range(0,len(row)):
+            if isinstance(row[i],int):
+                strq+=str(row[i])
+            else:
+                strq+='\''+str(row[i])
+            if i!=len(row)-1:
+                if isinstance(row[i],int) | isinstance(row[i],list):
+                    strq+=','
+                else:
+                    strq+='\','
+            else:
+                if isinstance(row[i],int)| isinstance(row[i],list):
+                    strq+=')'
+                else:
+                    strq+='\')'
         # Execute the insert query
-        cursor.execute(insert_query, row_data_tuple)
-
+        print(insert_query+strq)
+        print(row)
+        cursor.execute((insert_query+strq))
+    
     # Commit the transaction
     local_conn.commit()
 
-# Close the connection
 local_conn.close()

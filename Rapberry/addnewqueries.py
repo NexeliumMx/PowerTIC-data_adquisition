@@ -22,7 +22,7 @@ print(escaped_column_names)
 
 # Construct the insert query (correcting the table name)
 placeholders = ", ".join(["%s"] * len(column_names))
-insert_query = f'INSERT INTO public.modbusqueries(old) ({", ".join(escaped_column_names)}) VALUES ({placeholders})'
+insert_query = f'INSERT INTO "public.modbusqueries(old)" ({", ".join(escaped_column_names)}) VALUES ({placeholders})'
 
 # Loop through rows and process data
 with local_conn.cursor() as cursor:
@@ -30,7 +30,7 @@ with local_conn.cursor() as cursor:
         row_data = list(row)
 
         # Handle modbus_address if it's a list or int
-        modbus_address_index = column_names.index('modbus_address')  # No need for double quotes here
+        modbus_address_index = column_names.index('modbus_address')
         
         if isinstance(row_data[modbus_address_index], list):
             row_data[modbus_address_index] = '{' + ','.join(map(str, row_data[modbus_address_index])) + '}'

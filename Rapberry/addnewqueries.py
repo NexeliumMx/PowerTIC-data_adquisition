@@ -15,11 +15,14 @@ df = pd.read_excel('NewModbusQueries.xlsx')
 
 # Get column names
 column_names = df.columns.tolist()
+
+# Make sure to escape any reserved SQL keywords or special characters
+column_names = [f'"{col}"' for col in column_names]
 print(column_names)
 
 # Construct the insert query
 placeholders = ", ".join(["%s"] * len(column_names))
-insert_query = f'INSERT INTO public.modbusqueries(old) ({", ".join(column_names)}) VALUES ({placeholders})'
+insert_query = f'INSERT INTO public.modbusqueries ({", ".join(column_names)}) VALUES ({placeholders})'
 
 # Loop through rows and process data
 with local_conn.cursor() as cursor:
@@ -27,7 +30,7 @@ with local_conn.cursor() as cursor:
         row_data = list(row)
 
         # Handle modbus_address if it's a list or int
-        modbus_address_index = column_names.index('modbus_address')
+        modbus_address_index = column_names.index('"modbus_address"')  # Use double quotes now
         
         if isinstance(row_data[modbus_address_index], list):
             row_data[modbus_address_index] = '{' + ','.join(map(str, row_data[modbus_address_index])) + '}'

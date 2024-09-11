@@ -69,6 +69,5 @@ try:
         time.sleep(2)
 except KeyboardInterrupt:
     pass
-
 finally:
     client.shutdown()

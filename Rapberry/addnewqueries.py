@@ -28,7 +28,7 @@ with local_conn.cursor() as cursor:
     for index, row in df.iterrows():
         modbus_address = column_names.index('modbus_address')
         print(row[modbus_address])
-        print(row[modbus_address].replace("[","{").replace("]", "}"))
+        print(row[modbus_address].replace("[","{"*2).replace("]", "}"*2))
         replace_add=row[modbus_address].replace("[","{").replace("]", "}")
         row[modbus_address] = replace_add
         print("Modified Address: ",row[modbus_address])

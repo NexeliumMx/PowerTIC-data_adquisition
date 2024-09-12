@@ -21,7 +21,7 @@ print(column_names)
 placeholders = ", ".join(["%s"] * len(column_names))
 
 # Create the INSERT query
-insert_query = f'INSERT INTO public.modbusqueries({", ".join(column_names)}) VALUES ({placeholders})'
+insert_query = f'INSERT INTO powertic.modbusqueries({", ".join(column_names)}) VALUES ({placeholders})'
 
 # Iterate over DataFrame rows
 with local_conn.cursor() as cursor:

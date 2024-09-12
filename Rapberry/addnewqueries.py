@@ -32,7 +32,7 @@ with local_conn.cursor() as cursor:
         # Execute the insert query using parameterized queries
         modbus_address = column_names.index('modbus_address')
         print(row[modbus_address])
-        print(column_names.iloc['modbus_address'])
+        column_names.replace("["," ").replace("]", " ")
         cursor.execute(insert_query, row_data)
 
     # Commit the transaction

@@ -29,7 +29,7 @@ with local_conn.cursor() as cursor:
         modbus_address = column_names.index('modbus_address')
         print(row[modbus_address])
         print(row[modbus_address].replace("[","{"*2).replace("]", "}"*2))
-        replace_add=row[modbus_address].replace("[","{").replace("]", "}")
+        replace_add=row[modbus_address].replace("[","{"*2).replace("]", "}"*2)
         row[modbus_address] = replace_add
         print("Modified Address: ",row[modbus_address])
         row_data = tuple(row)  # Convert row to a tuple for insertion

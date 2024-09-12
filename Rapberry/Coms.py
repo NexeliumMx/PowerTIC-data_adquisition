@@ -117,7 +117,7 @@ def meter_param():
                 f=os.remove(r"vals/temp.txt")
                 f=open(r"vals/temp.txt","x")
             forquery+=', register_date,client,branch,\"location\",load_center,facturation_intervalmonths)'
-            forqueryVal+=',\''+str(time.ctime(time.time()))+'\',\'not_set\',\'not_set\',\'not_set\',\'not_set\',1)'
+            forqueryVal+=',\''+str((datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"))+'\',\'not_set\',\'not_set\',\'not_set\',\'not_set\',1)'
             print(forquery)
             print(forqueryVal)
             f.write('insert into powertic.meters '+forquery+'values'+forqueryVal)

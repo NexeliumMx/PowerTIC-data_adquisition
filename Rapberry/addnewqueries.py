@@ -26,13 +26,15 @@ insert_query = f'INSERT INTO public.modbusqueries({", ".join(column_names)}) VAL
 # Iterate over DataFrame rows
 with local_conn.cursor() as cursor:
     for index, row in df.iterrows():
+        modbus_address = column_names.index('modbus_address')
+        print(row[modbus_address])
+        print(row[modbus_address].replace("[","{").replace("]", "}"))
+        row[modbus_address].replace("[","{").replace("]", "}")
         row_data = tuple(row)  # Convert row to a tuple for insertion
         print("Executing query for row:", row_data)
         
         # Execute the insert query using parameterized queries
-        modbus_address = column_names.index('modbus_address')
-        print(row[modbus_address])
-        print(row[modbus_address].replace("[","{").replace("]", "}"))
+
         cursor.execute(insert_query, row_data)
 
     # Commit the transaction

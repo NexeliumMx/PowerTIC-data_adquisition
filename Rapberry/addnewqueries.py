@@ -26,6 +26,7 @@ with local_conn.cursor() as cursor:
         row = list(row)
         strq=''
         modbus_address = column_names.index('modbus_address')
+        print(row[modbus_address])
         if isinstance(row[modbus_address],list):
             row[modbus_address] = 'ARRAY [' + ','.join(map(str,row(modbus_address)))+']'
             print(row[modbus_address])

@@ -13,7 +13,7 @@ local_conn = psycopg2.connect(
 
 df = pd.read_excel('NewModbusQueries.xlsx')
 
-column_names= df.columns.tolist()
+column_names= str(df.columns.tolist())
 print(column_names)
 
 for index, row in df.iterrows():

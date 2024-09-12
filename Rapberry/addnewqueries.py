@@ -21,7 +21,7 @@ for index, row in df.iterrows():
 
 with local_conn.cursor() as cursor:
     placeholders = ", ".join(["%s"] * len(column_names))
-    insert_query = f'INSERT INTO powertic.modbusqueries({str(column_names)}) VALUES ('
+    insert_query = f'INSERT INTO powertic.modbusqueries({str(column_names).replace("[","").replace("]","")}) VALUES ('
     for index, row in df.iterrows():
         row = list(row)
         strq=''

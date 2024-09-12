@@ -10,49 +10,30 @@ local_conn = psycopg2.connect(
     port=5432
 )
 
-
+# Read the Excel file into a DataFrame
 df = pd.read_excel('NewModbusQueries.xlsx')
 
-column_names= df.columns.tolist()
+# Extract column names from the DataFrame
+column_names = df.columns.tolist()
 print(column_names)
 
-for index, row in df.iterrows():
-    print(row.tolist())
+# Prepare placeholders for the SQL query
+placeholders = ", ".join(["%s"] * len(column_names))
 
+# Create the INSERT query
+insert_query = f'INSERT INTO powertic.modbusqueries({", ".join(column_names)}) VALUES ({placeholders})'
+
+# Iterate over DataFrame rows
 with local_conn.cursor() as cursor:
-    placeholders = ", ".join(["%s"] * len(column_names))
-    insert_query = f'INSERT INTO powertic.modbusqueries({str(column_names).replace("[","").replace("]","").replace("'","\"")}) VALUES ('
     for index, row in df.iterrows():
-        row = list(row)
-        strq=''
-        modbus_address = column_names.index('modbus_address')
-        print("Index: ",modbus_address)
-        if isinstance(row[modbus_address],list):
-            row[modbus_address] = 'ARRAY [' + ','.join(map(str,row(modbus_address)))+']'
-            print(row[modbus_address])
-        elif isinstance(row[modbus_address], int):
-            row[modbus_address] = '{'+ str(row[modbus_address]) + '}'
-        for i in range(0,len(row)):
-            if isinstance(row[i],int):
-                strq+=str(row[i])
-            else:
-                strq+='\''+str(row[i])
-            if i!=len(row)-1:
-                if isinstance(row[i],int) | isinstance(row[i],list):
-                    strq+=','
-                else:
-                    strq+='\','
-            else:
-                if isinstance(row[i],int)| isinstance(row[i],list):
-                    strq+=')'
-                else:
-                    strq+='\')'
-        # Execute the insert query
-        print(insert_query+strq)
-        print(row)
-        cursor.execute((insert_query+strq))
-    
+        row_data = tuple(row)  # Convert row to a tuple for insertion
+        print("Executing query for row:", row_data)
+        
+        # Execute the insert query using parameterized queries
+        cursor.execute(insert_query, row_data)
+
     # Commit the transaction
     local_conn.commit()
 
+# Close the connection
 local_conn.close()

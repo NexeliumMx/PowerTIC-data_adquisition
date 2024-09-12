@@ -30,6 +30,8 @@ with local_conn.cursor() as cursor:
         print("Executing query for row:", row_data)
         
         # Execute the insert query using parameterized queries
+        modbus_address = column_names.index('modbus_address')
+        print(row[modbus_address])
         cursor.execute(insert_query, row_data)
 
     # Commit the transaction

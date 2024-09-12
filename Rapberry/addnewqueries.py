@@ -13,7 +13,7 @@ local_conn = psycopg2.connect(
 
 df = pd.read_excel('NewModbusQueries.xlsx')
 
-column_names= str(df.columns.tolist())
+column_names= df.columns.tolist()
 print(column_names)
 
 for index, row in df.iterrows():
@@ -26,7 +26,7 @@ with local_conn.cursor() as cursor:
         row = list(row)
         strq=''
         modbus_address = column_names.index('modbus_address')
-        print(modbus_address)
+        print("Index: ",modbus_address)
         if isinstance(row[modbus_address],list):
             row[modbus_address] = 'ARRAY [' + ','.join(map(str,row(modbus_address)))+']'
             print(row[modbus_address])

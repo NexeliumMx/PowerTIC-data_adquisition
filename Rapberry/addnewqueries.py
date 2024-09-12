@@ -29,7 +29,8 @@ with local_conn.cursor() as cursor:
         modbus_address = column_names.index('modbus_address')
         print(row[modbus_address])
         print(row[modbus_address].replace("[","{").replace("]", "}"))
-        row[modbus_address].replace("[","{").replace("]", "}")
+        replace_add=row[modbus_address].replace("[","{").replace("]", "}")
+        row[modbus_address] = replace_add
         row_data = tuple(row)  # Convert row to a tuple for insertion
         print("Executing query for row:", row_data)
         

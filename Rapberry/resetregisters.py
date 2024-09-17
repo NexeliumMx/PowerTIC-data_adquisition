@@ -34,6 +34,5 @@ if response.isError():
     print(f"Failed to write to register {register_address}: {response}")
 else:
     print(f"Successfully wrote {value_to_write} to registers {register_address} and {register_address+1}")
-
 # Close the Modbus connection
 client.close()

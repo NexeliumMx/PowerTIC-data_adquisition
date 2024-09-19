@@ -220,5 +220,5 @@ def reading_meter(sn):
             print("Error de conexión con el medidor")
 
 #debug
-print(reading_meter())
+#print(reading_meter())
 

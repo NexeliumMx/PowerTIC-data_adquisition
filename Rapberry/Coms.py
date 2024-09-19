@@ -1,3 +1,4 @@
+import logging
 import datetime
 from datetime import timezone
 from pymodbus.client import ModbusSerialClient
@@ -5,6 +6,13 @@ import time
 from pathlib import Path
 import psycopg2
 import os
+
+# Configure logging
+logging.basicConfig()
+log = logging.getLogger()
+log.setLevel(logging.ERROR)  # Set logging level to ERROR to catch only errors
+
+
 #PostgreSQL Init
 conn = psycopg2.connect(
     user="postgres",
@@ -107,7 +115,8 @@ def meter_param():
                             else:
                                 print(f"Error de lectura {parameter} en {modbus_address}", result)       
             except Exception as e:
-                print("Exception:", e)
+                #print("Exception:", e)
+                log.error(f"Modbus error: {e}")
             finally:
                 client.close()
             # Almacenamiento local de configuración

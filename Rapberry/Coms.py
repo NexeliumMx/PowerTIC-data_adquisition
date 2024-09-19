@@ -53,10 +53,10 @@ def meter_param():
                     if row[3]==True: 
 
                         #Debug
-                        print(row)
-                        print(row[0])
-                        print(row[1])
-                        print(row[1][0])                            
+                        #print(row)
+                        #print(row[0])
+                        #print(row[1])
+                        #print(row[1][0])                            
                         
                         if isinstance(row[1][0], list):
                         
@@ -137,7 +137,7 @@ def meter_param():
     
     return settings.get('serial_number')
 #debug
-print (meter_param())
+#print (meter_param())
 
 
 def reading_meter(sn):

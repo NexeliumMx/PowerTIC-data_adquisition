@@ -12,7 +12,10 @@
   "firebase-admin": "^12.3.0",
   
     
-  "modbus-serial": "^8.0.17"
+  "modbus-serial": "^8.0.17",
+  
+    
+  "pg": "^8.13.0"
   
   }
 }

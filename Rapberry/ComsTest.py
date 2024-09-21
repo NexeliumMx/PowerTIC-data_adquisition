@@ -67,8 +67,6 @@ def meter_param():
             except Exception as e:
                 print("Exception:", e)
             finally:
-                json_data = [datatype, settings]
-                data = json.dump(json_data)
                 client.close()
 
                 #url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
@@ -80,6 +78,10 @@ def meter_param():
                  #   print('Error:', response.status_code, response.text)
         else:
             print("Error de conexión con el medidor")
+    print(datatype)
+    print(settings)
+    json_data = [datatype, settings]
+    data = json.dump(json_data)
     print(data)
     print(settings.get("serial_number", "serial_number not found"))
     return settings.get('serial_number')

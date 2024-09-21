@@ -81,7 +81,7 @@ def meter_param():
     print(datatype)
     print(settings)
     json_data = [datatype, settings]
-    data = json.dump(json_data)
+    data = json.dumps(json_data)
     print(data)
     print(settings.get("serial_number", "serial_number not found"))
     return settings.get('serial_number')

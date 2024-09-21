@@ -69,13 +69,13 @@ def meter_param():
             finally:
                 client.close()
 
-                #url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
-                #response = requests.post(url, json=data)
+                url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
+                response = requests.post(url, json=data)
 
-                #if response.status_code == 200:
-                   # print('Success:')
-                #else:
-                 #   print('Error:', response.status_code, response.text)
+                if response.status_code == 200:
+                    print('Success:')
+                else:
+                    print('Error:', response.status_code, response.text)
         else:
             print("Error de conexión con el medidor")
     print(datatype)

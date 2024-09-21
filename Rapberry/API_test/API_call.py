@@ -4,13 +4,13 @@ import json
 # Define the data with your specific fields
 data =[
     {
-        "table": 'clients'
+        "table": "clients"
     }, {
-        "client": 'HI',         # Replace with actual client data
-        "broker": 'DEF',         # Replace with actual broker data
-        "cloud_services": False,     # Replace with actual cloud service data
-        "payment": True,             # Replace with actual payment data
-        "payment_amount": 1000      # Replace with actual payment amount
+        "client": "SA de CV",
+        "broker": "DEF",
+        "cloud_services": False,
+        "payment": True,
+        "payment_amount": 1000
     }
 ]
 

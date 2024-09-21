@@ -59,7 +59,7 @@ def meter_param():
                             result = client.read_holding_registers(modbus_address, 1)
                             if not result.isError():
                                 set_val = result.registers[0]
-                                settings[f'{parameter}'] = set_val
+                                settings[f"{parameter}"] = set_val
                                 print(f"{parameter}: {set_val}")
                             else:
                                 print(f"Error de lectura {parameter} en {modbus_address}", result)       
@@ -69,13 +69,13 @@ def meter_param():
                 data = json.dumps(settings)
                 client.close()
 
-                url = "https://powertic.azurewebsites.net/api/sql_api"
-                response = requests.post(url, json=data)
+                #url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
+                #response = requests.post(url, json=data)
 
-                if response.status_code == 200:
-                    print('Success:')
-                else:
-                    print('Error:', response.status_code, response.text)
+                #if response.status_code == 200:
+                   # print('Success:')
+                #else:
+                 #   print('Error:', response.status_code, response.text)
         else:
             print("Error de conexión con el medidor")
     print(data)

@@ -81,3 +81,4 @@ def meter_param():
     print(data)
     print(settings.get("serial_number", "serial_number not found"))
     return settings.get('serial_number')
+meter_param()

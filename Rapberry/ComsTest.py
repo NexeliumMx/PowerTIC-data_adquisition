@@ -29,7 +29,7 @@ def meter_param():
         cursor.execute("SELECT parameter_description, modbus_address, register_number, setup FROM powertic.modbusqueries")
         rows = cursor.fetchall()
         datatype = {}
-        datatype["datatype"] = "meter_paramaters"
+        datatype["datatype"] = "meters"
         settings = {}
         
         if client.connect():

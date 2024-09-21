@@ -28,8 +28,8 @@ def meter_param():
     with conn.cursor() as cursor:
         cursor.execute("SELECT parameter_description, modbus_address, register_number, setup FROM powertic.modbusqueries")
         rows = cursor.fetchall()
-        datatype = {}
-        datatype["datatype"] = "meters"
+        table_name = {}
+        table_name["table"] = "meters"
         settings = {}
         
         if client.connect():
@@ -68,7 +68,7 @@ def meter_param():
                 print("Exception:", e)
             finally:
                 client.close()
-                json_data = [datatype, settings]
+                json_data = [table_name, settings]
                 data = json.dumps(json_data)
                 url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
                 response = requests.post(url, json=data)
@@ -79,7 +79,7 @@ def meter_param():
                     print('Error:', response.status_code, response.text)
         else:
             print("Error de conexión con el medidor")
-    print(datatype)
+    print(table_name)
     print(settings)
 
     print(data)

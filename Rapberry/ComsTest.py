@@ -28,8 +28,9 @@ def meter_param():
     with conn.cursor() as cursor:
         cursor.execute("SELECT parameter_description, modbus_address, register_number, setup FROM powertic.modbusqueries")
         rows = cursor.fetchall()
+        datatype = {}
+        datatype["datatype"] = "meter_paramaters"
         settings = {}
-        settings["datatype"] = "meter_paramaters"
         
         if client.connect():
             print("Conexión exitosa")
@@ -66,7 +67,8 @@ def meter_param():
             except Exception as e:
                 print("Exception:", e)
             finally:
-                data = json.dumps(settings)
+                json_data = [datatype, settings]
+                data = json.dump(json_data)
                 client.close()
 
                 #url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"

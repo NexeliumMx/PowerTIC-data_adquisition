@@ -6,7 +6,7 @@ data =[
     {
         "table": 'clients'
     }, {
-        "client": 'AEI',         # Replace with actual client data
+        "client": 'HI',         # Replace with actual client data
         "broker": 'DEF',         # Replace with actual broker data
         "cloud_services": False,     # Replace with actual cloud service data
         "payment": True,             # Replace with actual payment data
@@ -15,7 +15,7 @@ data =[
 ]
 
 # URL of the API endpoint
-url = "http://localhost:7071/api/sql_manager"
+url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
 
 try:
     response = requests.post(url, json=data)

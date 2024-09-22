@@ -107,6 +107,7 @@ def reading_meter(sn):
         return None
 
     if client.connect():
+        print("rows: ", rows)
         try:
             for row in rows:
                 parameter_description = row[0]

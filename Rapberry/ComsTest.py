@@ -142,17 +142,19 @@ def reading_meter(sn):
         timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         measurement["timestamp"] = timestamp
         measurement["serial_number"] = sn
-        data = [table_name, measurement]
+        json_data = [table_name, measurement]
+        data = json.dumps(json_data)
 
         # Debug
         print("Table to insert:", table_name)
         print("Obtained measurements:", measurement)
+        print("JSON object: ", json_data)
         print("Built JSON: ", data)
 
         # Send data
         url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
         try:
-            response = requests.post(url, json=data)
+            response = requests.post(url, json=json_data)
             if response.status_code == 200:
                 print('Success')
             else:

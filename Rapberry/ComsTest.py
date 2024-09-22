@@ -111,8 +111,11 @@ def reading_meter(sn):
         try:
             for row in rows:
                 parameter_description = row[0]
+                print("Parameter Description: ", parameter_description)
                 modbus_address = row[1]
+                print("Modbus Address: ", modbus_address)
                 indb = row[3]
+                print("in db: ", indb)
 
                 if indb:
                     if isinstance(modbus_address, list):

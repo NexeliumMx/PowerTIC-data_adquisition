@@ -148,13 +148,13 @@ def reading_meter(sn):
                 json_data = [table_name, measurement]
                 data = json.dumps(json_data)
                 
-                """url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
+                url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
                 response = requests.post(url, json=data)
 
                 if response.status_code == 200:
                     print('Success:')
                 else:
-                    print('Error:', response.status_code, response.text)"""
+                    print('Error:', response.status_code, response.text)
                 
                 #debug
                 print(table_name)

@@ -178,6 +178,6 @@ def reading_meter(sn):
         return None
 #debug
 #print(reading_meter())
-
+meter_param()
 reading_meter("E3T15060693")
-#meter_param()
+

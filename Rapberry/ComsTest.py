@@ -74,6 +74,8 @@ def meter_param():
                 print("Exception:", e)
             finally:
                 client.close()
+                #Solo para probar sn diferente
+                settings["serial_number"] = "E3T15060694"
                 settings["client"] = "not_set"
                 settings["branch"] = "not_set"
                 settings["location"] = "not_set"

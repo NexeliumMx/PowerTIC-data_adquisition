@@ -145,6 +145,7 @@ def reading_meter(sn):
 
                 timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
                 measurement["timestamp"] = timestamp
+                measurement["serial_number"]
                 json_data = [table_name, measurement]
                 data = json.dumps(json_data)
                 

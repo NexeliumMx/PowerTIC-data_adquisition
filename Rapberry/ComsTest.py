@@ -77,8 +77,10 @@ def meter_param():
                 settings["client"] = "not_set"
                 settings["location"] = "not_set"
                 settings["load_center"] = "not_set"
+                settings["facturation_intervalmonths"] = 1
                 timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
-                settings["timestamp"] = timestamp
+                settings["register_date"] = timestamp
+
                 json_data = [table_name, settings]
                 data = json.dumps(json_data)
                 print(table_name)

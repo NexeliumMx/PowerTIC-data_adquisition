@@ -148,6 +148,14 @@ def reading_meter(sn):
                 json_data = [table_name, measurement]
                 data = json.dumps(json_data)
                 
+                #debug
+                print("Table to insert: ",table_name)
+                print("Obtained measurements: ",measurement)
+                print("Built JSON: ",data)
+                try:
+                    print(data.get('serial_number'))
+                except:
+                    print("no serial number found")
                 url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
                 response = requests.post(url, json=data)
 
@@ -155,11 +163,6 @@ def reading_meter(sn):
                     print('Success:')
                 else:
                     print('Error:', response.status_code, response.text)
-                
-                #debug
-                print(table_name)
-                print(measurement)
-                print(data)
             
                 return data
             

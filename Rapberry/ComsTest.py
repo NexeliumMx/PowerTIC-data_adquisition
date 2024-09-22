@@ -117,7 +117,7 @@ def reading_meter(sn):
                                 meas = client.read_holding_registers(address, 1)
                                 if not meas.isError():
                                     meas_val = meas.registers[0]
-                                    measurement[parameter_description] = meas_val
+                                    measurement[f"{parameter_description}"] = meas_val
                                 else:
                                     print(f"Error reading {parameter_description} at {address}: {meas}")
                             except ValueError:
@@ -128,7 +128,7 @@ def reading_meter(sn):
                             meas = client.read_holding_registers(modbus_address, 1)
                             if not meas.isError():
                                 meas_val = meas.registers[0]
-                                measurement[parameter_description] = meas_val
+                                measurement[f"{parameter_description}"] = meas_val
                                 print(f"{parameter_description}: {meas_val}")
                             else:
                                 print(f"Error reading {parameter_description} at {modbus_address}: {meas}")

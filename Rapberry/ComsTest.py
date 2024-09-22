@@ -75,6 +75,7 @@ def meter_param():
             finally:
                 client.close()
                 settings["client"] = "not_set"
+                settings["branch"] = "not_set"
                 settings["location"] = "not_set"
                 settings["load_center"] = "not_set"
                 settings["facturation_intervalmonths"] = 1
@@ -193,5 +194,5 @@ def reading_meter(sn):
 #debug
 #print(reading_meter())
 meter_param()
-reading_meter(meter_param())
+#reading_meter(meter_param())
 

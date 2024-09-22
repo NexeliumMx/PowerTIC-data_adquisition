@@ -113,15 +113,15 @@ def reading_meter(sn):
                 parameter_description = row[0]
                 
                 #debug
-                print("Parameter Description: ", parameter_description)
+                #print("Parameter Description: ", parameter_description)
                 modbus_address = row[1][0]
                 
                 #debug
-                print("Modbus Address: ", modbus_address)
+                #print("Modbus Address: ", modbus_address)
                 indb = row[3]
                 
                 #debug
-                print("in db: ", indb)
+                #print("in db: ", indb)
 
                 if indb:
                     if isinstance(modbus_address, list):

@@ -46,7 +46,7 @@ def meter_param():
                        #print("row 1,0: ", row[1][0])
                         if isinstance(row[1][0], list):
                             for modbus_address in row[1][0]:
-                                print("Modbus Address: ", modbus_address)
+                                #print("Modbus Address: ", modbus_address)
                                 try:
                                     result = client.read_holding_registers(modbus_address, 1)
                                     if not result.isError():
@@ -107,14 +107,20 @@ def reading_meter(sn):
         return None
 
     if client.connect():
-        print("rows: ", rows)
+        #print("rows: ", rows)
         try:
             for row in rows:
                 parameter_description = row[0]
+                
+                #debug
                 print("Parameter Description: ", parameter_description)
                 modbus_address = row[1][0]
+                
+                #debug
                 print("Modbus Address: ", modbus_address)
                 indb = row[3]
+                
+                #debug
                 print("in db: ", indb)
 
                 if indb:

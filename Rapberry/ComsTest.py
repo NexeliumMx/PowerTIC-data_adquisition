@@ -38,11 +38,14 @@ def meter_param():
             try:
                 for row in rows:       
                     if row[3]: 
+                        print("row 3: ", row[3] )
                         parameter = row[0]
+                        print("Parameter: ",parameter)
                         set_val = ""
-                        
+                        print("row 1,0: ", row[1][0])
                         if isinstance(row[1][0], list):
                             for modbus_address in row[1][0]:
+                                print("Modbus Address: ", modbus_address)
                                 try:
                                     result = client.read_holding_registers(modbus_address, 1)
                                     if not result.isError():

@@ -35,15 +35,15 @@ def meter_param():
         
         if client.connect():
             print("Conexión exitosa")
-            print("rows: ",rows)
+            #print("rows: ",rows)
             try:
                 for row in rows:       
                     if row[3]: 
-                        print("row 3: ", row[3] )
+                        #print("row 3: ", row[3] )
                         parameter = row[0]
-                        print("Parameter: ",parameter)
+                        #print("Parameter: ",parameter)
                         set_val = ""
-                        print("row 1,0: ", row[1][0])
+                       #print("row 1,0: ", row[1][0])
                         if isinstance(row[1][0], list):
                             for modbus_address in row[1][0]:
                                 print("Modbus Address: ", modbus_address)
@@ -77,7 +77,7 @@ def meter_param():
                 json_data = [table_name, settings]
                 data = json.dumps(json_data)
                 url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
-                response = requests.post(url, json=data)
+                response = requests.post(url, json=json_data)
 
                 if response.status_code == 200:
                     print('Success:')

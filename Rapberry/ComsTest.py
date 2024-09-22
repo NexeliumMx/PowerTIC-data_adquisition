@@ -76,6 +76,11 @@ def meter_param():
                 client.close()
                 json_data = [table_name, settings]
                 data = json.dumps(json_data)
+                print(table_name)
+                print(settings)
+
+                print(data)
+                print(settings.get("serial_number", "serial_number not found"))
                 url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
                 response = requests.post(url, json=json_data)
 
@@ -85,11 +90,7 @@ def meter_param():
                     print('Error:', response.status_code, response.text)
         else:
             print("Error de conexión con el medidor")
-    print(table_name)
-    print(settings)
 
-    print(data)
-    print(settings.get("serial_number", "serial_number not found"))
     return settings.get('serial_number')
 
 def reading_meter(sn):

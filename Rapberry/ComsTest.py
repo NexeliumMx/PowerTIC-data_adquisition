@@ -112,7 +112,7 @@ def reading_meter(sn):
             for row in rows:
                 parameter_description = row[0]
                 print("Parameter Description: ", parameter_description)
-                modbus_address = row[1]
+                modbus_address = row[1][0]
                 print("Modbus Address: ", modbus_address)
                 indb = row[3]
                 print("in db: ", indb)

@@ -1,10 +1,12 @@
 from pymodbus.client import ModbusSerialClient
-import psycopg2
 import json
 import requests
 import datetime
 from datetime import timezone
-#conxión con el servidor local de postgres
+import psycopg2
+from psycopg2 import sql
+
+# Connection to the local PostgreSQL server
 conn = psycopg2.connect(
     user="postgres",
     host="localhost",
@@ -14,59 +16,35 @@ conn = psycopg2.connect(
 )
 print('Connected to the database.')
 
-#Conexión con el medidor mediante modbus
-client = ModbusSerialClient(
-    port='/dev/ttyUSB0',
-    baudrate=19200,
-    parity='N',
-    stopbits=1,
-    bytesize=8,
-    timeout=5
-)
-
 def generate_placeholders(count):
     """Generate SQL placeholders for parameterized queries."""
     return ', '.join(['%s'] * count)
 
 def insert_data(table_name, columns, values):
-    """Insert data into the specified PostgreSQL table.
-
-    Args:
-        table_name (str): Name of the table to insert data into.
-        columns (list): List of column names.
-        values (list or tuple): List or tuple of values to insert.
-
-    Returns:
-        dict: A dictionary containing success status, message, and data.
-    """
     try:
-        # Connect to the PostgreSQL database
-        clientpg = psycopg2.connect(conn)
-        cursor = clientpg.cursor()
-        print("Connected to the database.")
-
         # Generate placeholders
         placeholders = generate_placeholders(len(values))
 
-        # Ensure columns are joined properly
-        columns_string = ', '.join(columns)
+        # Ensure columns are properly formatted
+        columns_identifiers = [sql.Identifier(col) for col in columns]
 
-        # Construct the SQL query using psycopg2.sql module for safety
-        query = sql.SQL("INSERT INTO powertic.{table} ({fields}) VALUES ({placeholders})").format(
-            table=sql.Identifier(table_name),
-            fields=sql.SQL(columns_string),
-            placeholders=sql.SQL(placeholders)
-        )
+        with conn.cursor() as cursor:
+            # Construct the SQL query using psycopg2.sql module for safety
+            query = sql.SQL("INSERT INTO powertic.{table} ({fields}) VALUES ({placeholders})").format(
+                table=sql.Identifier(table_name),
+                fields=sql.SQL(', ').join(columns_identifiers),
+                placeholders=sql.SQL(placeholders)
+            )
 
-        # Log the query and values
-        print('Executing query:', query.as_string(clientpg))
-        print('With values:', values)
+            # Log the query and values
+            print('Executing query:', query.as_string(conn))
+            print('With values:', values)
 
-        # Execute the query
-        cursor.execute(query, values)
+            # Execute the query
+            cursor.execute(query, values)
 
-        # Commit the transaction
-        clientpg.commit()
+            # Commit the transaction
+            conn.commit()
 
         print("Data inserted successfully")
         return {'success': True, 'message': 'Data inserted successfully', 'data': values}
@@ -78,13 +56,19 @@ def insert_data(table_name, columns, values):
         # traceback.print_exc()
         raise error  # Re-raise the exception after logging
 
+
     finally:
         # Close the cursor and the database connection
-        if cursor:
-            cursor.close()
-        if clientpg:
-            clientpg.close()
-            print("Database connection closed.")
+        
+        conn.close()
+
+
+
+
+
+
+
+
 
 #obtención y envío de datos de información del medidor
 def meter_param():      

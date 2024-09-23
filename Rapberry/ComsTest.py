@@ -24,6 +24,68 @@ client = ModbusSerialClient(
     timeout=5
 )
 
+def generate_placeholders(count):
+    """Generate SQL placeholders for parameterized queries."""
+    return ', '.join(['%s'] * count)
+
+def insert_data(table_name, columns, values):
+    """Insert data into the specified PostgreSQL table.
+
+    Args:
+        table_name (str): Name of the table to insert data into.
+        columns (list): List of column names.
+        values (list or tuple): List or tuple of values to insert.
+
+    Returns:
+        dict: A dictionary containing success status, message, and data.
+    """
+    try:
+        # Connect to the PostgreSQL database
+        clientpg = psycopg2.connect(conn)
+        cursor = clientpg.cursor()
+        print("Connected to the database.")
+
+        # Generate placeholders
+        placeholders = generate_placeholders(len(values))
+
+        # Ensure columns are joined properly
+        columns_string = ', '.join(columns)
+
+        # Construct the SQL query using psycopg2.sql module for safety
+        query = sql.SQL("INSERT INTO powertic.{table} ({fields}) VALUES ({placeholders})").format(
+            table=sql.Identifier(table_name),
+            fields=sql.SQL(columns_string),
+            placeholders=sql.SQL(placeholders)
+        )
+
+        # Log the query and values
+        print('Executing query:', query.as_string(clientpg))
+        print('With values:', values)
+
+        # Execute the query
+        cursor.execute(query, values)
+
+        # Commit the transaction
+        clientpg.commit()
+
+        print("Data inserted successfully")
+        return {'success': True, 'message': 'Data inserted successfully', 'data': values}
+
+    except Exception as error:
+        print('Error executing query:', error)
+        # Optionally, log the full stack trace
+        # import traceback
+        # traceback.print_exc()
+        raise error  # Re-raise the exception after logging
+
+    finally:
+        # Close the cursor and the database connection
+        if cursor:
+            cursor.close()
+        if clientpg:
+            clientpg.close()
+            print("Database connection closed.")
+
 #obtención y envío de datos de información del medidor
 def meter_param():      
     with conn.cursor() as cursor:
@@ -76,6 +138,7 @@ def meter_param():
                 client.close()
                 #Solo para probar sn diferente
                 settings["serial_number"] = "E3T15060694"
+
                 settings["client"] = "not_set"
                 settings["branch"] = "not_set"
                 settings["location"] = "not_set"

@@ -244,7 +244,8 @@ def manage_data(data):
     if data:
         print(data)
         try:
-            table_name = data[0].get("table")
+            json_data = json.loads(data)
+            table_name = json_data[0].get("table") 
             print(table_name)
         
         except Exception as e:

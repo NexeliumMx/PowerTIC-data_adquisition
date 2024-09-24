@@ -245,8 +245,12 @@ def manage_data(data):
         print(data)
         try:
             json_data = json.loads(data)
-            table_name = json_data.get("table") 
+            table_name = json_data[0].get("table")
+            columns = json_data[1].keys()
+            values = json_data[1].keys()
             print(table_name)
+            print(columns)
+            print(values)
         
         except Exception as e:
         

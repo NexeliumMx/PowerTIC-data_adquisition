@@ -38,6 +38,7 @@ with conn.cursor() as cursor:
 
     # Insert each row into the locationsbackup table
     for row in rows:
-        cursor.execute(insert_query, row)
+        print(row)
+    #    cursor.execute(insert_query, row)
     
-    conn.commit()  # Commit the transaction to the database
+    #conn.commit()  # Commit the transaction to the database

@@ -250,8 +250,10 @@ def manage_data(data):
             values = list(json_data[1].values())
 
             print("Table to insert: ",table_name)
-            print("Column names: "+columns+". type: "+type(columns))
-            print("Values to insert: "+values+". type: "+type(values))
+            print("Column names: ", columns)
+            print("Type: ", type(columns))
+            print("Values to insert: ", values)
+            print("Type: ", type(values))
 
             insert_data(table_name= table_name, columns= columns, values= values)
             print("Data backed up succesfully :)")

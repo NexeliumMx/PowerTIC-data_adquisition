@@ -43,6 +43,6 @@ with conn.cursor() as cursor:
         print("row[10] type: ", type(row[10]))
         new_value = str(row).replace("[","{").replace("]","}")
         print("Modified row: ", new_value)
-        cursor.execute(insert_query, row)
+        cursor.execute(insert_query, new_value)
     
     conn.commit()  # Commit the transaction to the database

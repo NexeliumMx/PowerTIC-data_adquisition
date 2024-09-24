@@ -256,8 +256,8 @@ def manage_data(data):
                         print("No table name specified before data json")
                         return
                      
-                columns = list(json_data.keys())
-                values = list(json_data.values())
+                columns = json_data.keys()
+                values = json_data.values()
 
 
             print("Column names: ", columns)

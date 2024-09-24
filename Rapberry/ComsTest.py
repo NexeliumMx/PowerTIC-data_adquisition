@@ -245,7 +245,7 @@ def manage_data(data):
         print(data)
         try:
             json_data = json.loads(data)
-            table_name = json_data[0].get("table") 
+            table_name = json_data.get("table") 
             print(table_name)
         
         except Exception as e:
@@ -256,6 +256,6 @@ def manage_data(data):
         
 #debug
 #print(reading_meter())
-meter_param()
-reading_meter(meter_param())
+#meter_param()
+#reading_meter(meter_param())
 manage_data(reading_meter(meter_param()))

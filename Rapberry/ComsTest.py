@@ -242,6 +242,7 @@ def reading_meter(sn):
 
 def manage_data(data):
     if data:
+        print(data)
         try:
             table_name = data[0].get("table")
             print(table_name)
@@ -249,10 +250,11 @@ def manage_data(data):
         except Exception as e:
         
             print("Error: ", e)
-        
+    else:
+        print("no data to process")
         
 #debug
 #print(reading_meter())
 meter_param()
 reading_meter(meter_param())
-
+manage_data(reading_meter())

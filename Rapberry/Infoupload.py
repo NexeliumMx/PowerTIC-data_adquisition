@@ -38,6 +38,7 @@ with conn.cursor() as cursor:
 
     # Insert each row into the locationsbackup table
     for row in rows:
+        print("Row is of type: ", type(row))
         print(row)
     #    cursor.execute(insert_query, row)
     

@@ -38,11 +38,11 @@ with conn.cursor() as cursor:
 
     # Insert each row into the locationsbackup table
     for row in rows:
-        #print("Row is of type: ", type(row))
+        print("Row is of type: ", type(row))
         #print(str(row[10]).replace("[","{").replace("]","}"))
         print("row[10] type: ", type(row[10]))
         new_value = str(row[10]).replace("[","{").replace("]","}")
-        row = tuple(row)
+        row = str(row)
         row[10] = new_value
         print("Modified row: ", row)
         cursor.execute(insert_query, row)

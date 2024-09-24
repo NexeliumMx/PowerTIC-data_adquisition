@@ -1,6 +1,6 @@
 import psycopg2
 try:
-    table = ""
+    table = "modbusqueries"
     conn = psycopg2.connect(
         user = "superadmin",
         host="powerticpgtest1.postgres.database.azure.com",

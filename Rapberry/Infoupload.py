@@ -41,6 +41,7 @@ with conn.cursor() as cursor:
         modbus_address = column_names.index('modbus_address')
         print(row[modbus_address])
         print(type(row))
+        print(str(row[modbus_address]).replace("[","{"*2).replace("]", "}"*2))
         #print("Row is of type: ", type(row))
         #print(str(row[10]).replace("[","{").replace("]","}"))
         #print("row[10] type: ", type(row[10]))

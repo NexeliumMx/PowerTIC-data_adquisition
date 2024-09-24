@@ -120,7 +120,7 @@ def meter_param():
             finally:
                 client.close()
                 #Solo para probar sn diferente
-                settings["serial_number"] = "E3T15060694"
+                #settings["serial_number"] = "E3T15060694"
 
                 settings["client"] = "not_set"
                 settings["branch"] = "not_set"

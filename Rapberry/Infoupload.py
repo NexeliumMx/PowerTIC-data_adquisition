@@ -40,6 +40,7 @@ with conn.cursor() as cursor:
     for row in rows:
         #print("Row is of type: ", type(row))
         #print(str(row[10]).replace("[","{").replace("]","}"))
+        print("row[10] type: ", type(row[10]))
         new_value = str(row[10]).replace("[","{").replace("]","}")
         row = list(row)
         row[10] = new_value

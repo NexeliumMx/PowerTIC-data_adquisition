@@ -245,11 +245,21 @@ def manage_data(data):
         print(data)
         try:
             json_data = json.loads(data)
-            table_name = json_data[0].get("table")
-            columns = list(json_data[1].keys())
-            values = list(json_data[1].values())
+            for item in json_data:
 
-            print("Table to insert: ",table_name)
+                if item.get("table"):
+                    
+                    table_name = item.get("table")
+                    print("Table name found: ", table_name)
+                else:
+                    if table_name == False:
+                        print("No table name specified before data json")
+                        return
+                     
+                columns = list(json_data.keys())
+                values = list(json_data.values())
+
+
             print("Column names: ", columns)
             print("Type: ", type(columns))
             print("Values to insert: ", values)

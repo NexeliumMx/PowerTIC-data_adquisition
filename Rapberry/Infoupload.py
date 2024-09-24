@@ -41,10 +41,8 @@ with conn.cursor() as cursor:
         print("Row is of type: ", type(row))
         #print(str(row[10]).replace("[","{").replace("]","}"))
         print("row[10] type: ", type(row[10]))
-        new_value = str(row[10]).replace("[","{").replace("]","}")
-        row = str(row)
-        row[10] = new_value
-        print("Modified row: ", row)
-        cursor.execute(insert_query, row)
+        new_value = str(row).replace("[","{").replace("]","}")
+        print("Modified row: ", new_value)
+#        cursor.execute(insert_query, row)
     
-    conn.commit()  # Commit the transaction to the database
+#    conn.commit()  # Commit the transaction to the database

@@ -242,36 +242,45 @@ def reading_meter(sn):
 
 def manage_data(data):
     if data:
-        print(data)
+        print("Raw data:", data)
         try:
             json_data = json.loads(data)
-            for item in json_data:
+            
+            # Ensure json_data is a list with at least two elements
+            if not isinstance(json_data, list) or len(json_data) < 2:
+                print("Invalid data format. Expected a list with at least two elements.")
+                return
+            
+            # Extract table name
+            table_info = json_data[0]
+            if not isinstance(table_info, dict) or "table" not in table_info:
+                print("No table name specified in the data.")
+                return
+            
+            table_name = table_info["table"]
+            print("Table name found:", table_name)
+            
+            # Extract data to insert
+            data_dict = json_data[1]
+            if not isinstance(data_dict, dict):
+                print("Invalid data format. Expected a dictionary for data.")
+                return
+            
+            columns = list(data_dict.keys())
+            values = list(data_dict.values())
 
-                if item.get("table"):
-                    
-                    table_name = item.get("table")
-                    print("Table name found: ", table_name)
-                else:
-                    if table_name == False:
-                        print("No table name specified before data json")
-                        return
-                     
-                columns = json_data.keys()
-                values = json_data.values()
+            print("Column names:", columns)
+            print("Type:", type(columns))
+            print("Values to insert:", values)
+            print("Type:", type(values))
 
-
-            print("Column names: ", columns)
-            print("Type: ", type(columns))
-            print("Values to insert: ", values)
-            print("Type: ", type(values))
-
-            insert_data(table_name= table_name, columns= columns, values= values)
-            print("Data backed up succesfully :)")
+            # Call your insert_data function
+            insert_data(table_name=table_name, columns=columns, values=values)
+            print("Data backed up successfully :)")
         except Exception as e:
-        
-            print("Error: ", e)
+            print("Error:", e)
     else:
-        print("no data to process")
+        print("No data to process")
         
 #debug
 #print(reading_meter())

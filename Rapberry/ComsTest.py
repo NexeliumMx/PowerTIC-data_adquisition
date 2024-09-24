@@ -246,12 +246,12 @@ def manage_data(data):
         try:
             json_data = json.loads(data)
             table_name = json_data[0].get("table")
-            columns = json_data[1].keys()
-            values = json_data[1].values()
+            columns = list(json_data[1].keys())
+            values = list(json_data[1].values())
 
             print("Table to insert: ",table_name)
-            print("Column names: ",columns)
-            print("Values to insert: ", values)
+            print("Column names: "+columns+". type: "+type(columns))
+            print("Values to insert: "+values+". type: "+type(values))
 
             insert_data(table_name= table_name, columns= columns, values= values)
             print("Data backed up succesfully :)")

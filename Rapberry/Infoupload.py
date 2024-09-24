@@ -42,6 +42,11 @@ with conn.cursor() as cursor:
         print(row[modbus_address])
         print(type(row))
         print(str(row[modbus_address]).replace("[","{"*2).replace("]", "}"*2))
+        replace_add=row[modbus_address].replace("[","{"*2).replace("]", "}"*2)
+        row[modbus_address] = replace_add
+        print("Modified Address: ",row[modbus_address])
+        row_data = tuple(row)  # Convert row to a tuple for insertion
+        print(row_data)
         #print("Row is of type: ", type(row))
         #print(str(row[10]).replace("[","{").replace("]","}"))
         #print("row[10] type: ", type(row[10]))

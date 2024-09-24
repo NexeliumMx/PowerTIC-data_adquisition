@@ -1,10 +1,20 @@
 from pymodbus.client import ModbusSerialClient
+import psycopg2
+from psycopg2 import sql
 import json
 import requests
 import datetime
 from datetime import timezone
-import psycopg2
-from psycopg2 import sql
+
+#Conexión con el medidor mediante modbus
+client = ModbusSerialClient(
+    port='/dev/ttyUSB0',
+    baudrate=19200,
+    parity='N',
+    stopbits=1,
+    bytesize=8,
+    timeout=5
+)
 
 # Connection to the local PostgreSQL server
 conn = psycopg2.connect(
@@ -51,24 +61,13 @@ def insert_data(table_name, columns, values):
 
     except Exception as error:
         print('Error executing query:', error)
-        # Optionally, log the full stack trace
-        # import traceback
-        # traceback.print_exc()
-        raise error  # Re-raise the exception after logging
 
+        raise error  # Re-raise the exception after logging
 
     finally:
         # Close the cursor and the database connection
         
         conn.close()
-
-
-
-
-
-
-
-
 
 #obtención y envío de datos de información del medidor
 def meter_param():      
@@ -240,8 +239,20 @@ def reading_meter(sn):
     else:
         print("Error connecting to the meter")
         return None
+
+def manage_data(data):
+    if data:
+        try:
+            table_name = data[0].get("table")
+            print(table_name)
+        
+        except Exception as e:
+        
+            print("Error: ", e)
+        
+        
 #debug
 #print(reading_meter())
 meter_param()
-#reading_meter(meter_param())
+reading_meter(meter_param())
 

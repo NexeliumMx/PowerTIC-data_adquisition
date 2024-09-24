@@ -267,4 +267,4 @@ def manage_data(data):
 #print(reading_meter())
 #meter_param()
 #reading_meter(meter_param())
-manage_data(reading_meter(meter_param()))
+manage_data(reading_meter("E3T15060693"))

@@ -7,5 +7,6 @@ try:
         password="D8bPCJtLY8mkead",  # luis: Tono2002 //Arturo: 2705
         port=5432
     )
+    print("Se conectó")
 except Exception as e:
     print("Error: ", e)

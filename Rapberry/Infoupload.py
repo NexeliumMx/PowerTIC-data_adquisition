@@ -38,6 +38,7 @@ with conn.cursor() as cursor:
 
     # Insert each row into the locationsbackup table
     for row in rows:
+        row = list(row)
         modbus_address = column_names.index('modbus_address')
         print(row[modbus_address])
         print(type(row))

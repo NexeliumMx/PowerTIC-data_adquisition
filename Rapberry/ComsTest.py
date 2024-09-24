@@ -247,10 +247,10 @@ def manage_data(data):
             json_data = json.loads(data)
             table_name = json_data[0].get("table")
             columns = json_data[1].keys()
-            values = json_data[1].keys()
-            print(table_name)
-            print(columns)
-            print(values)
+            values = json_data[1].values()
+            print("Table to insert: ",table_name)
+            print("Column names: ",columns)
+            print("Values to insert: ", values)
         
         except Exception as e:
         

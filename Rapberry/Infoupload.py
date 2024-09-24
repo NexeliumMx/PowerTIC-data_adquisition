@@ -41,6 +41,7 @@ with conn.cursor() as cursor:
         #print("Row is of type: ", type(row))
         #print(str(row[10]).replace("[","{").replace("]","}"))
         new_value = str(row[10]).replace("[","{").replace("]","}")
+        row = list(row)
         row[10] = new_value
         print("Modified row: ", row)
     #    cursor.execute(insert_query, row)

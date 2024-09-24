@@ -47,14 +47,10 @@ with conn.cursor() as cursor:
         row[modbus_address] = replace_add
         print("Modified Address: ",row[modbus_address])
         row_data = tuple(row)  # Convert row to a tuple for insertion
-        print(row_data)
-        #print("Row is of type: ", type(row))
-        #print(str(row[10]).replace("[","{").replace("]","}"))
-        #print("row[10] type: ", type(row[10]))
-        #new_value = str(row).replace("[","{").replace("]","}")
-        #print("Modified row: ", new_value)
+        print("Executing query for row:", row_data)
 
 
-        #cursor.execute(insert_query, new_value)
+
+        cursor.execute(insert_query, row_data)
     
-    #conn.commit()  # Commit the transaction to the database
+    conn.commit()  # Commit the transaction to the database

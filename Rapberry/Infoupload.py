@@ -39,7 +39,7 @@ with conn.cursor() as cursor:
     # Insert each row into the locationsbackup table
     for row in rows:
         print("Row is of type: ", type(row))
-        print(str(row[10].replace()))
+        print(str(row[10]).replace())
     #    cursor.execute(insert_query, row)
     
     #conn.commit()  # Commit the transaction to the database

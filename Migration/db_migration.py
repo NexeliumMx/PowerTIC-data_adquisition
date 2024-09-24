@@ -1,6 +1,6 @@
 import psycopg2
 try:
-    table = "modbusqueries"
+    table = "measurements"
     conn = psycopg2.connect(
         user = "superadmin",
         host="powerticpgtest1.postgres.database.azure.com",
@@ -27,6 +27,17 @@ try:
         insert_query = f"INSERT INTO powertic.{table} ({columns_str}) VALUES ({placeholders})"
 
         for row in rows:
+            """row = list(rows)
+            modbus_address = column_names.index('modbus_address')
+            print(row[modbus_address])
+            print(type(row))
+            print(str(row[modbus_address]))#.replace("[","{"*2).replace("]", "}"*2))
+            replace_add=str(row[modbus_address])#.replace("[","{"*2).replace("]", "}"*2).replace("'","\"")
+            row[modbus_address] = replace_add
+            print("Modified Address: ",row[modbus_address])
+            row_data = tuple(row)  # Convert row to a tuple for insertion
+            print("Executing query for row:", row_data)"""
+
             cursor.execute(insert_query,row)
         
         conn_new.commit()

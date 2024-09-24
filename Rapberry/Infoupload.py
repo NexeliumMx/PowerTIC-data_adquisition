@@ -44,6 +44,6 @@ with conn.cursor() as cursor:
         row = list(row)
         row[10] = new_value
         print("Modified row: ", row)
-    #    cursor.execute(insert_query, row)
+        cursor.execute(insert_query, row)
     
-    #conn.commit()  # Commit the transaction to the database
+    conn.commit()  # Commit the transaction to the database

@@ -1,6 +1,6 @@
 import psycopg2
 try:
-    table = "locations"
+    table = ""
     conn = psycopg2.connect(
         user = "superadmin",
         host="powerticpgtest1.postgres.database.azure.com",
@@ -31,7 +31,7 @@ try:
         
         conn_new.commit()
         
-        cursor. execute(f"SELECT * FROM powertic.{table};")
+        cursor.execute(f"SELECT * FROM powertic.{table};")
         inserted_rows = cursor.fetchall()
         print(f"Inserted rows into {table}: ")
         for inserted_row in inserted_rows:
@@ -40,7 +40,4 @@ try:
 except Exception as e:
     print("Error: ", e)
 
-finally:
-    conn.close()
-    conn_new.close()
         

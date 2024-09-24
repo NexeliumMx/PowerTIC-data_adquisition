@@ -11,7 +11,7 @@ connlocal= psycopg2.connect(
 )
 
 with connlocal.cursor() as cursor:
-    cursor.execute("SELECT * FROM powertic.locations;")
+    cursor.execute("SELECT * FROM powertic.modbusqueries;")
     rows = cursor.fetchall()
     
     # Fetch column names
@@ -34,7 +34,7 @@ with conn.cursor() as cursor:
     placeholders = ", ".join(["%s"] * len(column_names))
     print(columns_str)
     print(placeholders)
-    insert_query = f"INSERT INTO powertic.locationsbackup ({columns_str},mockid) VALUES ({placeholders},1234)"
+    insert_query = f"INSERT INTO powertic.modbusqueries ({columns_str}) VALUES ({placeholders})"
 
     # Insert each row into the locationsbackup table
     for row in rows:

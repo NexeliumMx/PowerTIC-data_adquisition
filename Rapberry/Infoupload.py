@@ -5,8 +5,8 @@ import psycopg2
 connlocal= psycopg2.connect(
     user="postgres",
     host="localhost",
-    database="powerTic",
-    password="Tono2002",  # luis: Tono2002 //Arturo: 2705
+    database="postgres",
+    password="postgres",  # luis: Tono2002 //Arturo: 2705
     port=5432
 )
 

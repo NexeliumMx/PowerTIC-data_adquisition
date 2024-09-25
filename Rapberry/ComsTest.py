@@ -45,6 +45,7 @@ def meter_param():
 
     with open('Modbusqueries.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 
+        print(rows)
         table_name = {}
         table_name["table"] = "meters"
         settings = {}

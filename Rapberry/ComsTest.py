@@ -54,7 +54,8 @@ def meter_param():
             print("Conexión exitosa")
             print("rows: ",rows)
             try:
-                for row in rows:       
+                for row in rows: 
+                    print(row)      
                     if row['parameter_description']: 
                         #print("row 3: ", row[3] )
                         parameter = row['parameter_description']
@@ -117,7 +118,7 @@ def meter_param():
                 else:
                     print('Error:', response.status_code, response.text)
 
-                file_path = r"PowerTIC/Raspberry_backup/parameters.json"  # Corrected directory name            
+                file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
                 info_backup(data=json_data, file_path=file_path)
 
 

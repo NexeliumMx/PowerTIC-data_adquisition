@@ -45,7 +45,7 @@ def meter_param():
     """with conn.cursor() as cursor:
         cursor.execute("SELECT parameter_description, modbus_address, register_number, setup FROM powertic.modbusqueries")
         rows = cursor.fetchall()"""
-    with open(r'PowerTIC/Rapberry/Modbusqueries.csv',newline='') as csvfile:
+    with open('Modbusqueries.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 
         table_name = {}
         table_name["table"] = "meters"
@@ -137,7 +137,7 @@ def reading_meter(sn):
             cursor.execute(
                 "SELECT parameter_description, modbus_address, register_number, indb FROM powertic.modbusqueries")
             rows = cursor.fetchall()"""
-        with open(r'PowerTIC/Rapberry/Modbusqueries.csv', newline='') as csvfile:
+        with open('Modbusqueries.csv', newline='') as csvfile:
             rows = csv.DictReader(csvfile)
     except Exception as e:
         print("Database error:", e)

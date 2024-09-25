@@ -137,7 +137,7 @@ def reading_meter(sn):
             cursor.execute(
                 "SELECT parameter_description, modbus_address, register_number, indb FROM powertic.modbusqueries")
             rows = cursor.fetchall()"""
-        with open('/Users/luissanchez/MICO/PowerTIC/Rapberry/Modbusqueries.csv', newline='') as csvfile:
+        with open(r'PowerTIC/Rapberry/Modbusqueries.csv', newline='') as csvfile:
             rows = csv.DictReader(csvfile)
     except Exception as e:
         print("Database error:", e)

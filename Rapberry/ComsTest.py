@@ -65,7 +65,7 @@ def meter_param():
                         #print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
         
                         modbus_addresses = json.loads(row["modbus_address"])[0]
-                        print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
+                        #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
 
                         if isinstance(modbus_addresses, list):
                             for modbus_address in modbus_addresses:
@@ -84,7 +84,7 @@ def meter_param():
                                     continue
                             print(f"Adquirido valor para {parameter}: {set_val}")
                         else:
-                            print("Integer Modbus Address: ", modbus_address)
+                            #print("Integer Modbus Address: ", modbus_address)
                             modbus_address = modbus_addresses
                             result = client.read_holding_registers(modbus_address, 1)
                             if not result.isError():

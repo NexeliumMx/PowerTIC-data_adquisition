@@ -64,7 +64,7 @@ def meter_param():
                         set_val = ""
                         print("modbus_address: ", row['modbus_address'],type(list(row["modbus_address"])))
                         if isinstance(row['modbus_address'], list):
-                            for modbus_address in row['modbus_address']:
+                            for modbus_address in json.load(row['modbus_address']):
                                 #print("Modbus Address: ", modbus_address)
                                 try:
                                     result = client.read_holding_registers(modbus_address, 1)

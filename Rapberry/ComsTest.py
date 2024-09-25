@@ -45,27 +45,27 @@ def meter_param():
 
     with open('Modbusqueries.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 
-        print(rows)
+        #print(rows)
         table_name = {}
         table_name["table"] = "meters"
         settings = {}
         
         if client.connect():
             print("Conexión exitosa")
-            print("rows: ",rows)
+            #print("rows: ",rows)
             try:
                 for row in rows: 
-                    print(row)
-                    print(row["parameter_description"],row["modbus_address"])      
+                    #print(row)
+                    #print(row["parameter_description"],row["modbus_address"])      
                     if row['parameter_description']: 
                         #print("parameter: ", row["parameter_description"] )
                         parameter = row['parameter_description']
-                        print("Parameter: ",parameter)
+                        #print("Parameter: ",parameter)
                         set_val = ""
-                        print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
+                        #print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
         
                         modbus_addresses = json.loads(row["modbus_address"])[0]
-                        print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
+                        #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
 
                         if isinstance(modbus_addresses, list):
                             for modbus_address in modbus_addresses:

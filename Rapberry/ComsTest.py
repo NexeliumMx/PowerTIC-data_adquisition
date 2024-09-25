@@ -67,7 +67,7 @@ def meter_param():
                         modbus_addresses = json.loads(row["modbus_address"])
                         print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
 
-                        if isinstance(row['modbus_address'], list):
+                        if isinstance(modbus_addresses, list):
                             for modbus_address in row['modbus_address']:
                                 #print("Modbus Address: ", modbus_address)
                                 try:

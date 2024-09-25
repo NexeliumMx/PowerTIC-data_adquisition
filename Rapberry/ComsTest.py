@@ -64,9 +64,9 @@ def meter_param():
                         set_val = ""
                         print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
         
-                        modbus_addresses = json.load(row["modbus_address"])
+                        modbus_addresses = json.loads(row["modbus_address"])
                         print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
-                                        
+
                         if isinstance(row['modbus_address'], list):
                             for modbus_address in row['modbus_address']:
                                 #print("Modbus Address: ", modbus_address)

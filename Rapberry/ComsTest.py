@@ -93,7 +93,7 @@ def meter_param():
         else:
             print("Error de conexión con el medidor")
 
-    return settings.get('serial_number')
+    return settings.get('serial_number'), table_name.get("table")
 
 def reading_meter(sn):
     # Constants
@@ -190,4 +190,4 @@ def reading_meter(sn):
 #print(reading_meter())
 #meter_param()
 #reading_meter(meter_param())
-manage_data(reading_meter("E3T15060693"))
+print(reading_meter("E3T15060693"))

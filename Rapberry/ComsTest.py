@@ -56,7 +56,7 @@ def meter_param():
             try:
                 for row in rows: 
                     #print(row)
-                    print(row["parameter_description"],row["modbus_address"])      
+                    #print(row["parameter_description"],row["modbus_address"])      
                     if row['parameter_description']: 
                         #print("parameter: ", row["parameter_description"] )
                         parameter = row['parameter_description']

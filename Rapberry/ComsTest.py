@@ -53,7 +53,7 @@ def meter_param():
         
         if client.connect():
             print("Conexión exitosa")
-            #print("rows: ",rows)
+            print("rows: ",rows)
             try:
                 for row in rows:       
                     if row[3]: 

@@ -58,12 +58,12 @@ def meter_param():
                     print(row)
                     print(row["parameter_description"],row["modbus_address"])      
                     if row['parameter_description']: 
-                        #print("row 3: ", row[3] )
+                        #print("parameter: ", row["parameter_description"] )
                         parameter = row['parameter_description']
-                        #print("Parameter: ",parameter)
+                        print("Parameter: ",parameter)
                         set_val = ""
                         #print("row 1,0: ", row[1][0])
-                        if isinstance(row[1][0], list):
+                        if isinstance(row['modbus_address'], list):
                             for modbus_address in row['modbus_address']:
                                 #print("Modbus Address: ", modbus_address)
                                 try:

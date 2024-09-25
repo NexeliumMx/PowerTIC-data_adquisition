@@ -84,7 +84,7 @@ def meter_param():
                                     continue
                             print(f"Adquirido valor para {parameter}: {set_val}")
                         else:
-                            #print("Integer Modbus Address: ", modbus_address)
+                            print("Integer Modbus Address: ", modbus_address)
                             #modbus_address = modbus_address
                             result = client.read_holding_registers(modbus_address, 1)
                             if not result.isError():

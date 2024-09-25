@@ -2,7 +2,7 @@ import requests
 import json
 import os
 
-def info_backup(data):
+def info_backup(data,file_path):
     file_path = r"PowerTIC/Raspberry_backup/clients.json"  # Corrected directory name
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
@@ -44,7 +44,7 @@ try:
     info_backup(data=data)
 except Exception as e:
     print("Error: ", e)
-    
+
 try:
     response = requests.post(url, json=data)
     response.raise_for_status()  # Raises HTTPError if the status is 4xx, 5xx

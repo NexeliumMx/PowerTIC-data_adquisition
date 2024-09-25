@@ -44,7 +44,7 @@ import datetime
 from datetime import timezone
 import os
 import requests
-from pymodbus.client.sync import ModbusSerialClient
+from pymodbus.client import ModbusSerialClient
 import json
 
 # Conexión con el medidor mediante Modbus

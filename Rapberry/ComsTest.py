@@ -42,9 +42,7 @@ def info_backup(data,file_path):
 
 #obtención y envío de datos de información del medidor
 def meter_param():     
-    """with conn.cursor() as cursor:
-        cursor.execute("SELECT parameter_description, modbus_address, register_number, setup FROM powertic.modbusqueries")
-        rows = cursor.fetchall()"""
+
     with open('Modbusqueries.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 
         table_name = {}
@@ -56,14 +54,14 @@ def meter_param():
             print("rows: ",rows)
             try:
                 for row in rows:       
-                    if row[3]: 
+                    if row['parameter_description']: 
                         #print("row 3: ", row[3] )
-                        parameter = row[0]
+                        parameter = row['parameter_description']
                         #print("Parameter: ",parameter)
                         set_val = ""
                         #print("row 1,0: ", row[1][0])
                         if isinstance(row[1][0], list):
-                            for modbus_address in row[1][0]:
+                            for modbus_address in row['modbus_address']:
                                 #print("Modbus Address: ", modbus_address)
                                 try:
                                     result = client.read_holding_registers(modbus_address, 1)
@@ -80,7 +78,7 @@ def meter_param():
                             print(f"Adquirido valor para {parameter}: {set_val}")
                         else:
                             print("Integer Modbus Address: ", modbus_address)
-                            modbus_address = row[1][0]
+                            modbus_address = row['modbus_address']
                             result = client.read_holding_registers(modbus_address, 1)
                             if not result.isError():
                                 set_val = result.registers[0]

@@ -1,6 +1,4 @@
 from pymodbus.client import ModbusSerialClient
-import psycopg2
-from psycopg2 import sql
 import json
 import requests
 import datetime
@@ -16,64 +14,12 @@ client = ModbusSerialClient(
     timeout=5
 )
 
-# Connection to the local PostgreSQL server
-conn = psycopg2.connect(
-    user="postgres",
-    host="localhost",
-    database="postgres",
-    password="postgres",
-    port=5432
-)
-print('Connected to the database.')
-
-def generate_placeholders(count):
-    """Generate SQL placeholders for parameterized queries."""
-    return ', '.join(['%s'] * count)
-
-def insert_data(table_name, columns, values):
-    try:
-        # Generate placeholders
-        placeholders = generate_placeholders(len(values))
-
-        # Ensure columns are properly formatted
-        columns_identifiers = [sql.Identifier(col) for col in columns]
-
-        with conn.cursor() as cursor:
-            # Construct the SQL query using psycopg2.sql module for safety
-            query = sql.SQL("INSERT INTO powertic.{table} ({fields}) VALUES ({placeholders})").format(
-                table=sql.Identifier(table_name),
-                fields=sql.SQL(', ').join(columns_identifiers),
-                placeholders=sql.SQL(placeholders)
-            )
-
-            # Log the query and values
-            print('Executing query:', query.as_string(conn))
-            print('With values:', values)
-
-            # Execute the query
-            cursor.execute(query, values)
-
-            # Commit the transaction
-            conn.commit()
-
-        print("Data inserted successfully")
-        return {'success': True, 'message': 'Data inserted successfully', 'data': values}
-
-    except Exception as error:
-        print('Error executing query:', error)
-
-        raise error  # Re-raise the exception after logging
-
-    finally:
-        # Close the cursor and the database connection
-        
-        conn.close()
 
 #obtención y envío de datos de información del medidor
 def meter_param():      
-    with conn.cursor() as cursor:
+    """with conn.cursor() as cursor:
         cursor.execute("SELECT parameter_description, modbus_address, register_number, setup FROM powertic.modbusqueries")
-        rows = cursor.fetchall()
+        rows = cursor.fetchall()"""
         table_name = {}
         table_name["table"] = "meters"
         settings = {}
@@ -239,48 +185,6 @@ def reading_meter(sn):
     else:
         print("Error connecting to the meter")
         return None
-
-def manage_data(data):
-    if data:
-        print("Raw data:", data)
-        try:
-            json_data = json.loads(data)
-            
-            # Ensure json_data is a list with at least two elements
-            if not isinstance(json_data, list) or len(json_data) < 2:
-                print("Invalid data format. Expected a list with at least two elements.")
-                return
-            
-            # Extract table name
-            table_info = json_data[0]
-            if not isinstance(table_info, dict) or "table" not in table_info:
-                print("No table name specified in the data.")
-                return
-            
-            table_name = table_info["table"]
-            print("Table name found:", table_name)
-            
-            # Extract data to insert
-            data_dict = json_data[1]
-            if not isinstance(data_dict, dict):
-                print("Invalid data format. Expected a dictionary for data.")
-                return
-            
-            columns = list(data_dict.keys())
-            values = list(data_dict.values())
-
-            print("Column names:", columns)
-            print("Type:", type(columns))
-            print("Values to insert:", values)
-            print("Type:", type(values))
-
-            # Call your insert_data function
-            insert_data(table_name=table_name, columns=columns, values=values)
-            print("Data backed up successfully :)")
-        except Exception as e:
-            print("Error:", e)
-    else:
-        print("No data to process")
         
 #debug
 #print(reading_meter())

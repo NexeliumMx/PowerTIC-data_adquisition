@@ -1,5 +1,6 @@
 import csv
-with open('/home/luis08islas/VScode/PowerTIC/Rapberry/CSV_tests/measurement_address.csv', newline='') as csvfile:
-    spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-    for row in spamreader:
-        print(', '.join(row))
+
+with open('/Users/luissanchez/MICO/PowerTIC/Rapberry/Modbusqueries.csv', newline='') as csvfile:
+    modbus_queries = csv.DictReader(csvfile)
+    for row in modbus_queries:
+        print(row['parameter_description'], row['modbus_address'])

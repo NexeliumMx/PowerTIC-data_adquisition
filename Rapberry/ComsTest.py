@@ -20,78 +20,78 @@ def meter_param():
     """with conn.cursor() as cursor:
         cursor.execute("SELECT parameter_description, modbus_address, register_number, setup FROM powertic.modbusqueries")
         rows = cursor.fetchall()"""
-        table_name = {}
-        table_name["table"] = "meters"
-        settings = {}
-        
-        if client.connect():
-            print("Conexión exitosa")
-            #print("rows: ",rows)
-            try:
-                for row in rows:       
-                    if row[3]: 
-                        #print("row 3: ", row[3] )
-                        parameter = row[0]
-                        #print("Parameter: ",parameter)
-                        set_val = ""
-                       #print("row 1,0: ", row[1][0])
-                        if isinstance(row[1][0], list):
-                            for modbus_address in row[1][0]:
-                                #print("Modbus Address: ", modbus_address)
-                                try:
-                                    result = client.read_holding_registers(modbus_address, 1)
-                                    if not result.isError():
-                                        for i in result.registers:
-                                            set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                                        set_val = set_val.replace('\x00', '')
-                                        settings[f'{parameter}'] = set_val  
-                                    else:
-                                        print(f"Error de lectura ({parameter}):", result)
-                                except ValueError:
-                                    print(f"Invalid address for {parameter}: {modbus_address}")
-                                    continue
-                            print(f"Adquirido valor para {parameter}: {set_val}")
+    table_name = {}
+    table_name["table"] = "meters"
+    settings = {}
+    
+    if client.connect():
+        print("Conexión exitosa")
+        #print("rows: ",rows)
+        try:
+            for row in rows:       
+                if row[3]: 
+                    #print("row 3: ", row[3] )
+                    parameter = row[0]
+                    #print("Parameter: ",parameter)
+                    set_val = ""
+                    #print("row 1,0: ", row[1][0])
+                    if isinstance(row[1][0], list):
+                        for modbus_address in row[1][0]:
+                            #print("Modbus Address: ", modbus_address)
+                            try:
+                                result = client.read_holding_registers(modbus_address, 1)
+                                if not result.isError():
+                                    for i in result.registers:
+                                        set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                                    set_val = set_val.replace('\x00', '')
+                                    settings[f'{parameter}'] = set_val  
+                                else:
+                                    print(f"Error de lectura ({parameter}):", result)
+                            except ValueError:
+                                print(f"Invalid address for {parameter}: {modbus_address}")
+                                continue
+                        print(f"Adquirido valor para {parameter}: {set_val}")
+                    else:
+                        print("Integer Modbus Address: ", modbus_address)
+                        modbus_address = row[1][0]
+                        result = client.read_holding_registers(modbus_address, 1)
+                        if not result.isError():
+                            set_val = result.registers[0]
+                            settings[f"{parameter}"] = set_val
+                            print(f"{parameter}: {set_val}")
                         else:
-                            print("Integer Modbus Address: ", modbus_address)
-                            modbus_address = row[1][0]
-                            result = client.read_holding_registers(modbus_address, 1)
-                            if not result.isError():
-                                set_val = result.registers[0]
-                                settings[f"{parameter}"] = set_val
-                                print(f"{parameter}: {set_val}")
-                            else:
-                                print(f"Error de lectura {parameter} en {modbus_address}", result)       
-            except Exception as e:
-                print("Exception:", e)
-            finally:
-                client.close()
-                #Solo para probar sn diferente
-                #settings["serial_number"] = "E3T15060694"
+                            print(f"Error de lectura {parameter} en {modbus_address}", result)       
+        except Exception as e:
+            print("Exception:", e)
+        finally:
+            client.close()
+            #Solo para probar sn diferente
+            #settings["serial_number"] = "E3T15060694"
 
-                settings["client"] = "not_set"
-                settings["branch"] = "not_set"
-                settings["location"] = "not_set"
-                settings["load_center"] = "not_set"
-                settings["facturation_intervalmonths"] = 1
-                timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
-                settings["register_date"] = timestamp
+            settings["client"] = "not_set"
+            settings["branch"] = "not_set"
+            settings["location"] = "not_set"
+            settings["load_center"] = "not_set"
+            settings["facturation_intervalmonths"] = 1
+            timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
+            settings["register_date"] = timestamp
 
-                json_data = [table_name, settings]
-                data = json.dumps(json_data)
-                print(table_name)
-                print(settings)
+            json_data = [table_name, settings]
+            data = json.dumps(json_data)
+            print(table_name)
+            print(settings)
 
-                print(data)
-                print(settings.get("serial_number", "serial_number not found"))
-                url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
-                response = requests.post(url, json=json_data)
+            print(data)
+            print(settings.get("serial_number", "serial_number not found"))
+            url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
+            response = requests.post(url, json=json_data)
 
-                if response.status_code == 200:
-                    print('Success:')
-                else:
-                    print('Error:', response.status_code, response.text)
-        else:
-            print("Error de conexión con el medidor")
+            if response.status_code == 200:
+                print('Success:')
+            else:
+                print('Error:', response.status_code, response.text)
+    else:
+        print("Error de conexión con el medidor")
 
     return settings.get('serial_number'), table_name.get("table")
 

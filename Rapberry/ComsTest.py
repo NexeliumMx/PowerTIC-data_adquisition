@@ -59,7 +59,7 @@ def meter_param():
                     #print(row["parameter_description"],row["modbus_address"])      
                     #print(row["setup"],type(row["setup"]), bool(row["setup"]),type(bool(row["setup"])) )      
                     setup = bool(row["setup"])
-                    if setup: 
+                    if setup == True: 
                         #print("parameter: ", row["parameter_description"] )
                         parameter = row['parameter_description']
                         #print("Parameter: ",parameter)

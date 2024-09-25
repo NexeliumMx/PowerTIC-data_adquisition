@@ -39,138 +39,8 @@ def info_backup(data,file_path):
             json.dump(existing_data, f, indent=4)
         print(f"Data ({data}) was backed up successfully.")
 
-import csv
-import datetime
-from datetime import timezone
-import os
-import requests
-from pymodbus.client import ModbusSerialClient
-import json
 
-# Conexión con el medidor mediante Modbus
-client = ModbusSerialClient(
-    port='/dev/ttyUSB0',
-    baudrate=19200,
-    parity='N',
-    stopbits=1,
-    bytesize=8,
-    timeout=5
-)
-
-def info_backup(data, file_path):
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
-    if not os.path.exists(file_path):
-        # Write the data as a list
-        with open(file_path, 'w') as f:
-            json.dump([data], f, indent=4)
-        print(f"Created {file_path} and backed up info.")
-    else:
-        # Read existing data
-        with open(file_path, 'r') as f:
-            try:
-                existing_data = json.load(f)
-            except json.JSONDecodeError:
-                existing_data = []
-        # Append new data
-        existing_data.append(data)
-        # Write back to the file
-        with open(file_path, 'w') as f:
-            json.dump(existing_data, f, indent=4)
-        print(f"Data was backed up successfully.")
-
-def meter_param():
-    with open('Modbusqueries.csv', newline='') as csvfile:
-        rows = csv.DictReader(csvfile)
-        table_name = {"table": "meters"}
-        settings = {}
-
-        if client.connect():
-            print("Conexión exitosa")
-            try:
-                for row in rows:
-                    parameter = row['parameter']
-                    modbus_address_str = row['modbus_address']
-                    if not modbus_address_str:
-                        continue  # Skip if no modbus address
-
-                    # Parse modbus addresses
-                    try:
-                        modbus_addresses = eval(modbus_address_str)
-                    except Exception as e:
-                        print(f"Error parsing modbus addresses for {parameter}: {e}")
-                        continue
-
-                    set_val = ""
-                    if isinstance(modbus_addresses, list):
-                        for modbus_address in modbus_addresses:
-                            try:
-                                modbus_address = int(modbus_address)
-                                result = client.read_holding_registers(modbus_address, 1, unit=1)
-                                if not result.isError():
-                                    for i in result.registers:
-                                        high_byte = (i & 0xFF00) >> 8
-                                        low_byte = i & 0x00FF
-                                        set_val += chr(high_byte) + chr(low_byte)
-                                    set_val = set_val.strip('\x00')
-                                    settings[parameter] = set_val
-                                else:
-                                    print(f"Error reading {parameter} at address {modbus_address}: {result}")
-                            except ValueError:
-                                print(f"Invalid address for {parameter}: {modbus_address}")
-                                continue
-                        print(f"Acquired value for {parameter}: {set_val}")
-                    else:
-                        try:
-                            modbus_address = int(modbus_addresses)
-                            result = client.read_holding_registers(modbus_address, 1, unit=1)
-                            if not result.isError():
-                                set_val = result.registers[0]
-                                settings[parameter] = set_val
-                                print(f"{parameter}: {set_val}")
-                            else:
-                                print(f"Error reading {parameter} at address {modbus_address}: {result}")
-                        except ValueError:
-                            print(f"Invalid address for {parameter}: {modbus_addresses}")
-                            continue
-            except Exception as e:
-                print("Exception:", e)
-            finally:
-                client.close()
-
-                # Set additional settings
-                settings.setdefault("serial_number", "unknown")
-                settings["client"] = "not_set"
-                settings["branch"] = "not_set"
-                settings["location"] = "not_set"
-                settings["load_center"] = "not_set"
-                settings["facturation_intervalmonths"] = 1
-                timestamp = datetime.datetime.now(timezone.utc).isoformat()
-                settings["register_date"] = timestamp
-
-                json_data = [table_name, settings]
-                print(json_data)
-
-                url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
-                response = requests.post(url, json=json_data)
-
-                if response.status_code == 200:
-                    print('Success:')
-                else:
-                    print('Error:', response.status_code, response.text)
-
-                file_path = r"PowerTIC/Raspberry_backup/parameters.json"
-                info_backup(data=json_data, file_path=file_path)
-        else:
-            print("Error de conexión con el medidor")
-
-    return settings.get('serial_number'), table_name.get("table")
-
-# Call the function
-serial_number, table = meter_param()
-print(f"Serial Number: {serial_number}, Table: {table}")
-
-"""#obtención y envío de datos de información del medidor
+#obtención y envío de datos de información del medidor
 def meter_param():     
 
     with open('Modbusqueries.csv',newline='') as csvfile:
@@ -253,7 +123,7 @@ def meter_param():
         else:
             print("Error de conexión con el medidor")
 
-    return settings.get('serial_number'), table_name.get("table")"""
+    return settings.get('serial_number'), table_name.get("table")
 
 def reading_meter(sn):
     # Constants
@@ -350,6 +220,6 @@ def reading_meter(sn):
         
 #debug
 #print(reading_meter())
-#meter_param()
+meter_param()
 #reading_meter(meter_param())
 #print(reading_meter("E3T15060693"))

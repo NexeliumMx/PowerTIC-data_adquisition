@@ -146,10 +146,6 @@ def reading_meter(sn):
     table_name = {"table": "measurements"}
 
     try:
-        """with conn.cursor() as cursor:
-            cursor.execute(
-                "SELECT parameter_description, modbus_address, register_number, indb FROM powertic.modbusqueries")
-            rows = cursor.fetchall()"""
         with open('Modbusqueries.csv', newline='') as csvfile:
             rows = csv.DictReader(csvfile)
     except Exception as e:
@@ -160,15 +156,18 @@ def reading_meter(sn):
         #print("rows: ", rows)
         try:
             for row in rows:
-                parameter_description = row[0]
+                parameter_description = row['parameter_description']
                 
                 #debug
                 #print("Parameter Description: ", parameter_description)
-                modbus_address = row[1][0]
+                modbus_address = json.loads(row['modbus_address'])[0]
                 
                 #debug
                 #print("Modbus Address: ", modbus_address)
-                indb = row[3]
+                if row["indb"] == "t":
+                    indb = True
+                elif row["indb"] == "f":
+                    indb = False
                 
                 #debug
                 #print("in db: ", indb)

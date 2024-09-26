@@ -126,8 +126,8 @@ def meter_param():
                 else:
                     print('Error:', response.status_code, response.text)
 
-                file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
-                info_backup(data=json_data, file_path=file_path)
+                    file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
+                    info_backup(data=json_data, file_path=file_path)
 
 
         else:

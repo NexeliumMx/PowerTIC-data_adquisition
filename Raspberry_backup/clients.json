@@ -22,5 +22,29 @@
             "payment": true,
             "payment_amount": 1000
         }
+    ],
+    [
+        {
+            "table": "clients"
+        },
+        {
+            "client": "SA de CV",
+            "broker": "DEF",
+            "cloud_services": false,
+            "payment": true,
+            "payment_amount": 1000
+        }
+    ],
+    [
+        {
+            "table": "clients"
+        },
+        {
+            "client": "SA de CV",
+            "broker": "DEF",
+            "cloud_services": false,
+            "payment": true,
+            "payment_amount": 1000
+        }
     ]
 ]

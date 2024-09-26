@@ -3,7 +3,7 @@ import json
 import os
 
 def info_backup(data,file_path):
-    file_path = r"PowerTIC/Raspberry_backup/clients.json"  # Corrected directory name
+    
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
     if not os.path.exists(file_path):
@@ -41,7 +41,8 @@ data =[
 # URL of the API endpoint
 url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
 try:
-    info_backup(data=data)
+    file_path = r"PowerTIC/Raspberry_backup/clients.json"  # Corrected directory name
+    info_backup(data=data,file_path=file_path)
 except Exception as e:
     print("Error: ", e)
 

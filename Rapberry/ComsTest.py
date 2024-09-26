@@ -155,10 +155,10 @@ def reading_meter(sn):
             #print("rows: ", rows)
             try:
                 for row in rows:
-                    #print("row: ", row)
+                    print("row: ", row)
                     parameter_description = row['parameter_description']
                     #debug
-                    #print("Parameter Description: ", parameter_description)
+                    print("Parameter Description: ", parameter_description)
                     modbus_address = json.loads(row['modbus_address'])[0]
                     
                     #debug

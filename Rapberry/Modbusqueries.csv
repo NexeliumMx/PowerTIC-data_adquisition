@@ -1,7 +1,6 @@
-Modbusqueries
 serial,modbus_address,parameter_description,standard,data_type,data_range,model,mod_default,register_number,indb,setup
 1,"[[4148, 4149, 4150, 4151, 4152, 4153, 4154, 4155]]",serial_number,Acurev 1300,string,Manufacturer specific value (32 chars),"[1, 4]",NULL,16,f,t
-2,"[[4096, 4097]]",sunspec_id,sunspec,Uint16,0x53756E53,"[1, 4]",1,2,f,t
+2,"[[4096, 4097]]",sunspec_id,sunspec,Uint16,0x53756e53,"[1, 4]",1,2,f,t
 3,[4098],id,Acurev 1300,Uint16,1,"[1, 4]",1,1,f,t
 4,[4099],lenth,Acurev 1300,Uint16,65,"[1, 4]",65,1,f,f
 5,"[[4100, 4101, 4102, 4103, 4104, 4105, 4106, 4107]]",manufacturer,Acurev 1300,string,Well known value registered with SunSpec for compliance,"[1, 4]",Accuenergy,16,f,t
@@ -23,7 +22,7 @@ serial,modbus_address,parameter_description,standard,data_type,data_range,model,
 21,[4269],totvarh_sf,sunspec,0,NULL,"[2, 4]",NULL,1,f,f
 22,"[[4270, 4271]]",meter_event_flags,0,bitfield32,0,"[1, 4]",0,2,f,f
 23,[4272],sunspec_end_id_sunspec,sunspec,uint16,0xFFFF,"[1, 4]",NULL,1,f,f
-24,[4273],sunspec_end_lenth_sunspec,sunspec,uint16,0x0,"[1, 4]",NULL,1,f,f
+24,[4273],sunspec_end_lenth_sunspec,sunspec,uint16,0x0000,"[1, 4]",NULL,1,f,f
 25,[4167],amps_total,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,t,f
 26,[4168],amps_phase_a,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,t,f
 27,[4169],amps_phase_b,sunspec,int16,"[0, 9999]","[1, 4]",NULL,1,t,f
@@ -97,11 +96,11 @@ serial,modbus_address,parameter_description,standard,data_type,data_range,model,
 95,"[[5654, 5656]]",Input active power rate4 max demand occur time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f
 96,"[[5657, 5658]]",output active power's total max demand,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
 97,"[[5659, 5661]]",output active power's total max demand occur time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f
-98,"[[5662, 5663]]",output active power rate1 max demand,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
+98,"[[5662, 5663]]",output active power rate1 max demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
 99,"[[5664, 5666]]",output active power rate1 max demand occur time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f
-100,"[[5667, 5668]]",output active power rate2 max demand,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
+100,"[[5667, 5668]]",output active power rate2 max demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
 101,"[[5669, 5671]]",output active power rate2 max demand occur time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f
-102,"[[5672, 5673]]",output active power rate3 max demand,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
+102,"[[5672, 5673]]",output active power rate3 max demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
 103,"[[5674, 5676]]",output active power rate3 max demand occur time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f
-104,"[[5677, 5678]]",output active power rate4 max demand,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
+104,"[[5677, 5678]]",output active power rate4 max demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f
 105,"[[5679, 5681]]",output active power rate4 max demand occur time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f

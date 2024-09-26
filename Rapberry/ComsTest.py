@@ -52,12 +52,12 @@ def meter_param():
         
         if client.connect():
             print("Conexión exitosa")
-            #print("rows: ",rows)
+            print("rows: ",rows)
             try:
                 for row in rows: 
-                    #print(row)
-                    #print(row["parameter_description"],row["modbus_address"])      
-                    #print(row["setup"],type(row["setup"]), bool(row["setup"]),type(bool(row["setup"])) )      
+                    print(row)
+                    print(row["parameter_description"],row["modbus_address"])      
+                    print(row["setup"],type(row["setup"]), bool(row["setup"]),type(bool(row["setup"])) )      
 
                     if row["setup"] == "t":
                         setup = True
@@ -162,7 +162,8 @@ def reading_meter(sn):
                     modbus_address = json.loads(row['modbus_address'])[0]
                     
                     #debug
-                    #print("Modbus Address: ", modbus_address)
+                    print("Modbus Address: ", modbus_address)
+
                     if row["indb"] == "t":
                         indb = True
                     elif row["indb"] == "f":
@@ -233,6 +234,6 @@ def reading_meter(sn):
         
 #debug
 #print(reading_meter())
-#meter_param()
+meter_param()
 #reading_meter(meter_param())
 reading_meter("E3T15060693")

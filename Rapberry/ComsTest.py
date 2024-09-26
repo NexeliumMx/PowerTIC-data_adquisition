@@ -141,19 +141,20 @@ def meter_param():
     return settings.get('serial_number'), table_name.get("table")
 
 def reading_meter(sn):
-    # Constants
-    measurement = {}
-    table_name = {"table": "measurements"}
 
-    try:
-        with open('Modbusqueries.csv', newline='') as csvfile:
-            rows = csv.DictReader(csvfile)
-    except Exception as e:
-        print("Database error:", e)
-        return None
 
     if client.connect():
-        #print("rows: ", rows)
+        # Constants
+        measurement = {}
+        table_name = {"table": "measurements"}
+
+        try:
+            with open('Modbusqueries.csv', newline='') as csvfile:
+                rows = csv.DictReader(csvfile)
+        except Exception as e:
+            print("Database error:", e)
+            return None
+        print("rows: ", rows)
         try:
             for row in rows:
                 parameter_description = row['parameter_description']

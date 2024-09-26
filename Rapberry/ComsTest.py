@@ -162,7 +162,7 @@ def reading_meter(sn):
                     modbus_address = json.loads(row['modbus_address'])[0]
                     
                     #debug
-                    #print("Modbus Address: ", modbus_address)
+                    print("Modbus Address: ", modbus_address)
 
                     if row["indb"] == "t":
                         indb = True

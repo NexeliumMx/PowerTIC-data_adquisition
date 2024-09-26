@@ -155,15 +155,7 @@ def reading_meter(sn):
             #print("rows: ", rows)
             try:
                 for row in rows:
-                    print("row: ", row)
-                    parameter_description = row['parameter_description']
-                    #debug
-                    print("Parameter Description: ", parameter_description)
-                    modbus_address = json.loads(row['modbus_address'])[0]
                     
-                    #debug
-                    print("Modbus Address: ", modbus_address)
-
                     if row["indb"] == "t":
                         indb = True
                     elif row["indb"] == "f":
@@ -173,6 +165,15 @@ def reading_meter(sn):
                     #print("in db: ", indb)
 
                     if indb:
+                        print("row: ", row)
+                        parameter_description = row['parameter_description']
+                        #debug
+                        print("Parameter Description: ", parameter_description)
+                        modbus_address = json.loads(row['modbus_address'])[0]
+                        
+                        #debug
+                        print("Modbus Address: ", modbus_address)
+
                         if isinstance(modbus_address, list):
                             # 'modbus_address' is a list
                             for address in modbus_address:

@@ -148,87 +148,85 @@ def reading_meter(sn):
         measurement = {}
         table_name = {"table": "measurements"}
 
-        try:
-            with open('Modbusqueries.csv', newline='') as csvfile:
-                rows = csv.DictReader(csvfile)
-        except Exception as e:
-            print("Database error:", e)
-            return None
-        print("rows: ", rows)
-        try:
-            for row in rows:
-                parameter_description = row['parameter_description']
-                
-                #debug
-                #print("Parameter Description: ", parameter_description)
-                modbus_address = json.loads(row['modbus_address'])[0]
-                
-                #debug
-                #print("Modbus Address: ", modbus_address)
-                if row["indb"] == "t":
-                    indb = True
-                elif row["indb"] == "f":
-                    indb = False
-                
-                #debug
-                #print("in db: ", indb)
 
-                if indb:
-                    if isinstance(modbus_address, list):
-                        # 'modbus_address' is a list
-                        for address in modbus_address:
+        with open('Modbusqueries.csv', newline='') as csvfile:
+            rows = csv.DictReader(csvfile)
+
+            print("rows: ", rows)
+            try:
+                for row in rows:
+                    parameter_description = row['parameter_description']
+                    
+                    #debug
+                    #print("Parameter Description: ", parameter_description)
+                    modbus_address = json.loads(row['modbus_address'])[0]
+                    
+                    #debug
+                    #print("Modbus Address: ", modbus_address)
+                    if row["indb"] == "t":
+                        indb = True
+                    elif row["indb"] == "f":
+                        indb = False
+                    
+                    #debug
+                    #print("in db: ", indb)
+
+                    if indb:
+                        if isinstance(modbus_address, list):
+                            # 'modbus_address' is a list
+                            for address in modbus_address:
+                                try:
+                                    # Data acquisition for each address
+                                    meas = client.read_holding_registers(address, 1)
+                                    if not meas.isError():
+                                        meas_val = meas.registers[0]
+                                        measurement[f"{parameter_description}"] = meas_val
+                                    else:
+                                        print(f"Error reading {parameter_description} at {address}: {meas}")
+                                except ValueError:
+                                    print(f"Invalid address for {parameter_description}: {address}")
+                        else:
+                            # 'modbus_address' is a single address
                             try:
-                                # Data acquisition for each address
-                                meas = client.read_holding_registers(address, 1)
+                                meas = client.read_holding_registers(modbus_address, 1)
                                 if not meas.isError():
                                     meas_val = meas.registers[0]
                                     measurement[f"{parameter_description}"] = meas_val
+                                    print(f"{parameter_description}: {meas_val}")
                                 else:
-                                    print(f"Error reading {parameter_description} at {address}: {meas}")
+                                    print(f"Error reading {parameter_description} at {modbus_address}: {meas}")
                             except ValueError:
-                                print(f"Invalid address for {parameter_description}: {address}")
-                    else:
-                        # 'modbus_address' is a single address
-                        try:
-                            meas = client.read_holding_registers(modbus_address, 1)
-                            if not meas.isError():
-                                meas_val = meas.registers[0]
-                                measurement[f"{parameter_description}"] = meas_val
-                                print(f"{parameter_description}: {meas_val}")
-                            else:
-                                print(f"Error reading {parameter_description} at {modbus_address}: {meas}")
-                        except ValueError:
-                            print(f"Invalid address for {parameter_description}: {modbus_address}")
-        except Exception as e:
-            print("Exception during data acquisition:", e)
-        finally:
-            client.close()
+                                print(f"Invalid address for {parameter_description}: {modbus_address}")
+            except Exception as e:
+                print("Exception during data acquisition:", e)
+            finally:
+                client.close()
 
-        timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
-        measurement["timestamp"] = timestamp
-        measurement["serial_number"] = sn
-        json_data = [table_name, measurement]
-        data = json.dumps(json_data)
+            timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
+            measurement["timestamp"] = timestamp
+            measurement["serial_number"] = sn
+            json_data = [table_name, measurement]
+            data = json.dumps(json_data)
 
-        # Debug
-        print("Table to insert:", table_name)
-        print("Obtained measurements:", measurement)
-        print("JSON object: ", json_data)
-        print("Built JSON: ", data)
+            # Debug
+            print("Table to insert:", table_name)
+            print("Obtained measurements:", measurement)
+            print("JSON object: ", json_data)
+            print("Built JSON: ", data)
 
-        # Send data
-        url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
-        try:
-            response = requests.post(url, json=json_data)
-            if response.status_code == 200:
-                print('Success')
-            else:
-                print('Error:', response.status_code, response.text)
-        except requests.exceptions.RequestException as e:
-            print("Network error:", e)
-            return None
+            # Send data
+            url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
+            try:
+                response = requests.post(url, json=json_data)
+                if response.status_code == 200:
+                    print('Success')
+                else:
+                    print('Error:', response.status_code, response.text)
+            except requests.exceptions.RequestException as e:
+                print("Network error:", e)
+                return None
 
-        return data  # Return the Python object, not the serialized string
+            return data  # Return the Python object, not the serialized string
     else:
         print("Error connecting to the meter")
         return None

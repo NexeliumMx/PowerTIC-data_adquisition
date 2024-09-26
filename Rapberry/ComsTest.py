@@ -152,17 +152,17 @@ def reading_meter(sn):
         with open('Modbusqueries.csv', newline='') as csvfile:
             rows = csv.DictReader(csvfile)
 
-            print("rows: ", rows)
+            #print("rows: ", rows)
             try:
                 for row in rows:
-                    print("row: ", row)
+                    #print("row: ", row)
                     parameter_description = row['parameter_description']
                     #debug
-                    print("Parameter Description: ", parameter_description)
+                    #print("Parameter Description: ", parameter_description)
                     modbus_address = json.loads(row['modbus_address'])[0]
                     
                     #debug
-                    print("Modbus Address: ", modbus_address)
+                    #print("Modbus Address: ", modbus_address)
 
                     if row["indb"] == "t":
                         indb = True

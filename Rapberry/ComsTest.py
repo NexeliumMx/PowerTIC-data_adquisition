@@ -175,6 +175,7 @@ def reading_meter(sn):
                         #print("Modbus Address: ", modbus_address)
 
                         if isinstance(modbus_address, list):
+                            meas_val = ''
                             # 'modbus_address' is a list
                             for address in modbus_address:
                                 try:

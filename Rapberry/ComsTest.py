@@ -235,8 +235,7 @@ def reading_meter(sn):
    ###                               second = meas_val & 0xFF  # last 8 bits for second (ss)
 
                                     # Convert to string format YYMMDD hh:mm:ss
-                                    occur_time = timestamp(meas_val).isoformat()
-
+                                    occur_time = datetime.fromtimestamp(meas_val, tz=None)
                                     print(f"Occur Time: {occur_time}")
                                 else:
                                     print("Error reading Modbus data")

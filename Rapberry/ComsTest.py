@@ -196,6 +196,7 @@ def reading_meter(sn):
                                     print("Error value: ", meas_val)
                         else:
                             # 'modbus_address' is a single address
+                            meas_val = ''
                             try:
                                 meas = client.read_holding_registers(modbus_address, 1)
                                 if not meas.isError():

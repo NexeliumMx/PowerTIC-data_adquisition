@@ -196,6 +196,7 @@ def reading_meter(sn):
                                     print("Error value: ", meas_val)"""
                         if registers == 2:
                             address = modbus_address[0]
+                            print("Address: ", address)
                             try:
                                 meas_val = ''
                                 meas = client.read_holding_registers(address, registers, 1)
@@ -213,6 +214,7 @@ def reading_meter(sn):
                         
                         elif registers == 3:
                             address = modbus_address[0]
+                            print("Address:", address)
                             try:
                                 result = client.read_holding_registers(address, registers, 1)  # adjust address and unit accordingly
 

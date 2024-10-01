@@ -195,8 +195,9 @@ def reading_meter(sn):
                                     print(f"Invalid address for {parameter_description}: {address}")
                                     print("Error value: ", meas_val)"""
                         if registers == 2:
+                            print("Address: ", modbus_address)
                             address = modbus_address[0]
-                            print("Address: ", address)
+                            
                             try:
                                 meas_val = ''
                                 meas = client.read_holding_registers(address, registers, 1)

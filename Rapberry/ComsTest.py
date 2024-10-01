@@ -216,7 +216,7 @@ def reading_meter(sn):
                             address = modbus_address[0]
                             print("Address:", address)
                             try:
-                                result = client.read_holding_registers(address, registers, 1)  # adjust address and unit accordingly
+                                result = client.read_holding_registers(address, int(registers), 1)  # adjust address and unit accordingly
 
                                 if not result.isError():
                                     # Combine the three 16-bit registers into a single 48-bit value

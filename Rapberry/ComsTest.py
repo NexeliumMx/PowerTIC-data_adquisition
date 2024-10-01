@@ -197,7 +197,7 @@ def reading_meter(sn):
                         if registers == 2:
                             try:
                                 meas_val = ''
-                                meas = client.read_holding_registers(modbus_address, registers, 1)
+                                meas = client.read_holding_registers(modbus_address, 2, 1)
                                 if not meas.isError():
                                     high = meas.registers[0]
                                     low = meas.registers[1]
@@ -212,7 +212,7 @@ def reading_meter(sn):
                         
                         elif registers == 3:
                             try:
-                                result = client.read_holding_registers(modbus_address, registers, 1)  # adjust address and unit accordingly
+                                result = client.read_holding_registers(modbus_address, 3, 1)  # adjust address and unit accordingly
 
                                 if not result.isError():
                                     # Combine the three 16-bit registers into a single 48-bit value

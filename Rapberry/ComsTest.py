@@ -155,7 +155,8 @@ def reading_meter(sn):
             #print("rows: ", rows)
             try:
                 for row in rows:
-                    
+                    registers = row["register_number"]
+                    print(registers)
                     if row["indb"] == "t":
                         indb = True
                     elif row["indb"] == "f":

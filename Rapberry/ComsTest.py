@@ -226,7 +226,7 @@ def reading_meter(sn):
                                     
                                     # Shift and combine to get 48-bit value
                                     meas_val = (high << 32) + (mid << 16) + low
-                                    print(meas_val)
+                                    print(high)
                                     # Extract components from the 48-bit value (YYMMDDhhmmss format)
 #                                    year = (meas_val >> 40) & 0xFF  # last 8 bits for year (YY)
  #                                   month = (meas_val >> 32) & 0xFF  # next 8 bits for month (MM)

@@ -170,8 +170,8 @@ def reading_meter(sn):
                         #debug
                         #print("Parameter Description: ", parameter_description)
                         modbus_address = json.loads(row['modbus_address'])[0]
-                        registers = int(row["register_number"])
-                        print(parameter_description,registers, type(registers))
+                        registers = row["register_number"]
+                        print(parameter_description,registers)
                         #debug
                         #print("Modbus Address: ", modbus_address)
 
@@ -195,7 +195,6 @@ def reading_meter(sn):
                                     print(f"Invalid address for {parameter_description}: {address}")
                                     print("Error value: ", meas_val)"""
                         if registers == 2:
-                            
                             address = modbus_address[0]
                             print("Address: ", address)
                             try:
@@ -229,13 +228,14 @@ def reading_meter(sn):
                                     meas_val = (high << 32) + (mid << 16) + low
 
                                     # Extract components from the 48-bit value (YYMMDDhhmmss format)
-#                                    year = (meas_val >> 40) & 0xFF  # last 8 bits for year (YY)
- #                                   month = (meas_val >> 32) & 0xFF  # next 8 bits for month (MM)
-  #                                  day = (meas_val >> 24) & 0xFF  # next 8 bits for day (DD)
-   ###                               second = meas_val & 0xFF  # last 8 bits for second (ss)
+                                    year = (meas_val >> 40) & 0xFF  # last 8 bits for year (YY)
+                                    month = (meas_val >> 32) & 0xFF  # next 8 bits for month (MM)
+                                    day = (meas_val >> 24) & 0xFF  # next 8 bits for day (DD)
+                                    second = meas_val & 0xFF  # last 8 bits for second (ss)
 
                                     # Convert to string format YYMMDD hh:mm:ss
-                                    occur_time = datetime.datetime.fromtimestamp(meas_val,timezone.utc)
+                                    occur_time = str(year)+str(month)+str(day)+str(second)
+
                                     print(f"Occur Time: {occur_time}")
                                 else:
                                     print("Error reading Modbus data")

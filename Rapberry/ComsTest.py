@@ -175,7 +175,7 @@ def reading_meter(sn):
                         #debug
                         #print("Modbus Address: ", modbus_address)
 
-                        if isinstance(modbus_address, list):
+                        """if isinstance(modbus_address, list):
                             meas_val = ''
                             # 'modbus_address' is a list
                             for address in modbus_address:
@@ -193,7 +193,53 @@ def reading_meter(sn):
                                         print(f"Error reading {parameter_description} at {address}: {meas}")
                                 except ValueError:
                                     print(f"Invalid address for {parameter_description}: {address}")
-                                    print("Error value: ", meas_val)
+                                    print("Error value: ", meas_val)"""
+                        if registers == 2:
+                            try:
+                                meas_val = ''
+                                meas = client.read_holding_registers(modbus_address, registers, 1)
+                                if not meas.isError():
+                                    high = meas.registers[0]
+                                    low = meas.registers[1]
+                                    meas_val = (high << 16) + low
+                                    print("measurement value: ",meas_val)
+                                    measurement[f'{parameter_description}'] = meas_val
+                                else:
+                                    print(f"Error reading {parameter_description} at {modbus_address}: {meas}")
+                            except ValueError:
+                                print(f"Invalid address for {parameter_description}: {modbus_address}")
+                                print("Error value: ", meas_val)   
+                        
+                        elif registers == 3:
+                            try:
+                                result = client.read_holding_registers(modbus_address, registers, 1)  # adjust address and unit accordingly
+
+                                if not result.isError():
+                                    # Combine the three 16-bit registers into a single 48-bit value
+                                    high = result.registers[0]
+                                    mid = result.registers[1]
+                                    low = result.registers[2]
+                                    
+                                    # Shift and combine to get 48-bit value
+                                    meas_val = (high << 32) + (mid << 16) + low
+
+                                    # Extract components from the 48-bit value (YYMMDDhhmmss format)
+                                    year = (meas_val >> 40) & 0xFF  # last 8 bits for year (YY)
+                                    month = (meas_val >> 32) & 0xFF  # next 8 bits for month (MM)
+                                    day = (meas_val >> 24) & 0xFF  # next 8 bits for day (DD)
+                                    hour = (meas_val >> 16) & 0xFF  # next 8 bits for hour (hh)
+                                    minute = (meas_val >> 8) & 0xFF  # next 8 bits for minute (mm)
+                                    second = meas_val & 0xFF  # last 8 bits for second (ss)
+
+                                    # Convert to string format YYMMDD hh:mm:ss
+                                    occur_time = f"20{year:02d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
+
+                                    print(f"Occur Time: {occur_time}")
+                                else:
+                                    print("Error reading Modbus data")
+                            except ValueError:
+                                print(f"Invalid address for {parameter_description}: {modbus_address}")
+                                print("Error value: ", meas_val)       
                         else:
                             # 'modbus_address' is a single address
                             meas_val = ''

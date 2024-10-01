@@ -170,7 +170,7 @@ def reading_meter(sn):
                         #debug
                         #print("Parameter Description: ", parameter_description)
                         modbus_address = json.loads(row['modbus_address'])[0]
-                        registers = row["register_number"]
+                        registers = int(row["register_number"])
                         print(parameter_description,registers, type(registers))
                         #debug
                         print("Modbus Address: ", modbus_address)

@@ -292,6 +292,6 @@ def reading_meter(sn):
         
 #debug
 #print(reading_meter())
-meter_param()
+#meter_param()
 #reading_meter(meter_param())
-#reading_meter("E3T15060693")
+reading_meter("E3T15060693")

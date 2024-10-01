@@ -182,6 +182,7 @@ def reading_meter(sn):
                                 try:
                                     # Data acquisition for each address
                                     meas = client.read_holding_registers(address,registers, 1)
+                                    print("meas is of type: ", type(meas))
                                     if not meas.isError():
                                         for i in meas.registers:
                                             meas_val += chr((i & 0b1111111100000000)>>8) + chr(i & 0b0000000011111111)

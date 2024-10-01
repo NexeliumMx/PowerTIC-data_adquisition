@@ -184,7 +184,7 @@ def reading_meter(sn):
                                     if not meas.isError():
                                         for i in meas.registers:
                                             meas_val += chr((i & 0b1111111100000000)>>8) + chr(i & 0b0000000011111111)
-                                            meas_val = meas_val.replace('\x00','')
+                                        meas_val = meas_val.replace('\x00','')
                                         print("measurement value: ",meas_val)
                                         measurement[f'{parameter_description}'] = meas_val
                                     else:

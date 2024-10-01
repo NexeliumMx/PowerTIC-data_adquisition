@@ -170,7 +170,7 @@ def reading_meter(sn):
                         #debug
                         #print("Parameter Description: ", parameter_description)
                         modbus_address = json.loads(row['modbus_address'])[0]
-                        registers = row["register_number"]
+                        registers = int(row["register_number"])
                         print(parameter_description,registers)
                         #debug
                         #print("Modbus Address: ", modbus_address)
@@ -199,7 +199,7 @@ def reading_meter(sn):
                             print("Address: ", address)
                             try:
                                 meas_val = ''
-                                meas = client.read_holding_registers(address, registers, 1)
+                                meas = client.read_holding_registers(address, int(registers), 1)
                                 if not meas.isError():
                                     high = meas.registers[0]
                                     low = meas.registers[1]

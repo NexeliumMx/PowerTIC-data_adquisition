@@ -195,9 +195,10 @@ def reading_meter(sn):
                                     print(f"Invalid address for {parameter_description}: {address}")
                                     print("Error value: ", meas_val)"""
                         if registers == 2:
+                            address = modbus_address[0]
                             try:
                                 meas_val = ''
-                                meas = client.read_holding_registers(modbus_address, 2, 1)
+                                meas = client.read_holding_registers(address, registers, 1)
                                 if not meas.isError():
                                     high = meas.registers[0]
                                     low = meas.registers[1]
@@ -205,14 +206,15 @@ def reading_meter(sn):
                                     print("measurement value: ",meas_val)
                                     measurement[f'{parameter_description}'] = meas_val
                                 else:
-                                    print(f"Error reading {parameter_description} at {modbus_address}: {meas}")
+                                    print(f"Error reading {parameter_description} at {address}: {meas}")
                             except ValueError:
                                 print(f"Invalid address for {parameter_description}: {modbus_address}")
                                 print("Error value: ", meas_val)   
                         
                         elif registers == 3:
+                            address = modbus_address[0]
                             try:
-                                result = client.read_holding_registers(modbus_address, 3, 1)  # adjust address and unit accordingly
+                                result = client.read_holding_registers(address, registers, 1)  # adjust address and unit accordingly
 
                                 if not result.isError():
                                     # Combine the three 16-bit registers into a single 48-bit value

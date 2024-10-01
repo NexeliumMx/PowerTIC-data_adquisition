@@ -226,15 +226,15 @@ def reading_meter(sn):
                                     
                                     # Shift and combine to get 48-bit value
                                     meas_val = (high << 32) + (mid << 16) + low
-
+                                    print(meas_val)
                                     # Extract components from the 48-bit value (YYMMDDhhmmss format)
-                                    year = (meas_val >> 40) & 0xFF  # last 8 bits for year (YY)
-                                    month = (meas_val >> 32) & 0xFF  # next 8 bits for month (MM)
-                                    day = (meas_val >> 24) & 0xFF  # next 8 bits for day (DD)
-                                    second = meas_val & 0xFF  # last 8 bits for second (ss)
+#                                    year = (meas_val >> 40) & 0xFF  # last 8 bits for year (YY)
+ #                                   month = (meas_val >> 32) & 0xFF  # next 8 bits for month (MM)
+  #                                  day = (meas_val >> 24) & 0xFF  # next 8 bits for day (DD)
+   ###                               second = meas_val & 0xFF  # last 8 bits for second (ss)
 
                                     # Convert to string format YYMMDD hh:mm:ss
-                                    occur_time = str(year)+str(month)+str(day)+str(second)
+                                    occur_time = datetime.datetime.fromtimestamp(meas_val,timezone.utc)
 
                                     print(f"Occur Time: {occur_time}")
                                 else:

@@ -185,10 +185,12 @@ def reading_meter(sn):
                                             print("measurement value: ",meas_val)
                                             meas_val += chr((i & 0b1111111100000000)>>8) + chr(i & 0b0000000011111111)
                                             meas_val = meas_val.replace('\x00','')
+                                            measurement[f'{parameter_description}'] = meas_val
                                     else:
                                         print(f"Error reading {parameter_description} at {address}: {meas}")
                                 except ValueError:
                                     print(f"Invalid address for {parameter_description}: {address}")
+                                    print("Error value: ", meas_val)
                         else:
                             # 'modbus_address' is a single address
                             try:
@@ -203,6 +205,7 @@ def reading_meter(sn):
                                 print(f"Invalid address for {parameter_description}: {modbus_address}")
             except Exception as e:
                 print("Exception during data acquisition:", e)
+                print("Error value: ", meas_val)
             finally:
                 client.close()
 

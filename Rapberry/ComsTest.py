@@ -173,7 +173,7 @@ def reading_meter(sn):
                         registers = row["register_number"]
                         print(parameter_description,registers)
                         #debug
-                        #print("Modbus Address: ", modbus_address)
+                        print("Modbus Address: ", modbus_address)
 
                         """if isinstance(modbus_address, list):
                             meas_val = ''

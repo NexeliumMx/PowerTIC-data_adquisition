@@ -39,9 +39,16 @@ try:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
     register_address = 0x20A  # 522 in decimal
-    value_to_write = 0x04  # Equivalent to 0b0000000000000010
+    value_to_write = 0x02  # Equivalent to 0b0000000000000010
     response = client.write_registers(register_address, [value_to_write], 1)
 
+    status = client.read_holding_registers(register_address, 1)
+    if not status.isError():
+        status_val = status.registers[0]
+        print("0x20A status is: ", status_val)
+    else:
+        print(f"Error reading {register_address}")
+        
     # Check if the write was successful
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code

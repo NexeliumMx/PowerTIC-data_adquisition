@@ -1,6 +1,8 @@
 from pymodbus.client import ModbusSerialClient
+import pymodbus.client
 from pymodbus.constants import Endian
 from pymodbus.payload import BinaryPayloadBuilder
+
 import struct
 # Inicialización de Modbus
 client = ModbusSerialClient(
@@ -13,6 +15,7 @@ client = ModbusSerialClient(
 )
 # Connect to the client
 connection = client.connect()
+
 if connection:
     print("Modbus client connected successfully")
 else:

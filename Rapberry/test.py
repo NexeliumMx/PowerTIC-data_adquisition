@@ -58,12 +58,12 @@ try:
     # Check if the write was successful
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code
-        print(f"Failed to write to register {register_address}: Exception code {exception_code}")
+        print(f"Failed to write to register {start_address}: Exception code {exception_code}")
     elif response.isError():
-        print(f"Failed to write to register {register_address}: {response}")
+        print(f"Failed to write to register {start_address}: {response}")
     else:
-        print(f"Successfully wrote {value_to_write} to register {register_address}")
-        
+        print(f"Successfully wrote {value_to_write} to register {start_address}")
+
 except ModbusIOException as e:
     print(f"Modbus IO Exception caught: {e}")
 except ModbusException as e:

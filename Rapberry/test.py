@@ -23,7 +23,7 @@ if connection:
     print("Modbus client connected successfully")
 else:
     print("Failed to connect to Modbus client")
-register_addresses = [4211,4213,4215,4217,4228,4230,4232,4234,4237,4239,4241,4243,5632,5634]
+
 try:
     # Define the register address and the value to write
     register_address = 0x20B  # Adjust for 0-based if necessary
@@ -88,7 +88,8 @@ except Exception as e:
 """finally:
     # Close the Modbus connection
     client.close()"""
-
+register_addresses = [4211,4213,4215,4217,4228,4230,4232,4234,4237,4239,4241,4243,5632,5634]
+value_to_write = [0,0]
 for register_address in register_addresses:
     try:
         # Write to register 0x20D

@@ -33,7 +33,7 @@ else:
     print(f"Successfully wrote {value_to_write} to registers {register_address} and {register_address+1}")
 # Close the Modbus connection
 register_address = 0x20A  # The first register address (adjust for 0-based if necessary)
-value_to_write =2
+value_to_write =0x04
 response = client.write_registers(register_address, value_to_write, 1)
 if response.isError():
     print(f"Failed to write to register {register_address}: {response}")

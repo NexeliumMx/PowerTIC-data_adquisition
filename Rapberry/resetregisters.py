@@ -46,7 +46,7 @@ if response.isError():
 else:
     print(f"Successfully wrote {value_to_write} to registers {register_address} ")
 register_address = 0x20D  # The first register address (adjust for 0-based if necessary)
-value_to_write = 0b1100110000000000  
+value_to_write = 0 
 response = client.write_registers(register_address, value_to_write, 1)
 
 if response.isError():

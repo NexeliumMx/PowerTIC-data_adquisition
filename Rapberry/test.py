@@ -26,7 +26,7 @@ try:
 
     # Write to register 0x20B (523 in decimal) with value 0
     register_address = 0x20B  # 523 in decimal
-    value_to_write = 0  # Equivalent to 0b0000000000000000
+    value_to_write = 0000  # Equivalent to 0b0000000000000000
     response = client.write_registers(register_address, [value_to_write], 1)
 
     # Check if the write was successful

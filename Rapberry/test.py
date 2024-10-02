@@ -29,7 +29,7 @@ try:
     register_address = 0x20B  # Adjust for 0-based if necessary
     value_to_write = 0b0000000000000000
 
-    response = client.write_registers(register_address, value_to_write, unit=1)
+    response = client.write_registers(register_address, value_to_write, 1)
 
     # Check if the write was successful
     if isinstance(response, ExceptionResponse):
@@ -43,7 +43,7 @@ try:
     # Write to register 0x20A
     register_address = 0x20A
     value_to_write = 2
-    response = client.write_registers(register_address, value_to_write, unit=1)
+    response = client.write_registers(register_address, value_to_write, 1)
 
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code
@@ -56,7 +56,7 @@ try:
     # Write to register 0x20B again
     register_address = 0x20B
     value_to_write = 0b0000000000000000
-    response = client.write_registers(register_address, value_to_write, unit=1)
+    response = client.write_registers(register_address, value_to_write, 1)
 
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code
@@ -69,7 +69,7 @@ try:
     # Write to register 0x20D
     register_address = 0x20D
     value_to_write = 0b1100110000000000
-    response = client.write_registers(register_address, value_to_write, unit=1)
+    response = client.write_registers(register_address, value_to_write, 1)
 
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code

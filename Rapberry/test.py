@@ -28,7 +28,7 @@ try:
     register_address = 0x20B  # 523 in decimal
     value_to_write = 0  # Equivalent to 0b0000000000000000
     response = client.write_registers(register_address, [value_to_write], 1)
-
+    print("password response: ", response)
     # Check if the write was successful
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code

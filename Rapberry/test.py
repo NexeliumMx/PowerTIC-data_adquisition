@@ -52,8 +52,8 @@ try:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
     start_address = 0x1073
-    value_to_write = 0
-    response = client.write_registers(start_address, [value_to_write],1)
+    value_to_write = [0,0]
+    response = client.write_registers(start_address, value_to_write,1)
 
     # Check if the write was successful
     if isinstance(response, ExceptionResponse):

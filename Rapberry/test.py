@@ -51,7 +51,7 @@ try:
     else:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
-    start_address = 0x1073
+    start_address = 4211
     value_to_write = 0b00000000000000000000000000000000
 
     high_word = (value_to_write >> 16) & 0xFFFF

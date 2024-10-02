@@ -68,7 +68,7 @@ try:
 
     # Write to register 0x20D
     register_address = 0x20D
-    value_to_write = 0b1100110000000000
+    value_to_write = 0b0000000000000000
     response = client.write_registers(register_address, value_to_write, 1)
 
     if isinstance(response, ExceptionResponse):

@@ -78,6 +78,30 @@ try:
         print(f"Failed to write to register {register_address}: {response}")
     else:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
+    
+    register_addresses = [4211,4213,4215,4217,4228,4230,4232,4234,4237,4239,4241,4243,5632,5634]
+    value_to_write = [0,0]
+    for register_address in register_addresses:
+        try:
+            # Write to register 0x20D
+            #register_address = 0x20D
+            #value_to_write = 0b0000000000000000
+            response = client.write_registers(register_address, value_to_write, 1)
+
+            if isinstance(response, ExceptionResponse):
+                exception_code = response.exception_code
+                print(f"Failed to write to register {register_address}: Exception code {exception_code}")
+            elif response.isError():
+                print(f"Failed to write to register {register_address}: {response}")
+            else:
+                print(f"Successfully wrote {value_to_write} to register {register_address}")
+
+        except ModbusIOException as e:
+            print(f"Modbus IO Exception caught: {e}")
+        except ModbusException as e:
+            print(f"Modbus Exception caught: {e}")
+        except Exception as e:
+            print(f"General Exception caught: {e}")
 
 except ModbusIOException as e:
     print(f"Modbus IO Exception caught: {e}")
@@ -85,32 +109,6 @@ except ModbusException as e:
     print(f"Modbus Exception caught: {e}")
 except Exception as e:
     print(f"General Exception caught: {e}")
-"""finally:
+finally:
     # Close the Modbus connection
-    client.close()"""
-register_addresses = [4211,4213,4215,4217,4228,4230,4232,4234,4237,4239,4241,4243,5632,5634]
-value_to_write = [0,0]
-for register_address in register_addresses:
-    try:
-        # Write to register 0x20D
-        #register_address = 0x20D
-        #value_to_write = 0b0000000000000000
-        response = client.write_registers(register_address, value_to_write, 1)
-
-        if isinstance(response, ExceptionResponse):
-            exception_code = response.exception_code
-            print(f"Failed to write to register {register_address}: Exception code {exception_code}")
-        elif response.isError():
-            print(f"Failed to write to register {register_address}: {response}")
-        else:
-            print(f"Successfully wrote {value_to_write} to register {register_address}")
-
-    except ModbusIOException as e:
-        print(f"Modbus IO Exception caught: {e}")
-    except ModbusException as e:
-        print(f"Modbus Exception caught: {e}")
-    except Exception as e:
-        print(f"General Exception caught: {e}")
-# Close the Modbus connection
-
-client.close()
+    client.close()

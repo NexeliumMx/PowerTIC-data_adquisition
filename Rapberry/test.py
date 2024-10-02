@@ -53,7 +53,7 @@ try:
 
     start_address = 0x1073
     value_to_write = 0
-    response = client.write_register(start_address, value_to_write,1)
+    response = client.write_registers(start_address, value_to_write,1)
 
     # Check if the write was successful
     if isinstance(response, ExceptionResponse):

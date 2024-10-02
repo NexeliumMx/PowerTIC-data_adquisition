@@ -27,7 +27,7 @@ try:
     # Write to register 0x20B (523 in decimal) with value 0
     register_address = 0x20B  # 523 in decimal
     value_to_write = 0  # Equivalent to 0b0000000000000000
-    response = client.write_registers(register_address, [value_to_write], unit=1)
+    response = client.write_registers(register_address, [value_to_write], 1)
 
     # Check if the write was successful
     if isinstance(response, ExceptionResponse):
@@ -41,7 +41,7 @@ try:
     # Write to register 0x20A (522 in decimal) with value 2
     register_address = 0x20A  # 522 in decimal
     value_to_write = 2
-    response = client.write_registers(register_address, [value_to_write], unit=1)
+    response = client.write_registers(register_address, [value_to_write], 1)
 
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code
@@ -54,7 +54,7 @@ try:
     # Write to register 0x20B (523 in decimal) again with value 0
     register_address = 0x20B  # 523 in decimal
     value_to_write = 0
-    response = client.write_registers(register_address, [value_to_write], unit=1)
+    response = client.write_registers(register_address, [value_to_write], 1)
 
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code
@@ -67,7 +67,7 @@ try:
     # Write to register 0x20D (525 in decimal) with value 0
     register_address = 0x20D  # 525 in decimal
     value_to_write = 0
-    response = client.write_registers(register_address, [value_to_write], unit=1)
+    response = client.write_registers(register_address, [value_to_write], 1)
 
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code
@@ -84,7 +84,7 @@ try:
     # Since the registers are not consecutive, we need to write to them individually
     for register_address in register_addresses:
         try:
-            response = client.write_registers(register_address, [value_to_write], unit=1)
+            response = client.write_registers(register_address, [value_to_write], 1)
 
             if isinstance(response, ExceptionResponse):
                 exception_code = response.exception_code

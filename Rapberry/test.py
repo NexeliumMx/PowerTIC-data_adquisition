@@ -38,8 +38,8 @@ try:
     else:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
-    register_address = 0x20A  # 523 in decimal
-    value_to_write = 0  # Equivalent to 0b0000000000000000
+    register_address = 0x20A  # 522 in decimal
+    value_to_write = 0x02  # Equivalent to 0b0000000000000000
     response = client.write_registers(register_address, [value_to_write], 1)
 
     # Check if the write was successful

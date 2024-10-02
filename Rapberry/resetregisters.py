@@ -48,7 +48,7 @@ else:
 register_address = 0x20D  # The first register address (adjust for 0-based if necessary)
 value_to_write = 0b1100110000000000  
 response = client.write_register(register_address, value_to_write, 1)
-client.w
+
 if response.isError():
     print(f"Failed to write to register {register_address}: {response}")
 else:

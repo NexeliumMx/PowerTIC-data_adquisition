@@ -1,10 +1,6 @@
 from pymodbus.client import ModbusSerialClient
 from pymodbus.exceptions import ModbusException, ModbusIOException
 from pymodbus.pdu import ExceptionResponse
-from pymodbus.constants import Endian
-from pymodbus.payload import BinaryPayloadBuilder
-
-import struct
 
 # Initialization of Modbus
 client = ModbusSerialClient(
@@ -23,13 +19,15 @@ if connection:
     print("Modbus client connected successfully")
 else:
     print("Failed to connect to Modbus client")
+    exit(1)
 
 try:
-    # Define the register address and the value to write
-    register_address = 0x20B  # Adjust for 0-based if necessary
-    value_to_write = 0b0000000000000000
+    # First set of writes
 
-    response = client.write_registers(register_address, value_to_write, 1)
+    # Write to register 0x20B (523 in decimal) with value 0
+    register_address = 0x20B  # 523 in decimal
+    value_to_write = 0  # Equivalent to 0b0000000000000000
+    response = client.write_registers(register_address, [value_to_write], unit=1)
 
     # Check if the write was successful
     if isinstance(response, ExceptionResponse):
@@ -40,10 +38,10 @@ try:
     else:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
-    # Write to register 0x20A
-    register_address = 0x20A
+    # Write to register 0x20A (522 in decimal) with value 2
+    register_address = 0x20A  # 522 in decimal
     value_to_write = 2
-    response = client.write_registers(register_address, value_to_write, 1)
+    response = client.write_registers(register_address, [value_to_write], unit=1)
 
     if isinstance(response, ExceptionResponse):
         exception_code = response.exception_code
@@ -53,40 +51,40 @@ try:
     else:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
-    # Write to register 0x20B again
-    register_address = 0x20B
-    value_to_write = 0b0000000000000000
-    response = client.write_registers(register_address, value_to_write, 1)
-
-    if isinstance(response, ExceptionResponse):
-        exception_code = response.exception_code
-        print(f"Failed to write to register {register_address}: Exception code {exception_code}")
-    elif response.isError():
-        print(f"Failed to write to register {register_address}: {response}")
-    else:
-        print(f"Successfully wrote {value_to_write} to register {register_address}")
-
-    # Write to register 0x20D
-    register_address = 0x20D
-    value_to_write = 0b0000000000000000
-    response = client.write_registers(register_address, value_to_write, 1)
-
-    if isinstance(response, ExceptionResponse):
-        exception_code = response.exception_code
-        print(f"Failed to write to register {register_address}: Exception code {exception_code}")
-    elif response.isError():
-        print(f"Failed to write to register {register_address}: {response}")
-    else:
-        print(f"Successfully wrote {value_to_write} to register {register_address}")
-    
-    register_addresses = [4211,4213,4215,4217,4228,4230,4232,4234,4237,4239,4241,4243,5632,5634]
+    # Write to register 0x20B (523 in decimal) again with value 0
+    register_address = 0x20B  # 523 in decimal
     value_to_write = 0
+    response = client.write_registers(register_address, [value_to_write], unit=1)
+
+    if isinstance(response, ExceptionResponse):
+        exception_code = response.exception_code
+        print(f"Failed to write to register {register_address} again: Exception code {exception_code}")
+    elif response.isError():
+        print(f"Failed to write to register {register_address} again: {response}")
+    else:
+        print(f"Successfully wrote {value_to_write} to register {register_address} again")
+
+    # Write to register 0x20D (525 in decimal) with value 0
+    register_address = 0x20D  # 525 in decimal
+    value_to_write = 0
+    response = client.write_registers(register_address, [value_to_write], unit=1)
+
+    if isinstance(response, ExceptionResponse):
+        exception_code = response.exception_code
+        print(f"Failed to write to register {register_address}: Exception code {exception_code}")
+    elif response.isError():
+        print(f"Failed to write to register {register_address}: {response}")
+    else:
+        print(f"Successfully wrote {value_to_write} to register {register_address}")
+
+    # List of register addresses
+    register_addresses = [4211, 4213, 4215, 4217, 4228, 4230, 4232, 4234, 4237, 4239, 4241, 4243, 5632, 5634]
+    value_to_write = 0  # The value to write to each register
+
+    # Since the registers are not consecutive, we need to write to them individually
     for register_address in register_addresses:
         try:
-            # Write to register 0x20D
-            #register_address = 0x20D
-            #value_to_write = 0b0000000000000000
-            response = client.write_registers(register_address, [value_to_write], 1)
+            response = client.write_registers(register_address, [value_to_write], unit=1)
 
             if isinstance(response, ExceptionResponse):
                 exception_code = response.exception_code
@@ -97,11 +95,11 @@ try:
                 print(f"Successfully wrote {value_to_write} to register {register_address}")
 
         except ModbusIOException as e:
-            print(f"Modbus IO Exception caught: {e}")
+            print(f"Modbus IO Exception caught while writing to register {register_address}: {e}")
         except ModbusException as e:
-            print(f"Modbus Exception caught: {e}")
+            print(f"Modbus Exception caught while writing to register {register_address}: {e}")
         except Exception as e:
-            print(f"General Exception caught: {e}")
+            print(f"General Exception caught while writing to register {register_address}: {e}")
 
 except ModbusIOException as e:
     print(f"Modbus IO Exception caught: {e}")

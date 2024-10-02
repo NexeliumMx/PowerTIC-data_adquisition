@@ -39,7 +39,7 @@ try:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
     register_address = 0x20A  # 522 in decimal
-    value_to_write = 0x02  # Equivalent to 0b0000000000000000
+    value_to_write = 0x02  # Equivalent to 0b0000000000000010
     response = client.write_registers(register_address, [value_to_write], 1)
 
     # Check if the write was successful
@@ -52,7 +52,7 @@ try:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
     start_address = 0x1073
-    value_to_write = 0
+    value_to_write = 0b00000000000000000000000000000000
 
     high_word = (value_to_write >> 16) & 0xFFFF
     low_word = value_to_write & 0xFFFF

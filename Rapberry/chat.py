@@ -3,7 +3,7 @@ from pymodbus.pdu import ModbusRequest, ModbusResponse
 from pymodbus.exceptions import ModbusException
 from pymodbus.factory import ClientDecoder
 from pymodbus.transaction import ModbusRtuFramer  # For RTU
-from pymodbus.constants import Defaults
+#from pymodbus.constants import Defaults
 
 class WriteRegistersWithFunctionCode03Request(ModbusRequest):
     function_code = 0x03  # Custom use of function code 0x03

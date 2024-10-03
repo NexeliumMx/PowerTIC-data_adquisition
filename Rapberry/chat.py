@@ -1,114 +1,50 @@
-from pymodbus.client import ModbusSerialClient
-from pymodbus.pdu import ModbusRequest, ModbusResponse
-from pymodbus.exceptions import ModbusException
+import serial
 import struct
-import logging
 
-# Enable logging for debugging
-logging.basicConfig()
-log = logging.getLogger()
-log.setLevel(logging.DEBUG)
+def crc16(data: bytes) -> int:
+    """Compute the Modbus RTU CRC16 checksum."""
+    crc = 0xFFFF
+    for pos in data:
+        crc ^= pos
+        for _ in range(8):
+            lsb = crc & 0x0001
+            crc >>= 1
+            if lsb:
+                crc ^= 0xA001
+    return crc
 
-# Custom Modbus Response
-class CustomModbusResponse(ModbusResponse):
-    function_code = 3  # Function code 3 (Read Holding Registers)
+def main():
+    # Serial port configuration
+    port = '/dev/ttyUSB0'  # Replace with your serial port
+    baudrate = 19200        # Replace with your baud rate
 
-    def __init__(self, values=None, **kwargs):
-        super().__init__(**kwargs)
-        self.values = values or []
+    # Modbus message components
+    slave_address = 0x01   # Replace with your slave address
+    function_code = 0x03   # Function code 0x03
+    data = bytes([0x02])   # Data to send (value 0x02)
 
-    def encode(self):
-        # Build the response PDU
-        byte_count = len(self.values) * 2
-        result = struct.pack(">B", byte_count)
-        for value in self.values:
-            result += struct.pack(">H", value)
-        return result
+    # Construct the Modbus RTU frame
+    message = struct.pack('B', slave_address) + struct.pack('B', function_code) + data
 
-    def decode(self, data):
-        # Decode the response PDU
-        byte_count = data[0]
-        self.values = []
-        for i in range(1, 1 + byte_count, 2):
-            self.values.append(struct.unpack(">H", data[i:i+2])[0])
+    # Calculate CRC16 checksum
+    crc = crc16(message)
+    crc_bytes = struct.pack('<H', crc)
 
-    def __str__(self):
-        return f"CustomModbusResponse(values={self.values})"
+    # Complete message with CRC
+    full_message = message + crc_bytes
 
-# Custom Modbus Request
-class CustomModbusRequest(ModbusRequest):
-    function_code = 3  # Function code 3 (Read Holding Registers)
+    # Open the serial port
+    with serial.Serial(port, baudrate, timeout=1) as ser:
+        # Send the message
+        ser.write(full_message)
+        print(f"Sent: {full_message.hex()}")
 
-    def __init__(
-        self,
-        address=None,
-        count=1,
-        unit=0x00,
-        skip_encode=False,
-        **kwargs
-    ):
-        super().__init__(skip_encode, unit, **kwargs)
-        self.address = address
-        self.count = count
+        # Read the response (optional)
+        response = ser.read(256)
+        if response:
+            print(f"Received: {response.hex()}")
+        else:
+            print("No response received.")
 
-    def encode(self):
-        # Build the request PDU
-        return struct.pack(">HH", self.address, self.count)
-
-    def decode(self, data):
-        # Decode the request PDU
-        self.address, self.count = struct.unpack(">HH", data)
-
-    def __str__(self):
-        return f"CustomModbusRequest(address={self.address}, count={self.count}, unit={self.unit_id})"
-
-# Create ModbusSerialClient for RTU
-client = ModbusSerialClient(
-    port='/dev/ttyUSB0',
-    baudrate=19200,
-    parity='N',
-    stopbits=1,
-    bytesize=8,
-    timeout=5
-)
-
-if client.connect():
-    print("Connected to Modbus RTU slave.")
-else:
-    print("Failed to connect to Modbus RTU slave.")
-    exit(1)
-
-# Register the custom response class with the client's decoder
-client.framer.decoder.register(CustomModbusResponse)
-
-# Prepare and send the custom request
-slave_id = 1
-start_address = 523  # Starting register address
-register_count = 16  # Number of registers to read
-
-try:
-    # Create the custom request
-    request = CustomModbusRequest(
-        start_address,
-        register_count,
-        slave_id
-    )
-    
-    # Send the request and receive the response
-    response = client.execute(request)
-
-    # Process the response
-    if isinstance(response, CustomModbusResponse):
-        print(f"Received response: {response}")
-        print(f"Values: {response.values}")
-    elif response.isError():
-        print(f"Error received: {response}")
-    else:
-        print(f"Unexpected response: {response}")
-
-except ModbusException as e:
-    print(f"Modbus exception occurred: {e}")
-except Exception as e:
-    print(f"General exception occurred: {e}")
-finally:
-    client.close()
+if __name__ == '__main__':
+    main()

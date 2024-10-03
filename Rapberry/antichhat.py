@@ -1,7 +1,7 @@
 import tinymodbusrtu as modbus
 import serial
 serialPort = serial.Serial(
-    port='/dev/ttyUSB0', baudrate=19200, bytesize=8, timeout=1, stopbits=serial.STOPBITS_ONE)
+    port='/dev/ttyUSB0', baudrate=19200, bytesize=8, timeout=500, stopbits=serial.STOPBITS_ONE)
 a=modbus.TinyModbusClient(serial_connection=serialPort,
                                        crc_enabled=True,
                                        timeout=1.0)

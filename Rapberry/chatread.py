@@ -12,7 +12,7 @@ def compute_crc(data):
                 crc >>= 1
     return crc
 
-# Serial port configuration
+# Serial port configuration (as before)
 ser = serial.Serial(
     port='/dev/ttyUSB0',
     baudrate=19200,
@@ -22,13 +22,13 @@ ser = serial.Serial(
     timeout=5
 )
 
-# Modbus RTU frame components for Function Code 0x10 (Read)
+# Modbus RTU frame components for Function Code 0x10 (Read) with possible adjustments
 slave_address = 0x01             # Slave address
 function_code = 0x10             # Function code for Read in your device
 starting_address = 0x020A        # Starting register address
 quantity_of_registers = 0x0001   # Number of registers to read
 
-# Build the message without CRC
+# Build the message (adjusted if necessary)
 message = bytearray()
 message.append(slave_address)
 message.append(function_code)
@@ -37,23 +37,27 @@ message.append(starting_address & 0xFF)          # Starting address low byte
 message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
 message.append(quantity_of_registers & 0xFF)         # Quantity low byte
 
+# If your device requires additional fields, include them here
+# For example, if a Byte Count is required:
+# message.append(0x00)  # Byte Count (speculative)
+
 # Compute CRC16 checksum
 crc = compute_crc(message)
 crc_low = crc & 0xFF
 crc_high = (crc >> 8) & 0xFF
 
 # Append CRC to the message
-message.append(crc_low)
 message.append(crc_high)
+message.append(crc_low)
+
 
 print("Sent: ", message)
 
 # Send the message over serial port
 ser.write(message)
 
-# Read the response (expected length: 5 bytes header + data bytes + 2 bytes CRC)
-expected_response_length = 5 + (quantity_of_registers * 2) + 2
-response = ser.read(expected_response_length)
+# Read the response
+response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
 print("Received:", response)
 
 # Close the serial port

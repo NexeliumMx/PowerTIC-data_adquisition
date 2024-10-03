@@ -57,6 +57,7 @@ class CustomModbusRequest(ModbusRequest):
 
 # Create ModbusSerialClient for RTU
 client = ModbusSerialClient(
+    method='rtu',
     port='/dev/ttyUSB0',
     baudrate=19200,
     parity='N',
@@ -72,7 +73,7 @@ else:
     exit(1)
 
 # Register the custom response class with the client's decoder
-client.framer.decoder.register(CustomModbusResponse.function_code, CustomModbusResponse)
+client.framer.decoder.register(CustomModbusResponse)
 
 # Prepare and send the custom request
 slave_id = 1

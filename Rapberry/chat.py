@@ -42,7 +42,7 @@ full_message = message + bytes([crc_low, crc_high])
 
 # Send the message over serial port
 ser.write(full_message)
-
+print("Sent: ", full_message)
 # Optionally, read response from the slave device
 response = ser.read(100)  # Adjust the number of bytes to read as needed
 print("Received:", response)

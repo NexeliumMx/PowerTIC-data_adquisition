@@ -123,7 +123,7 @@ def meter_param():
 
                 print(data)
                 print(settings.get("serial_number", "serial_number not found"))
-                url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
+                url = "https://powertic-api.azurewebsites.net/api/pushdata"
                 response = requests.post(url, json=json_data)
 
                 if response.status_code == 200:
@@ -274,7 +274,7 @@ def reading_meter(sn):
             print("Built JSON: ", data)
 
             # Send data
-            url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
+            url = "https://powertic-api.azurewebsites.net/api/pushdata"
             try:
                 response = requests.post(url, json=json_data)
                 if response.status_code == 200:

@@ -30,7 +30,7 @@ data =[
     {
         "table": "clients"
     }, {
-        "client": "SA de CV",
+        "client": "Luis de CV",
         "broker": "DEF",
         "cloud_services": False,
         "payment": True,
@@ -39,7 +39,7 @@ data =[
 ]
 
 # URL of the API endpoint
-url = "https://powertic-apis-js.azurewebsites.net/api/sql_manager"
+url = "https://powertic-api.azurewebsites.net/api/pushdata"
 try:
     file_path = r"PowerTIC/Raspberry_backup/clients.json"  # Corrected directory name
     info_backup(data=data,file_path=file_path)

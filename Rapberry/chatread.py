@@ -47,9 +47,8 @@ crc_low = crc & 0xFF
 crc_high = (crc >> 8) & 0xFF
 
 # Append CRC to the message
-message.append(crc_high)
 message.append(crc_low)
-
+message.append(crc_high)
 
 print("Sent: ", message)
 

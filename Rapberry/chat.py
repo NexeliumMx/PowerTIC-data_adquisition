@@ -40,7 +40,7 @@ class CustomModbusRequest(ModbusRequest):
     function_code = 3  # Function code 3 (Read Holding Registers)
 
     def __init__(self, address=None, count=1, unit=0x00, **kwargs):
-        super().__init__(unit=unit, **kwargs)
+        super().__init__(unit, **kwargs)
         self.address = address
         self.count = count
 

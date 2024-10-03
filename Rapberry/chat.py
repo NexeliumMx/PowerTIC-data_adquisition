@@ -26,7 +26,7 @@ ser = serial.Serial(
 
 # Modbus RTU frame components
 slave_address = 0x01        # Change this to your slave address if different
-function_code = 0x03        # Function code 03H
+function_code = 0x10        # Function code 03H
 data = [0x02]               # Data to send (0x02)
 
 # Build the message without CRC

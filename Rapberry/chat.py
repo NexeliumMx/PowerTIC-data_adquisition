@@ -24,27 +24,47 @@ ser = serial.Serial(
     timeout=5
 )
 
-# Modbus RTU frame components
-slave_address = 0x01        # Change this to your slave address if different
-function_code = 0x10        # Function code 03H
-data = [0x02]               # Data to send (0x02)
+# Modbus RTU frame components for Function Code 0x10
+slave_address = 0x01             # Slave address
+function_code = 0x10             # Function code for Write Multiple Registers
+starting_address = 0x02A        # Starting register address (e.g., 0x02AC)
+quantity_of_registers = 0x0001   # Number of registers to write
+data_value = 0x0002              # The value to write to the register
+
+# Break down data_value into high and low bytes
+data_high = (data_value >> 8) & 0xFF
+data_low = data_value & 0xFF
 
 # Build the message without CRC
-message = bytes([slave_address, function_code] + data)
+message = [
+    slave_address,
+    function_code,
+    (starting_address >> 8) & 0xFF,
+    starting_address & 0xFF,
+    (quantity_of_registers >> 8) & 0xFF,
+    quantity_of_registers & 0xFF,
+    quantity_of_registers * 2,  # Byte count: number of registers * 2
+    data_high,
+    data_low
+]
+
+message_bytes = bytes(message)
 
 # Compute CRC16 checksum
-crc = compute_crc(message)
+crc = compute_crc(message_bytes)
 crc_low = crc & 0xFF
 crc_high = (crc >> 8) & 0xFF
 
 # Append CRC to the message
-full_message = message + bytes([crc_low, crc_high])
+full_message = message_bytes + bytes([crc_low, crc_high])
+
+print("Sent: ", full_message)
 
 # Send the message over serial port
 ser.write(full_message)
-print("Sent: ", full_message)
-# Optionally, read response from the slave device
-response = ser.read(100)  # Adjust the number of bytes to read as needed
+
+# Read the response (expected to be 8 bytes for function code 0x10)
+response = ser.read(8)
 print("Received:", response)
 
 # Close the serial port

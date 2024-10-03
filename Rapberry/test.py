@@ -58,21 +58,22 @@ try:
     else:
         print(f"Successfully wrote {value_to_write} to register {register_address}")
 
-    start_address = 4211
-    value_to_write = 0b00000000000000000000000000000000
+    #start_address = 4211
+    for start_address in range(4202, 4268): 
+        value_to_write = 0b00000000000000000000000000000000
 
-    high_word = (value_to_write >> 16) & 0xFFFF
-    low_word = value_to_write & 0xFFFF
-    response = client.write_registers(start_address, [high_word,low_word],1)
+        high_word = (value_to_write >> 16) & 0xFFFF
+        low_word = value_to_write & 0xFFFF
+        response = client.write_registers(start_address, [high_word,low_word],1)
 
-    # Check if the write was successful
-    if isinstance(response, ExceptionResponse):
-        exception_code = response.exception_code
-        print(f"Failed to write: {value_to_write} to register {start_address}: Exception code {exception_code}")
-    elif response.isError():
-        print(f"Failed to write to register {start_address}: {response}")
-    else:
-        print(f"Successfully wrote {value_to_write} to register {start_address}")
+        # Check if the write was successful
+        if isinstance(response, ExceptionResponse):
+            exception_code = response.exception_code
+            print(f"Failed to write: {value_to_write} to register {start_address}: Exception code {exception_code}")
+        elif response.isError():
+            print(f"Failed to write to register {start_address}: {response}")
+        else:
+            print(f"Successfully wrote {value_to_write} to register {start_address}")
 
 except ModbusIOException as e:
     print(f"Modbus IO Exception caught: {e}")

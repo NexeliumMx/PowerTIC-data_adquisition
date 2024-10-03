@@ -39,8 +39,17 @@ class CustomModbusResponse(ModbusResponse):
 class CustomModbusRequest(ModbusRequest):
     function_code = 3  # Function code 3 (Read Holding Registers)
 
-    def __init__(self, address=None, count=1, unit=0x00, **kwargs):
-        super().__init__(unit, **kwargs)
+    def __init__(
+        self,
+        address=None,
+        count=1,
+        unit=0x00,
+        transaction=0,
+        protocol=0,
+        skip_encode=False,
+        **kwargs
+    ):
+        super().__init__(transaction, protocol, skip_encode, unit, **kwargs)
         self.address = address
         self.count = count
 
@@ -81,7 +90,11 @@ register_count = 16  # Number of registers to read
 
 try:
     # Create the custom request
-    request = CustomModbusRequest(start_address, register_count, slave_id)
+    request = CustomModbusRequest(
+        start_address,
+        register_count,
+        slave_id
+    )
     
     # Send the request and receive the response
     response = client.execute(request)

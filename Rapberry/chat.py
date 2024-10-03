@@ -1,7 +1,6 @@
 from pymodbus.client import ModbusSerialClient
 from pymodbus.pdu import ModbusRequest, ModbusResponse, ModbusExceptions
 from pymodbus.exceptions import ModbusException
-from pymodbus.factory import ClientDecoder
 import struct
 import logging
 
@@ -56,12 +55,9 @@ class CustomModbusRequest(ModbusRequest):
     def __str__(self):
         return f"CustomModbusRequest(address={self.address}, count={self.count})"
 
-# Register the custom response class with the client decoder
-ClientDecoder.register(CustomModbusResponse.function_code, CustomModbusResponse)
-
 # Create ModbusSerialClient for RTU
 client = ModbusSerialClient(
-    method='rtu',  # Specify Modbus RTU protocol
+    method='rtu',
     port='/dev/ttyUSB0',
     baudrate=19200,
     parity='N',
@@ -75,6 +71,9 @@ if client.connect():
 else:
     print("Failed to connect to Modbus RTU slave.")
     exit(1)
+
+# Register the custom response class with the client's decoder
+client.framer.decoder.register(CustomModbusResponse.function_code, CustomModbusResponse)
 
 # Prepare and send the custom request
 slave_id = 1

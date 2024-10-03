@@ -70,8 +70,10 @@ try:
         if isinstance(response, ExceptionResponse):
             exception_code = response.exception_code
             print(f"Failed to write: {value_to_write} to register {start_address}: Exception code {exception_code}")
+            continue
         elif response.isError():
             print(f"Failed to write to register {start_address}: {response}")
+            continue
         else:
             print(f"Successfully wrote {value_to_write} to register {start_address}")
 

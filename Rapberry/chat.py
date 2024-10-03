@@ -2,7 +2,7 @@ import asyncio
 import struct
 
 from pymodbus import FramerType
-from pymodbus.client import AsyncModbusTcpClient as ModbusSerialClient
+from pymodbus.client import ModbusSerialClient
 from pymodbus.pdu import ModbusExceptions, ModbusRequest, ModbusResponse
 from pymodbus.pdu.bit_read_message import ReadCoilsRequest
 

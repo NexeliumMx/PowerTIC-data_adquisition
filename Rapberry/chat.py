@@ -24,7 +24,7 @@ ser = serial.Serial(
 
 # Modbus RTU frame components for Function Code 0x10
 slave_address = 0x01             # Slave address
-function_code = 0x10             # Function code for Write Multiple Registers
+function_code = 0x03             # Function code for Write Multiple Registers
 starting_address = 0x020A        # Starting register address (e.g., 42)
 quantity_of_registers = 0x0001   # Number of registers to write
 data_value = 0x0002              # The value to write to the register

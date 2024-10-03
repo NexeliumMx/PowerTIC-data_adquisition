@@ -24,11 +24,12 @@ ser = serial.Serial(
 
 # Modbus RTU frame components for Function Code 0x10 (Read) with possible adjustments
 slave_address = 0x01             # Slave address
-function_code = 0x10             # Function code for Read in your device
+function_code = 0x03             # Function code for Read in your device
 starting_address = 0x020A        # Starting register address
-quantity_of_registers = 0x0001   # Number of registers to read
+quantity_of_registers = 0x1   # Number of registers to read
 
 # Build the message (adjusted if necessary)
+#format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|CRC16 Hi|CRC16 Lo
 message = bytearray()
 message.append(slave_address)
 message.append(function_code)

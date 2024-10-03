@@ -1,8 +1,9 @@
 import serial
-import struct
 
-def crc16(data: bytes) -> int:
-    """Compute the Modbus RTU CRC16 checksum."""
+def compute_crc(data):
+    """
+    Compute the Modbus RTU CRC16 checksum for the given data.
+    """
     crc = 0xFFFF
     for pos in data:
         crc ^= pos
@@ -13,38 +14,38 @@ def crc16(data: bytes) -> int:
                 crc ^= 0xA001
     return crc
 
-def main():
-    # Serial port configuration
-    port = '/dev/ttyUSB0'  # Replace with your serial port
-    baudrate = 19200        # Replace with your baud rate
+# Serial port configuration
+ser = serial.Serial(
+    port='/dev/ttyUSB0',
+    baudrate=19200,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    bytesize=serial.EIGHTBITS,
+    timeout=5
+)
 
-    # Modbus message components
-    slave_address = 0x01   # Replace with your slave address
-    function_code = 0x03   # Function code 0x03
-    data = bytes([0x02])   # Data to send (value 0x02)
+# Modbus RTU frame components
+slave_address = 0x01        # Change this to your slave address if different
+function_code = 0x03        # Function code 03H
+data = [0x02]               # Data to send (0x02)
 
-    # Construct the Modbus RTU frame
-    message = struct.pack('B', slave_address) + struct.pack('B', function_code) + data
+# Build the message without CRC
+message = bytes([slave_address, function_code] + data)
 
-    # Calculate CRC16 checksum
-    crc = crc16(message)
-    crc_bytes = struct.pack('<H', crc)
+# Compute CRC16 checksum
+crc = compute_crc(message)
+crc_low = crc & 0xFF
+crc_high = (crc >> 8) & 0xFF
 
-    # Complete message with CRC
-    full_message = message + crc_bytes
+# Append CRC to the message
+full_message = message + bytes([crc_low, crc_high])
 
-    # Open the serial port
-    with serial.Serial(port, baudrate, timeout=1) as ser:
-        # Send the message
-        ser.write(full_message)
-        print(f"Sent: {full_message.hex()}")
+# Send the message over serial port
+ser.write(full_message)
 
-        # Read the response (optional)
-        response = ser.read(256)
-        if response:
-            print(f"Received: {response.hex()}")
-        else:
-            print("No response received.")
+# Optionally, read response from the slave device
+response = ser.read(100)  # Adjust the number of bytes to read as needed
+print("Received:", response)
 
-if __name__ == '__main__':
-    main()
+# Close the serial port
+ser.close()

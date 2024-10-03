@@ -67,7 +67,6 @@ class CustomModbusRequest(ModbusRequest):
         return CustomModbusResponse(values)
 
 client = ModbusSerialClient(
-    method='rtu',
     port='/dev/ttyUSB0',
     baudrate=19200,
     parity='N',

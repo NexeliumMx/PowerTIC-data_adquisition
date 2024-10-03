@@ -1,17 +1,15 @@
 import serial
 
 def compute_crc(data):
-    """
-    Compute the Modbus RTU CRC16 checksum for the given data.
-    """
     crc = 0xFFFF
     for pos in data:
         crc ^= pos
         for _ in range(8):
-            lsb = crc & 0x0001
-            crc >>= 1
-            if lsb:
+            if (crc & 0x0001):
+                crc >>= 1
                 crc ^= 0xA001
+            else:
+                crc >>= 1
     return crc
 
 # Serial port configuration
@@ -27,41 +25,35 @@ ser = serial.Serial(
 # Modbus RTU frame components for Function Code 0x10
 slave_address = 0x01             # Slave address
 function_code = 0x10             # Function code for Write Multiple Registers
-starting_address = 0x02A        # Starting register address (e.g., 0x02AC)
+starting_address = 0x020A        # Starting register address (e.g., 42)
 quantity_of_registers = 0x0001   # Number of registers to write
 data_value = 0x0002              # The value to write to the register
 
-# Break down data_value into high and low bytes
-data_high = (data_value >> 8) & 0xFF
-data_low = data_value & 0xFF
-
 # Build the message without CRC
-message = [
-    slave_address,
-    function_code,
-    (starting_address >> 8) & 0xFF,
-    starting_address & 0xFF,
-    (quantity_of_registers >> 8) & 0xFF,
-    quantity_of_registers & 0xFF,
-    quantity_of_registers * 2,  # Byte count: number of registers * 2
-    data_high,
-    data_low
-]
-
-message_bytes = bytes(message)
+message = bytearray()
+message.append(slave_address)
+message.append(function_code)
+message.append((starting_address >> 8) & 0xFF)  # Starting address high byte
+message.append(starting_address & 0xFF)          # Starting address low byte
+message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
+message.append(quantity_of_registers & 0xFF)          # Quantity low byte
+message.append(quantity_of_registers * 2)             # Byte count
+message.append((data_value >> 8) & 0xFF)          # Data high byte
+message.append(data_value & 0xFF)                 # Data low byte
 
 # Compute CRC16 checksum
-crc = compute_crc(message_bytes)
+crc = compute_crc(message)
 crc_low = crc & 0xFF
 crc_high = (crc >> 8) & 0xFF
 
 # Append CRC to the message
-full_message = message_bytes + bytes([crc_low, crc_high])
+message.append(crc_low)
+message.append(crc_high)
 
-print("Sent: ", full_message)
+print("Sent: ", message)
 
 # Send the message over serial port
-ser.write(full_message)
+ser.write(message)
 
 # Read the response (expected to be 8 bytes for function code 0x10)
 response = ser.read(8)

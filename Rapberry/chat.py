@@ -81,7 +81,7 @@ register_count = 16  # Number of registers to read
 
 try:
     # Create the custom request
-    request = CustomModbusRequest(address=start_address, count=register_count, unit=slave_id)
+    request = CustomModbusRequest(start_address, register_count, slave_id)
     
     # Send the request and receive the response
     response = client.execute(request)

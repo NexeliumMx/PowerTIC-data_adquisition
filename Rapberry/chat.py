@@ -49,7 +49,8 @@ class CustomModbusRequest(ModbusRequest):
         skip_encode=False,
         **kwargs
     ):
-        super().__init__(transaction, protocol, skip_encode, unit, **kwargs)
+        super().__init__(transaction, protocol, skip_encode, **kwargs)
+        self.unit_id = unit  # Set the Unit ID (slave address)
         self.address = address
         self.count = count
 
@@ -66,6 +67,7 @@ class CustomModbusRequest(ModbusRequest):
 
 # Create ModbusSerialClient for RTU
 client = ModbusSerialClient(
+    method='rtu',
     port='/dev/ttyUSB0',
     baudrate=19200,
     parity='N',

@@ -1,5 +1,5 @@
 from pymodbus.client import ModbusSerialClient
-from pymodbus.pdu import ModbusRequest, ModbusResponse, ModbusExceptions
+from pymodbus.pdu import ModbusRequest, ModbusResponse
 from pymodbus.exceptions import ModbusException
 import struct
 import logging
@@ -44,13 +44,10 @@ class CustomModbusRequest(ModbusRequest):
         address=None,
         count=1,
         unit=0x00,
-        transaction=0,
-        protocol=0,
         skip_encode=False,
         **kwargs
     ):
-        super().__init__(transaction, protocol, skip_encode, **kwargs)
-        self.unit_id = unit  # Set the Unit ID (slave address)
+        super().__init__(skip_encode, unit, **kwargs)
         self.address = address
         self.count = count
 

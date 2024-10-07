@@ -26,7 +26,7 @@ def timestamp(sn):
                 for row in rows:
                     if row["timestamp"] == "t":
                         time = True
-                    elif row["indb"] == "f":
+                    elif row["timestamp"] == "f":
                         time = False
 
                     if time:

@@ -287,7 +287,7 @@ def reading_meter(sn):
             finally:
                 client.close()
 
-            timestamp = timestamp_adquisition()
+            timestamp = timestamp_adquisition(sn)
             measurement["timestamp"] = timestamp
             measurement["serial_number"] = sn
             json_data = [table_name, measurement]

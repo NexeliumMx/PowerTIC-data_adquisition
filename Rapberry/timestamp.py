@@ -51,3 +51,5 @@ def timestamp(sn):
                 client.close()
                 #timestamp = f"{meter_time["clock: year"]}"
                 #print(timestamp)
+
+timestamp("E3T15060693")

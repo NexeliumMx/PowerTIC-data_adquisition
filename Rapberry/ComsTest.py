@@ -181,8 +181,9 @@ def timestamp_adquisition(sn):
                 minute = meter_time["clock: minute"]
                 second = meter_time["clock: second"]
                 print(f"{year}-{month}-{date} {hour}:{minute}:{second}Z")
-                #timestamp = f"{meter_time["clock: year"]}"
-                #print(timestamp)
+                timestamp = f"{year}-{month}-{date} {hour}:{minute}:{second}Z"
+                print(timestamp)
+    return timestamp
 
 
 def reading_meter(sn):

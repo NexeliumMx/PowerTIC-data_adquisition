@@ -3,15 +3,15 @@ import psycopg2
 
 # Connect to local PostgreSQL
 local_conn = psycopg2.connect(
-    user="postgres",
-    host="localhost",
+    user="superadmin",
+    host="powertic.postgres.database.azure.com",
     database="postgres",
-    password="postgres",  # Replace with your actual password
+    password="vafja6-hexpem-javdyN",  # Replace with your actual password
     port=5432
 )
 
 # Read the Excel file into a DataFrame
-df = pd.read_excel('NewModbusQueries.xlsx')
+df = pd.read_excel('/Users/luissanchez/MICO/PowerTIC/Rapberry/NewModbusQueries.xlsx')
 
 # Extract column names from the DataFrame
 column_names = df.columns.tolist()
@@ -29,7 +29,7 @@ with local_conn.cursor() as cursor:
         modbus_address = column_names.index('modbus_address')
         print(row[modbus_address])
         print(row[modbus_address].replace("[","{"*2).replace("]", "}"*2))
-        replace_add=row[modbus_address].replace("[","{"*2).replace("]", "}"*2)
+        replace_add=row[modbus_address]#.replace("[","["*2).replace("]", "]"*2)
         row[modbus_address] = replace_add
         print("Modified Address: ",row[modbus_address])
         row_data = tuple(row)  # Convert row to a tuple for insertion

@@ -140,6 +140,51 @@ def meter_param():
 
     return settings.get('serial_number'), table_name.get("table")
 
+
+def timestamp_adquisition(sn):
+    if client.connect():
+        meter_time = {}
+        with open('Modbusqueries.csv', newline='') as csvfile:
+            rows = csv.DictReader(csvfile)
+
+            try:
+                for row in rows:
+                    if row["timestamp"] == "t":
+                        time = True
+                    elif row["timestamp"] == "f":
+                        time = False
+
+                    if time:
+                        parameter_description = row['parameter_description']
+
+                        modbus_address = json.loads(row['modbus_address'])[0]
+                        registers = int(row['register_number'])
+                        value = ''
+                        try:
+                            meas = client.read_holding_registers(modbus_address, 1)
+                            if not meas.isError():
+                                value = meas.registers[0]
+                                meter_time[f"{parameter_description}"] = value
+                                print(f"{parameter_description}: {value}")
+                            else:
+                                print(f"Error reading {parameter_description} at {modbus_address}: {meas}")
+                        except Exception as e:
+                            print(f"Invalid address for { parameter_description}: {modbus_address}")
+            except Exception as e:
+                print("Exception during data acquisition: ", e)
+            finally:
+                client.close()
+                year = meter_time["clock: year"]
+                month = meter_time["clock: month"]
+                date = meter_time["clock: date"]
+                hour = meter_time["clock: hour"]
+                minute = meter_time["clock: minute"]
+                second = meter_time["clock: second"]
+                print(f"{year}-{month}-{date} {hour}:{minute}:{second}Z")
+                #timestamp = f"{meter_time["clock: year"]}"
+                #print(timestamp)
+
+
 def reading_meter(sn):
 
 
@@ -175,25 +220,6 @@ def reading_meter(sn):
                         #debug
                         #print("Modbus Address: ", modbus_address)
 
-                        """if isinstance(modbus_address, list):
-                            meas_val = ''
-                            # 'modbus_address' is a list
-                            for address in modbus_address:
-                                try:
-                                    # Data acquisition for each address
-                                    meas = client.read_holding_registers(address,registers, 1)
-                                    print("meas is of type: ", type(meas))
-                                    if not meas.isError():
-                                        for i in meas.registers:
-                                            meas_val += chr((i & 0b1111111100000000)>>8) + chr(i & 0b0000000011111111)
-                                        meas_val = meas_val.replace('\x00','')
-                                        print("measurement value: ",meas_val)
-                                        measurement[f'{parameter_description}'] = meas_val
-                                    else:
-                                        print(f"Error reading {parameter_description} at {address}: {meas}")
-                                except ValueError:
-                                    print(f"Invalid address for {parameter_description}: {address}")
-                                    print("Error value: ", meas_val)"""
                         if registers == 2:
                             address = modbus_address[0]
                             print("Address: ", address)
@@ -261,7 +287,7 @@ def reading_meter(sn):
             finally:
                 client.close()
 
-            timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
+            timestamp = timestamp_adquisition()
             measurement["timestamp"] = timestamp
             measurement["serial_number"] = sn
             json_data = [table_name, measurement]

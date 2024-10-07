@@ -49,5 +49,5 @@ def timestamp(sn):
                 print("Exception during data acquisition: ", e)
             finally:
                 client.close()
-                timestamp = f"{meter_time["clock: year"]}"
-                print(timestamp)
+                #timestamp = f"{meter_time["clock: year"]}"
+                #print(timestamp)

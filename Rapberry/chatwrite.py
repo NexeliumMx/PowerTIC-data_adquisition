@@ -71,6 +71,7 @@ write_modbus(slave_address=slave_address,function_code=function_code,starting_ad
 
 write_modbus(slave_address=0x01,function_code=0x03,starting_address=0x020A,quantity_of_registers=0x01,byte_count=0x0002,payload=0x04)
 # Close the serial port
-ser.close()
+
 
 modbus_read(slave_address=0x01,function_code=0x10,starting_address=0x020A,quantity_of_registers=0x1)
+ser.close()

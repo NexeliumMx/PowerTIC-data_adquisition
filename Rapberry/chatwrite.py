@@ -11,7 +11,7 @@ ser = serial.Serial(
 )
 # Modbus RTU frame components for Function Code 0x10 (Read) with possible adjustments
 slave_address = 0x01             # Slave address
-function_code = 0x03             # Function code for Read in your device
+function_code = 0x10             # Function code for Read in your device
 starting_address = 0x020B        # Starting register address
 quantity_of_registers = 0x1   # Number of registers to read
 byte_count = 0x2
@@ -69,9 +69,9 @@ def write_modbus(slave_address, function_code, starting_address, quantity_of_reg
 
 write_modbus(slave_address=slave_address,function_code=function_code,starting_address=starting_address, quantity_of_registers=quantity_of_registers,byte_count=byte_count,payload=payload)
 
-write_modbus(slave_address=0x01,function_code=0x03,starting_address=0x020A,quantity_of_registers=0x01,byte_count=0x0002,payload=0x04)
+write_modbus(slave_address=0x01,function_code=function_code,starting_address=0x020A,quantity_of_registers=0x01,byte_count=0x0002,payload=0x04)
 # Close the serial port
 
 
-modbus_read(slave_address=0x01,function_code=0x10,starting_address=0x020A,quantity_of_registers=0x1)
+modbus_read(slave_address=0x01,function_code=0x03,starting_address=0x020A,quantity_of_registers=0x1)
 ser.close()

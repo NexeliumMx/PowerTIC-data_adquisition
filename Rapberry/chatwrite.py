@@ -12,12 +12,13 @@ ser = serial.Serial(
 # Modbus RTU frame components for Function Code 0x10 (Read) with possible adjustments
 slave_address = 0x01             # Slave address
 function_code = 0x10             # Function code for Read in your device
-starting_address = 0x020B        # Starting register address
-quantity_of_registers = 0x1   # Number of registers to read
-byte_count = 0x2
-payload = 0x0000
+starting_address = 0x020A        # Starting register address
+quantity_of_registers = 0x2   # Number of registers to read
+byte_count = 0x4
+payload1 = 0x0002
+payload2 = 0x0000
 
-def write_modbus(slave_address, function_code, starting_address, quantity_of_registers, byte_count, payload):
+def write_modbus(slave_address, function_code, starting_address, quantity_of_registers, byte_count, payload1, payload2):
     def compute_crc(data):
         crc = 0xFFFF
         for pos in data:
@@ -43,8 +44,10 @@ def write_modbus(slave_address, function_code, starting_address, quantity_of_reg
     message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
     message.append(quantity_of_registers & 0xFF)         # Quantity low byte
     message.append(byte_count)                           # Byte Count parameter
-    message.append((payload >> 8) & 0xFF)                # Payload high
-    message.append(payload & 0xFF)
+    message.append((payload1 >> 8) & 0xFF)                # Payload 1  high
+    message.append(payload1 & 0xFF)
+    message.append((payload2 >> 8) & 0xFF)                # Payload 2 high
+    message.append(payload2 & 0xFF)
     # If your device requires additional fields, include them here
     # For example, if a Byte Count is required:
     # message.append(0x00)  # Byte Count (speculative)
@@ -67,11 +70,11 @@ def write_modbus(slave_address, function_code, starting_address, quantity_of_reg
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
 
-write_modbus(slave_address=slave_address,function_code=function_code,starting_address=starting_address, quantity_of_registers=quantity_of_registers,byte_count=byte_count,payload=payload)
+write_modbus(slave_address=slave_address,function_code=function_code,starting_address=starting_address, quantity_of_registers=quantity_of_registers,byte_count=byte_count,payload=payload1,payload2=payload2)
 
-write_modbus(slave_address=0x01,function_code=function_code,starting_address=0x020A,quantity_of_registers=0x01,byte_count=0x0002,payload=0x04)
+#write_modbus(slave_address=0x01,function_code=function_code,starting_address=0x020A,quantity_of_registers=0x01,byte_count=0x0002,payload=0x04)
 # Close the serial port
 
 
-modbus_read(slave_address=0x01,function_code=0x03,starting_address=0x020A,quantity_of_registers=0x1)
+modbus_read(slave_address=0x01,function_code=0x03,starting_address=0x020A,quantity_of_registers=0x2)
 ser.close()

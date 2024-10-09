@@ -23,8 +23,10 @@ else:
 
 # Define the register address and the value to write
 register_address = 0x20B  # The first register address (adjust for 0-based if necessary)
-value_to_write = 0b0000000000000000  
-response = client.write_registers(register_address, value_to_write, 1)
+value_to_write = 0x0000
+value_high = (value_to_write >> 8) & 0xFF
+value_low = (value_to_write & 0xFF) 
+response = client.write_registers(register_address, [value_high,value_low], 1)
 
 # Check if the write was successful
 if response.isError():
@@ -32,28 +34,5 @@ if response.isError():
 else:
     print(f"Successfully wrote {value_to_write} to registers {register_address} and {register_address+1}")
 # Close the Modbus connection
-register_address = 0x20A  # The first register address (adjust for 0-based if necessary)
-value_to_write =0x02
-response = client.write_registers(register_address, value_to_write, 1)
-if response.isError():
-    print(f"Failed to write to register {register_address}: {response}")
-else:
-    print(f"Successfully wrote {value_to_write} to registers {register_address} and {register_address+1}")
-register_address = 0x20B  # The first register address (adjust for 0-based if necessary)
-value_to_write = 0b0000000000000000  
-response = client.write_registers(register_address, value_to_write, 1)
 
-# Check if the write was successful
-if response.isError():
-    print(f"Failed to write to register {register_address}: {response}")
-else:
-    print(f"Successfully wrote {value_to_write} to registers {register_address} ")
-register_address = 0x20D  # The first register address (adjust for 0-based if necessary)
-value_to_write = 0b1111111000000111
-response = client.write_registers(register_address, value_to_write, 1)
-
-if response.isError():
-    print(f"Failed to write to register {register_address}: {response}")
-else:
-    print(f"Successfully wrote {value_to_write} to registers {register_address} ")
 client.close()

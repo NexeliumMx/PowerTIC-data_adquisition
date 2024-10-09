@@ -96,8 +96,11 @@ def write_modbus_registers(slave_address, function_code, starting_address, quant
     message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
     message.append(quantity_of_registers & 0xFF)         # Quantity low byte
     message.append(byte_count)                           # Byte Count parameter
-    message.append((payload1 >> 8) & 0xFF)                # Payload 1  high
-    message.append(payload1 & 0xFF)
+    if byte_count > 1:
+        message.append((payload1 >> 8) & 0xFF)                # Payload 1  high
+        message.append(payload1 & 0xFF)
+    else:
+        message.append(payload1)
     # If your device requires additional fields, include them here
     # For example, if a Byte Count is required:
     # message.append(0x00)  # Byte Count (speculative)

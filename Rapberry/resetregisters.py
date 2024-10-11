@@ -41,7 +41,7 @@ register_address = 0x020A
 
 value_high = (value_to_write >> 8) & 0xFF
 value_low = (value_to_write & 0xFF) 
-response = client.write_registers(register_address, [0x0002,0x0000], 1)
+response = client.write_registers(register_address, [0x0004,0x0000], 1)
 
 # Check if the write was successful
 if response.isError():
@@ -50,4 +50,12 @@ else:
     print(f"Successfully wrote {value_to_write} to registers {register_address} and {register_address+1}")
 # Close the Modbus connection
 
+meas = client.read_holding_registers(register_address,1,1)
+value_read = meas[0]
+# Check if the read was successful
+if meas.isError():
+    print(f"Failed to write to register {register_address}: {meas}")
+else:
+    print(f"Meas:  {value_read} ")
+# Close the Modbus connection
 client.close()

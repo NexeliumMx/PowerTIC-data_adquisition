@@ -51,7 +51,7 @@ else:
 # Close the Modbus connection
 
 meas = client.read_holding_registers(register_address,1,1)
-value_read = meas[0]
+value_read = meas.registers[0]
 # Check if the read was successful
 if meas.isError():
     print(f"Failed to write to register {register_address}: {meas}")

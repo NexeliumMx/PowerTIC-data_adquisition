@@ -23,7 +23,7 @@ else:
 
 # Define the register address and the value to write
 #register_address = 0x1073  # The first register address (adjust for 0-based if necessary)
-value_to_write = 0x0000
+value_to_write = 0x0002
 register_address = 0x020A
 
 """for register_address in range(0x106B,0x107A):

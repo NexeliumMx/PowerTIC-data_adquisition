@@ -179,7 +179,7 @@ def write_modbus_reset(slave_address, function_code, starting_address, quantity_
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
 
-write_modbus(slave_address=slave_address,function_code=function_code,starting_address=starting_address, quantity_of_registers=quantity_of_registers,byte_count=byte_count,payload1=payload1,payload2=payload2)
+write_modbus(slave_address=slave_address,function_code=function_code,starting_address=starting_address, quantity_of_registers=quantity_of_registers,byte_count=byte_count,payload1=payload1,payload2=payload2,payload3=payload3)
 modbus_read(slave_address=slave_address,function_code=0x03,starting_address=starting_address,quantity_of_registers=quantity_of_registers)
 #time.sleep(5)
 

@@ -11,6 +11,7 @@ ser = serial.Serial(
 )
 
 def modbus_read(slave_address, function_code, starting_address, quantity_of_registers):
+    ser.flushInput()  # Or ser.reset_input_buffer() depending on pySerial version
     def compute_crc(data):
         crc = 0xFFFF
         for pos in data:

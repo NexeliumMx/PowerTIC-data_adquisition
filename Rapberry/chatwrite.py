@@ -13,11 +13,12 @@ ser = serial.Serial(
 # Modbus RTU frame components for Function Code 0x10 (Read) with possible adjustments
 slave_address = 0x01             # Slave address
 function_code = 0x10             # Function code for Read in your device
-starting_address = 0x020A        # Starting register address
-quantity_of_registers = 0x2   # Number of registers to read
+starting_address = 0x0209        # Starting register address
+quantity_of_registers = 0x3   # Number of registers to read
 byte_count = 0x4
-payload1 = 0x0002
-payload2 = 0x0000
+payload1 = 0x7F
+payload2 = 0x0002
+payload3 = 0x0000
 
 def write_modbus(slave_address, function_code, starting_address, quantity_of_registers, byte_count, payload1, payload2):
     def compute_crc(data):
@@ -179,9 +180,7 @@ def write_modbus_reset(slave_address, function_code, starting_address, quantity_
 write_modbus(slave_address=slave_address,function_code=function_code,starting_address=starting_address, quantity_of_registers=quantity_of_registers,byte_count=byte_count,payload1=payload1,payload2=payload2)
 modbus_read(slave_address=slave_address,function_code=0x03,starting_address=starting_address,quantity_of_registers=quantity_of_registers)
 #time.sleep(5)
-modbus_read(slave_address=0x01,function_code=0x03,starting_address=0x209,quantity_of_registers=0x01)
-write_modbus_registers(slave_address=0x01,function_code=0x10,starting_address=0x209,quantity_of_registers=0x01,byte_count=0x02,payload1=0x7F)
-modbus_read(slave_address=0x01,function_code=0x03,starting_address=0x209,quantity_of_registers=0x01)
+
 write_modbus_reset(slave_address=0x1,function_code=0x10,starting_address=0x020D,quantity_of_registers=0x0001,byte_count=0x0002,payload1=0x00,payload2=0x00)
 #write_modbus(slave_address=0x1,function_code=0x10,starting_address=0x1073,quantity_of_registers=0x0002,byte_count=0x04,payload1=0x0000,payload2=0x0000)
 #write_modbus(slave_address=0x01,function_code=function_code,starting_address=0x020A,quantity_of_registers=0x01,byte_count=0x0002,payload=0x04)

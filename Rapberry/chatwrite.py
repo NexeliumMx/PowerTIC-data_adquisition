@@ -20,7 +20,7 @@ payload1 = 0x7F
 payload2 = 0x0002
 payload3 = 0x0000
 
-def write_modbus(slave_address, function_code, starting_address, quantity_of_registers, byte_count, payload1, payload2):
+def write_modbus(slave_address, function_code, starting_address, quantity_of_registers, byte_count, payload1, payload2, payload3):
     def compute_crc(data):
         crc = 0xFFFF
         for pos in data:
@@ -50,6 +50,8 @@ def write_modbus(slave_address, function_code, starting_address, quantity_of_reg
     message.append(payload1 & 0xFF)
     message.append((payload2 >> 8) & 0xFF)                # Payload 2 high
     message.append(payload2 & 0xFF)
+    message.append((payload3 >> 8) & 0xFF)                # Payload 2 high
+    message.append(payload3 & 0xFF)
     # If your device requires additional fields, include them here
     # For example, if a Byte Count is required:
     # message.append(0x00)  # Byte Count (speculative)

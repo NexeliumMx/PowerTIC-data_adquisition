@@ -10,12 +10,6 @@ ser = serial.Serial(
     timeout=5
 )
 
-# Modbus RTU frame components for Function Code 0x10 (Read) with possible adjustments
-slave_address = 0x01             # Slave address
-function_code = 0x03             # Function code for Read in your device
-starting_address = 0x020A        # Starting register address
-quantity_of_registers = 0x1   # Number of registers to read
-
 def modbus_read(slave_address, function_code, starting_address, quantity_of_registers):
     def compute_crc(data):
         crc = 0xFFFF
@@ -55,6 +49,8 @@ def modbus_read(slave_address, function_code, starting_address, quantity_of_regi
     print("Sent: ", message)
 
     # Send the message over serial port
+    if not ser.is_open:
+        ser.open()
     ser.write(message)
 
     # Read the response

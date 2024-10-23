@@ -10,7 +10,7 @@ ser = serial.Serial(
     bytesize=serial.EIGHTBITS,
     timeout=5
 )
-# Modbus RTU frame components for Function Code 0x10 (Read) with possible adjustments
+
 slave_address = 0x01             # Slave address
 function_code = 0x10             # Function code for Read in your device
 starting_address = 0x0209        # Starting register address

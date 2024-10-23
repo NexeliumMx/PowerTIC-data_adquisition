@@ -33,11 +33,6 @@ def modbus_read(slave_address, function_code, starting_address, quantity_of_regi
     message.append(starting_address & 0xFF)          # Starting address low byte
     message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
     message.append(quantity_of_registers & 0xFF)         # Quantity low byte
-
-    # If your device requires additional fields, include them here
-    # For example, if a Byte Count is required:
-    # message.append(0x00)  # Byte Count (speculative)
-
     # Compute CRC16 checksum
     crc = compute_crc(message)
     crc_low = crc & 0xFF

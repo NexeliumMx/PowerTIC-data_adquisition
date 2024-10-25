@@ -3,8 +3,10 @@ import datetime
 from dotenv import dotenv_values
 from azure.iot.device import IoTHubDeviceClient, Message
 
-config = dotenv_values(".env")
-CONNECTION_STRING = config.get('cn')
+cn='HostName=powertic.azure-devices.net;DeviceId=Raspberry;SharedAccessKey=y/se5ABBrwX2kVXpG3i87JW2YK5ma/asgqoZDACkQVg='
+
+
+CONNECTION_STRING = cn
 
 #Payload definition
 MSG_SND = '{{"timestr": {timestr}}}'

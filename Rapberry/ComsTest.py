@@ -294,7 +294,8 @@ def reading_meter(sn):
             measurement["serial_number"] = sn
             json_data = [table_name, measurement]
             data = json.dumps(json_data)
-
+            uniquekey=str(timestamp)+str(sn)
+            
             # Debug
             print("Table to insert:", table_name)
             print("Obtained measurements:", measurement)
@@ -307,19 +308,25 @@ def reading_meter(sn):
                 response = requests.post(url, json=json_data)
                 if response.status_code == 200:
                     print('Success')
+                    f=open(rf'vals/success/{uniquekey}.json',"x")
+                    f.write(data)
+                    
+                    f.close()
                 else:
                     print('Error:', response.status_code, response.text)
+                    f=open(rf'vals/apifail/{uniquekey}.json',"x")
+                    f.write(data)
+                    
+                    f.close()
             except requests.exceptions.RequestException as e:
                 print("Network error:", e)
+                f=open(rf'vals/nfail/{uniquekey}.json',"x")
+                f.write(data) 
+                f.close()
                 return None
-
+            
             return data  # Return the Python object, not the serialized string
     else:
         print("Error connecting to the meter")
         return None
         
-#debug
-#print(reading_meter())
-#meter_param()
-#reading_meter(meter_param())
-reading_meter("E3T15060693")

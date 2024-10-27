@@ -6,8 +6,8 @@ def rundeploy(SN):
         f=open(r"vals/sn.txt","r")
         sn=f.readline(1)
         print('seviene')
-        print(sn)
-        reading_meter(sn)
+        print(SN)
+        reading_meter(SN)
     else :
         print('run imprint')
     if os.path.isdir(r"vals/nfail"):

@@ -19,7 +19,7 @@ if not os.path.exists(r'vals/sn.txt'):
     f=open(r"vals/sn.txt","x")
     print(SN[1])
     f.write(SN[1])
-    rundeploy('SN')
+    rundeploy(SN[1])
 else:    
     y=open(r"vals/sn.txt")
     SN = y.read()

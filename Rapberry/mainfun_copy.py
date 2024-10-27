@@ -1,6 +1,6 @@
 import os
 from ComsTest import meter_param,reading_meter,timestamp_adquisition,info_backup
-from deploy import rundeploy
+from deploy_copy import rundeploy
 import subprocess
 import time
 # From Python3.7 you can add 

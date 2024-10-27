@@ -2,8 +2,6 @@ from ComsTest import reading_meter
 import os
 from encript import encript
 def rundeploy(SN):
-    fil = open(r"vals/sn.txt", "r")
-    sn= fil.read()
     if  os.path.exists(r'vals/sn.txt'):
         f=open(r"vals/sn.txt","r")
         sn=f.readline(1)

@@ -9,7 +9,7 @@ def rundeploy(SN):
         sn=f.readline(1)
         print('seviene')
         print(sn)
-        reading_meter(SN)
+        reading_meter('SN')
     else :
         print('run imprint')
     if os.path.isdir(r"vals/nfail"):

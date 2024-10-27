@@ -17,9 +17,9 @@ if not os.path.isdir(r'vals'):
 if not os.path.exists(r'vals/sn.txt'):
     SN=meter_param()
     f=open(r"vals/sn.txt","x")
-    print(SN[1])
-    f.write(SN[1])
-    rundeploy(SN[1])
+    print(SN[0])
+    f.write(SN[0])
+    rundeploy(SN[0])
 else:    
     y=open(r"vals/sn.txt")
     SN = y.read()

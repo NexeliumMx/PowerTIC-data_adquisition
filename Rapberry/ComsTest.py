@@ -329,4 +329,4 @@ def reading_meter(sn):
     else:
         print("Error connecting to the meter")
         return None
-        
+reading_meter('ENJSHH') 

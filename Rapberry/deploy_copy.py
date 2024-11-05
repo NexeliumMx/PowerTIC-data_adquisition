@@ -1,6 +1,7 @@
 from ComsTest import reading_meter
 import os
 from encript import encript
+from uploadback import uploadbackup
 def rundeploy(SN):
     if  os.path.exists(r'vals/sn.txt'):
         f=open(r"vals/sn.txt","r")
@@ -14,6 +15,6 @@ def rundeploy(SN):
         if not os.listdir(r"vals/nfail"):
             print("Directory is empty")
         else:    
-            print("Directory is not empty")
+            uploadbackup()
     else:
         print("Given directory doesn't exist")

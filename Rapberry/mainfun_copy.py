@@ -5,6 +5,7 @@ import subprocess
 import time
 # From Python3.7 you can add 
 # keyword argument capture_output
+version='alpha.0.0.1'
 if not os.path.isdir(r'vals'):
     print(subprocess.run(["mkdir", "vals"], 
                      capture_output=True))

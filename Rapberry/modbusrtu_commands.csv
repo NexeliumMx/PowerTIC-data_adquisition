@@ -1,0 +1,208 @@
+model,modbus_address,parameter,unit,register_length,data_type,r_w,data_range,industry_standard,indb,setup,timestamp,read_command,write_command
+acurev-1313-5a-x0,4148,serial_number,NULL,16,utf-8,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4096,sunspec_id,NULL,2,Uint16,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4098,id,NULL,1,Uint16,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4099,lenth,NULL,1,Uint16,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4100,manufacturer,NULL,16,utf-8,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4116,model,NULL,16,utf-8,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4132,options,NULL,8,utf-8,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4140,version,NULL,8,utf-8,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4164,device_address,NULL,1,uint16,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4165,id,NULL,1,Uint16,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4166,lenth,NULL,1,Uint16,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4171,current_scale_factor,NULL,1,sunssf,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4180,voltage_scale_factor,NULL,1,sunssf,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4182,frequency_scale_factor,NULL,1,sunssf,r,NULL,Acurev 1300,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4187,real_power_scale_factor,NULL,1,sunssf,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4192,apparent_power_scale_factor,NULL,1,sunssf,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4197,reactive_power_scale_factor,NULL,1,sunssf,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4202,power_factor_scale_factor,NULL,1,sunssf,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4219,totwh_sf,NULL,1,acc32,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4236,totvah_sf_sunspec,NULL,1,sunssf,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4269,totvarh_sf,NULL,1,0,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4270,meter_event_flags,NULL,2,bitfield32,r,NULL,NULL,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4272,sunspec_end_id_sunspec,NULL,1,uint16,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4273,sunspec_end_lenth_sunspec,NULL,1,uint16,r,NULL,sunspec,FALSE,TRUE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4167,amps_total,A,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4168,amps_phase_a,A,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4169,amps_phase_b,A,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4170,amps_phase_c,A,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4172,voltage_ln_average,V,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4173,phase_voltage_an,V,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4174,phase_voltage_bn,V,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4175,phase_voltage_cn,V,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4176,voltage_ll_average,V,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4177,phase_voltage_ab,V,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4178,phase_voltage_bc,V,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4179,phase_voltage_ca,V,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4181,frequency,Hz,1,int16,r,"[45 , 65]",Acurev 1300,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4183,total_real_power,W,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4184,watts_phase_a,W,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4185,watts_phase_b,W,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4186,watts_phase_c,W,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4188,ac_apparent_power_va,VA,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4189,va_phase_a,VA,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4190,va_phase_b,VA,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4191,va_phase_c,VA,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4193,reactive_power_var,VAR,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4194,var_phase_a,VAR,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4195,var_phase_b,VAR,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4196,var_phase_c,VAR,1,int16,r,"[0, 9999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4198,power_factor,NULL,1,int16,r,"[-1000, 1000]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4199,pf_phase_a,NULL,1,int16,r,"[-1000, 1000]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4200,pf_phase_b,NULL,1,int16,r,"[-1000, 1000]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4201,pf_phase_c,NULL,1,int16,r,"[-1000, 1000]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4203,total_real_energy_exported,Wh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4205,total_watt_hours_exported_in_phase_a,Wh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4207,total_watt_hours_exported_in_phase_b,Wh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4209,total_watt_hours_exported_in_phase_c,Wh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4211,total_real_energy_imported,Wh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4213,total_watt_hours_imported_phase_a,Wh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4215,total_watt_hours_imported_phase_b,Wh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4217,total_watt_hours_imported_phase_c,Wh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4220,total_va_hours_exported,VAh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4222,total_va_hours_exported_phase_a,VAh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4224,total_va_hours_exported_phase_b,VAh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4226,total_va_hours_exported_phase_c,VAh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4228,total_va_hours_imported,VAh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4230,total_va_hours_imported_phase_a,VAh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4232,total_va_hours_imported_phase_b,VAh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4234,total_va_hours_imported_phase_c,VAh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4237,total_var_hours_imported_q1,VARh,2,bitfield32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4239,total_var_hours_imported_q1_phase_a,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4241,total_var_hours_imported_q1_phase_b,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4243,total_var_hours_imported_q1_phase_c,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4245,total_var_hours_imported_q2,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4247,total_var_hours_imported_q2_phase_a,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4249,total_var_hours_imported_q2_phase_b,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4251,total_var_hours_imported_q2_phase_c,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4253,total_var_hours_exported_q3,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4255,total_var_hours_exported_q3_phase_a,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4257,total_var_hours_exported_q3_phase_b,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4259,total_var_hours_exported_q3_phase_c,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4261,total_var_hours_exported_q4,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4263,total_var_hours_exported_q4_phase_a,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4265,total_var_hours_exported_q4_phase_b,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,4267,total_var_hours_exported_q4_phase_c,VARh,2,acc32,r,"[0, 999999999]",sunspec,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5632,Input_active_power_total_max_demand ,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5634,Input_active_power_total_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5637,Input_active_power_rate1_max_demand_and_occur_time,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5639,Input_active_power_rate1_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5642,Input_active_power_rate2_max_demand_and_occur_time,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5644,Input_active_power_rate2_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5647,Input_active_power_rate3_max_demand_and_occur_time,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5649,Input_active_power_rate3_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5652,Input_active_power_rate4_max_demand_and_occur_time,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5654,Input_active_power_rate4_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5657,output_active_power_total_max_demand,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5659,output_active_power_total_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5662,output_active_power_rate1_max_demand,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5664,output_active_power_rate1_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5667,output_active_power_rate2_max_demand,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5669,output_active_power_rate2_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5672,output_active_power_rate3_max_demand,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5674,output_active_power_rate3_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5677,output_active_power_rate4_max_demand,NULL,2,Float ,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,5679,output_active_power_rate4_max_demand_occur_time,NULL,3,Dword,r,NULL,none,TRUE,FALSE,FALSE,NULL,NULL
+acurev-1313-5a-x0,768,clock: year,NULL,1,word,r,"[2000, 2099]",sunspec,FALSE,FALSE,TRUE,NULL,NULL
+acurev-1313-5a-x0,769,clock: month,NULL,1,word,r,NULL,sunspec,FALSE,FALSE,TRUE,NULL,NULL
+acurev-1313-5a-x0,770,clock: date,NULL,1,word,r,NULL,sunspec,FALSE,FALSE,TRUE,NULL,NULL
+acurev-1313-5a-x0,771,clock: hour,NULL,1,word,r,0-23,sunspec,FALSE,FALSE,TRUE,NULL,NULL
+acurev-1313-5a-x0,772,clock: minute,NULL,1,word,r,0-59,sunspec,FALSE,FALSE,TRUE,NULL,NULL
+acurev-1313-5a-x0,773,clock: second,NULL,1,word,r,0-59,sunspec,FALSE,FALSE,TRUE,NULL,NULL
+EM210-72D.MV5.3.X.OS.X,300001,phase_voltage_an,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300003,phase_voltage_bn,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300005,phase_voltage_cn,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300007,phase_voltage_ab,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300009,phase_voltage_bc,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300011,phase_voltage_ca,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300013,amps_phase_a,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300015,amps_phase_b,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300017,amps_phase_c,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300001,watts_phase_a,W,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300021,watts_phase_b,W,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300023,watts_phase_c,W,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300025,va_phase_a,VA,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300027,va_phase_b,VA,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300029,va_phase_c,VA,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300031,var_phase_a,VAR,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300033,var_phase_b,VAR,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300035,var_phase_c,VAR,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300037,voltage_ln_average,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300039,voltage_ll_average,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300041,total_real_power,W,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300043,ac_apparent_power_va,VA,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300045,reactive_power_var,VAR,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300047,pf_phase_a,NULL,1,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300048,pf_phase_b,NULL,1,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300049,pf_phase_c,NULL,1,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300050,power_factor,NULL,1,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300051,phase_sequence,NULL,1,int16,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300052,frequency,Hz,1,int16,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300053,total_real_energy_imported,kWh,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300055,total_var_hours_imported_q1,kVARh,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300079,total_real_energy_exported,kVWh,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300091,hour_counter,NULL,2,int32,r,NULL,NULL,FALSE,FALSE,TRUE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300093,hour_counter_neg,NULL,2,int32,r,NULL,NULL,FALSE,FALSE,TRUE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300131,thd_current_phase_a,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300133,thd_current_phase_b,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300135,thd_current_phase_c,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300137,thd_voltage_average_ln,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300139,thd_voltage_phase_an,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300141,thd_voltage_phase_bn,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300143,thd_voltage_phase_cn,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300145,thd_voltage_average_ll,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300147,thd_voltage_phase_ab,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300149,thd_voltage_phase_bc,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300151,thd_voltage_phase_ca,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300153,amps_neutral,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300247,hour_counter_neg,NULL,2,int32,r,NULL,NULL,FALSE,FALSE,TRUE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300249,amps_neutral,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300255,hour_counter,NULL,2,int32,r,NULL,NULL,FALSE,FALSE,TRUE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300257,n.a.,NULL,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300259,voltage_ln_average,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300261,voltage_ll_average,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300263,total_real_power,W,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300265,ac_apparent_power_va,VA,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300267,reactive_power_var,VAR,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300269,power_factor,NULL,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300271,phase_sequence,NULL,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300273,frequency,Hz,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300275,total_real_energy_imported,kWh,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300277,total_var_hours_imported_q1,kVARh,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300279,total_real_energy_exported,kWh,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300287,phase_voltage_ab,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300289,phase_voltage_an,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300291,amps_phase_a,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300293,watts_phase_a,W,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300295,va_phase_a,VA,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300297,var_phase_a,VAR,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300299,pf_phase_a,NULL,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300301,phase_voltage_bc,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300303,phase_voltage_bn,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300305,amps_phase_b,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300307,watts_phase_b,W,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300309,va_phase_b,VA,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300311,var_phase_b,VAR,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300313,pf_phase_b,NULL,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300315,phase_voltage_ca,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300317,phase_voltage_cn,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300319,amps_phase_c,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300321,watts_phase_c,W,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300323,va_phase_c,VA,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300325,var_phase_c,VAR,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300327,pf_phase_c,NULL,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300385,thd_current_phase_a,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300387,thd_voltage_phase_an,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300389,thd_voltage_phase_ab,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300403,thd_current_phase_b,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300405,thd_voltage_phase_bn,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300407,thd_voltage_phase_bc,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300421,thd_current_phase_c,A,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300423,thd_voltage_phase_cn,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300425,thd_voltage_phase_ca,V,2,int32,r,NULL,NULL,TRUE,FALSE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,300771,version_code,NULL,1,uint16,r,NULL,NULL,FALSE,TRUE,FALSE,03h,NULL
+EM210-72D.MV5.3.X.OS.X,304359,thd_enable,NULL,1,uint16,r/w,NULL,NULL,FALSE,TRUE,FALSE,03h,06h
+EM210-72D.MV5.3.X.OS.X,308193,RS485_instrument_address,NULL,1,uint16,r/w,NULL,NULL,FALSE,TRUE,FALSE,03h,06h
+EM210-72D.MV5.3.X.OS.X,316385,reset,NULL,1,uint16,r/w,NULL,NULL,FALSE,TRUE,FALSE,03h,06h
+EM210-72D.MV5.3.X.OS.X,320481,serial_number,NULL,7,ASCII,r,NULL,NULL,FALSE,TRUE,FALSE,03h,NULL

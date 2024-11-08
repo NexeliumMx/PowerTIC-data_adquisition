@@ -37,7 +37,7 @@ with local_conn.cursor() as cursor:
         cursor.execute(insert_query, row_data)
 
     # Commit the transaction
-    #local_conn.commit()
+    local_conn.commit()
 
 # Close the connection
 local_conn.close()

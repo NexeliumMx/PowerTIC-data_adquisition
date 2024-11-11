@@ -5,14 +5,14 @@ import psycopg2
 local_conn = psycopg2.connect(
     user="superadmin",
     host="powertic.postgres.database.azure.com",
-    database="postgres",
+    database="PowerTick",
     password="vafja6-hexpem-javdyN",  # Replace with your actual password
     port=5432
 )
 
 # Read the Excel file into a DataFrame
-df = pd.read_excel('/Users/luissanchez/MICO/PowerTIC/Rapberry/NewModbusQueries.xlsx')
-
+df = pd.read_csv('/Users/luissanchez/MICO/PowerTIC/Rapberry/modbusrtu_commands.csv')
+print(df)
 # Extract column names from the DataFrame
 column_names = df.columns.tolist()
 print(column_names)
@@ -21,17 +21,14 @@ print(column_names)
 placeholders = ", ".join(["%s"] * len(column_names))
 
 # Create the INSERT query
-insert_query = f'INSERT INTO powertic.modbusqueries({", ".join(column_names)}) VALUES ({placeholders})'
+insert_query = f'INSERT INTO public.modbusrtu_commands({", ".join(column_names)}) VALUES ({placeholders})'
 
 # Iterate over DataFrame rows
 with local_conn.cursor() as cursor:
     for index, row in df.iterrows():
-        modbus_address = column_names.index('modbus_address')
-        print(row[modbus_address])
-        print(row[modbus_address].replace("[","{"*2).replace("]", "}"*2))
-        replace_add=row[modbus_address]#.replace("[","["*2).replace("]", "]"*2)
-        row[modbus_address] = replace_add
-        print("Modified Address: ",row[modbus_address])
+        #modbus_address = column_names.index('modbus_address')
+        #print(row[modbus_address])
+        
         row_data = tuple(row)  # Convert row to a tuple for insertion
         print("Executing query for row:", row_data)
         

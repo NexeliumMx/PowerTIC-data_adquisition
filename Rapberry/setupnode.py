@@ -55,4 +55,4 @@ def initialize():
     f=open(fr"vals/meters/directions.json","x")
     json.dump(direction,f)
     print(temp)
-                
+initialize()                

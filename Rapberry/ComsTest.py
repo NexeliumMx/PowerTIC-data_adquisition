@@ -58,7 +58,7 @@ def meter_param(model):
                     print(row)
                     print(row["parameter_description"],row["modbus_address"])      
                     print(row["setup"],type(row["setup"]), bool(row["setup"]),type(bool(row["setup"])) )      
-                    if model==row["model"]:
+                    if True:
                         if row["setup"] == "t":
                             setup = True
                         elif row["setup"] == "f":

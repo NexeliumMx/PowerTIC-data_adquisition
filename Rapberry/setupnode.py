@@ -33,7 +33,7 @@ def initialize():
                 break
             except: 
                 print("invalid model check for support and run again")
-        #SN=meter_param(models[model-1])
+        SN=meter_param(models[model-1])
         temp["model"]=models[model-1].get("model")
         tempadd=240-i
         if tempadd not in direction and tempadd>5:
@@ -47,7 +47,7 @@ def initialize():
         temp["vt"]=int(10*float(input("Voltage Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
         f=open(fr"vals/meters/{i}data.json","x")
         
-        #print(SN[0])
+        print(SN[0])
         (json.dump(temp,f))
         laa=tempadd-1
     f=open(fr"vals/meters/laa.txt","x")

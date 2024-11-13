@@ -2,9 +2,10 @@ import serial
 
 ser = serial.Serial(
     port = '/dev/ttyUSB0',
+    baudrate=19200,
+    bytesize = serial.EIGHTBITS,
     parity = serial.PARITY_NONE,
     stopbits = serial.STOPBITS_ONE,
-    bytesize = serial.EIGHTBITS,
     timeout=20
 )
 

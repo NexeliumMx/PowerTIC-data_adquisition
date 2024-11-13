@@ -330,3 +330,4 @@ def reading_meter(sn):
         print("Error connecting to the meter")
         return None
 
+reading_meter()

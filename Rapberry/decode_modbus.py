@@ -8,17 +8,20 @@ ser = serial.Serial(
     timeout=20
 )
 
-def compute_crc(data):
-        crc = 0xFFFF
-        for pos in data:
-            crc ^= pos
-            for _ in range(8):
-                if crc & 0x0001:
-                    crc >>= 1
-                    crc ^= 0xA001
-                else:
-                    crc >>= 1
-        return crc
+def calculate_crc(message):
+    crc = 0xFFFF  # Initialize the CRC
+    
+    for byte in message:
+        crc ^= byte  # XOR byte with CRC
+        
+        for _ in range(8):  # Process each bit
+            if crc & 0x0001:  # If LSB is 1
+                crc = (crc >> 1) ^ 0xA001
+            else:
+                crc >>= 1
+                
+    # CRC low byte first
+    return crc.to_bytes(2, byteorder='little')
 
 def modbus_read(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int):
     # Build the message (adjusted if necessary)
@@ -31,7 +34,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
     message.append(quantity_of_registers & 0xFF)         # Quantity low byte
     # Compute CRC16 checksum
-    crc = compute_crc(message)
+    crc = calculate_crc(message)
     crc_low = crc & 0xFF
     crc_high = (crc >> 8) & 0xFF
 

@@ -52,7 +52,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
 
     # Close the serial port
     ser.close()
-slave_address = 0x001
+slave_address = 0x005
 function_code = 0x03
 
 modbus_read(slave_address=slave_address,function_code=function_code,starting_address=0x104C,quantity_of_registers=1)

@@ -1,7 +1,7 @@
 import serial 
 
 ser = serial.Serial(
-    port = '/dev/ttyUSB0',
+    port = '/dev/ttyUSB1',
     baudrate=19200,
     bytesize = serial.EIGHTBITS,
     parity = serial.PARITY_NONE,

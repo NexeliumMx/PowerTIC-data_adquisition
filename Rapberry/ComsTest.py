@@ -43,7 +43,7 @@ def info_backup(data,file_path):
 #obtención y envío de datos de información del medidor
 def meter_param(model):     
 
-    with open('Modbusqueries.csv',newline='') as csvfile:
+    with open('modbusqueries.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 
         #print(rows)
         table_name = {}

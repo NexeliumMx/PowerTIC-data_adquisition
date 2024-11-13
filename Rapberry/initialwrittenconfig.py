@@ -1,7 +1,7 @@
 from modbus16bit import write_modbus
 import json
 import csv
-def initialconfig(model):
+def initialconfig(model,addrs):
     with open('Modbusqueries.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 
         #print(rows)
@@ -18,9 +18,9 @@ def initialconfig(model):
                 print(row["model"]) 
                 print(model==row["model"])    
                 if True:
-                    if row["setup"] == "t":
+                    if row["setupWrite"] == "t":
                         setup = True
-                    elif row["setup"] == "f":
+                    elif row["setupWrite"] == "f":
                         setup = False
                     
                     
@@ -30,33 +30,22 @@ def initialconfig(model):
                         
                         set_val = ""
                         
-                        modbus_addresses = json.loads(row["modbus_address"])[0]
-                        if isinstance(modbus_addresses, list):
-                            for modbus_address in modbus_addresses:
-                                
-                                try:
-                                    result = client.read_holding_registers(modbus_address, 1)
-                                    if not result.isError():
-                                        for i in result.registers:
-                                            set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                                        set_val = set_val.replace('\x00', '')
-                                        settings[f'{parameter}'] = set_val  
-                                    else:
-                                        print(f"Error de lectura ({parameter}):", result)
-                                except ValueError:
-                                    print(f"Invalid address for {parameter}: {modbus_address}")
-                                    continue
-                            print(f"Adquirido valor para {parameter}: {set_val}")
-                        else:
-                            #print("Integer Modbus Address: ", modbus_address)
-                            modbus_address = modbus_addresses
-                            result = client.read_holding_registers(modbus_address, 1)
+                        modbus_address = (row["modbus_address"])
+                                                    
+                        try:
+                            result = write_modbus(1,row["write_command"],modbus_address,1,2,addrs)
                             if not result.isError():
-                                set_val = result.registers[0]
-                                settings[f"{parameter}"] = set_val
-                                print(f"{parameter}: {set_val}")
+                                for i in result.registers:
+                                    set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                                set_val = set_val.replace('\x00', '')
+                                settings[f'{parameter}'] = set_val  
                             else:
-                                print(f"Error de lectura {parameter} en {modbus_address}", result)       
+                                print(f"Error de lectura ({parameter}):", result)
+                        except ValueError:
+                            print(f"Invalid address for {parameter}: {modbus_address}")
+                            continue
+                    print(f"Adquirido valor para {parameter}: {set_val}")
+                             
         except Exception as e:
             print("Exception:", e)
     write_modbus(1,)

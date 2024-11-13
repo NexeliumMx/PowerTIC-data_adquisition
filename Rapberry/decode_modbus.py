@@ -5,7 +5,7 @@ ser = serial.Serial(
     parity = serial.PARITY_NONE,
     stopbits = serial.STOPBITS_ONE,
     bytesize = serial.EIGHTBITS,
-    timeout=5
+    timeout=20
 )
 
 def compute_crc(data):

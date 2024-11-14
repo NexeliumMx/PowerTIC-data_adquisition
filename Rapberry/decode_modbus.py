@@ -50,9 +50,27 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
+    import struct
 
+    # Unpack the relevant bytes
+    device_address = response[0]
+    function_code = response[1]
+    byte_count = response[2]
+    data_bytes = response[3:3 + byte_count]
+    crc = response[-2:]
+
+    # Interpret the data (usually as a single 16-bit integer)
+    data_value = struct.unpack(">H", data_bytes)[0]
+
+    # Display the results
+    print(f"Device Address: {device_address}")
+    print(f"Function Code: {function_code}")
+    print(f"Byte Count: {byte_count}")
+    print(f"Data Value: {data_value}")
+    print(f"CRC: {crc.hex()}")
     # Close the serial port
     ser.close()
+    
 slave_address = 0x05
 function_code = 0x03
 

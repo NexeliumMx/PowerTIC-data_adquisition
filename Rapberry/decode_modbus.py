@@ -56,4 +56,4 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
 slave_address = 0x03
 function_code = 0x03
 
-modbus_read(slave_address=slave_address,function_code=function_code,starting_address=0x0033,quantity_of_registers=1)
+modbus_read(slave_address=slave_address,function_code=function_code,starting_address=0x0102,quantity_of_registers=1)

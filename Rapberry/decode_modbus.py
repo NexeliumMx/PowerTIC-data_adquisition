@@ -1,4 +1,5 @@
 import serial 
+import struct
 
 ser = serial.Serial(
     port = '/dev/ttyUSB1',
@@ -50,7 +51,6 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
-    import struct
 
     # Unpack the relevant bytes
     device_address = response[0]
@@ -60,7 +60,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     crc = response[-2:]
 
     # Interpret the data (usually as a single 16-bit integer)
-    data_value = struct.unpack(">H", data_bytes)[0]
+    data_value = struct.unpack(">I", data_bytes)[0]
 
     # Display the results
     print(f"Device Address: {device_address}")

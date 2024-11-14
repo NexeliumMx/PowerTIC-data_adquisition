@@ -6,7 +6,7 @@ ser = serial.Serial(
     bytesize = serial.EIGHTBITS,
     parity = serial.PARITY_NONE,
     stopbits = serial.STOPBITS_ONE,
-    timeout=20
+    timeout=5
 )
 
 def compute_crc(data):
@@ -70,7 +70,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     print(f"CRC: {crc.hex()}")
     # Close the serial port
     ser.close()
-    
+
 slave_address = 0x05
 function_code = 0x03
 

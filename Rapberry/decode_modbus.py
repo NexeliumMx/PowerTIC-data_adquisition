@@ -37,8 +37,9 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     crc_high = (crc >> 8) & 0xFF
 
     # Append CRC to the message
-    message.append(crc_low)
     message.append(crc_high)
+    message.append(crc_low)
+    
 
     print("Sent: ", message)
 
@@ -53,7 +54,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
 
     # Close the serial port
     ser.close()
-slave_address = 0x003
-function_code = 0x04
+slave_address = 0x03
+function_code = 0x03
 
 modbus_read(slave_address=slave_address,function_code=function_code,starting_address=0x0002,quantity_of_registers=1)

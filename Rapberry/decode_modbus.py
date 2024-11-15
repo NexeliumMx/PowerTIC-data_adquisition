@@ -66,14 +66,15 @@ def decode_modbus_response(response, slave_address: int):
 def modbus_multiple_read(slave_address:int):
     commands = modbus_commands()
     function_code = 0x03
+    if not ser.is_open:
+        ser.open()
     for address in commands:
         datatype = address["datatype"]
-        quantity_of_registers = address["register_length"]
-        starting_address = address["modbus_address"]
+        quantity_of_registers = int(address["register_length"])
+        starting_address = int(address["modbus_address"])
         print(address, datatype, quantity_of_registers)
 
-        # Build the message (adjusted if necessary)
-        #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|CRC16 Hi|CRC16 Lo
+        # Build the message
         message = bytearray()
         message.append(slave_address)
         message.append(function_code)
@@ -93,22 +94,19 @@ def modbus_multiple_read(slave_address:int):
         print("Sent: ", message)
 
         # Send the message over serial port
-        if not ser.is_open:
-            ser.open()
         ser.write(message)
 
         time.sleep(1)
 
         # Read the response
-        response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
+        response_length = 5 + (quantity_of_registers * 2) + 2  # Adjust length as needed
+        response = ser.read(response_length)
         print("Received:", response)
 
-        
         decode_modbus_response(response, slave_address)
 
-    # Close the serial port
+    # Close the serial port after all commands
     ser.close()
-
 slave_address = 0x05
 
 modbus_multiple_read(slave_address=slave_address)

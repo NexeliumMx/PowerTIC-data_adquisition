@@ -22,6 +22,41 @@ def compute_crc(data):
                     crc >>= 1
         return crc
 
+def decode_modbus_response(response):
+    # Extract header information
+    device_address = response[0]
+    function_code = response[1]
+    byte_count = response[2]
+    data_bytes = response[3:3 + byte_count]
+    crc = response[-2:]
+
+    # Decode data based on byte count
+    data_value = None
+    if byte_count == 2:
+        data_value = struct.unpack(">H", data_bytes)[0]  # 16-bit integer
+    elif byte_count == 4:
+        data_value = struct.unpack(">I", data_bytes)[0]  # 32-bit integer
+    elif byte_count == 8:
+        data_value = struct.unpack(">Q", data_bytes)[0]  # 64-bit integer
+    else:
+        data_value = data_bytes  # Raw bytes if size does not match standard sizes
+
+    # Display the results
+    print(f"Device Address: {device_address}")
+    print(f"Function Code: {function_code}")
+    print(f"Byte Count: {byte_count}")
+    print(f"Data Value: {data_value if isinstance(data_value, int) else data_value.hex()}")
+    print(f"CRC: {crc.hex()}")
+
+# Example usage with two different responses
+response_1 = b'\x05\x03\x02\x05\x1e\xca\xdc'  # 2 bytes of data
+response_2 = b'\x05\x03\x04\x00\x00\x00\x00\xbf\xf3'  # 4 bytes of data
+
+print("Decoding response 1:")
+decode_modbus_response(response_1)
+print("\nDecoding response 2:")
+decode_modbus_response(response_2)
+
 def modbus_read(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|CRC16 Hi|CRC16 Lo
@@ -54,22 +89,9 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
 
-    # Unpack the relevant bytes
-    device_address = response[0]
-    function_code = response[1]
-    byte_count = response[2]
-    data_bytes = response[3:3 + byte_count]
-    crc = response[-2:]
+    print("Decoding response: ")
+    decode_modbus_response(response)
 
-    # Interpret the data (usually as a single 16-bit integer)
-    data_value = struct.unpack(">I", data_bytes)[0]
-
-    # Display the results
-    print(f"Device Address: {device_address}")
-    print(f"Function Code: {function_code}")
-    print(f"Byte Count: {byte_count}")
-    print(f"Data Value: {data_value}")
-    print(f"CRC: {crc.hex()}")
     # Close the serial port
     ser.close()
 

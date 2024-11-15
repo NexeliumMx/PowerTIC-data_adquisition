@@ -24,9 +24,6 @@ def compute_crc(data):
 
 def decode_modbus_response(response, slave_address: int):
     if response != None:
-        print("No response received")
-        return
-    else:
         print("Decoding response: ")
         # Extract header information
         device_address = response[0]
@@ -34,7 +31,10 @@ def decode_modbus_response(response, slave_address: int):
         byte_count = response[2]
         data_bytes = response[3:3 + byte_count]
         crc = response[-2:]
+    else:
 
+        print("No response received")
+        return
     # Decode data based on byte count
     data_value = None
     try:

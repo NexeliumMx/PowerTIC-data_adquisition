@@ -1,6 +1,7 @@
 import serial 
 import struct
 import time
+import csv
 ser = serial.Serial(
     port = '/dev/ttyUSB1',
     baudrate=19200,
@@ -9,6 +10,10 @@ ser = serial.Serial(
     stopbits = serial.STOPBITS_ONE,
     timeout=5
 )
+def modbus_commands():
+    with open('Modbusqueries.csv', newline='') as csvfile:
+        rows = csv.DictReader(csvfile)
+    return rows
 
 def compute_crc(data):
         crc = 0xFFFF
@@ -23,6 +28,7 @@ def compute_crc(data):
         return crc
 
 def decode_modbus_response(response, slave_address: int):
+    
     if response != None:
         print("Decoding response: ")
         # Extract header information
@@ -47,7 +53,7 @@ def decode_modbus_response(response, slave_address: int):
         else:
             data_value = data_bytes  # Raw bytes if size does not match standard sizes
     except ValueError:
-        print("Communication error with meter: ", slave_address)
+        print("Error decoding data from meter: ", slave_address)
 
     # Display the results
     print(f"Device Address: {device_address}")
@@ -56,40 +62,48 @@ def decode_modbus_response(response, slave_address: int):
     print(f"Data Value: {data_value if isinstance(data_value, int) else data_value.hex()}")
     print(f"CRC: {crc.hex()}")
 
-def modbus_read(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int):
-    # Build the message (adjusted if necessary)
-    #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|CRC16 Hi|CRC16 Lo
-    message = bytearray()
-    message.append(slave_address)
-    message.append(function_code)
-    message.append((starting_address >> 8) & 0xFF)  # Starting address high byte
-    message.append(starting_address & 0xFF)          # Starting address low byte
-    message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
-    message.append(quantity_of_registers & 0xFF)         # Quantity low byte
-    # Compute CRC16 checksum
-    crc = compute_crc(message)
-    crc_low = crc & 0xFF
-    crc_high = (crc >> 8) & 0xFF
+def modbus_multiple_read(slave_address:int):
+    commands = modbus_commands()
+    function_code = 0x03
+    for address in commands:
+        datatype = address["datatype"]
+        quantity_of_registers = address["register_length"]
+        starting_address = address["modbus_address"]
+        print(address, datatype, quantity_of_registers)
 
-    # Append CRC to the message
-    message.append(crc_low)
-    message.append(crc_high)
+        # Build the message (adjusted if necessary)
+        #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|CRC16 Hi|CRC16 Lo
+        message = bytearray()
+        message.append(slave_address)
+        message.append(function_code)
+        message.append((starting_address >> 8) & 0xFF)  # Starting address high byte
+        message.append(starting_address & 0xFF)          # Starting address low byte
+        message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
+        message.append(quantity_of_registers & 0xFF)         # Quantity low byte
+        # Compute CRC16 checksum
+        crc = compute_crc(message)
+        crc_low = crc & 0xFF
+        crc_high = (crc >> 8) & 0xFF
 
-    print("Sent: ", message)
+        # Append CRC to the message
+        message.append(crc_low)
+        message.append(crc_high)
 
-    # Send the message over serial port
-    if not ser.is_open:
-        ser.open()
-    ser.write(message)
+        print("Sent: ", message)
 
-    time.sleep(1)
+        # Send the message over serial port
+        if not ser.is_open:
+            ser.open()
+        ser.write(message)
 
-    # Read the response
-    response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
-    print("Received:", response)
+        time.sleep(1)
 
-    
-    decode_modbus_response(response, slave_address)
+        # Read the response
+        response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
+        print("Received:", response)
+
+        
+        decode_modbus_response(response, slave_address)
 
     # Close the serial port
     ser.close()

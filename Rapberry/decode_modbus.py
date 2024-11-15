@@ -48,15 +48,6 @@ def decode_modbus_response(response):
     print(f"Data Value: {data_value if isinstance(data_value, int) else data_value.hex()}")
     print(f"CRC: {crc.hex()}")
 
-# Example usage with two different responses
-response_1 = b'\x05\x03\x02\x05\x1e\xca\xdc'  # 2 bytes of data
-response_2 = b'\x05\x03\x04\x00\x00\x00\x00\xbf\xf3'  # 4 bytes of data
-
-print("Decoding response 1:")
-decode_modbus_response(response_1)
-print("\nDecoding response 2:")
-decode_modbus_response(response_2)
-
 def modbus_read(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|CRC16 Hi|CRC16 Lo
@@ -98,4 +89,4 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
 slave_address = 0x05
 function_code = 0x03
 
-modbus_read(slave_address=slave_address,function_code=function_code,starting_address=0x104C,quantity_of_registers=1)
+modbus_read(slave_address=slave_address,function_code=function_code,starting_address=0x1073,quantity_of_registers=2)

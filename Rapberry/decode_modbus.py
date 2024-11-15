@@ -13,6 +13,7 @@ ser = serial.Serial(
 def modbus_commands():
     with open('Modbusqueries.csv', newline='') as csvfile:
         rows = csv.DictReader(csvfile)
+        print(rows)
     return rows
 
 def compute_crc(data):

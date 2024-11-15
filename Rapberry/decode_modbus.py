@@ -12,7 +12,8 @@ ser = serial.Serial(
 )
 def modbus_commands():
     with open('Modbusqueries.csv', newline='') as csvfile:
-        rows = csv.DictReader(csvfile)
+        reader = csv.DictReader(csvfile)
+        rows = list(reader)  # Read all rows into a list
         print(rows)
     return rows
 

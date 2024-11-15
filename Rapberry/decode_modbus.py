@@ -27,6 +27,7 @@ def decode_modbus_response(response, slave_address: int):
         print("No response received")
         return
     else:
+        print("Decoding response: ")
         # Extract header information
         device_address = response[0]
         function_code = response[1]
@@ -87,7 +88,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
 
-    print("Decoding response: ")
+    
     decode_modbus_response(response, slave_address)
 
     # Close the serial port

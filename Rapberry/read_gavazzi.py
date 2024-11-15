@@ -2,7 +2,7 @@ from pymodbus.client import ModbusSerialClient
 
 #Conexión con el medidor mediante modbus
 client = ModbusSerialClient(
-    port='/dev/ttyUSB0',
+    port='/dev/ttyUSB1',
     baudrate=19200,
     parity='N',
     stopbits=1,

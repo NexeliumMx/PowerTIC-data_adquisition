@@ -1,6 +1,6 @@
 import serial 
 import struct
-
+import time
 ser = serial.Serial(
     port = '/dev/ttyUSB1',
     baudrate=19200,
@@ -47,6 +47,8 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     if not ser.is_open:
         ser.open()
     ser.write(message)
+
+    time.sleep(1)
 
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed

@@ -22,7 +22,7 @@ def compute_crc(data):
                     crc >>= 1
         return crc
 
-def decode_modbus_response(response):
+def decode_modbus_response(response, slave_address: int):
     # Extract header information
     device_address = response[0]
     function_code = response[1]
@@ -32,14 +32,17 @@ def decode_modbus_response(response):
 
     # Decode data based on byte count
     data_value = None
-    if byte_count == 2:
-        data_value = struct.unpack(">H", data_bytes)[0]  # 16-bit integer
-    elif byte_count == 4:
-        data_value = struct.unpack(">I", data_bytes)[0]  # 32-bit integer
-    elif byte_count == 8:
-        data_value = struct.unpack(">Q", data_bytes)[0]  # 64-bit integer
-    else:
-        data_value = data_bytes  # Raw bytes if size does not match standard sizes
+    try:
+        if byte_count == 2:
+            data_value = struct.unpack(">H", data_bytes)[0]  # 16-bit integer
+        elif byte_count == 4:
+            data_value = struct.unpack(">I", data_bytes)[0]  # 32-bit integer
+        elif byte_count == 8:
+            data_value = struct.unpack(">Q", data_bytes)[0]  # 64-bit integer
+        else:
+            data_value = data_bytes  # Raw bytes if size does not match standard sizes
+    except ValueError:
+        print("Communication error with meter: ", slave_address)
 
     # Display the results
     print(f"Device Address: {device_address}")
@@ -81,7 +84,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     print("Received:", response)
 
     print("Decoding response: ")
-    decode_modbus_response(response)
+    decode_modbus_response(response, slave_address)
 
     # Close the serial port
     ser.close()

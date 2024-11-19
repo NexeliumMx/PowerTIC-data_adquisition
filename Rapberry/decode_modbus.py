@@ -14,7 +14,7 @@ def modbus_commands():
     with open('Modbusqueries.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         rows = list(reader)  # Read all rows into a list
-        print(rows)
+        #print(rows)
     return rows
 
 def compute_crc(data):

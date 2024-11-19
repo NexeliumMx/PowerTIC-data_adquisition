@@ -73,12 +73,5 @@ def write_modbus_reset(slave_address, function_code, starting_address, quantity_
     print("Received:", response)
 print("Check Seal status")
 modbus_read(slave_address=0x01,function_code=0x03,starting_address=0x101,quantity_of_registers=0x01)
-print("Modify Seal status, Communication revise authority, password")
-write_modbus(slave_address=slave_address,function_code=function_code,starting_address=starting_address, quantity_of_registers=quantity_of_registers,byte_count=byte_count,payload1=payload1,payload2=payload2,payload3=payload3)
-print("read Seal status, Communication revise authority, password status")
-modbus_read(slave_address=slave_address,function_code=0x03,starting_address=starting_address,quantity_of_registers=quantity_of_registers)
-#time.sleep(5)
-print("reset meter registers")
-write_modbus_reset(slave_address=0x1,function_code=0x10,starting_address=0x020D,quantity_of_registers=0x0001,byte_count=0x0002,payload1=0x00,payload2=0x00)
-# Close the serial port
+
 ser.close()

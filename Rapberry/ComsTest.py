@@ -333,3 +333,4 @@ def reading_meter(sn,mbdadd):
         print("Error connecting to the meter")
         return None
 
+reading_meter()

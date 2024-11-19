@@ -61,10 +61,10 @@ def meter_param(model):
                     print("--------------------------------------------------------------------------------")
                     print(row["model"]) 
                     print(model==row["model"])    
-                    if True:
-                        if row["setup"] == "t":
+                    if model==row["model"]:
+                        if row["setupRead"] == "t":
                             setup = True
-                        elif row["setup"] == "f":
+                        elif row["setupRead"] == "f":
                             setup = False
                         
                         #print(setup, type(setup))
@@ -75,14 +75,14 @@ def meter_param(model):
                             set_val = ""
                             #print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
             
-                            modbus_addresses = json.loads(row["modbus_address"])[0]
+                            modbus_addresses = row["modbus_address"]
                             #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
 
-                            if isinstance(modbus_addresses, list):
-                                for modbus_address in modbus_addresses:
+                            if row["register_length"]>1:
+                                for i in range(0,modbus_addresses):
                                     #print("Modbus Address: ", modbus_address)
                                     try:
-                                        result = client.read_holding_registers(modbus_address, 1)
+                                        result = client.read_holding_registers(modbus_address+i, 1)
                                         if not result.isError():
                                             for i in result.registers:
                                                 set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)

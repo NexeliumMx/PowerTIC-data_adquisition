@@ -1,113 +1,138 @@
-import serial 
+import serial
 import struct
 import time
 import csv
-ser = serial.Serial(
-    port = '/dev/ttyUSB1',
-    baudrate=19200,
-    bytesize = serial.EIGHTBITS,
-    parity = serial.PARITY_NONE,
-    stopbits = serial.STOPBITS_ONE,
-    timeout=5
-)
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 def modbus_commands():
     with open('Modbusqueries.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
-        rows = list(reader)  # Read all rows into a list
-        #print(rows)
+        rows = list(reader)
     return rows
 
 def compute_crc(data):
-        crc = 0xFFFF
-        for pos in data:
-            crc ^= pos
-            for _ in range(8):
-                if crc & 0x0001:
-                    crc >>= 1
-                    crc ^= 0xA001
-                else:
-                    crc >>= 1
-        return crc
+    crc = 0xFFFF
+    for pos in data:
+        crc ^= pos
+        for _ in range(8):
+            if crc & 0x0001:
+                crc >>= 1
+                crc ^= 0xA001
+            else:
+                crc >>= 1
+    return crc
 
-def decode_modbus_response(response, slave_address: int):
-    
-    if response != None:
-        print("Decoding response: ")
-        # Extract header information
-        device_address = response[0]
-        function_code = response[1]
-        byte_count = response[2]
-        data_bytes = response[3:3 + byte_count]
-        crc = response[-2:]
-    else:
-
-        print("No response received")
+def decode_modbus_response(response, slave_address: int, datatype: str):
+    if not response:
+        logger.error("No response received")
         return
-    # Decode data based on byte count
-    data_value = None
+    if len(response) < 5:
+        logger.error("Incomplete response received")
+        return
+
+    # Validate CRC
+    received_crc = response[-2:]
+    response_data = response[:-2]
+    calculated_crc = compute_crc(response_data)
+    calculated_crc_bytes = calculated_crc.to_bytes(2, byteorder='little')
+    if received_crc != calculated_crc_bytes:
+        logger.error("CRC mismatch in response")
+        return
+
+    # Extract header information
+    device_address = response[0]
+    function_code = response[1]
+
+    if device_address != slave_address:
+        logger.error(f"Unexpected device address: {device_address}")
+        return
+
+    if function_code & 0x80:
+        exception_code = response[2]
+        logger.error(f"Modbus exception code: {exception_code}")
+        return
+
+    byte_count = response[2]
+    data_bytes = response[3:-2]
+
+    # Decode data based on datatype
     try:
-        if byte_count == 2:
-            data_value = struct.unpack(">H", data_bytes)[0]  # 16-bit integer
-        elif byte_count == 4:
-            data_value = struct.unpack(">I", data_bytes)[0]  # 32-bit integer
-        elif byte_count == 8:
-            data_value = struct.unpack(">Q", data_bytes)[0]  # 64-bit integer
+        if datatype == 'float':
+            data_value = struct.unpack('>f', data_bytes)[0]
+        elif datatype == 'int':
+            data_value = struct.unpack('>i', data_bytes)[0]
+        elif datatype == 'uint':
+            data_value = struct.unpack('>I', data_bytes)[0]
         else:
-            data_value = data_bytes  # Raw bytes if size does not match standard sizes
-    except ValueError:
-        print("Error decoding data from meter: ", slave_address)
+            data_value = data_bytes  # Raw bytes
+    except struct.error as e:
+        logger.error(f"Error decoding data: {e}")
+        return
 
     # Display the results
-    print(f"Device Address: {device_address}")
-    print(f"Function Code: {function_code}")
-    print(f"Byte Count: {byte_count}")
-    print(f"Data Value: {data_value if isinstance(data_value, int) else data_value.hex()}")
-    print(f"CRC: {crc.hex()}")
+    logger.info(f"Device Address: {device_address}")
+    logger.info(f"Function Code: {function_code}")
+    logger.info(f"Byte Count: {byte_count}")
+    logger.info(f"Data Value: {data_value}")
 
-def modbus_multiple_read(slave_address:int):
+def modbus_multiple_read(slave_address: int):
     commands = modbus_commands()
     function_code = 0x03
-    if not ser.is_open:
-        ser.open()
-    for address in commands:
-        datatype = address["datatype"]
-        quantity_of_registers = int(address["register_length"])
-        starting_address = int(address["modbus_address"])
-        print(address, datatype, quantity_of_registers)
+    with serial.Serial(
+        port='/dev/ttyUSB1',
+        baudrate=19200,
+        bytesize=serial.EIGHTBITS,
+        parity=serial.PARITY_NONE,
+        stopbits=serial.STOPBITS_ONE,
+        timeout=5
+    ) as ser:
+        for address in commands:
+            datatype = address["datatype"]
+            quantity_of_registers = int(address["register_length"], 0)
+            starting_address = int(address["modbus_address"], 0)
+            logger.debug(f"Processing {address}")
 
-        # Build the message
-        message = bytearray()
-        message.append(slave_address)
-        message.append(function_code)
-        message.append((starting_address >> 8) & 0xFF)  # Starting address high byte
-        message.append(starting_address & 0xFF)          # Starting address low byte
-        message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
-        message.append(quantity_of_registers & 0xFF)         # Quantity low byte
-        # Compute CRC16 checksum
-        crc = compute_crc(message)
-        crc_low = crc & 0xFF
-        crc_high = (crc >> 8) & 0xFF
+            # Build the message
+            message = bytearray()
+            message.append(slave_address)
+            message.append(function_code)
+            message.append((starting_address >> 8) & 0xFF)
+            message.append(starting_address & 0xFF)
+            message.append((quantity_of_registers >> 8) & 0xFF)
+            message.append(quantity_of_registers & 0xFF)
 
-        # Append CRC to the message
-        message.append(crc_low)
-        message.append(crc_high)
+            # Compute CRC16 checksum
+            crc = compute_crc(message)
+            crc_low = crc & 0xFF
+            crc_high = (crc >> 8) & 0xFF
 
-        print("Sent: ", message)
+            # Append CRC to the message
+            message.append(crc_low)
+            message.append(crc_high)
 
-        # Send the message over serial port
-        ser.write(message)
+            logger.debug(f"Sent: {message.hex()}")
 
-        time.sleep(1)
+            # Send the message over serial port
+            max_retries = 3
+            for attempt in range(max_retries):
+                ser.write(message)
+                time.sleep(1)
+                response_length = 5 + (quantity_of_registers * 2) + 2
+                response = ser.read(response_length)
+                if response:
+                    logger.debug(f"Received: {response.hex()}")
+                    break
+                else:
+                    logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
+            else:
+                logger.error("Failed to get response after retries")
+                continue
 
-        # Read the response
-        response_length = 5 + (quantity_of_registers * 2) + 2  # Adjust length as needed
-        response = ser.read(response_length)
-        print("Received:", response)
+            decode_modbus_response(response, slave_address, datatype)
 
-        decode_modbus_response(response, slave_address)
-
-    # Close the serial port after all commands
-    ser.close()
-slave_address = 0x05
-
-modbus_multiple_read(slave_address=slave_address)
+if __name__ == "__main__":
+    slave_address = 0x05
+    modbus_multiple_read(slave_address=slave_address)

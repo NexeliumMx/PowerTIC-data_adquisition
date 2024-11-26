@@ -80,7 +80,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
 def modbus_multiple_read(slave_address: int):
     commands = modbus_commands()
-    print("Commands: ", commands)
+    #print("Commands: ", commands)
+    
     function_code = 0x03
     with serial.Serial(
         port='/dev/ttyUSB0',
@@ -91,6 +92,7 @@ def modbus_multiple_read(slave_address: int):
         timeout=5
     ) as ser:
         for address in commands:
+            print("Processing address: ", address)
             datatype = address["datatype"]
             quantity_of_registers = int(address["register_length"], 0)
             starting_address = int(address["modbus_address"], 0)

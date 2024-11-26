@@ -94,7 +94,7 @@ def modbus_multiple_read(slave_address: int):
         for address in commands:
             print("Processing address: ", address)
             datatype = address["data_type"]
-            quantity_of_registers = int(address["register_length"], 0)
+            quantity_of_registers = int(address["register_number"], 0)
             starting_address = int(address["modbus_address"], 0)
             logger.debug(f"Processing {address}")
 

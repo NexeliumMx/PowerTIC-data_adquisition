@@ -82,7 +82,7 @@ def modbus_multiple_read(slave_address: int):
     commands = modbus_commands()
     function_code = 0x03
     with serial.Serial(
-        port='/dev/ttyUSB1',
+        port='/dev/ttyUSB0',
         baudrate=19200,
         bytesize=serial.EIGHTBITS,
         parity=serial.PARITY_NONE,

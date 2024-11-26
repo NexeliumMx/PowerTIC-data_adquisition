@@ -80,6 +80,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
 def modbus_multiple_read(slave_address: int):
     commands = modbus_commands()
+    print("Commands: ", commands)
     function_code = 0x03
     with serial.Serial(
         port='/dev/ttyUSB0',

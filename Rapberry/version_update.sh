@@ -1,5 +1,5 @@
-rm /home/pi/MICO/PowerTIC-data_adquisition/Rapberry/File_downloads/Coms.py
+rm ./File_downloads/Coms.py
 
-python /home/pi/MICO/PowerTIC-data_adquisition/Rapberry/image_download.py
+python ./image_download.py
 
 echo "File Downloaded successfully"

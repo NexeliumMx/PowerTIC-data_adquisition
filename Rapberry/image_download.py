@@ -6,7 +6,7 @@ import os
 FUNCTION_URL = " https://power-tick-api-py.nexelium.mx/api/versioncheck?"
 
 # Local file to save the downloaded blob content
-DOWNLOAD_PATH = "/home/pi/MICO/PowerTIC-data_adquisition/Rapberry/File_downloads/Coms.py"
+DOWNLOAD_PATH = "./File_downloads/Coms.py"
 
 def post_blob_request(file_name):
     """

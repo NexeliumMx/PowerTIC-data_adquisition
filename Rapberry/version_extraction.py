@@ -65,7 +65,7 @@ def list_blob_details():
     stored_data = read_json_from_file()
     stored_version_date = None
 
-    api_url = "power-tick-api-py.nexelium.mx"
+    api_url = "power-tick-api-py.nexelium.mx/api/versioncheck?"
 
     # Call the API
     api_response = call_api(api_url)

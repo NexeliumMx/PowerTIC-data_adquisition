@@ -3,10 +3,10 @@ import json
 import os
 
 # Azure Function endpoint URL
-FUNCTION_URL = "http://192.168.68.52:7071/api/versioncheck"
+FUNCTION_URL = "power-tick-api-py.nexelium.mx"
 
 # Local file to save the downloaded blob content
-DOWNLOAD_PATH = "/Users/luissanchez/Downloads/Coms.py"
+DOWNLOAD_PATH = "/home/pi/MICO/PowerTIC-data_adquisition/Rapberry/File_downloads/Coms.py"
 
 def post_blob_request(file_name):
     """

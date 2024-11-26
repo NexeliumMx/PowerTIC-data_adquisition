@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 def modbus_commands():
-    with open('Modbusqueries.csv', newline='') as csvfile:
+    with open('modbusqueries.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         rows = list(reader)
     return rows

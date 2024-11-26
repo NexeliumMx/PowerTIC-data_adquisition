@@ -10,8 +10,15 @@ logger = logging.getLogger(__name__)
 def modbus_commands():
     with open('modbusqueries.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
-        rows = list(reader)
-    return rows
+        rows = []
+        for row in reader:
+            # Normalize key names
+            row = {key.strip().lower(): value.strip() for key, value in row.items()}
+            # Parse modbus_address if in brackets
+            if "modbus_address" in row and row["modbus_address"].startswith("[") and row["modbus_address"].endswith("]"):
+                row["modbus_address"] = row["modbus_address"][1:-1]  # Remove brackets
+            rows.append(row)
+        return rows
 
 def compute_crc(data):
     crc = 0xFFFF
@@ -80,7 +87,6 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
 def modbus_multiple_read(slave_address: int):
     commands = modbus_commands()
-    #print("Commands: ", commands)
     
     function_code = 0x03
     with serial.Serial(
@@ -92,14 +98,18 @@ def modbus_multiple_read(slave_address: int):
         timeout=5
     ) as ser:
         for address in commands:
-            print("Processing address: ", address)
-            datatype = address["data_type"]
-            quantity_of_registers = int(address["register_number"], 0)
-            print("Modbus address: ", int(address['modbus_address']), "Data type: ", type(address['modbus_address']))
-            starting_address = int(address["modbus_address"], 0)
+            logger.debug(f"Processing address: {address}")
+            try:
+                datatype = address["data_type"]
+                quantity_of_registers = int(address["register_number"], 0)
+                starting_address = int(address["modbus_address"], 0)
+            except KeyError as e:
+                logger.error(f"Missing key in address: {e}")
+                continue
+            except ValueError as e:
+                logger.error(f"Invalid value in address: {e}")
+                continue
             
-            logger.debug(f"Processing {address}")
-
             # Build the message
             message = bytearray()
             message.append(slave_address)

@@ -70,7 +70,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
         if datatype == 'string':
             # Decode as ASCII string, removing null bytes
             data_value = ''.join(chr(b) for b in data_bytes if b != 0)
-        elif datatype == 'float':
+        elif datatype == 'float' or 'Float':
             data_value = struct.unpack('>f', data_bytes)[0]
         elif datatype == 'int':
             data_value = struct.unpack('>i', data_bytes)[0]
@@ -90,7 +90,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     logger.info(f"Byte Count: {byte_count}")
     logger.info(f"Data Value: {data_value}")
 
-    
+
 def modbus_multiple_read(slave_address: int):
     commands = modbus_commands()
     

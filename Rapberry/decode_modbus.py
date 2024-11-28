@@ -67,21 +67,16 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
     # Decode data based on datatype
     try:
-        if datatype == 'uint16' or 'Uint16':
-            # Decode as a single unsigned 16-bit integer
-            """if len(data_bytes) != 2:
-                logger.error("Invalid data length for uint16")
-                return"""
-            data_value = struct.unpack('>H', data_bytes)[0]
-        elif datatype == 'string':
+        if datatype == 'string':
+            # Decode as ASCII string, removing null bytes
             data_value = ''.join(chr(b) for b in data_bytes if b != 0)
         elif datatype == 'float' or 'Float':
             data_value = struct.unpack('>f', data_bytes)[0]
         elif datatype == 'int':
             data_value = struct.unpack('>i', data_bytes)[0]
-        elif datatype == 'uint' or 'Uint':
+        elif datatype == 'uint':
             data_value = struct.unpack('>I', data_bytes)[0]
-        elif datatype == 'word':
+        elif datatype == 'word' or 'Word' or 'uint16' or 'Uint16':
             data_value = struct.unpack('>H', data_bytes)[0]
         else:
             data_value = data_bytes  # Raw bytes
@@ -94,6 +89,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     logger.info(f"Function Code: {function_code}")
     logger.info(f"Byte Count: {byte_count}")
     logger.info(f"Data Value: {data_value}")
+
 
 def modbus_multiple_read(slave_address: int):
     commands = modbus_commands()
@@ -119,10 +115,10 @@ def modbus_multiple_read(slave_address: int):
                     starting_address = modbus_address[0]
             except KeyError as e:
                 logger.error(f"Missing key in address: {e}")
-                #continue
+                continue
             except ValueError as e:
                 logger.error(f"Invalid value in address: {e}")
-                #continue
+                continue
             
             # Build the message
             message = bytearray()
@@ -157,7 +153,7 @@ def modbus_multiple_read(slave_address: int):
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
             else:
                 logger.error("Failed to get response after retries")
-                #continue
+                continue
 
             decode_modbus_response(response, slave_address, datatype)
 

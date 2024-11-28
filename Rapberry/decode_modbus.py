@@ -69,9 +69,9 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     try:
         if datatype == 'uint16' or 'Uint16':
             # Decode as a single unsigned 16-bit integer
-            if len(data_bytes) != 2:
+            """if len(data_bytes) != 2:
                 logger.error("Invalid data length for uint16")
-                return
+                return"""
             data_value = struct.unpack('>H', data_bytes)[0]
         elif datatype == 'string':
             data_value = ''.join(chr(b) for b in data_bytes if b != 0)

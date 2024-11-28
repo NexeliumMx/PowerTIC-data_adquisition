@@ -67,16 +67,21 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
     # Decode data based on datatype
     try:
-        if datatype == 'string':
-            # Decode as ASCII string, removing null bytes
+        if datatype == 'uint16':
+            # Decode as a single unsigned 16-bit integer
+            if len(data_bytes) != 2:
+                logger.error("Invalid data length for uint16")
+                return
+            data_value = struct.unpack('>H', data_bytes)[0]
+        elif datatype == 'string':
             data_value = ''.join(chr(b) for b in data_bytes if b != 0)
-        elif datatype == 'float' or 'Float':
+        elif datatype == 'float':
             data_value = struct.unpack('>f', data_bytes)[0]
         elif datatype == 'int':
             data_value = struct.unpack('>i', data_bytes)[0]
         elif datatype == 'uint':
             data_value = struct.unpack('>I', data_bytes)[0]
-        elif datatype == 'word' or 'Word' or 'uint16' or 'Uint16':
+        elif datatype == 'word':
             data_value = struct.unpack('>H', data_bytes)[0]
         else:
             data_value = data_bytes  # Raw bytes
@@ -89,7 +94,6 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     logger.info(f"Function Code: {function_code}")
     logger.info(f"Byte Count: {byte_count}")
     logger.info(f"Data Value: {data_value}")
-
 
 def modbus_multiple_read(slave_address: int):
     commands = modbus_commands()

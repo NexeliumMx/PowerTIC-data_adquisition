@@ -25,35 +25,35 @@ serial,modbus_address,parameter_description,standard,data_type,data_range,model,
 68,"[[4232, 4233]]",total_va_hours_imported_phase_b,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,t,f,f
 69,"[[4234, 4235]]",total_va_hours_imported_phase_c,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,t,f,f
 87,"[[5634, 5636]]",Input_active_power_total_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
-88,"[[5637, 5638]]",Input_active_power_rate1_max_demand_and_occur_time,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+88,"[[5637, 5638]]",Input_active_power_rate1_max_demand_and_occur_time,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 89,"[[5639, 5641]]",Input_active_power_rate1_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
 1,"[[4148, 4149, 4150, 4151, 4152, 4153, 4154, 4155]]",serial_number,Acurev 1300,string,Manufacturer specific value (32 chars),"[1, 4]",NULL,16,f,t,f
-2,"[[4096, 4097]]",sunspec_id,sunspec,uint16,0x53756e53,"[1, 4]",1,2,f,t,f
-3,[4098],id,Acurev 1300,uint16,1,"[1, 4]",1,1,f,t,f
-4,[4099],lenth,Acurev 1300,uint16,65,"[1, 4]",65,1,f,f,f
+2,"[[4096, 4097]]",sunspec_id,sunspec,Uint16,0x53756e53,"[1, 4]",1,2,f,t,f
+3,[4098],id,Acurev 1300,Uint16,1,"[1, 4]",1,1,f,t,f
+4,[4099],lenth,Acurev 1300,Uint16,65,"[1, 4]",65,1,f,f,f
 5,"[[4100, 4101, 4102, 4103, 4104, 4105, 4106, 4107]]",manufacturer,Acurev 1300,string,Well known value registered with SunSpec for compliance,"[1, 4]",Accuenergy,16,f,t,f
 6,"[[4116, 4117, 4118, 4119, 4120, 4121, 4122, 4123]]",model,Acurev 1300,string,Manufacturer specific value (32 chars),"[1, 4]",AcuRev1300,16,f,t,f
-90,"[[5642, 5643]]",Input_active_power_rate2_max_demand_and_occur_time,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+90,"[[5642, 5643]]",Input_active_power_rate2_max_demand_and_occur_time,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 91,"[[5644, 5646]]",Input_active_power_rate2_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
-92,"[[5647, 5648]]",Input_active_power_rate3_max_demand_and_occur_time,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+92,"[[5647, 5648]]",Input_active_power_rate3_max_demand_and_occur_time,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 93,"[[5649, 5651]]",Input_active_power_rate3_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
-94,"[[5652, 5653]]",Input_active_power_rate4_max_demand_and_occur_time,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+94,"[[5652, 5653]]",Input_active_power_rate4_max_demand_and_occur_time,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 95,"[[5654, 5656]]",Input_active_power_rate4_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
-96,"[[5657, 5658]]",output_active_power_total_max_demand,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+96,"[[5657, 5658]]",output_active_power_total_max_demand,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 97,"[[5659, 5661]]",output_active_power_total_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
-98,"[[5662, 5663]]",output_active_power_rate1_max_demand ,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+98,"[[5662, 5663]]",output_active_power_rate1_max_demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 99,"[[5664, 5666]]",output_active_power_rate1_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
-100,"[[5667, 5668]]",output_active_power_rate2_max_demand ,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+100,"[[5667, 5668]]",output_active_power_rate2_max_demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 101,"[[5669, 5671]]",output_active_power_rate2_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
-102,"[[5672, 5673]]",output_active_power_rate3_max_demand ,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+102,"[[5672, 5673]]",output_active_power_rate3_max_demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 103,"[[5674, 5676]]",output_active_power_rate3_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
-104,"[[5677, 5678]]",output_active_power_rate4_max_demand ,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+104,"[[5677, 5678]]",output_active_power_rate4_max_demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
 105,"[[5679, 5681]]",output_active_power_rate4_max_demand_occur_time,none,Dword,YYMMDDhhmmss (Second always be 0),"3,4",none,3,t,f,f
 7,"[[4132, 4133, 4134, 4135, 4136, 4137, 4138, 4139]]",options,Acurev 1300,string,Manufacturer specific value (16 chars),"[1, 4]",AcuRev130X,8,f,f,f
 8,"[[4140, 4141, 4142, 4143, 4144, 4145, 4146, 4147]]",version,Acurev 1300,string,Manufacturer specific value (16 chars),"[1, 4]",H:1.10 S:1.01,8,f,t,f
 9,[4164],device_address,Acurev 1300,uint16,Modbus device address,"[1, 4]",NULL,1,f,f,f
-10,[4165],id,Acurev 1300,uint16,Meter (Single Phase) single phase (AN or AB) meter --201 split single phase (ABN) meter â€“202 wye-connect three phase (abcn) meterâ€”203 delta-connect three phase (abc) meter --204,"[1, 4]",NULL,1,f,f,f
-11,[4166],lenth,Acurev 1300,uint16,105,"[1, 4]",NULL,1,f,f,f
+10,[4165],id,Acurev 1300,Uint16,Meter (Single Phase) single phase (AN or AB) meter --201 split single phase (ABN) meter â€“202 wye-connect three phase (abcn) meterâ€”203 delta-connect three phase (abc) meter --204,"[1, 4]",NULL,1,f,f,f
+11,[4166],lenth,Acurev 1300,Uint16,105,"[1, 4]",NULL,1,f,f,f
 12,[4171],current_scale_factor,sunspec,sunssf,-3~+5 (used as exponent of a power of 10),"[1, 4]",NULL,1,f,f,f
 13,[4180],voltage_scale_factor,sunspec,sunssf,-2~2,"[1, 4]",NULL,1,f,f,f
 14,[4182],frequency_scale_factor,Acurev 1300,sunssf,-2,"[1, 4]",NULL,1,f,f,f
@@ -109,4 +109,4 @@ serial,modbus_address,parameter_description,standard,data_type,data_range,model,
 83,"[[4263, 4264]]",total_var_hours_exported_q4_phase_a,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,t,f,f
 84,"[[4265, 4266]]",total_var_hours_exported_q4_phase_b,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,t,f,f
 85,"[[4267, 4268]]",total_var_hours_exported_q4_phase_c,sunspec,acc32,"[0, 999999999]","[2, 4]",NULL,2,t,f,f
-86,"[[5632, 5633]]",Input_active_power_total_max_demand ,none,float ,Xx.xxxx kw ,"3,4",none,2,t,f,f
+86,"[[5632, 5633]]",Input_active_power_total_max_demand ,none,Float ,Xx.xxxx kw ,"3,4",none,2,t,f,f

@@ -104,7 +104,11 @@ def modbus_multiple_read(slave_address: int):
             try:
                 datatype = address["data_type"]
                 quantity_of_registers = int(address["register_number"], 0)
-                starting_address = int(address["modbus_address"], 0)
+                modbus_address= eval(address["modbus_address"])
+                if not isinstance(modbus_address, list):
+                    starting_address = modbus_address
+                elif isinstance(modbus_address, list):
+                    starting_address = modbus_address[0]
             except KeyError as e:
                 logger.error(f"Missing key in address: {e}")
                 continue

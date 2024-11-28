@@ -119,10 +119,10 @@ def modbus_multiple_read(slave_address: int):
                     starting_address = modbus_address[0]
             except KeyError as e:
                 logger.error(f"Missing key in address: {e}")
-                continue
+                #continue
             except ValueError as e:
                 logger.error(f"Invalid value in address: {e}")
-                continue
+                #continue
             
             # Build the message
             message = bytearray()
@@ -157,7 +157,7 @@ def modbus_multiple_read(slave_address: int):
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
             else:
                 logger.error("Failed to get response after retries")
-                continue
+                #continue
 
             decode_modbus_response(response, slave_address, datatype)
 

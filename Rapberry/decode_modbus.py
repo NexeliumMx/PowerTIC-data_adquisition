@@ -140,7 +140,6 @@ def modbus_multiple_read(slave_address: int):
             max_retries = 3
             for attempt in range(max_retries):
                 ser.write(message)
-                time.sleep(1)
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:

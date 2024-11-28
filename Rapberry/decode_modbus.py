@@ -64,6 +64,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
     byte_count = response[2]
     data_bytes = response[3:-2]
+    print("Raw data bytes: ", data_bytes)
 
     # Decode data based on datatype
     try:

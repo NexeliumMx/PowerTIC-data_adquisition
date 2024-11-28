@@ -71,13 +71,13 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
     # Decode data based on datatype
     try:
-        if datatype == 'word' or 'Word':
+        if datatype == 'float' or 'Float':
+            data_value = struct.unpack('>f', data_bytes)[0]
+        elif datatype == 'word' or 'Word':
             if len(data_bytes) != 2:
                 logger.error("Invalid data length for word")
                 return
             data_value = struct.unpack('>H', data_bytes)[0]  # Unsigned 16-bit integer
-        elif datatype == 'float' or 'Float':
-            data_value = struct.unpack('>f', data_bytes)[0]
         elif datatype == 'int':
             data_value = struct.unpack('>i', data_bytes)[0]
         elif datatype == 'uint':

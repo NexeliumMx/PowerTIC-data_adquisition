@@ -76,7 +76,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>i', data_bytes)[0]
         elif datatype == 'uint':
             data_value = struct.unpack('>I', data_bytes)[0]
-        elif datatype == 'word':
+        elif datatype == 'word' or 'Word' or 'uint16' or 'Uint16':
             data_value = struct.unpack('>H', data_bytes)[0]
         else:
             data_value = data_bytes  # Raw bytes

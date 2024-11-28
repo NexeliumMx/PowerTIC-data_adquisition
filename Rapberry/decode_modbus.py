@@ -76,8 +76,13 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
         elif datatype == 'word':
             data_value = struct.unpack('>H', data_bytes)[0]
         elif datatype == 'string':
-            data_value = struct.unpack('>H', data_bytes)[0]
-            data_value = data_value.replace('\x00', '')
+            try:
+                data_value = ''.join(chr(b) for b in data_bytes if b > 0)  # Skip null characters
+                data_value = data_value.replace('\x00', '')
+                return
+            except Exception as e:
+                logger.error(f"Error decoding string: {e}")
+                return
         else:
             data_value = data_bytes  # Raw bytes
 

@@ -67,7 +67,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
     # Decode data based on datatype
     try:
-        if datatype == 'uint16':
+        if datatype == 'uint16' or 'Uint16':
             # Decode as a single unsigned 16-bit integer
             if len(data_bytes) != 2:
                 logger.error("Invalid data length for uint16")
@@ -75,11 +75,11 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>H', data_bytes)[0]
         elif datatype == 'string':
             data_value = ''.join(chr(b) for b in data_bytes if b != 0)
-        elif datatype == 'float':
+        elif datatype == 'float' or 'Float':
             data_value = struct.unpack('>f', data_bytes)[0]
         elif datatype == 'int':
             data_value = struct.unpack('>i', data_bytes)[0]
-        elif datatype == 'uint':
+        elif datatype == 'uint' or 'Uint':
             data_value = struct.unpack('>I', data_bytes)[0]
         elif datatype == 'word':
             data_value = struct.unpack('>H', data_bytes)[0]

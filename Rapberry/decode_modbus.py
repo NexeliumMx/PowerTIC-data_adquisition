@@ -97,7 +97,7 @@ def modbus_multiple_read(slave_address: int):
         bytesize=serial.EIGHTBITS,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
-        timeout=5
+        timeout=1
     ) as ser:
         for address in commands:
             logger.debug(f"Processing address: {address}")

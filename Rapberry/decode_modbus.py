@@ -84,12 +84,17 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     try:
         if datatype.lower() == 'float':
             if len(data_bytes) < 4:
-                logger.error("Invalid data length for float")
+                logger.error("Invalid data length for float-----------------------------")
                 return
             data_value = struct.unpack('>f', bytes(data_bytes[:4]))[0]
         elif datatype.lower() == 'word':
             if len(data_bytes) < 2:
-                logger.error("Invalid data length for word")
+                logger.error("Invalid data length for word---------------------------------")
+                return
+            data_value = struct.unpack('>H', bytes(data_bytes[:2]))[0]
+        elif datatype.lower() == 'Uint16' or 'uint16':
+            if len(data_bytes) > 2:
+                logger.error("Invalid data length for Uint16-----------------------------")
                 return
             data_value = struct.unpack('>H', bytes(data_bytes[:2]))[0]
         elif datatype.lower() == 'int':

@@ -101,8 +101,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
         return
 
     # Display the results
-    logger.info(f"Device Address: {device_address}")
-    logger.info(f"Function Code: {function_code}")
+    #logger.info(f"Device Address: {device_address}")
+    #logger.info(f"Function Code: {function_code}")
     logger.info(f"Byte Count: {byte_count}")
     logger.info(f"Data Value: {data_value}")
 
@@ -119,8 +119,10 @@ def modbus_multiple_read(slave_address: int):
         timeout=0.1
     ) as ser:
         for address in commands:
-            logger.debug(f"Processing address: {address}")
+            #logger.debug(f"Processing address: {address}")
             try:
+                Parameter = address['parameter_description']
+                print("Parameter: ", Parameter)
                 datatype = address["data_type"]
                 quantity_of_registers = int(address["register_number"], 0)
                 modbus_address = eval(address["modbus_address"])

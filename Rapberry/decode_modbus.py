@@ -1,27 +1,36 @@
 import serial
 import struct
-import time
 import csv
 import logging
 import numpy as np
 
+# Configure logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 def modbus_commands():
-    with open('modbusqueries.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        rows = []
-        for row in reader:
-            # Normalize key names
-            row = {key.strip().lower(): value.strip() for key, value in row.items()}
-            # Parse modbus_address if in brackets
-            if "modbus_address" in row and row["modbus_address"].startswith("[") and row["modbus_address"].endswith("]"):
-                row["modbus_address"] = row["modbus_address"][1:-1]  # Remove brackets
-            rows.append(row)
-        return rows
+    """Read Modbus commands from a CSV file."""
+    try:
+        with open('modbusqueries.csv', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            rows = []
+            for row in reader:
+                # Normalize key names and handle missing keys
+                row = {key.strip().lower(): value.strip() for key, value in row.items() if key and value}
+                # Parse modbus_address if in brackets
+                if "modbus_address" in row and row["modbus_address"].startswith("[") and row["modbus_address"].endswith("]"):
+                    row["modbus_address"] = row["modbus_address"][1:-1]  # Remove brackets
+                rows.append(row)
+            return rows
+    except FileNotFoundError as e:
+        logger.error(f"CSV file not found: {e}")
+        return []
+    except Exception as e:
+        logger.error(f"Error reading CSV file: {e}")
+        return []
 
 def compute_crc(data):
+    """Compute CRC-16 for Modbus."""
     crc = 0xFFFF
     for pos in data:
         crc ^= pos
@@ -34,6 +43,7 @@ def compute_crc(data):
     return crc
 
 def decode_modbus_response(response, slave_address: int, datatype: str):
+    """Decode a Modbus response based on the specified data type."""
     if not response:
         logger.error("No response received")
         return
@@ -87,10 +97,10 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 logger.error("Invalid data length for int")
                 return
             data_value = struct.unpack('>i', bytes(data_bytes[:4]))[0]
-        elif datatype.lower() == 'int16' or 'sunssf':
+        elif datatype.lower() in ['int16', 'sunssf']:
             if len(data_bytes) != 2:
                 raise ValueError("int16 requires exactly 2 bytes of data")
-            data_value = struct.unpack('>h', bytes(data_bytes[:2]))[0]            
+            data_value = struct.unpack('>h', bytes(data_bytes[:2]))[0]
         elif datatype.lower() == 'uint':
             if len(data_bytes) < 4:
                 logger.error("Invalid data length for uint")
@@ -104,48 +114,43 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>I', bytes(data_bytes[:4]))[0]
         else:
             data_value = data_bytes  # Raw bytes
-            logger.debug("--------------- not processed data----------------")
+            logger.debug("Unprocessed data")
     except struct.error as e:
         logger.error(f"Error decoding data: {e}")
         return
 
     # Display the results
-    #logger.info(f"Device Address: {device_address}")
-    #logger.info(f"Function Code: {function_code}")
     logger.info(f"Byte Count: {byte_count}")
     logger.info(f"Data Value: {data_value}")
 
 def modbus_multiple_read(slave_address: int):
+    """Perform multiple Modbus reads based on commands from the CSV file."""
     commands = modbus_commands()
-    
-    function_code = 0x03
+    function_code = 0x03  # Read holding registers
+
     with serial.Serial(
         port='/dev/ttyUSB0',
         baudrate=19200,
         bytesize=serial.EIGHTBITS,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
-        timeout=0.1
+        timeout=0.05
     ) as ser:
         for address in commands:
-            #logger.debug(f"Processing address: {address}")
             try:
-                Parameter = address['parameter_description']
-                print("Parameter: ", Parameter)
-                datatype = address["data_type"]
-                quantity_of_registers = int(address["register_number"], 0)
+                parameter = address.get('parameter_description', 'Unknown')
+                logger.info(f"Parameter: {parameter}")
+                datatype = address.get("data_type", "raw")
+                quantity_of_registers = int(address.get("register_number", "0"), 0)
                 modbus_address = eval(address["modbus_address"])
-                if not isinstance(modbus_address, list):
-                    starting_address = modbus_address
-                elif isinstance(modbus_address, list):
-                    starting_address = modbus_address[0]
+                starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
             except KeyError as e:
                 logger.error(f"Missing key in address: {e}")
                 continue
             except ValueError as e:
                 logger.error(f"Invalid value in address: {e}")
                 continue
-            
+
             # Build the message
             message = bytearray()
             message.append(slave_address)
@@ -184,5 +189,8 @@ def modbus_multiple_read(slave_address: int):
             decode_modbus_response(response, slave_address, datatype)
 
 if __name__ == "__main__":
-    slave_address = 0x05
-    modbus_multiple_read(slave_address=slave_address)
+    try:
+        slave_address = 0x05
+        modbus_multiple_read(slave_address=slave_address)
+    except Exception as e:
+        logger.error(f"Unhandled exception: {e}")

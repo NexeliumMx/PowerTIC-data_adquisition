@@ -117,3 +117,5 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
+
+write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload=0x0000)

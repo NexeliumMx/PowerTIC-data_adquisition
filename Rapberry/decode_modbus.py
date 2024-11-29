@@ -75,7 +75,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     try:
 
         if datatype == 'float' or 'Float':
-            data_value = float(struct.unpack('>f', float((data_bytes)[0])))
+            data_value = float(struct.unpack('>f', bytes((data_bytes)[0])))
         elif datatype == 'word' or 'Word':
             if len(data_bytes) != 2:
                 logger.error("Invalid data length for word")

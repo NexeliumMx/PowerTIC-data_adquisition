@@ -3,6 +3,8 @@ import struct
 import time
 import csv
 import logging
+import numpy as np
+
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -71,19 +73,20 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
     # Decode data based on datatype
     try:
+
         if datatype == 'float' or 'Float':
-            data_value = struct.unpack('>f', data_bytes)[0]
+            data_value = float(struct.unpack('>f', data_bytes)[0])
         elif datatype == 'word' or 'Word':
             if len(data_bytes) != 2:
                 logger.error("Invalid data length for word")
                 return
-            data_value = struct.unpack('>H', data_bytes)[0]  # Unsigned 16-bit integer
+            data_value = str(struct.unpack('>H', data_bytes)[0])  # Unsigned 16-bit integer
         elif datatype == 'int':
-            data_value = struct.unpack('>i', data_bytes)[0]
+            data_value = int(struct.unpack('>i', data_bytes)[0])
         elif datatype == 'uint':
-            data_value = struct.unpack('>I', data_bytes)[0]
+            data_value = np.uint32(struct.unpack('>I', data_bytes)[0])
         elif datatype == 'string':
-            data_value = ''.join(chr(b) for b in data_bytes if b != 0)
+            data_value = str(''.join(chr(b) for b in data_bytes if b != 0))
         else:
             data_value = data_bytes  # Raw bytes
     except struct.error as e:

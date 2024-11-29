@@ -115,7 +115,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
         elif datatype.lower() == 'Dword' or 'dword':
             """if len(data_bytes) != 4:
                 raise ValueError("dword data length invalid---------------------------")"""
-            if len(data_bytes) == 3:
+            if len(data_bytes) == 6:
                 logger.debug("----------------timestamp detected----------------")
             data_value = struct.unpack('>I', bytes(data_bytes[:4]))[0]
         else:

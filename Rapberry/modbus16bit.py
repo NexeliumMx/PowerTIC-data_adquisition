@@ -130,7 +130,7 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
 
 #current transform set
 #read
-modbus_read(slave_address=0x05,function_code=0x03,starting_address=0x212,quantity_of_registers=0x0001)
+#modbus_read(slave_address=0x05,function_code=0x03,starting_address=0x212,quantity_of_registers=0x0001)
 write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x0212,quantity_of_registers=0x0001,byte_count=0x0002,payload=[0x00C8])
 # Close the serial port
 ser.close()

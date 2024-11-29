@@ -61,7 +61,7 @@ serial,modbus_address,parameter_description,standard,data_type,data_range,model,
 16,[4192],apparent_power_scale_factor,sunspec,sunssf,0 ~ 4,"[1, 4]",NULL,1,f,f,f
 17,[4197],reactive_power_scale_factor,sunspec,sunssf,0 ~ 4,"[1, 4]",NULL,1,f,f,f
 18,[4202],power_factor_scale_factor,sunspec,sunssf,-3,"[1, 4]",NULL,1,f,f,f
-19,[4219],totwh_sf,sunspec,sunssf,-3 ~ 0,"[1, 4]",NULL,1,f,f,f
+19,[4219],totwh_sf,sunspec,acc32,-3 ~ 0,"[1, 4]",NULL,1,f,f,f
 20,[4236],totvah_sf_sunspec,sunspec,sunssf,-3 ~ 0,"[2, 4]",NULL,1,f,f,f
 21,[4269],totvarh_sf,sunspec,0,NULL,"[2, 4]",NULL,1,f,f,f
 22,"[[4270, 4271]]",meter_event_flags,0,bitfield32,0,"[1, 4]",0,2,f,f,f

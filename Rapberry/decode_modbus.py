@@ -113,8 +113,10 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 raise ValueError("ACC32 data length invalid---------------------------")
             data_value = struct.unpack('>I', bytes(data_bytes[:4]))[0]
         elif datatype.lower() == 'Dword' or 'dword':
-            if len(data_bytes) != 4:
-                raise ValueError("dword data length invalid---------------------------")
+            """if len(data_bytes) != 4:
+                raise ValueError("dword data length invalid---------------------------")"""
+            if len(data_bytes) == 3:
+                logger.debug("----------------timestamp detected----------------")
             data_value = struct.unpack('>I', bytes(data_bytes[:4]))[0]
         else:
             data_value = data_bytes  # Raw bytes

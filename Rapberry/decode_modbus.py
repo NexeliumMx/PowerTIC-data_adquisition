@@ -114,7 +114,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>I', bytes(data_bytes[:4]))[0]
         else:
             data_value = data_bytes  # Raw bytes
-            logger.debug("Unprocessed data")
+            logger.debug("--------------------Unprocessed data------------------")
     except struct.error as e:
         logger.error(f"Error decoding data: {e}")
         return

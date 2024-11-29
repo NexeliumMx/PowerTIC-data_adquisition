@@ -99,7 +99,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() == 'int':
             if len(data_bytes) < 4:
-                logger.error("Invalid data length for int------------------------------------")
+                logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
                 return
             data_value = struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() in ['int16', 'sunssf']:

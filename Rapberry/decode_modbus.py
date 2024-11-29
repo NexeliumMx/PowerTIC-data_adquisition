@@ -94,23 +94,27 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>H', bytes(data_bytes[:2]))[0]
         elif datatype.lower() == 'int':
             if len(data_bytes) < 4:
-                logger.error("Invalid data length for int")
+                logger.error("Invalid data length for int-------------------------------")
                 return
             data_value = struct.unpack('>i', bytes(data_bytes[:4]))[0]
         elif datatype.lower() in ['int16', 'sunssf']:
             if len(data_bytes) != 2:
-                raise ValueError("int16 requires exactly 2 bytes of data")
+                raise ValueError("int16 requires exactly 2 bytes of data----------------")
             data_value = struct.unpack('>h', bytes(data_bytes[:2]))[0]
         elif datatype.lower() == 'uint':
             if len(data_bytes) < 4:
-                logger.error("Invalid data length for uint")
+                logger.error("Invalid data length for uint---------------------------")
                 return
             data_value = struct.unpack('>I', bytes(data_bytes[:4]))[0]
         elif datatype.lower() == 'string':
             data_value = ''.join(chr(b) for b in data_bytes if b != 0)
         elif datatype.lower() == 'acc32':
             if len(data_bytes) != 4:
-                raise ValueError("ACC32 data length invalid")
+                raise ValueError("ACC32 data length invalid---------------------------")
+            data_value = struct.unpack('>I', bytes(data_bytes[:4]))[0]
+        elif datatype.lower() == 'Dword' or 'dword':
+            if len(data_bytes) != 4:
+                raise ValueError("dword data length invalid---------------------------")
             data_value = struct.unpack('>I', bytes(data_bytes[:4]))[0]
         else:
             data_value = data_bytes  # Raw bytes

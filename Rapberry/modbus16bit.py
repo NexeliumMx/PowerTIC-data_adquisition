@@ -86,7 +86,7 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
 
-"""def write_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload1:int, payload2:int, payload3:int,payload4:int,payload5:int):
+def write_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload1:int, payload2:int, payload3:int,payload4:int,payload5:int):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
     message = bytearray()
@@ -124,11 +124,11 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
 
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
-    print("Received:", response)"""
+    print("Received:", response)
 #Reset meter attempt
 #write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload1=0x0000,payload2=0x0000,payload3=0x0000,payload4=0x0000,payload5=0x0000)
 
 #current transform set
 #read
 modbus_read(slave_address=0x05,function_code=0x03,starting_address=0x213,quantity_of_registers=0x0001)
-write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x213,quantity_of_registers=0x0001,byte_count=0x0002,payload1=0x07D0)
+write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x213,quantity_of_registers=0x0001,byte_count=0x0002,payload=0x07D0)

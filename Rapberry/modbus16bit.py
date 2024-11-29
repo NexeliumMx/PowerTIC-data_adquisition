@@ -52,7 +52,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     print("Received:", response)
 
     # Close the serial port
-    ser.close()
+    #ser.close()
 def write_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload:list):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
@@ -132,3 +132,5 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
 #read
 modbus_read(slave_address=0x05,function_code=0x03,starting_address=0x213,quantity_of_registers=0x0001)
 write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x213,quantity_of_registers=0x0001,byte_count=0x0002,payload=[0x07D0])
+# Close the serial port
+ser.close()

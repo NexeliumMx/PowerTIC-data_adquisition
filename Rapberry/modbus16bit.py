@@ -86,7 +86,7 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
 
-def write_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload:int):
+def write_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload1:int, payload2:int, payload3:int,payload4:int,payload5:int):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
     message = bytearray()
@@ -97,8 +97,16 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
     message.append((quantity_of_registers >> 8) & 0xFF)  # Quantity high byte
     message.append(quantity_of_registers & 0xFF)         # Quantity low byte
     message.append(byte_count)  
-    message.append((payload>> 8) & 0xFF)                # Payload 1  high
-    message.append(payload& 0xFF)
+    message.append((payload1>> 8) & 0xFF)                # Payload 1  high
+    message.append(payload1& 0xFF)
+    message.append((payload2>> 8) & 0xFF)                # Payload 1  high
+    message.append(payload2& 0xFF)
+    message.append((payload3>> 8) & 0xFF)                # Payload 1  high
+    message.append(payload3& 0xFF)
+    message.append((payload4>> 8) & 0xFF)                # Payload 1  high
+    message.append(payload4& 0xFF)
+    message.append((payload5>> 8) & 0xFF)                # Payload 1  high
+    message.append(payload5& 0xFF)
     
     # Compute CRC16 checksum
     crc = compute_crc(message)
@@ -118,4 +126,4 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
 
-write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload=0x0000)
+write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload1=0x0000,payload2=0x0000,payload3=0x0000,payload4=0x0000,payload5=0x0000)

@@ -93,7 +93,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() in ['uint16', 'Uint16']:
-            if len(data_bytes) != 2:
+            if len(data_bytes) > 2:
                 logger.error("Invalid data length for uint16------------------------------------")
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]

@@ -75,18 +75,18 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     try:
 
         if datatype == 'float' or 'Float':
-            data_value = float(struct.unpack('>f', data_bytes)[0])
+            data_value = float(struct.unpack('>f', float(data_bytes))[0])
         elif datatype == 'word' or 'Word':
             if len(data_bytes) != 2:
                 logger.error("Invalid data length for word")
                 return
-            data_value = str(struct.unpack('>H', data_bytes)[0])  # Unsigned 16-bit integer
+            data_value = str(struct.unpack('>H', str(data_bytes))[0])  # Unsigned 16-bit integer
         elif datatype == 'int':
-            data_value = int(struct.unpack('>i', data_bytes)[0])
+            data_value = int(struct.unpack('>i', int(data_bytes))[0])
         elif datatype == 'uint':
-            data_value = np.uint32(struct.unpack('>I', data_bytes)[0])
+            data_value = np.uint32(struct.unpack('>I', np.uint32(data_bytes))[0])
         elif datatype == 'string':
-            data_value = str(''.join(chr(b) for b in data_bytes if b != 0))
+            data_value = str(''.join(chr(b) for b in str(data_bytes) if b != 0))
         else:
             data_value = data_bytes  # Raw bytes
     except struct.error as e:

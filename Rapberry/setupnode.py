@@ -5,6 +5,7 @@ import requests
 from ComsTest import meter_param
 import random
 from initialwrittenconfig import initialaddres,ctvtsetup
+import ast
 def initialize():
     direction=[]
     laa=240
@@ -19,7 +20,7 @@ def initialize():
             print("Invalid input")    
     a=open(rf'vals/supported_models.json')
     print((a.read()))
-    models= json.load(a)
+    models= ast.literal_eval(a)
     for i in range(0,meternum):
         print("Supported models: ")
         for j in range(1,len(models)+1):

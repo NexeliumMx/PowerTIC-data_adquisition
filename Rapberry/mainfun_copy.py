@@ -28,7 +28,6 @@ else:
     r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
     f=open(r"vals/supported_models.json","w")
     a=r.json()
-    print(a)
     json.dump(a,f)
 if not os.path.exists(r'vals/set_up.txt'):
     initialize()

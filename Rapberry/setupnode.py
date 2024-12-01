@@ -63,7 +63,7 @@ def initialize(models):
                     print(direction)
                     return None
                 
-                
+        print("llegue")
         temp["ct"]=int(10*float(input("Current Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
         temp["vt"]=int(10*float(input("Voltage Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
         ctvtsetup(temp["model"],temp["ct"],temp["vt"])

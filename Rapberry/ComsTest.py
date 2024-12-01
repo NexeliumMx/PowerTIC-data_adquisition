@@ -332,5 +332,3 @@ def reading_meter(sn,mbdadd,model):
     else:
         print("Error connecting to the meter")
         return None
-
-reading_meter()

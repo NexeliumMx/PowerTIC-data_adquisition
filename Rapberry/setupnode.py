@@ -20,7 +20,7 @@ def initialize():
             print("Invalid input")    
     a=open(r"vals/supported_models.json")
     print((a.readline(0)))
-    models= list(map(json.loads, f))
+    models= list(map(json.loads, a))
     for i in range(0,meternum):
         print("Supported models: ")
         for j in range(1,len(models)+1):

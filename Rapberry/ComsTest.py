@@ -62,6 +62,7 @@ def meter_param(model,mbdadd):
                     print(row["model"]) 
                     print(model==row["model"])    
                     if model==row["model"]:
+                        print('aqui')
                         if row["setupRead"] == "t":
                             setup = True
                         elif row["setupRead"] == "f":

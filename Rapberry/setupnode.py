@@ -7,8 +7,8 @@ import random
 from initialwrittenconfig import initialaddres,ctvtsetup
 import ast
 def initialize():
-    sm=open(r'vals/supported_models.json','r')
-    print((sm.read()))
+    sm=open(r'vals/supported_models.json','+r')
+    print((sm))
     models=ast.literal_eval(sm.read())
     direction=[]
     laa=240

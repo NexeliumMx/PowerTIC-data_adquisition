@@ -77,7 +77,8 @@ def meter_param(model,mbdadd):
             
                             modbus_addresses = row["modbus_address"]
                             #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
-
+                            print(row["register_length"])
+                            print('aqui')
                             if int(row["register_length"])>1:
                                 for i in range(0,int(row["register_length"])):
                                     #print("Modbus Address: ", modbus_address)

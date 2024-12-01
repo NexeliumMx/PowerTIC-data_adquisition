@@ -80,5 +80,4 @@ def initialize():
     print(temp)
     f=open(fr"vals/meters/setup.txt","x")
     json.dump(direction.append(laa),f)
-    print(temp)
-initialize()                
+    print(temp)           

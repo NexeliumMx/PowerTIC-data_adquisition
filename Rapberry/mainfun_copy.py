@@ -22,7 +22,7 @@ if not os.path.exists(r"vals/supported_models.json"):
     r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
     a=r.json()
     print(a)
-    f=open(r"vals/supported_models.json","x")
+    f=open(r"vals/supported_models.json","w")
     f.write(str(a))
     print(str(a))
     f.close()

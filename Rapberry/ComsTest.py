@@ -79,7 +79,7 @@ def meter_param(model,mbdadd):
                             #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
 
                             if int(row["register_length"])>1:
-                                for i in range(0,modbus_addresses):
+                                for i in range(0,int(row["register_length"])):
                                     #print("Modbus Address: ", modbus_address)
                                     try:
                                         result = client.read_holding_registers(modbus_address+i, mbdadd)

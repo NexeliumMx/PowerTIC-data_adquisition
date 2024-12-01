@@ -12,8 +12,8 @@ def initialaddres(model,addrs):
         try:
             for row in rows: 
                 print(row)
-                print(row["parameter_description"],row["modbus_address"])      
-                print(row["setup"],type(row["setup"]), bool(row["setup"]),type(bool(row["setup"])) )
+                print(row["parameter"],row["modbus_address"])      
+                print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["setupRead"])) )
                 print("--------------------------------------------------------------------------------")
                 print(row["model"]) 
                 print(model==row["model"])    
@@ -64,7 +64,7 @@ def ctvtsetup(model,mbdadd,ct,vt):
             for row in rows: 
                 print(row)
                 print(row["parameter"],row["modbus_address"])      
-                print(row["setup"],type(row["setup"]), bool(row["setup"]),type(bool(row["setup"])) )
+                print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["setupRead"])) )
                 print("--------------------------------------------------------------------------------")
                 print(row["model"]) 
                 print(model==row["model"])    

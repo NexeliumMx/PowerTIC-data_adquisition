@@ -38,7 +38,7 @@ def initialize(models):
             if (((tempadd not in direction) and tempadd!= 1) and tempadd<245):
                 temp["address"]=tempadd
                 direction.append(tempadd)
-                initialaddres(temp["model"],tempadd)
+                
                 break
             elif len(direction)==240: 
                 print('Ran out of available addresses')

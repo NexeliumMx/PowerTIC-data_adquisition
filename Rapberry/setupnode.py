@@ -31,10 +31,9 @@ def initialize(models):
                 break
             except: 
                 print("invalid model check for support and run again")
-        #SN=meter_param(models[model-1])
         temp["model"]=models[model-1].get("model")
         autoadd=input("already assigned address (not 1) (y/n): ")
-        if autoadd=="n":
+        if autoadd=="y":
             tempadd=int(input("Which address does it have? :"))
             if (((tempadd not in direction) and tempadd!= 1) and tempadd<245):
                 temp["address"]=tempadd
@@ -48,7 +47,7 @@ def initialize(models):
             else:
                 print("unavailable address please change the adrress to one whis is not present in the following list")
                 print(direction)
-        elif autoadd=="y":
+        elif autoadd=="n":
             
             
             while(1):

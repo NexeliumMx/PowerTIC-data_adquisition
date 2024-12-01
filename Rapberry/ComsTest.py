@@ -99,7 +99,7 @@ def meter_param(model,mbdadd):
                             else:
                                 print(modbus_addresses)
                                 #print("Integer Modbus Address: ", modbus_address)
-                                modbus_address = (modbus_addresses)
+                                modbus_address = int(modbus_addresses)
                                 result = client.read_holding_registers(modbus_address, 1)
                                 if not result.isError():
                                     set_val = result.registers[0]

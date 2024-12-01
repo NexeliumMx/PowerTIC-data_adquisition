@@ -18,6 +18,8 @@ def initialize():
         except:
             print("Invalid input")    
     a=open(rf'vals/supported_models.json')
+    print(type(a))
+    print(a)
     models= json.load(a)
     for i in range(0,meternum):
         print("Supported models: ")

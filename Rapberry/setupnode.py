@@ -19,8 +19,8 @@ def initialize():
         except:
             print("Invalid input")    
     a=open(r"vals/supported_models.json")
-    print((a.readline(1)))
-    models= ast.literal_eval(a.readline(1))
+    print((a.readline(0)))
+    models= ast.literal_eval(a.readline(0))
     for i in range(0,meternum):
         print("Supported models: ")
         for j in range(1,len(models)+1):

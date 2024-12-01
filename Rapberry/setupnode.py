@@ -75,6 +75,7 @@ def initialize():
         SN=meter_param(temp["model"],temp["address"])
         temp["serialNumber"]=SN[0]
         (json.dump(temp,f))
+        f.close()
         
     f=open(fr"vals/meters/laa.txt","x")
     f.write(str(laa))

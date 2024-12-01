@@ -26,10 +26,9 @@ if not os.path.exists(r"vals/supported_models.json"):
 else:
     r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
     f=open(r"vals/supported_models.json","w")
-    json.dump(r.json(),f)
+    a=r.json()
+    json.dump(a,f)
 if not os.path.exists(r'vals/set_up.txt'):
     initialize()
 else:    
-    y=open(r"vals/sn.txt")
-    SN = y.read()
-    rundeploy(SN)
+    rundeploy()

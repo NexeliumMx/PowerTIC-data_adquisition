@@ -19,7 +19,7 @@ def initialize():
         except:
             print("Invalid input")    
     a=open(r"vals/supported_models.json")
-    print((a.readline(0)))
+    print((a.read))
     models= list(map(json.loads, a))
     for i in range(0,meternum):
         print("Supported models: ")

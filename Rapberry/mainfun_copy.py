@@ -17,7 +17,8 @@ if not os.path.isdir(r'vals'):
     print(subprocess.run(["mkdir", "vals/success"], 
                      capture_output=True))
 subprocess.run(["curl","-O -J \"https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv\""],capture_output=True)
-if not os.path.isdir(r"vals/suported_models.json"):
+print(os.path.exists(r"vals/suported_models.json"))
+if not os.path.exists(r"vals/suported_models.json"):
     r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
     f=open(r"vals/supported_models.json","x")
     json.dump(r,f)

@@ -8,7 +8,7 @@ from initialwrittenconfig import initialaddres,ctvtsetup
 import ast
 def initialize():
     sm=open(r'vals/supported_models.json','r')
-    print((sm.read()))
+    print((sm.readlines()))
     models=[]
     direction=[]
     laa=240

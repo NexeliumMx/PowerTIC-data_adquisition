@@ -67,7 +67,7 @@ def initialize(models):
         temp["ct"]=int(10*float(input("Current Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
         temp["vt"]=int(10*float(input("Voltage Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
         ctvtsetup(temp["model"],temp["address"],temp["ct"],temp["vt"])
-        f=open(fr"vals/meters/{i}data.json","x")
+        f=open(fr"vals/meters/{temp['address']}data.json","w")
         SN=meter_param(temp["model"],temp["address"])
         temp["serialNumber"]=SN[0]
         (json.dump(temp,f))

@@ -6,10 +6,7 @@ from ComsTest import meter_param
 import random
 from initialwrittenconfig import initialaddres,ctvtsetup
 import ast
-def initialize():
-    sm=open(r'vals/supported_models.json','+r')
-    print((sm))
-    models=ast.literal_eval(sm.read())
+def initialize(models):
     direction=[]
     laa=240
     keys=("serialNumber","model","address","cloudConfig","ct","vt")

@@ -17,23 +17,11 @@ if not os.path.isdir(r'vals'):
     print(subprocess.run(["mkdir", "vals/success"], 
                      capture_output=True))
 subprocess.run(["curl","-O -J \"https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv\""],capture_output=True)
+r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
+    
+a=r.json()
 
-if not os.path.exists(r"vals/supported_models.json"):
-    r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
-    a=r.json()
-    print(a)
-    f=open(r"vals/supported_models.json","w")
-    f.write(str(a))
-    print(str(a))
-    f.close()
-else:
-    r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
-    f=open(r"vals/supported_models.json","w")
-    a=r.json()
-    print(str(a))
-    f.write(str(a))
-    f.close
 if not os.path.exists(r'vals/set_up.txt'):
-    initialize()
+    initialize(a)
 else:    
     rundeploy()

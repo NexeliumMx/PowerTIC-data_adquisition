@@ -20,7 +20,7 @@ def initialize():
             print("Invalid input")    
     a=open(rf'vals/supported_models.json')
     print((a.read()))
-    models= ast.literal_eval(a)
+    models= ast.literal_eval(a.read())
     for i in range(0,meternum):
         print("Supported models: ")
         for j in range(1,len(models)+1):

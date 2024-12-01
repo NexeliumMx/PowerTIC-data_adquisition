@@ -20,7 +20,7 @@ subprocess.run(["curl","-O -J \"https://powertick-api-py.azurewebsites.net/api/d
 if not os.path.exists(r"vals/suported_models.json"):
     r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
     f=open(r"vals/supported_models.json","x")
-    json.dump(r.json(),f)
+    json.dump(r,f)
 else:
     r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
     f=open(r"vals/supported_models.json","w")

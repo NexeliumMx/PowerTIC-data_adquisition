@@ -9,7 +9,7 @@ import ast
 def initialize():
     sm=open(r'vals/supported_models.json','r')
     print((sm.readlines()))
-    models=[]
+    models=ast.literal_eval(sm.read())
     direction=[]
     laa=240
     keys=("serialNumber","model","address","cloudConfig","ct","vt")

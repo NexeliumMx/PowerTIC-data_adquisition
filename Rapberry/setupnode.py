@@ -7,9 +7,9 @@ import random
 from initialwrittenconfig import initialaddres,ctvtsetup
 import ast
 def initialize():
-    sm=open(r"vals/supported_models.json")
+    sm=open(r'vals/supported_models.json')
     print((sm.read()))
-    models=json.loads(sm.read())
+    models=[]
     direction=[]
     laa=240
     keys=("serialNumber","model","address","cloudConfig","ct","vt")

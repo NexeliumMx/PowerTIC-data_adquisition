@@ -57,7 +57,7 @@ def meter_param(model,mbdadd):
                 for row in rows: 
                     print(row)
                     print(row["parameter"],row["modbus_address"])      
-                    print(row["setupRead"],type(row["setupRead"]), bool(row["etupRead"]),type(bool(row["SetupRead"])) )
+                    print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["SetupRead"])) )
                     print("--------------------------------------------------------------------------------")
                     print(row["model"]) 
                     print(model==row["model"])    
@@ -126,7 +126,7 @@ def meter_param(model,mbdadd):
 
                 print(data)
                 print(settings.get("serial_number", "serial_number not found"))
-                url = "https://powertic-api.azurewebsites.net/api/pushdata"
+                url = "https://powertick-api-js.azurewebsites.net/api/RegisterNewMeter"
                 response = requests.post(url, json=json_data)
 
                 if response.status_code == 200:

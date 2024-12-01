@@ -19,12 +19,12 @@ if not os.path.isdir(r'vals'):
 subprocess.run(["curl","-O -J \"https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv\""],capture_output=True)
 
 if not os.path.exists(r"vals/supported_models.json"):
-    r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
+    r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
     a=r.json()
     f=open(r"vals/supported_models.json","x")
     json.dump(a,f)
 else:
-    r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
+    r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
     f=open(r"vals/supported_models.json","w")
     json.dump(r.json(),f)
 if not os.path.exists(r'vals/set_up.txt'):

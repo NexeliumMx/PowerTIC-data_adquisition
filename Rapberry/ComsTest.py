@@ -57,7 +57,7 @@ def meter_param(model,mbdadd):
                 for row in rows: 
                     print(row)
                     print(row["parameter"],row["modbus_address"])      
-                    print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["SetupRead"])) )
+                    print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["setupRead"])) )
                     print("--------------------------------------------------------------------------------")
                     print(row["model"]) 
                     print(model==row["model"])    

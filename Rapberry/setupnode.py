@@ -7,6 +7,9 @@ import random
 from initialwrittenconfig import initialaddres,ctvtsetup
 import ast
 def initialize():
+    sm=open(r"vals/supported_models.json")
+    print((sm.read()))
+    models=json.loads(sm.read())
     direction=[]
     laa=240
     keys=("serialNumber","model","address","cloudConfig","ct","vt")
@@ -18,9 +21,7 @@ def initialize():
             break
         except:
             print("Invalid input")    
-    a=open(r"vals/supported_models.json")
-    print((a.read()))
-    models=[1]
+    
     for i in range(0,meternum):
         print("Supported models: ")
         for j in range(1,len(models)+1):

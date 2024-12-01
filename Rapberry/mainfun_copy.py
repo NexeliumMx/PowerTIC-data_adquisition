@@ -23,13 +23,13 @@ if not os.path.exists(r"vals/supported_models.json"):
     a=r.json()
     print(a)
     f=open(r"vals/supported_models.json","x")
-    f.write(a)
+    f.write(str(a))
     f.close()
 else:
     r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
     f=open(r"vals/supported_models.json","w")
     a=r.json()
-    f.write(a)
+    f.write((a))
     f.close
 if not os.path.exists(r'vals/set_up.txt'):
     initialize()

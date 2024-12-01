@@ -7,15 +7,6 @@ from setupnode import initialize
 import requests
 import json
 version='0.0.3'
-subprocess.run("curl","-O -J \"https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv\"")
-if not os.path.exists(r"vals/suported_models.json"):
-    r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
-    f=open(r"vals/meters/supported_models.json","x")
-    json.dump(r.json(),f)
-else:
-    r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
-    f=open(r"vals/meters/supported_models.json","w")
-    json.dump(r.json(),f)
 if not os.path.isdir(r'vals'):
     print(subprocess.run(["mkdir", "vals"], 
                      capture_output=True))
@@ -25,9 +16,17 @@ if not os.path.isdir(r'vals'):
                      capture_output=True))
     print(subprocess.run(["mkdir", "vals/success"], 
                      capture_output=True))
+subprocess.run("curl","-O -J \"https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv\"")
+if not os.path.exists(r"vals/suported_models.json"):
+    r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
+    f=open(r"vals/meters/supported_models.json","x")
+    json.dump(r.json(),f)
+else:
+    r = requests.get('https://supportedmodels-test-api.azurewebsites.net/api/supportedModels')
+    f=open(r"vals/meters/supported_models.json","w")
+    json.dump(r.json(),f)
 if not os.path.exists(r'vals/set_up.txt'):
     initialize()
-    
 else:    
     y=open(r"vals/sn.txt")
     SN = y.read()

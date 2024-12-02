@@ -138,18 +138,19 @@ def reset_instruction(slave_address:int,model:str):
         rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)
         if not rsp:
             print("Error during reset process. No response from slave device, verify slave device status and try again")
-            return 
+            return False
         elif rsp:
             validation = modbus_read(slave_address=slave_address,function_code=read_function,starting_address=address,quantity_of_registers=register_length)
             print("Validation: ", validation)
 
-            print("response data: ", validation)
             if validation != 0x0000:
                 print("Reset process failed. Try again")
-                return
+                return False
             elif validation == 0x0000:
                 print("Device reset process successfull")
-                return
+                return True
+
+
 
 #Reset meter attempt
 #write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload1=0x0000,payload2=0x0000,payload3=0x0000,payload4=0x0000,payload5=0x0000)

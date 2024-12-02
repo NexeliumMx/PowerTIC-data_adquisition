@@ -14,6 +14,7 @@ def modbus_commands(model:str):
         with open('modbusrtu_commands.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             rows = []
+            reset_command = []
             for row in reader:
                 # Normalize key names and handle missing keys
                 row = {key.strip().lower(): value.strip() for key, value in row.items() if key and value}
@@ -23,7 +24,9 @@ def modbus_commands(model:str):
                 # Filter rows where model is "EM210-72D.MV5.3.X.OS.X"
                 if row.get("model") == model:
                     rows.append(row)
-            return rows
+                    if row.get("parameter") == "reset":
+                        reset_command = row
+            return rows, reset_command
     except FileNotFoundError as e:
         logger.error(f"CSV file not found: {e}")
         return []
@@ -150,7 +153,9 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
 def modbus_multiple_read(slave_address: int):
     """Perform multiple Modbus reads based on commands from the CSV file."""
-    commands = modbus_commands("EM210-72D.MV5.3.X.OS.X") #EM210-72D.MV5.3.X.OS.X | acurev-1313-5a-x0
+    commands, reset = modbus_commands("EM210-72D.MV5.3.X.OS.X") #EM210-72D.MV5.3.X.OS.X | acurev-1313-5a-x0
+    print("Commands: ", commands)
+    print("Reset command: ", reset)
     #print("Modbus Command: ", commands)
     function_code = 0x03  # Read holding registers
 

@@ -154,8 +154,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 def modbus_multiple_read(slave_address: int):
     """Perform multiple Modbus reads based on commands from the CSV file."""
     commands, reset = modbus_commands("EM210-72D.MV5.3.X.OS.X") #EM210-72D.MV5.3.X.OS.X | acurev-1313-5a-x0
-    print("Commands: ", commands)
-    print("Reset command: ", reset)
+    #print("Commands: ", commands)
+    #print("Reset command: ", reset)
     #print("Modbus Command: ", commands)
     function_code = 0x03  # Read holding registers
 

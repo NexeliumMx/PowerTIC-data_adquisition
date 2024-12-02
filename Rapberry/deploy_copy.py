@@ -9,7 +9,7 @@ def rundeploy():
         if not os.listdir(r"vals/meters"):
             print("Directory is empty")
         else: 
-            for i in os.listdir(r"/vals/meters"):  
+            for i in os.listdir(r"vals/meters"):  
                 with open(rf'vals/meters/{i}') as f:
                     data = json.load(f)
                     SN=data.get("serialNumber")

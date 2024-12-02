@@ -52,10 +52,11 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     print("Received:", response)
 
     # Close the serial port
-    #ser.close()
+    ser.close()
 def write_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload:list):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
+    ser.open()
     message = bytearray()
     message.append(slave_address)
     message.append(function_code)
@@ -85,10 +86,12 @@ def write_modbus(slave_address:int, function_code:int, starting_address:int, qua
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
+    ser.close()
 
 def write_single_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, payload:int):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
+    ser.open()
     message = bytearray()
     message.append(slave_address)
     message.append(function_code)
@@ -116,6 +119,7 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
+    ser.close()
 #Reset meter attempt
 #write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload1=0x0000,payload2=0x0000,payload3=0x0000,payload4=0x0000,payload5=0x0000)
 

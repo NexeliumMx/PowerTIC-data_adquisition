@@ -1,6 +1,7 @@
 from modbus16bit import write_modbus
 import json
 import csv
+
 def initialaddres(model,addrs):
     with open('modbusrtu_commands.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 

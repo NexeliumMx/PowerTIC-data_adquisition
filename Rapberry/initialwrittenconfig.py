@@ -38,7 +38,7 @@ def initialaddres(model,addrs):
                                                     
                         try:
                             result = write_modbus_multiple(1,row["write_command"],modbus_address,1,2,addrs)
-                            decode_modbus_response(response=result,slave_address=addrs,datatype='')
+                            #decode_modbus_response(response=result,slave_address=addrs,datatype='')
                             print(result)
                         except ValueError:
                             print(f"Invalid address for {parameter}: {modbus_address}")
@@ -91,7 +91,7 @@ def ctvtsetup(model,mbdadd,ct,vt):
                         try:
                             result = write_modbus_multiple(mbdadd,row["write_command"],modbus_address,1,2,values[parameter])
                             print(result)
-                            
+                            #decode_modbus_response(response=result,slave_address=addrs,datatype='')
                         except ValueError:
                             print(f"Invalid address for {parameter}: {modbus_address}")
                             continue

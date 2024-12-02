@@ -233,14 +233,14 @@ def reading_meter(sn,mbdadd,model):
                             parameter_description = row['parameter']
                             #debug
                             #print("Parameter Description: ", parameter_description)
-                            modbus_address = (row['modbus_address'])
+                            modbus_address = int(row['modbus_address'])
                             registers = int(row["register_length"])
                             print(parameter_description,registers)
                             #debug
                             #print("Modbus Address: ", modbus_address)
 
                             if registers == 2:
-                                address = modbus_address[0]
+                                address = modbus_address
                                 print("Address: ", address)
                                 try:
                                     meas_val = ''
@@ -258,7 +258,7 @@ def reading_meter(sn,mbdadd,model):
                                     print("Error value: ", meas_val)   
                             
                             elif registers == 3:
-                                address = modbus_address[0]
+                                address = modbus_address
                                 print("Address:", address)
                                 try:
                                     result = client.read_holding_registers(address, int(registers), mbdadd)  # adjust address and unit accordingly

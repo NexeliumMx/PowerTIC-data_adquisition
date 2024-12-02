@@ -145,6 +145,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 def modbus_multiple_read(slave_address: int):
     """Perform multiple Modbus reads based on commands from the CSV file."""
     commands = modbus_commands("EM210-72D.MV5.3.X.OS.X")
+    print("Modbus Command: ", commands)
     function_code = 0x03  # Read holding registers
 
     with serial.Serial(

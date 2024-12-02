@@ -1,6 +1,5 @@
 import serial
-
-#
+from decode_modbus import decode_modbus_response
 
 ser = serial.Serial(
     port='/dev/ttyUSB0',
@@ -50,10 +49,12 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
+    decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='word')
 
     # Close the serial port
     ser.close()
-    return response
+    return decoded_response
+
 def write_modbus_multiple(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload:list):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
@@ -124,6 +125,7 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
     print("Received:", response)
     ser.close()
     return response
+
 def reset_instruction(slave_address:int,model:str):
     if not ser.is_open:
         ser.open()
@@ -139,6 +141,7 @@ def reset_instruction(slave_address:int,model:str):
             return 
         elif rsp:
             validation = modbus_read(slave_address=slave_address,function_code=read_function,starting_address=address,quantity_of_registers=register_length)
+            print("Validation: ", validation)
             if not validation:
                 print("Communication error. Not able to get reset validtion from the slave device")
                 return

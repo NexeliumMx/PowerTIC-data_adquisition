@@ -146,6 +146,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     # Display the results
     #logger.info(f"Byte Count: {byte_count}")
     #logger.info(f"Data Value: {data_value}")
+    return data_value
 
 def modbus_multiple_read(slave_address: int):
     """Perform multiple Modbus reads based on commands from the CSV file."""

@@ -93,9 +93,11 @@ def meter_param(model,mbdadd):
                                             for i in result.registers:
                                                 
                                                 (set_val) += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                                                print('aquisetv')
+                                                
                                             set_val = set_val.replace('\x00', '')
+                                            print(set_val)
                                             settings[f'{parameter}'] = set_val  
+                                            print('aquisetv')
                                         else:
                                             print(f"Error de lectura ({parameter}):", result)
                                     except ValueError:

@@ -64,7 +64,12 @@ def ctvtsetup(model,mbdadd,ct,vt):
                     elif row["setupWrite"] == "f":
                         setup = False
                     
-                    
+                    print(row)
+                              
+                    print("--------------------------------------------------------------------------------")
+                    print(row["model"]) 
+                    print(model==row["model"])    
+                    print('vtsetup')
                     if setup == True & (bool((row["address"]))!=1): 
                         print(row)
                               

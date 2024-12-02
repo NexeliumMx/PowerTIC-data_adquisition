@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def modbus_commands():
     """Read Modbus commands from a CSV file."""
     try:
-        with open('modbusqueries.csv', newline='') as csvfile:
+        with open('modbusrtu_commands.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             rows = []
             for row in reader:

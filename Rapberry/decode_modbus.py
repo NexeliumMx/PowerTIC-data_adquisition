@@ -155,7 +155,7 @@ def modbus_multiple_read(slave_address: int):
     ) as ser:
         for address in commands:
             try:
-                parameter = address.get('parameter_description', 'Unknown')
+                parameter = address.get('parameter', 'Unknown')
                 logger.info(f"Parameter: {parameter}")
                 datatype = address.get("data_type", "raw")
                 quantity_of_registers = int(address.get("register_length", "0"), 0)

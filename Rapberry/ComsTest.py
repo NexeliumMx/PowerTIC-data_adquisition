@@ -82,28 +82,29 @@ def meter_param(model,mbdadd):
                             print(row["register_length"])
                             print('aqui')
                             if int(row["register_length"])>1:
-                                for i in range(0,int(row["register_length"])):
-                                    #print("Modbus Address: ", modbus_address)
-                                    print('aquibt')
-                                    try:
-                                        print(str(modbus_address+i)+str(mbdadd))
-                                        result = client.read_holding_registers(modbus_address+i,int(row["register_length"]),mbdadd)
-                                        print('aquisetv')
-                                        if not result.isError():
+                                
+                            
+                                #print("Modbus Address: ", modbus_address)
+                                print('aquibt')
+                                try:
+                                    print(str(modbus_address+i)+str(mbdadd))
+                                    result = client.read_holding_registers(modbus_address,int(row["register_length"]),mbdadd)
+                                    print('aquisetv')
+                                    if not result.isError():
+                                        
+                                        for i in result.registers:
                                             
-                                            for i in result.registers:
-                                                
-                                                (set_val) += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                                                
-                                            set_val = set_val.replace('\x00', '')
-                                            print(set_val)
-                                            settings[f'{parameter}'] = set_val  
-                                            print('aquisetv')
-                                        else:
-                                            print(f"Error de lectura ({parameter}):", result)
-                                    except ValueError:
-                                        print(f"Invalid address for {parameter}: {str(modbus_address)}")
-                                        continue
+                                            (set_val) += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                                            
+                                        set_val = set_val.replace('\x00', '')
+                                        print(set_val)
+                                        settings[f'{parameter}'] = set_val  
+                                        print('aquisetv')
+                                    else:
+                                        print(f"Error de lectura ({parameter}):", result)
+                                except ValueError:
+                                    print(f"Invalid address for {parameter}: {str(modbus_address)}")
+                                    continue
                                 print(f"Adquirido valor para {parameter}: {set_val}")
                             else:
                                 print('aquielse')

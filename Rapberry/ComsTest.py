@@ -89,7 +89,7 @@ def meter_param(model,mbdadd):
                                         if not result.isError():
                                             for i in result.registers:
                                                 print('aquisetv')
-                                                str(set_val) += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                                                (set_val) += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
                                             set_val = set_val.replace('\x00', '')
                                             settings[f'{parameter}'] = set_val  
                                         else:
@@ -104,7 +104,7 @@ def meter_param(model,mbdadd):
                                 modbus_address = int(modbus_address)
                                 result = client.read_holding_registers(modbus_address, mbdadd)
                                 if not result.isError():
-                                    set_val = result.registers[0]
+                                    set_val = str(result.registers[0])
                                     settings[f"{parameter}"] = set_val
                                     print(f"{parameter}: {set_val}")
                                 else:

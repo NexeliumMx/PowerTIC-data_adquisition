@@ -158,7 +158,7 @@ def modbus_multiple_read(slave_address: int):
                 parameter = address.get('parameter_description', 'Unknown')
                 logger.info(f"Parameter: {parameter}")
                 datatype = address.get("data_type", "raw")
-                quantity_of_registers = int(address.get("register_number", "0"), 0)
+                quantity_of_registers = int(address.get("register_length", "0"), 0)
                 modbus_address = eval(address["modbus_address"])
                 starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
             except KeyError as e:

@@ -87,7 +87,7 @@ def meter_param(model,mbdadd):
                                     print('aquibt')
                                     try:
                                         print(str(modbus_address+i)+str(mbdadd))
-                                        result = client.read_holding_registers(modbus_address+i, mbdadd)
+                                        result = client.read_holding_registers(modbus_address+i,int(row["register_length"]),mbdadd)
                                         print('aquisetv')
                                         if not result.isError():
                                             

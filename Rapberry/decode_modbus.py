@@ -6,7 +6,7 @@ import numpy as np
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getlogger(__name__)
+logger = logging.getLogger(__name__)
 
 def modbus_commands(model:str):
     """Read Modbus commands from a CSV file and filter rows by model."""

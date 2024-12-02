@@ -144,6 +144,7 @@ def reset_instruction(slave_address:int,model:str):
                 return
             elif validation:
                 data_bytes = validation[3:-2]
+                print("response data: ", data_bytes)
                 if data_bytes != 0x0000:
                     print("Reset process failed. Try again")
                     return

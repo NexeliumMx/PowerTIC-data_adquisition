@@ -91,7 +91,8 @@ def write_modbus_multiple(slave_address:int, function_code:int, starting_address
 def write_single_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, payload:int):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
-    ser.open()
+    if not ser.is_open:
+        ser.open()
     message = bytearray()
     message.append(slave_address)
     message.append(function_code)

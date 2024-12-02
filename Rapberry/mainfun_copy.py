@@ -23,5 +23,6 @@ a=r.json()
 
 if not os.path.exists(r'vals/set_up.txt'):
     initialize(a)
+    rundeploy()
 else:    
     rundeploy()

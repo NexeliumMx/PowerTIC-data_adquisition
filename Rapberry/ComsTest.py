@@ -134,7 +134,7 @@ def meter_param(model,mbdadd):
                 timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
                 settings["register_date"] = timestamp
 
-                json_data = [table_name, settings]
+                json_data = settings
                 data = json.dumps(json_data)
                 print(table_name)
                 print(settings)
@@ -310,7 +310,7 @@ def reading_meter(sn,mbdadd,model):
             print("timestamp: ", timestamp)
             measurement["timestamp"] = timestamp
             measurement["serial_number"] = sn
-            json_data = [table_name, measurement]
+            json_data =  measurement
             data = json.dumps(json_data)
             uniquekey=str(timestamp)+str(sn)
             

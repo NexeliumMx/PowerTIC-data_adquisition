@@ -130,19 +130,19 @@ def reset_instruction(slave_address:int,model:str):
     if not ser.is_open:
         ser.open()
     commands, reset = modbus_commands(model)
-    print("reset command: ", reset)
+    print("reset command: ", reset, type(reset))
 
     address = reset.get("modbus_address")
-    print("Reset address: ", address)
+    print("Reset address: ", address, type(reset))
 
     register_length = reset.get("register_length")
-    print("Register Length: ", register_length)
+    print("Register Length: ", register_length, type(register_length))
     
     write_function = reset.get("write_command")
-    print("write command: ", write_function)
+    print("write command: ", write_function, type(write_function))
     
     read_function = reset.get("read_command")
-    print("read command: ", read_function)
+    print("read command: ", read_function, type(read_function))
     
     payload = 0x0001
     

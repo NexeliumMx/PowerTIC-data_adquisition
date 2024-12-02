@@ -114,7 +114,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
         elif datatype.lower() == 'string':
             data_value = ''.join(chr(b) for b in data_bytes if b != 0)
         elif datatype.lower() == 'acc32':
-            if len(data_bytes) != 4:
+            if len(data_bytes) > 4:
                 raise ValueError("ACC32 data length invalid------------------------------------")
             data_value = struct.unpack('>I', data_bytes[:4])[0]
         elif datatype.lower() in ['dword', 'Dword']:

@@ -65,7 +65,7 @@ def ctvtsetup(model,mbdadd,ct,vt):
                         setup = False
                     
                     
-                    if setup == True & bool((row["address"]))!=1: 
+                    if setup == True & (bool((row["address"]))!=1): 
                         print(row)
                         print(row["parameter"],row["modbus_address"])      
                         print("--------------------------------------------------------------------------------")

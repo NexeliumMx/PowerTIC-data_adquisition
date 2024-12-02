@@ -77,7 +77,7 @@ def meter_param(model,mbdadd):
                             set_val = ""
                             #print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
             
-                            modbus_addresses = row["modbus_address"]
+                            modbus_address = row["modbus_address"]
                             #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
                             print(row["register_length"])
                             print('aqui')

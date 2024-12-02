@@ -87,11 +87,11 @@ def meter_param(model,mbdadd):
                                     
                                     try:
                                         result = client.read_holding_registers(modbus_address+i, mbdadd)
-                                        
+                                        print('aquisetv')
                                         if not result.isError():
                                             
                                             for i in result.registers:
-                                                print('aquisetv')
+                                                
                                                 (set_val) += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
                                                 
                                             set_val = set_val.replace('\x00', '')

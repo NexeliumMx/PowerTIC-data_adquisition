@@ -128,7 +128,7 @@ def reset_instruction(slave_address:int,model:str):
     if not ser.is_open:
         ser.open()
     if model == "EM210-72D.MV5.3.X.OS.X":
-        address = 0x0034
+        address = 0x4000
         register_length = 0x0001
         write_function = 0x06
         read_function = 0x04

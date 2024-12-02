@@ -1,7 +1,7 @@
 from modbus16bit import write_modbus_multiple 
 import json
 import csv
-from decode_modbus import decode_modbus_response
+#from decode_modbus import decode_modbus_response
 
 
 

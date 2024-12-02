@@ -130,11 +130,23 @@ def reset_instruction(slave_address:int,model:str):
     if not ser.is_open:
         ser.open()
     commands, reset = modbus_commands(model)
+    print("reset command: ", reset)
+
     address = reset.get("modbus_address")
+    print("Reset address: ", address)
+
     register_length = reset.get("register_length")
+    print("Register Length: ", register_length)
+    
     write_function = reset.get("write_command")
+    print("write command: ", write_function)
+    
     read_function = reset.get("read_command")
+    print("read command: ", read_function)
+    
     payload = 0x0001
+    
+    
     rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)
     if not rsp:
         print("Error during reset process. No response from slave device, verify slave device status and try again")

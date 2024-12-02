@@ -41,9 +41,9 @@ def info_backup(data,file_path):
 
 
 #obtención y envío de datos de información del medidor
-def meter_param(model):     
+def meter_param(model,mbdadd):     
 
-    with open('modbusqueries.csv',newline='') as csvfile:
+    with open('modbusrtu_commands.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 
         #print(rows)
         table_name = {}
@@ -56,12 +56,14 @@ def meter_param(model):
             try:
                 for row in rows: 
                     print(row)
-                    print(row["parameter_description"],row["modbus_address"])      
-                    print(row["setup"],type(row["setup"]), bool(row["setup"]),type(bool(row["setup"])) )
+                    print(row["parameter"],row["modbus_address"])      
+                    print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["setupRead"])) )
                     print("--------------------------------------------------------------------------------")
                     print(row["model"]) 
                     print(model==row["model"])    
+                    print('aqui')
                     if model==row["model"]:
+                        print('aqui')
                         if row["setupRead"] == "t":
                             setup = True
                         elif row["setupRead"] == "f":
@@ -70,19 +72,21 @@ def meter_param(model):
                         #print(setup, type(setup))
                         if setup == True: 
                             #print("parameter: ", row["parameter_description"] )
-                            parameter = row['parameter_description']
+                            parameter = row['parameter']
                             #print("Parameter: ",parameter)
                             set_val = ""
                             #print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
             
                             modbus_addresses = row["modbus_address"]
                             #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
-
-                            if row["register_length"]>1:
-                                for i in range(0,modbus_addresses):
+                            print(row["register_length"])
+                            print('aqui')
+                            if int(row["register_length"])>1:
+                                for i in range(0,int(row["register_length"])):
                                     #print("Modbus Address: ", modbus_address)
+                                    print('aqui3')
                                     try:
-                                        result = client.read_holding_registers(modbus_address+i, 1)
+                                        result = client.read_holding_registers(modbus_address+i, mbdadd)
                                         if not result.isError():
                                             for i in result.registers:
                                                 set_val += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
@@ -95,9 +99,10 @@ def meter_param(model):
                                         continue
                                 print(f"Adquirido valor para {parameter}: {set_val}")
                             else:
+                                print(modbus_addresses)
                                 #print("Integer Modbus Address: ", modbus_address)
-                                modbus_address = modbus_addresses
-                                result = client.read_holding_registers(modbus_address, 1)
+                                modbus_address = int(modbus_addresses)
+                                result = client.read_holding_registers(modbus_address, mbdadd)
                                 if not result.isError():
                                     set_val = result.registers[0]
                                     settings[f"{parameter}"] = set_val
@@ -126,7 +131,7 @@ def meter_param(model):
 
                 print(data)
                 print(settings.get("serial_number", "serial_number not found"))
-                url = "https://powertic-api.azurewebsites.net/api/pushdata"
+                url = "https://powertick-api-js.azurewebsites.net/api/RegisterNewMeter"
                 response = requests.post(url, json=json_data)
 
                 if response.status_code == 200:
@@ -144,10 +149,10 @@ def meter_param(model):
     return settings.get('serial_number'), table_name.get("table")
 
 
-def timestamp_adquisition(sn):
+def timestamp_adquisition(sn,mbdadd,model):
     if client.connect():
         meter_time = {}
-        with open('Modbusqueries.csv', newline='') as csvfile:
+        with open('modbusrtu_commands.csv', newline='') as csvfile:
             rows = csv.DictReader(csvfile)
 
             try:
@@ -157,14 +162,14 @@ def timestamp_adquisition(sn):
                     elif row["timestamp"] == "f":
                         time = False
 
-                    if time:
+                    if time and row["model"]==model:
                         parameter_description = row['parameter_description']
 
-                        modbus_address = json.loads(row['modbus_address'])[0]
-                        registers = int(row['register_number'])
+                        modbus_address = row['modbus_address']
+                        registers = int(row['register_length'])
                         value = ''
                         try:
-                            meas = client.read_holding_registers(modbus_address, 1)
+                            meas = client.read_holding_registers(modbus_address, mbdadd)
                             if not meas.isError():
                                 value = meas.registers[0]
                                 meter_time[f"{parameter_description}"] = value
@@ -189,7 +194,7 @@ def timestamp_adquisition(sn):
     return timestamp
 
 
-def reading_meter(sn,mbdadd):
+def reading_meter(sn,mbdadd,model):
 
 
     if client.connect():
@@ -198,7 +203,7 @@ def reading_meter(sn,mbdadd):
         table_name = {"table": "measurements"}
 
 
-        with open('Modbusqueries.csv', newline='') as csvfile:
+        with open('modbusrtu_commands.csv', newline='') as csvfile:
             rows = csv.DictReader(csvfile)
 
             #print("rows: ", rows)
@@ -212,79 +217,79 @@ def reading_meter(sn,mbdadd):
                     
                     #debug
                     #print("in db: ", indb)
+                    if row["model"]==model:
+                        if indb:
+                            #print("row: ", row)
+                            parameter_description = row['parameter']
+                            #debug
+                            #print("Parameter Description: ", parameter_description)
+                            modbus_address = (row['modbus_address'])
+                            registers = int(row["register_length"])
+                            print(parameter_description,registers)
+                            #debug
+                            #print("Modbus Address: ", modbus_address)
 
-                    if indb:
-                        #print("row: ", row)
-                        parameter_description = row['parameter_description']
-                        #debug
-                        #print("Parameter Description: ", parameter_description)
-                        modbus_address = json.loads(row['modbus_address'])[0]
-                        registers = int(row["register_number"])
-                        print(parameter_description,registers)
-                        #debug
-                        #print("Modbus Address: ", modbus_address)
+                            if registers == 2:
+                                address = modbus_address[0]
+                                print("Address: ", address)
+                                try:
+                                    meas_val = ''
+                                    meas = client.read_holding_registers(address, int(registers), mbdadd)
+                                    if not meas.isError():
+                                        high = meas.registers[0]
+                                        low = meas.registers[1]
+                                        meas_val = (high << 16) + low
+                                        print("measurement value: ",meas_val)
+                                        measurement[f'{parameter_description}'] = meas_val
+                                    else:
+                                        print(f"Error reading {parameter_description} at {address}: {meas}")
+                                except ValueError:
+                                    print(f"Invalid address for {parameter_description}: {modbus_address}")
+                                    print("Error value: ", meas_val)   
+                            
+                            elif registers == 3:
+                                address = modbus_address[0]
+                                print("Address:", address)
+                                try:
+                                    result = client.read_holding_registers(address, int(registers), mbdadd)  # adjust address and unit accordingly
 
-                        if registers == 2:
-                            address = modbus_address[0]
-                            print("Address: ", address)
-                            try:
+                                    if not result.isError():
+                                        # Combine the three 16-bit registers into a single 48-bit value
+                                        high = result.registers[0]
+                                        mid = result.registers[1]
+                                        low = result.registers[2]
+                                        
+                                        # Shift and combine to get 48-bit value
+                                        meas_val = (high << 32) + (mid << 16) + low
+                                        print(high)
+                                        # Extract components from the 48-bit value (YYMMDDhhmmss format)
+    #                                    year = (meas_val >> 40) & 0xFF  # last 8 bits for year (YY)
+    #                                   month = (meas_val >> 32) & 0xFF  # next 8 bits for month (MM)
+    #                                  day = (meas_val >> 24) & 0xFF  # next 8 bits for day (DD)
+    ###                               second = meas_val & 0xFF  # last 8 bits for second (ss)
+
+                                        # Convert to string format YYMMDD hh:mm:ss
+                                        occur_time = datetime.datetime.fromtimestamp(meas_val,timezone.utc)
+
+                                        print(f"Occur Time: {occur_time}")
+                                    else:
+                                        print("Error reading Modbus data")
+                                except ValueError:
+                                    print(f"Invalid address for {parameter_description}: {modbus_address}")
+                                    print("Error value: ", meas_val)       
+                            else:
+                                # 'modbus_address' is a single address
                                 meas_val = ''
-                                meas = client.read_holding_registers(address, int(registers), mbdadd)
-                                if not meas.isError():
-                                    high = meas.registers[0]
-                                    low = meas.registers[1]
-                                    meas_val = (high << 16) + low
-                                    print("measurement value: ",meas_val)
-                                    measurement[f'{parameter_description}'] = meas_val
-                                else:
-                                    print(f"Error reading {parameter_description} at {address}: {meas}")
-                            except ValueError:
-                                print(f"Invalid address for {parameter_description}: {modbus_address}")
-                                print("Error value: ", meas_val)   
-                        
-                        elif registers == 3:
-                            address = modbus_address[0]
-                            print("Address:", address)
-                            try:
-                                result = client.read_holding_registers(address, int(registers), mbdadd)  # adjust address and unit accordingly
-
-                                if not result.isError():
-                                    # Combine the three 16-bit registers into a single 48-bit value
-                                    high = result.registers[0]
-                                    mid = result.registers[1]
-                                    low = result.registers[2]
-                                    
-                                    # Shift and combine to get 48-bit value
-                                    meas_val = (high << 32) + (mid << 16) + low
-                                    print(high)
-                                    # Extract components from the 48-bit value (YYMMDDhhmmss format)
-#                                    year = (meas_val >> 40) & 0xFF  # last 8 bits for year (YY)
- #                                   month = (meas_val >> 32) & 0xFF  # next 8 bits for month (MM)
-  #                                  day = (meas_val >> 24) & 0xFF  # next 8 bits for day (DD)
-   ###                               second = meas_val & 0xFF  # last 8 bits for second (ss)
-
-                                    # Convert to string format YYMMDD hh:mm:ss
-                                    occur_time = datetime.datetime.fromtimestamp(meas_val,timezone.utc)
-
-                                    print(f"Occur Time: {occur_time}")
-                                else:
-                                    print("Error reading Modbus data")
-                            except ValueError:
-                                print(f"Invalid address for {parameter_description}: {modbus_address}")
-                                print("Error value: ", meas_val)       
-                        else:
-                            # 'modbus_address' is a single address
-                            meas_val = ''
-                            try:
-                                meas = client.read_holding_registers(modbus_address, mbdadd)
-                                if not meas.isError():
-                                    meas_val = meas.registers[0]
-                                    measurement[f"{parameter_description}"] = meas_val
-                                    print(f"{parameter_description}: {meas_val}")
-                                else:
-                                    print(f"Error reading {parameter_description} at {modbus_address}: {meas}")
-                            except ValueError:
-                                print(f"Invalid address for {parameter_description}: {modbus_address}")
+                                try:
+                                    meas = client.read_holding_registers(modbus_address, mbdadd)
+                                    if not meas.isError():
+                                        meas_val = meas.registers[0]
+                                        measurement[f"{parameter_description}"] = meas_val
+                                        print(f"{parameter_description}: {meas_val}")
+                                    else:
+                                        print(f"Error reading {parameter_description} at {modbus_address}: {meas}")
+                                except ValueError:
+                                    print(f"Invalid address for {parameter_description}: {modbus_address}")
             except Exception as e:
                 print("Exception during data acquisition:", e)
                 print("Error value: ", meas_val)
@@ -332,5 +337,3 @@ def reading_meter(sn,mbdadd):
     else:
         print("Error connecting to the meter")
         return None
-
-reading_meter()

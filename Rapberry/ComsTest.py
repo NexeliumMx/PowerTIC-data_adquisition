@@ -306,7 +306,7 @@ def reading_meter(sn,mbdadd,model):
             finally:
                 client.close()
 
-            timestamp = timestamp_adquisition(sn)
+            timestamp =datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
             print("timestamp: ", timestamp)
             measurement["timestamp"] = timestamp
             measurement["serial_number"] = sn

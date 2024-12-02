@@ -1,5 +1,5 @@
 import serial
-from decode_modbus import decode_modbus_response
+from decode_modbus import decode_modbus_response, modbus_commands
 
 ser = serial.Serial(
     port='/dev/ttyUSB0',
@@ -129,26 +129,26 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
 def reset_instruction(slave_address:int,model:str):
     if not ser.is_open:
         ser.open()
-    if model == "EM210-72D.MV5.3.X.OS.X":
-        address = 0x4000
-        register_length = 0x0001
-        write_function = 0x06
-        read_function = 0x04
-        payload = 0x0001
-        rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)
-        if not rsp:
-            print("Error during reset process. No response from slave device, verify slave device status and try again")
-            return False
-        elif rsp:
-            validation = modbus_read(slave_address=slave_address,function_code=read_function,starting_address=address,quantity_of_registers=register_length)
-            print("Validation: ", validation)
+    commands, reset = modbus_commands(model)
+    address = reset.get("modbus_address")
+    register_length = reset.get("register_length")
+    write_function = reset.get("write_command")
+    read_function = reset.get("read_command")
+    payload = 0x0001
+    rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)
+    if not rsp:
+        print("Error during reset process. No response from slave device, verify slave device status and try again")
+        return False
+    elif rsp:
+        validation = modbus_read(slave_address=slave_address,function_code=read_function,starting_address=address,quantity_of_registers=register_length)
+        print("Validation: ", validation)
 
-            if validation != 0x0000:
-                print("Reset process failed. Try again")
-                return False
-            elif validation == 0x0000:
-                print("Device reset process successfull")
-                return True
+        if validation != 0x0000:
+            print("Reset process failed. Try again")
+            return False
+        elif validation == 0x0000:
+            print("Device reset process successfull")
+            return True
 
 
 

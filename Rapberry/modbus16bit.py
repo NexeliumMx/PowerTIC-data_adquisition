@@ -130,14 +130,15 @@ def reset_instruction(slave_address:int,model:str):
     if model == "EM210-72D.MV5.3.X.OS.X":
         address = 0x0034
         register_length = 0x0001
-        function_code = 0x04
+        write_function = 0x06
+        read_function = 0x04
         payload = 0x0001
-        rsp = write_single_modbus(slave_address=slave_address,function_code=function_code,starting_address=address,quantity_of_registers=register_length,payload=payload)
+        rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)
         if not rsp:
             print("Error during reset process. No response from slave device, verify slave device status and try again")
             return 
         elif rsp:
-            validation = modbus_read(slave_address=slave_address,function_code=function_code,starting_address=address,quantity_of_registers=register_length)
+            validation = modbus_read(slave_address=slave_address,function_code=read_function,starting_address=address,quantity_of_registers=register_length)
             if not validation:
                 print("Communication error. Not able to get reset validtion from the slave device")
                 return

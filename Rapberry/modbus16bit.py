@@ -53,6 +53,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
 
     # Close the serial port
     ser.close()
+    return response
 def write_modbus_multiple(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload:list):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
@@ -87,6 +88,7 @@ def write_modbus_multiple(slave_address:int, function_code:int, starting_address
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
     ser.close()
+    return response
 
 def write_single_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, payload:int):
     # Build the message (adjusted if necessary)
@@ -121,6 +123,33 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
     ser.close()
+    return response
+def reset_instruction(slave_address:int,model:str):
+    if not ser.is_open:
+        ser.open()
+    if model == "EM210-72D.MV5.3.X.OS.X":
+        address = 0x0034
+        register_length = 0x0001
+        function_code = 0x04
+        payload = 0x0001
+        rsp = write_single_modbus(slave_address=slave_address,function_code=function_code,starting_address=address,quantity_of_registers=register_length,payload=payload)
+        if not rsp:
+            print("Error during reset process. No response from slave device, verify slave device status and try again")
+            return 
+        elif rsp:
+            validation = modbus_read(slave_address=slave_address,function_code=function_code,starting_address=address,quantity_of_registers=register_length)
+            if not validation:
+                print("Communication error. Not able to get reset validtion from the slave device")
+                return
+            elif validation:
+                data_bytes = validation[3:-2]
+                if data_bytes != 0x0000:
+                    print("Reset process failed. Try again")
+                    return
+                elif data_bytes == 0x0000:
+                    print("Device reset process successfull")
+                    return
+
 #Reset meter attempt
 #write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload1=0x0000,payload2=0x0000,payload3=0x0000,payload4=0x0000,payload5=0x0000)
 
@@ -131,6 +160,7 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
 #write_modbus(slave_address=0x03,function_code=0x10,starting_address=0x1003,quantity_of_registers=0x0001,byte_count=0x0002,payload=[0x00C8])
 #write_single_modbus(slave_address=0x03,function_code=0x06,starting_address=0x4000,quantity_of_registers=0x0001,payload=0x0001)
 #modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x4000,quantity_of_registers=0x0001)
-modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0034,quantity_of_registers=0x0001)
+#modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0034,quantity_of_registers=0x0001)
+reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
 # Close the serial port
 ser.close()

@@ -6,7 +6,7 @@ import numpy as np
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
-#logger = logging.get#logger(__name__)
+logger = logging.getlogger(__name__)
 
 def modbus_commands(model:str):
     """Read Modbus commands from a CSV file and filter rows by model."""
@@ -25,10 +25,10 @@ def modbus_commands(model:str):
                     rows.append(row)
             return rows
     except FileNotFoundError as e:
-        #logger.error(f"CSV file not found: {e}")
+        logger.error(f"CSV file not found: {e}")
         return []
     except Exception as e:
-        #logger.error(f"Error reading CSV file: {e}")
+        logger.error(f"Error reading CSV file: {e}")
         return []
 
 def compute_crc(data):
@@ -47,10 +47,10 @@ def compute_crc(data):
 def decode_modbus_response(response, slave_address: int, datatype: str):
     """Decode a Modbus response based on the specified data type."""
     if not response:
-        #logger.error("No response received")
+        logger.error("No response received")
         return
     if len(response) < 5:
-        #logger.error("Incomplete response received")
+        logger.error("Incomplete response received")
         return
 
     # Validate CRC
@@ -59,7 +59,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     calculated_crc = compute_crc(response_data)
     calculated_crc_bytes = calculated_crc.to_bytes(2, byteorder='little')
     if received_crc != calculated_crc_bytes:
-        #logger.error("CRC mismatch in response")
+        logger.error("CRC mismatch in response")
         return
 
     # Extract header information
@@ -67,46 +67,46 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     function_code = response[1]
 
     if device_address != slave_address:
-        #logger.error(f"Unexpected device address: {device_address}")
+        logger.error(f"Unexpected device address: {device_address}")
         return
 
     if function_code & 0x80:
         exception_code = response[2]
-        #logger.error(f"Modbus exception code: {exception_code}")
+        logger.error(f"Modbus exception code: {exception_code}")
         return
 
     byte_count = response[2]
     data_bytes = response[3:-2]
 
     # Debugging: Show raw data bytes
-    #logger.debug(f"Data type: {datatype}")
-    #logger.debug(f"Raw data bytes: {data_bytes}")
+    logger.debug(f"Data type: {datatype}")
+    logger.debug(f"Raw data bytes: {data_bytes}")
 
     # Decode data based on datatype
     try:
         if datatype.lower() == 'float':
             if len(data_bytes) < 4:
-                #logger.error("Invalid data length for float------------------------------------")
+                logger.error("Invalid data length for float------------------------------------")
                 return
             data_value = struct.unpack('>f', data_bytes[:4])[0]
         elif datatype.lower() == 'word':
             if len(data_bytes) < 2:
-                #logger.error("Invalid data length for word------------------------------------")
+                logger.error("Invalid data length for word------------------------------------")
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() in ['uint16', 'Uint16']:
             if len(data_bytes) > 2:
-                #logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
+                logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() == 'int':
             if len(data_bytes) < 4:
-                #logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
+                logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
                 return
             data_value = struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() == 'int32':
             if len(data_bytes) < 4:
-                #logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
+                logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
                 return
             data_value = struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() in ['int16', 'sunssf']:
@@ -115,7 +115,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>h', data_bytes[:2])[0]
         elif datatype.lower() == 'uint':
             if len(data_bytes) < 4:
-                #logger.error("Invalid data length for uint------------------------------------")
+                logger.error("Invalid data length for uint------------------------------------")
                 return
             data_value = struct.unpack('>I', data_bytes[:4])[0]
         elif datatype.lower() == 'string':
@@ -126,21 +126,21 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>I', data_bytes[:4])[0]
         elif datatype.lower() in ['dword', 'Dword']:
             if len(data_bytes) == 6:
-                #logger.debug("Timestamp detected in Dword response------------------------------------")
+                logger.debug("Timestamp detected in Dword response------------------------------------")
                 data_value = struct.unpack('>I', data_bytes[:4])[0]  # Decode first 4 bytes
                 timestamp = struct.unpack('>H', data_bytes[4:6])[0]  # Remaining 2 bytes as timestamp
-                #logger.info(f"Timestamp: {timestamp}")
+                logger.info(f"Timestamp: {timestamp}")
             elif len(data_bytes) == 4:
                 data_value = struct.unpack('>I', data_bytes[:4])[0]
             else:
-                #logger.error("Invalid data length for Dword------------------------------------")
+                logger.error("Invalid data length for Dword------------------------------------")
                 return
         else:
             data_value = data_bytes  # Raw bytes
-            ##logger.debug("Unprocessed data type------------------------------------------------------------------------")
+            #logger.debug("Unprocessed data type------------------------------------------------------------------------")
 
     except struct.error as e:
-        #logger.error(f"Error decoding data: {e}")
+        logger.error(f"Error decoding data: {e}")
         return
 
     # Display the results
@@ -164,16 +164,16 @@ def modbus_multiple_read(slave_address: int):
         for address in commands:
             try:
                 parameter = address.get('parameter', 'Unknown')
-                #logger.info(f"Parameter: {parameter}")
+                logger.info(f"Parameter: {parameter}")
                 datatype = address.get("data_type", "raw")
                 quantity_of_registers = int(address.get("register_length", "0"), 0)
                 modbus_address = eval(address["modbus_address"])
                 starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
             except KeyError as e:
-                #logger.error(f"Missing key in address: {e}")
+                logger.error(f"Missing key in address: {e}")
                 continue
             except ValueError as e:
-                #logger.error(f"Invalid value in address: {e}")
+                logger.error(f"Invalid value in address: {e}")
                 continue
 
             # Build the message
@@ -194,7 +194,7 @@ def modbus_multiple_read(slave_address: int):
             message.append(crc_low)
             message.append(crc_high)
 
-            #logger.debug(f"Sent: {message.hex()}")
+            logger.debug(f"Sent: {message.hex()}")
 
             # Send the message over serial port
             max_retries = 3
@@ -203,12 +203,12 @@ def modbus_multiple_read(slave_address: int):
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    #logger.debug(f"Received: {response.hex()}")
+                    logger.debug(f"Received: {response.hex()}")
                     break
                 else:
-                    #logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
+                    logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
             else:
-                #logger.error("Failed to get response after retries")
+                logger.error("Failed to get response after retries")
                 continue
 
             decode_modbus_response(response, slave_address, datatype)
@@ -218,4 +218,4 @@ if __name__ == "__main__":
         slave_address = 0x03
         modbus_multiple_read(slave_address=slave_address)
     except Exception as e:
-        #logger.error(f"Unhandled exception: {e}")
+        logger.error(f"Unhandled exception: {e}")

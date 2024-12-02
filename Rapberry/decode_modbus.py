@@ -210,7 +210,7 @@ def modbus_multiple_read(slave_address: int):
 
 if __name__ == "__main__":
     try:
-        slave_address = 0x05
+        slave_address = 0x03
         modbus_multiple_read(slave_address=slave_address)
     except Exception as e:
         logger.error(f"Unhandled exception: {e}")

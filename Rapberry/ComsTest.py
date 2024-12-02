@@ -55,13 +55,7 @@ def meter_param(model,mbdadd):
             print("rows: ",rows)
             try:
                 for row in rows: 
-                    print(row)
-                    print(row["parameter"],row["modbus_address"])      
-                    print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["setupRead"])) )
-                    print("--------------------------------------------------------------------------------")
-                    print(row["model"]) 
-                    print(model==row["model"])    
-                    print('aqui')
+                    
                     if model==row["model"]:
                         print('aqui')
                         if row["setupRead"] == "t":
@@ -71,6 +65,13 @@ def meter_param(model,mbdadd):
                         
                         #print(setup, type(setup))
                         if setup == True: 
+                            print(row)
+                            print(row["parameter"],row["modbus_address"])      
+                            print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["setupRead"])) )
+                            print("--------------------------------------------------------------------------------")
+                            print(row["model"]) 
+                            print(model==row["model"])    
+                            print('aqui')
                             #print("parameter: ", row["parameter_description"] )
                             parameter = row['parameter']
                             #print("Parameter: ",parameter)

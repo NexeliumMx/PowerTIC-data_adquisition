@@ -70,6 +70,7 @@ def ctvtsetup(model,mbdadd,ct,vt):
                     print(row["model"]) 
                     print(model==row["model"])    
                     print('vtsetup')
+                    parameter = row['parameter']
                     if setup == True & (bool((row["address"]))!=1): 
                         print(row)
                               
@@ -77,7 +78,7 @@ def ctvtsetup(model,mbdadd,ct,vt):
                         print(row["model"]) 
                         print(model==row["model"])    
                         print('vtsetup')
-                        parameter = row['parameter']
+                        
                         
                         set_val = ""
                         

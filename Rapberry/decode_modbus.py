@@ -8,8 +8,8 @@ import numpy as np
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-def modbus_commands():
-    """Read Modbus commands from a CSV file."""
+def modbus_commands(model:str):
+    """Read Modbus commands from a CSV file and filter rows by model."""
     try:
         with open('modbusrtu_commands.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
@@ -20,7 +20,9 @@ def modbus_commands():
                 # Parse modbus_address if in brackets
                 if "modbus_address" in row and row["modbus_address"].startswith("[") and row["modbus_address"].endswith("]"):
                     row["modbus_address"] = row["modbus_address"][1:-1]  # Remove brackets
-                rows.append(row)
+                # Filter rows where model is "EM210-72D.MV5.3.X.OS.X"
+                if row.get("model") == model:
+                    rows.append(row)
             return rows
     except FileNotFoundError as e:
         logger.error(f"CSV file not found: {e}")
@@ -142,7 +144,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
 def modbus_multiple_read(slave_address: int):
     """Perform multiple Modbus reads based on commands from the CSV file."""
-    commands = modbus_commands()
+    commands = modbus_commands("EM210-72D.MV5.3.X.OS.X")
     function_code = 0x03  # Read holding registers
 
     with serial.Serial(

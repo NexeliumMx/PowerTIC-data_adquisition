@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def modbus_commands():
     """Read Modbus commands from a CSV file."""
     try:
-        with open('modbusqueries.csv', newline='') as csvfile:
+        with open('modbusrtu_commands.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             rows = []
             for row in reader:
@@ -114,7 +114,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
         elif datatype.lower() == 'string':
             data_value = ''.join(chr(b) for b in data_bytes if b != 0)
         elif datatype.lower() == 'acc32':
-            if len(data_bytes) != 4:
+            if len(data_bytes) > 4:
                 raise ValueError("ACC32 data length invalid------------------------------------")
             data_value = struct.unpack('>I', data_bytes[:4])[0]
         elif datatype.lower() in ['dword', 'Dword']:
@@ -155,10 +155,10 @@ def modbus_multiple_read(slave_address: int):
     ) as ser:
         for address in commands:
             try:
-                parameter = address.get('parameter_description', 'Unknown')
+                parameter = address.get('parameter', 'Unknown')
                 logger.info(f"Parameter: {parameter}")
                 datatype = address.get("data_type", "raw")
-                quantity_of_registers = int(address.get("register_number", "0"), 0)
+                quantity_of_registers = int(address.get("register_length", "0"), 0)
                 modbus_address = eval(address["modbus_address"])
                 starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
             except KeyError as e:

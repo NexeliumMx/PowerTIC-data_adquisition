@@ -101,10 +101,11 @@ def meter_param(model,mbdadd):
                                         else:
                                             print(f"Error de lectura ({parameter}):", result)
                                     except ValueError:
-                                        print(f"Invalid address for {parameter}: {modbus_address}")
+                                        print(f"Invalid address for {parameter}: {str(modbus_address)}")
                                         continue
                                 print(f"Adquirido valor para {parameter}: {set_val}")
                             else:
+                                print('aquielse')
                                 print(modbus_address)
                                 #print("Integer Modbus Address: ", modbus_address)
                                 modbus_address = int(modbus_address)

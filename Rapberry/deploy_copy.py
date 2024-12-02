@@ -4,7 +4,8 @@ import json
 from encript import encript
 from uploadback import uploadbackup
 def rundeploy():
-    if not os.path.isdir(r'vals/meters'):
+    if  os.path.isdir(r'vals/meters'):
+        
         if not os.listdir(r"vals/meters"):
             print("Directory is empty")
         else: 

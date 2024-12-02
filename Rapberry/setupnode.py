@@ -79,6 +79,6 @@ def initialize(models):
     f=open(fr"vals/directions.json","x")
     json.dump(direction,f)
     print(temp)
-    f=open(fr"vals/setup.txt","x")
+    f=open(fr"vals/set_up.txt","x")
     json.dump(direction.append(laa),f)
     print(temp)           

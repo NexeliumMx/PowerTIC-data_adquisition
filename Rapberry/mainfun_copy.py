@@ -7,6 +7,7 @@ from setupnode import initialize
 import requests
 import json
 version='0.0.3'
+print(not os.path.isdir(r'vals'))
 if not os.path.isdir(r'vals'):
     print(subprocess.run(["mkdir", "vals"], 
                      capture_output=True))

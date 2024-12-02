@@ -1,5 +1,5 @@
 import serial
-from modbus16bit import modbus_read,write_modbus
+from modbus16bit import modbus_read,write_modbus_multiple
 import time
 # Serial port configuration (as before)
 ser = serial.Serial(

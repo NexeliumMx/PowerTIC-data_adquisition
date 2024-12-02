@@ -108,7 +108,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             if len(data_bytes) < 4:
                 logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
                 return
-            data_value = struct.unpack('<i', data_bytes[:4])[0]
+            data_value = struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() in ['int16', 'sunssf']:
             if len(data_bytes) != 2:
                 raise ValueError("int16 requires exactly 2 bytes of data------------------------------------")
@@ -137,7 +137,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 return
         else:
             data_value = data_bytes  # Raw bytes
-            logger.debug("Unprocessed data type------------------------------------------------------------------------")
+            #logger.debug("Unprocessed data type------------------------------------------------------------------------")
 
     except struct.error as e:
         logger.error(f"Error decoding data: {e}")

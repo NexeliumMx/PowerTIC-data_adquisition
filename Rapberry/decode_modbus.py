@@ -82,8 +82,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     data_bytes = response[3:-2]
 
     # Debugging: Show raw data bytes
-    #logger.debug(f"Data type: {datatype}")
-    #logger.debug(f"Raw data bytes: {data_bytes}")
+    logger.debug(f"Data type: {datatype}")
+    logger.debug(f"Raw data bytes: {data_bytes}")
 
     # Decode data based on datatype
     try:
@@ -140,15 +140,15 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 return
         else:
             data_value = data_bytes  # Raw bytes
-            #logger.debug("Unprocessed data type------------------------------------------------------------------------")
+            logger.debug("Unprocessed data type------------------------------------------------------------------------")
 
     except struct.error as e:
         logger.error(f"Error decoding data: {e}")
         return
 
     # Display the results
-    #logger.info(f"Byte Count: {byte_count}")
-    #logger.info(f"Data Value: {data_value}")
+    logger.info(f"Byte Count: {byte_count}")
+    logger.info(f"Data Value: {data_value}")
     return data_value
 
 def modbus_multiple_read(slave_address: int):
@@ -170,7 +170,7 @@ def modbus_multiple_read(slave_address: int):
         for address in commands:
             try:
                 parameter = address.get('parameter', 'Unknown')
-                #logger.info(f"Parameter: {parameter}")
+                logger.info(f"Parameter: {parameter}")
                 datatype = address.get("data_type", "raw")
                 quantity_of_registers = int(address.get("register_length", "0"), 0)
                 modbus_address = eval(address["modbus_address"])
@@ -200,7 +200,7 @@ def modbus_multiple_read(slave_address: int):
             message.append(crc_low)
             message.append(crc_high)
 
-            #logger.debug(f"Sent: {message.hex()}")
+            logger.debug(f"Sent: {message.hex()}")
 
             # Send the message over serial port
             max_retries = 3
@@ -209,7 +209,7 @@ def modbus_multiple_read(slave_address: int):
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    #logger.debug(f"Received: {response.hex()}")
+                    logger.debug(f"Received: {response.hex()}")
                     break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")

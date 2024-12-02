@@ -91,7 +91,7 @@ def ctvtsetup(model,mbdadd,ct,vt):
                         except ValueError:
                             print(f"Invalid address for {parameter}: {modbus_address}")
                             continue
-                    print(f"Adquirido valor para {parameter}: {set_val}")
+                    
                              
         except Exception as e:
             print("Exception:", e)

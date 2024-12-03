@@ -231,9 +231,21 @@ def modbus_read_meter(slave_address: int, model: str):
 
             
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     try:
         slave_address = 0x03
         modbus_read_meter(slave_address=slave_address,model="EM210-72D.MV5.3.X.OS.X")
     except Exception as e:
-        logger.error(f"Unhandled exception: {e}")
+        logger.error(f"Unhandled exception: {e}")"""
+
+
+def meter_param(model:str,mbadd):
+    rows, reset_command = modbus_commands(model=model)
+    print(rows)
+    set_params = []
+    for row in rows:
+        if row.get('setupRead') == 't':
+            set_params.append(row)
+            print("setup row: ", row)
+            
+meter_param("EM210-72D.MV5.3.X.OS.X")

@@ -6,6 +6,7 @@ from datetime import timezone
 import os
 import csv
 from decode_modbus import modbus_commands
+from modbus16bit import modbus_read
 
 #Conexión con el medidor mediante modbus
 client = ModbusSerialClient(

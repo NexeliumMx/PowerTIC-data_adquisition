@@ -60,7 +60,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
         return decoded_response 
     
     else: 
-        print("Wirte process failed")
+        print("Read proess failed")
         ser.close()  
         return None 
 

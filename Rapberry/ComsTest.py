@@ -280,8 +280,10 @@ def reading_meter(sn:str, mbadd: int, model: str):
                         #print(measurement)
                         break
                 else:
-                    kill_processes()
+                    
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
+                    kill_processes()
+                    continue
             else:
                 logger.error("Failed to get response after retries")
                 continue

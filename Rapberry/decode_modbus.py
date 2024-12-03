@@ -98,26 +98,19 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() in ['uint16', 'Uint16']:
-            if len(data_bytes) > 2:
+            """if len(data_bytes) > 2:
                 logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
-                return
+                return"""
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() == 'int':
             if len(data_bytes) < 4:
                 logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
                 return
             data_value = struct.unpack('>i', data_bytes[:4])[0]
-        elif datatype.lower() == 'int32':
+        elif datatype.lower() in ['int32','uint32']:
             value = int.from_bytes(data_bytes, 'big')
             bit_length = value.bit_length()
             logger.info(f"value: {value}, length: {bit_length}")
-            """if bit_length > 4:
-                data_value = value << (4-bit_length)
-                logger.info(f"Int32 padded value: {data_value}                                         int32")
-                #logger.error(f"Invalid data length for int32 {len(data_bytes)} ------------------------------------")
-                #return
-                data_value = struct.unpack('>i', data_bytes[:4])[0]
-            else:"""
             data_value = value#struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() in ['int16', 'sunssf']:
             if len(data_bytes) != 2:

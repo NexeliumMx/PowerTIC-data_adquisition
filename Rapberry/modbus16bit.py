@@ -1,6 +1,5 @@
 import serial
-
-#
+from decode_modbus import decode_modbus_response, modbus_commands
 
 ser = serial.Serial(
     port='/dev/ttyUSB0',
@@ -8,7 +7,7 @@ ser = serial.Serial(
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
-    timeout=0.05
+    timeout=0.070
 )
 def compute_crc(data):
         crc = 0xFFFF
@@ -50,9 +49,12 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
+    decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='int32')
 
     # Close the serial port
     ser.close()
+    return decoded_response
+
 def write_modbus_multiple(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload:list):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
@@ -87,11 +89,13 @@ def write_modbus_multiple(slave_address:int, function_code:int, starting_address
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
     ser.close()
+    return response
 
 def write_single_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, payload:int):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
-    ser.open()
+    if not ser.is_open:
+        ser.open()
     message = bytearray()
     message.append(slave_address)
     message.append(function_code)
@@ -120,14 +124,58 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
     ser.close()
+    return response
+
+def reset_instruction(slave_address:int,model:str):
+    if not ser.is_open:
+        ser.open()
+    commands, reset = modbus_commands(model)
+    print("reset command: ", reset, type(reset))
+
+    address = int(reset.get("modbus_address"))
+    print("Reset address: ", address, type(reset))
+
+    register_length = int(reset.get("register_length"))
+    print("Register Length: ", register_length, type(register_length))
+    
+    write_function = int(reset.get("write_command"))
+    print("write command: ", write_function, type(write_function))
+    
+    read_function = int(reset.get("read_command"))
+    print("read command: ", read_function, type(read_function))
+    
+    payload = int(reset.get("value_weight"))
+    print("Reset payload: ", payload, type(payload))
+    
+    
+    rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)
+    if not rsp:
+        print("Error during reset process. No response from slave device, verify slave device status and try again")
+        return False
+    elif rsp:
+        validation = modbus_read(slave_address=slave_address,function_code=read_function,starting_address=address,quantity_of_registers=register_length)
+        print("Validation: ", validation)
+
+        if validation != 0x0000:
+            print("Reset process failed. Try again")
+            return False
+        elif validation == 0x0000:
+            print("Device reset process successfull")
+            return True
+
+
+
 #Reset meter attempt
 #write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload1=0x0000,payload2=0x0000,payload3=0x0000,payload4=0x0000,payload5=0x0000)
 
 #current transform set
 #read
-modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x1005,quantity_of_registers=0x0001)
-modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0002,quantity_of_registers=0x0001)
+
+
 #write_modbus(slave_address=0x03,function_code=0x10,starting_address=0x1003,quantity_of_registers=0x0001,byte_count=0x0002,payload=[0x00C8])
-#write_single_modbus(slave_address=0x03,function_code=0x06,starting_address=0x1003,quantity_of_registers=0x0001,payload=0x00C8)
+#write_single_modbus(slave_address=0x03,function_code=0x06,starting_address=0x4000,quantity_of_registers=0x0001,payload=0x0001)
+
+modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0002,quantity_of_registers=0x0001)
+reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
 # Close the serial port
 ser.close()

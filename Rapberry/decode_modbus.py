@@ -14,6 +14,7 @@ def modbus_commands(model:str):
         with open('modbusrtu_commands.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             rows = []
+            reset_command = []
             for row in reader:
                 # Normalize key names and handle missing keys
                 row = {key.strip().lower(): value.strip() for key, value in row.items() if key and value}
@@ -23,7 +24,9 @@ def modbus_commands(model:str):
                 # Filter rows where model is "EM210-72D.MV5.3.X.OS.X"
                 if row.get("model") == model:
                     rows.append(row)
-            return rows
+                    if row.get("parameter") == "reset":
+                        reset_command = row
+            return rows, reset_command
     except FileNotFoundError as e:
         logger.error(f"CSV file not found: {e}")
         return []
@@ -44,7 +47,7 @@ def compute_crc(data):
                 crc >>= 1
     return crc
 
-def decode_modbus_response(response, slave_address: int, datatype: str):
+def decode_modbus_response(response, slave_address: int, datatype: str, parameter: str):
     """Decode a Modbus response based on the specified data type."""
     if not response:
         logger.error("No response received")
@@ -79,8 +82,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     data_bytes = response[3:-2]
 
     # Debugging: Show raw data bytes
-    #logger.debug(f"Data type: {datatype}")
-    #logger.debug(f"Raw data bytes: {data_bytes}")
+    logger.debug(f"Data type: {datatype}")
+    logger.debug(f"Raw data bytes: {data_bytes}")
 
     # Decode data based on datatype
     try:
@@ -95,20 +98,26 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() in ['uint16', 'Uint16']:
-            if len(data_bytes) > 2:
-                logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
-                return
-            data_value = struct.unpack('>H', data_bytes[:2])[0]
+            if parameter != "serial_number":
+                if len(data_bytes) > 2:
+                    logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
+                    return
+                data_value = struct.unpack('>H', data_bytes[:2])[0]
+            elif parameter == "serial_number":
+                data_value = str(data_bytes)       
+
+            """value = int.from_bytes(data_bytes, 'big')
+            data_value = value"""
         elif datatype.lower() == 'int':
             if len(data_bytes) < 4:
                 logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
                 return
             data_value = struct.unpack('>i', data_bytes[:4])[0]
-        elif datatype.lower() == 'int32':
-            if len(data_bytes) < 4:
-                logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
-                return
-            data_value = struct.unpack('>i', data_bytes[:4])[0]
+        elif datatype.lower() in ['int32','uint32']:
+            value = int.from_bytes(data_bytes, 'big')
+            bit_length = value.bit_length()
+            #logger.info(f"value: {value}, length: {bit_length}")
+            data_value = value#struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() in ['int16', 'sunssf']:
             if len(data_bytes) != 2:
                 raise ValueError("int16 requires exactly 2 bytes of data------------------------------------")
@@ -137,7 +146,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 return
         else:
             data_value = data_bytes  # Raw bytes
-            #logger.debug("Unprocessed data type------------------------------------------------------------------------")
+            logger.debug("Unprocessed data type------------------------------------------------------------------------")
 
     except struct.error as e:
         logger.error(f"Error decoding data: {e}")
@@ -145,13 +154,16 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
 
     # Display the results
     #logger.info(f"Byte Count: {byte_count}")
-    #logger.info(f"Data Value: {data_value}")
+    logger.info(f"Data Value: {data_value}")
+    return data_value
 
 def modbus_multiple_read(slave_address: int):
     """Perform multiple Modbus reads based on commands from the CSV file."""
-    commands = modbus_commands("EM210-72D.MV5.3.X.OS.X") #EM210-72D.MV5.3.X.OS.X | acurev-1313-5a-x0
+    commands, reset = modbus_commands("EM210-72D.MV5.3.X.OS.X") #EM210-72D.MV5.3.X.OS.X | acurev-1313-5a-x0
+    #print("Commands: ", commands)
+    #print("Reset command: ", reset)
     #print("Modbus Command: ", commands)
-    function_code = 0x03  # Read holding registers
+    function_code = 0x04  # Read holding registers
 
     with serial.Serial(
         port='/dev/ttyUSB0',
@@ -159,12 +171,12 @@ def modbus_multiple_read(slave_address: int):
         bytesize=serial.EIGHTBITS,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
-        timeout=0.05
+        timeout=0.07
     ) as ser:
         for address in commands:
             try:
                 parameter = address.get('parameter', 'Unknown')
-                #logger.info(f"Parameter: {parameter}")
+                logger.info(f"Parameter: {parameter}")
                 datatype = address.get("data_type", "raw")
                 quantity_of_registers = int(address.get("register_length", "0"), 0)
                 modbus_address = eval(address["modbus_address"])
@@ -194,7 +206,7 @@ def modbus_multiple_read(slave_address: int):
             message.append(crc_low)
             message.append(crc_high)
 
-            #logger.debug(f"Sent: {message.hex()}")
+            #logger.debug(f"Sent: {message}")
 
             # Send the message over serial port
             max_retries = 3
@@ -203,7 +215,7 @@ def modbus_multiple_read(slave_address: int):
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    #logger.debug(f"Received: {response.hex()}")
+                    #logger.debug(f"Received: {response}")
                     break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
@@ -211,7 +223,7 @@ def modbus_multiple_read(slave_address: int):
                 logger.error("Failed to get response after retries")
                 continue
 
-            decode_modbus_response(response, slave_address, datatype)
+            decode_modbus_response(response, slave_address, datatype, parameter)
 
 if __name__ == "__main__":
     try:

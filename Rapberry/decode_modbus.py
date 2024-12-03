@@ -105,7 +105,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
                 data_value = struct.unpack('>H', data_bytes[:2])[0]
             elif parameter == "serial_number":
                 data_value = str(data_bytes)       
-            
+
             """value = int.from_bytes(data_bytes, 'big')
             data_value = value"""
         elif datatype.lower() == 'int':
@@ -223,7 +223,7 @@ def modbus_multiple_read(slave_address: int):
                 logger.error("Failed to get response after retries")
                 continue
 
-            decode_modbus_response(response, slave_address, datatype)
+            decode_modbus_response(response, slave_address, datatype, parameter)
 
 if __name__ == "__main__":
     try:

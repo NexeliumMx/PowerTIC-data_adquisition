@@ -144,7 +144,8 @@ def reset_instruction(slave_address:int,model:str):
     read_function = int(reset.get("read_command"))
     print("read command: ", read_function, type(read_function))
     
-    payload = 0x0001
+    payload = int(reset.get("value_weight"))
+    print("Reset payload: ", payload, type(payload))
     
     
     rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)

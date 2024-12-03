@@ -241,6 +241,10 @@ def modbus_read_meter(slave_address: int, model: str):
 def meter_param(model:str,mbadd:int):
     #Read function
     function_code = 0x04
+
+    table_name = {}
+    table_name["table"] = "meters"
+    settings = {}
     #Filter Setup Read rows
     rows, reset_command = modbus_commands(model=model)
     #print(rows)
@@ -296,12 +300,14 @@ def meter_param(model:str,mbadd:int):
                 #logger.debug(f"Received: {response}")
                 status = decode_modbus_response(response, mbadd, datatype, parameter)
                 if status != "Incorrect CRC":
+                    settings[f"{parameter}"] = status
                     break
             else:
                 logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
         else:
             logger.error("Failed to get response after retries")
             continue
+    print(settings)
 
             
 meter_param("EM210-72D.MV5.3.X.OS.X",3)

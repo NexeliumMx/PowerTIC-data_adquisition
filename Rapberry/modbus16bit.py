@@ -229,5 +229,6 @@ def kill_processes():
 #modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0002,quantity_of_registers=0x0001)
 #reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
 # Close the serial port
-kill_processes()
+result = kill_processes()
+print(result)
 ser.close()

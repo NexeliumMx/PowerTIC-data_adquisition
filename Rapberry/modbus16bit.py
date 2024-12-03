@@ -63,7 +63,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
         ser.close()  
         return None 
     
-    
+
 def write_modbus_multiple(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload:list):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
@@ -198,7 +198,8 @@ def reset_instruction(slave_address:int,model:str):
             print("Device reset process successfull")
             return True
 
-
+def kill_processes():
+    print(ser.port)
 
 #Reset meter attempt
 #write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload1=0x0000,payload2=0x0000,payload3=0x0000,payload4=0x0000,payload5=0x0000)
@@ -210,7 +211,7 @@ def reset_instruction(slave_address:int,model:str):
 #write_modbus(slave_address=0x03,function_code=0x10,starting_address=0x1003,quantity_of_registers=0x0001,byte_count=0x0002,payload=[0x00C8])
 #write_single_modbus(slave_address=0x03,function_code=0x06,starting_address=0x4000,quantity_of_registers=0x0001,payload=0x0001)
 
-modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0002,quantity_of_registers=0x0001)
-reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
+#modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0002,quantity_of_registers=0x0001)
+#reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
 # Close the serial port
 ser.close()

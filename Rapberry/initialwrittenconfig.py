@@ -1,7 +1,7 @@
 from modbus16bit import write_modbus_multiple 
 import json
 import csv
-#from decode_modbus import decode_modbus_response
+from decode_modbus import modbus_commands, decode_modbus_response
 
 
 
@@ -38,7 +38,7 @@ def initialaddres(model,addrs):
                                                     
                         try:
                             result = write_modbus_multiple(1,row["write_command"],modbus_address,1,2,addrs)
-                            #decode_modbus_response(response=result,slave_address=addrs,datatype='')
+                            decode_modbus_response(response=result,slave_address=addrs,datatype='')
                             print(result)
                         except ValueError:
                             print(f"Invalid address for {parameter}: {modbus_address}")
@@ -47,6 +47,8 @@ def initialaddres(model,addrs):
                              
         except Exception as e:
             print("Exception:", e)
+
+
 def ctvtsetup(model,mbdadd,ct,vt):
     keys=("ct",'vt')
     values=dict.fromkeys(keys)

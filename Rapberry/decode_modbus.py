@@ -158,7 +158,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
     logger.info(f"Data Value: {data_value}")
     return data_value
 
-def modbus_multiple_read(slave_address: int, model: str):
+def modbus_read_meter(slave_address: int, model: str):
     """Perform multiple Modbus reads based on commands from the CSV file."""
     commands, reset = modbus_commands(model) #EM210-72D.MV5.3.X.OS.X | acurev-1313-5a-x0
     #print("Commands: ", commands)
@@ -231,6 +231,6 @@ def modbus_multiple_read(slave_address: int, model: str):
 if __name__ == "__main__":
     try:
         slave_address = 0x03
-        modbus_multiple_read(slave_address=slave_address,model="EM210-72D.MV5.3.X.OS.X")
+        modbus_read_meter(slave_address=slave_address,model="EM210-72D.MV5.3.X.OS.X")
     except Exception as e:
         logger.error(f"Unhandled exception: {e}")

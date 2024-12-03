@@ -321,7 +321,7 @@ def reading_meter(sn,mbdadd,model):
             print("Built JSON: ", data)
 
             # Send data
-            url = "https://powertic-api.azurewebsites.net/api/pushdata"
+            url = "https://powertick-api-js.azurewebsites.net/api/postReading"
             try:
                 response = requests.post(url, json=json_data)
                 if response.status_code == 200:

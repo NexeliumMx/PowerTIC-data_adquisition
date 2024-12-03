@@ -230,5 +230,8 @@ def kill_processes():
 #reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
 # Close the serial port
 result = kill_processes()
-print("Que pasó?", result)
+if result == "Killed":
+    print("Exito")
+else:
+    print("Fracaso")
 ser.close()

@@ -210,13 +210,13 @@ def modbus_multiple_read(slave_address: int):
             #logger.debug(f"Sent: {message}")
 
             # Send the message over serial port
-            max_retries = 3
+            max_retries = 10
             for attempt in range(max_retries):
                 ser.write(message)
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    logger.debug(f"Received: {response}")
+                    #logger.debug(f"Received: {response}")
                     status = decode_modbus_response(response, slave_address, datatype, parameter)
                     if status != "Incorrect CRC":
                         break

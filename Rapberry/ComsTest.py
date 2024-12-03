@@ -14,6 +14,15 @@ import serial
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+ser =  serial.Serial(
+    port='/dev/ttyUSB0',
+    baudrate=19200,
+    bytesize=serial.EIGHTBITS,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    timeout=0.07)
+
+
 #Conexión con el medidor mediante modbus
 client = ModbusSerialClient(
     port='/dev/ttyUSB0',

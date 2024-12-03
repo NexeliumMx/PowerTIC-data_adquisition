@@ -2,6 +2,14 @@ import serial
 import struct
 import csv
 import logging
+import requests
+import datetime
+import os
+from datetime import timezone
+import json
+
+
+from ComsTest import info_backup
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -239,75 +247,107 @@ def modbus_read_meter(slave_address: int, model: str):
 
 
 def meter_param(model:str,mbadd:int):
+    if not ser.is_open:
+        ser.open()
     #Read function
     function_code = 0x04
 
     table_name = {}
     table_name["table"] = "meters"
     settings = {}
-    #Filter Setup Read rows
-    rows, reset_command = modbus_commands(model=model)
-    #print(rows)
-    set_params = []
-    for row in rows:
-        if row.get('setupread') == 't':
-            set_params.append(row)
-    
-    print("setup parameters: ", set_params)
+    try:
+        #Filter Setup Read rows
+        rows, reset_command = modbus_commands(model=model)
+        #print(rows)
+        set_params = []
+        for row in rows:
+            if row.get('setupread') == 't':
+                set_params.append(row)
+        
+        print("setup parameters: ", set_params)
 
-    for address in set_params:
-        try:
-            parameter = address.get('parameter', 'Unknown')
-            logger.info(f"Parameter: {parameter}")
-            datatype = address.get("data_type", "raw")
-            quantity_of_registers = int(address.get("register_length", "0"), 0)
-            modbus_address = eval(address["modbus_address"])
-            starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
-        except KeyError as e:
-            logger.error(f"Missing key in address: {e}")
-            continue
-        except ValueError as e:
-            logger.error(f"Invalid value in address: {e}")
-            continue
+        for address in set_params:
+            try:
+                parameter = address.get('parameter', 'Unknown')
+                logger.info(f"Parameter: {parameter}")
+                datatype = address.get("data_type", "raw")
+                quantity_of_registers = int(address.get("register_length", "0"), 0)
+                modbus_address = eval(address["modbus_address"])
+                starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
+            except KeyError as e:
+                logger.error(f"Missing key in address: {e}")
+                continue
+            except ValueError as e:
+                logger.error(f"Invalid value in address: {e}")
+                continue
 
-        # Build the message
-        message = bytearray()
-        message.append(mbadd)
-        message.append(function_code)
-        message.append((starting_address >> 8) & 0xFF)
-        message.append(starting_address & 0xFF)
-        message.append((quantity_of_registers >> 8) & 0xFF)
-        message.append(quantity_of_registers & 0xFF)
+            # Build the message
+            message = bytearray()
+            message.append(mbadd)
+            message.append(function_code)
+            message.append((starting_address >> 8) & 0xFF)
+            message.append(starting_address & 0xFF)
+            message.append((quantity_of_registers >> 8) & 0xFF)
+            message.append(quantity_of_registers & 0xFF)
 
-        # Compute CRC16 checksum
-        crc = compute_crc(message)
-        crc_low = crc & 0xFF
-        crc_high = (crc >> 8) & 0xFF
+            # Compute CRC16 checksum
+            crc = compute_crc(message)
+            crc_low = crc & 0xFF
+            crc_high = (crc >> 8) & 0xFF
 
-        # Append CRC to the message
-        message.append(crc_low)
-        message.append(crc_high)
+            # Append CRC to the message
+            message.append(crc_low)
+            message.append(crc_high)
 
-        #logger.debug(f"Sent: {message}")
+            #logger.debug(f"Sent: {message}")
 
-        # Send the message over serial port
-        max_retries = 10
-        for attempt in range(max_retries):
-            ser.write(message)
-            response_length = 5 + (quantity_of_registers * 2) + 2
-            response = ser.read(response_length)
-            if response:
-                #logger.debug(f"Received: {response}")
-                status = decode_modbus_response(response, mbadd, datatype, parameter)
-                if status != "Incorrect CRC":
-                    settings[f"{parameter}"] = status
-                    break
+            # Send the message over serial port
+            max_retries = 10
+            for attempt in range(max_retries):
+                ser.write(message)
+                response_length = 5 + (quantity_of_registers * 2) + 2
+                response = ser.read(response_length)
+                if response:
+                    #logger.debug(f"Received: {response}")
+                    status = decode_modbus_response(response, mbadd, datatype, parameter)
+                    if status != "Incorrect CRC":
+                        settings[f"{parameter}"] = status
+                        print(settings)
+                        break
+                else:
+                    logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
             else:
-                logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
+                logger.error("Failed to get response after retries")
+                continue
+
+    except Exception as e:
+        print("Exception: ", e)
+    finally:
+        ser.close()
+        settings["client_id"] = "not_set"
+        settings["facturation_interval_months"] = 1
+        timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
+        settings["register_date"] = timestamp
+        settings["facturation_day"]=datetime.datetime.now().day
+
+        json_data = settings
+        data = json.dumps(json_data)
+        print(table_name)
+        print(settings)
+
+        print(data)
+        print(settings.get("serial_number", "serial_number not found"))
+        url = "https://powertick-api-js.azurewebsites.net/api/RegisterNewMeter"
+        response = requests.post(url, json=json_data)
+
+        if response.status_code == 200:
+            print('Success:')
         else:
-            logger.error("Failed to get response after retries")
-            continue
-    print(settings)
+            print('Error:', response.status_code, response.text)
+
+            file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
+            info_backup(data=json_data, file_path=file_path)
+
 
             
 meter_param("EM210-72D.MV5.3.X.OS.X",3)

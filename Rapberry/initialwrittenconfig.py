@@ -6,6 +6,7 @@ from decode_modbus import modbus_commands, decode_modbus_response
 
 
 def initialaddres(model,addrs):
+    
     with open('modbusrtu_commands.csv',newline='') as csvfile:
         rows = csv.DictReader(csvfile) 
         #print(rows)

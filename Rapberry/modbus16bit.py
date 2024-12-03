@@ -59,6 +59,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
             ser.close()
             return decoded_response 
         else:
+            kill_processes()
             print(f"Error reading, retrying ({attempt+1}/{max_retries})")
     else: 
         print("Wirte process failed")
@@ -110,6 +111,7 @@ def write_modbus_multiple(slave_address:int, function_code:int, starting_address
             ser.close()
             return response 
         else:
+            kill_processes()
             print(f"Error wirting, retrying ({attempt+1}/{max_retries})")
     else: 
         print("Wirte process failed")
@@ -155,6 +157,7 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
             ser.close()
             return response 
         else:
+            kill_processes()
             print(f"Error wirting, retrying ({attempt+1}/{max_retries})")
     else: 
         print("Wirte process failed")
@@ -229,9 +232,5 @@ def kill_processes():
 #modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0002,quantity_of_registers=0x0001)
 #reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
 # Close the serial port
-result = kill_processes()
-if result == "Killed":
-    print("Exito")
-else:
-    print("Fracaso")
+
 ser.close()

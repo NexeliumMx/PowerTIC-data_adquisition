@@ -8,6 +8,14 @@ import numpy as np
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+ser =  serial.Serial(
+    port='/dev/ttyUSB0',
+    baudrate=19200,
+    bytesize=serial.EIGHTBITS,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    timeout=0.07)
+
 def modbus_commands(model:str):
     """Read Modbus commands from a CSV file and filter rows by model."""
     try:
@@ -166,65 +174,59 @@ def modbus_read_meter(slave_address: int, model: str):
     #print("Modbus Command: ", commands)
     function_code = 0x04  # Read holding registers
 
-    with serial.Serial(
-        port='/dev/ttyUSB0',
-        baudrate=19200,
-        bytesize=serial.EIGHTBITS,
-        parity=serial.PARITY_NONE,
-        stopbits=serial.STOPBITS_ONE,
-        timeout=0.07
-    ) as ser:
-        for address in commands:
-            try:
-                parameter = address.get('parameter', 'Unknown')
-                logger.info(f"Parameter: {parameter}")
-                datatype = address.get("data_type", "raw")
-                quantity_of_registers = int(address.get("register_length", "0"), 0)
-                modbus_address = eval(address["modbus_address"])
-                starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
-            except KeyError as e:
-                logger.error(f"Missing key in address: {e}")
-                continue
-            except ValueError as e:
-                logger.error(f"Invalid value in address: {e}")
-                continue
 
-            # Build the message
-            message = bytearray()
-            message.append(slave_address)
-            message.append(function_code)
-            message.append((starting_address >> 8) & 0xFF)
-            message.append(starting_address & 0xFF)
-            message.append((quantity_of_registers >> 8) & 0xFF)
-            message.append(quantity_of_registers & 0xFF)
 
-            # Compute CRC16 checksum
-            crc = compute_crc(message)
-            crc_low = crc & 0xFF
-            crc_high = (crc >> 8) & 0xFF
+    for address in commands:
+        try:
+            parameter = address.get('parameter', 'Unknown')
+            logger.info(f"Parameter: {parameter}")
+            datatype = address.get("data_type", "raw")
+            quantity_of_registers = int(address.get("register_length", "0"), 0)
+            modbus_address = eval(address["modbus_address"])
+            starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
+        except KeyError as e:
+            logger.error(f"Missing key in address: {e}")
+            continue
+        except ValueError as e:
+            logger.error(f"Invalid value in address: {e}")
+            continue
 
-            # Append CRC to the message
-            message.append(crc_low)
-            message.append(crc_high)
+        # Build the message
+        message = bytearray()
+        message.append(slave_address)
+        message.append(function_code)
+        message.append((starting_address >> 8) & 0xFF)
+        message.append(starting_address & 0xFF)
+        message.append((quantity_of_registers >> 8) & 0xFF)
+        message.append(quantity_of_registers & 0xFF)
 
-            #logger.debug(f"Sent: {message}")
+        # Compute CRC16 checksum
+        crc = compute_crc(message)
+        crc_low = crc & 0xFF
+        crc_high = (crc >> 8) & 0xFF
 
-            # Send the message over serial port
-            max_retries = 10
-            for attempt in range(max_retries):
-                ser.write(message)
-                response_length = 5 + (quantity_of_registers * 2) + 2
-                response = ser.read(response_length)
-                if response:
-                    #logger.debug(f"Received: {response}")
-                    status = decode_modbus_response(response, slave_address, datatype, parameter)
-                    if status != "Incorrect CRC":
-                        break
-                else:
-                    logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
+        # Append CRC to the message
+        message.append(crc_low)
+        message.append(crc_high)
+
+        #logger.debug(f"Sent: {message}")
+
+        # Send the message over serial port
+        max_retries = 10
+        for attempt in range(max_retries):
+            ser.write(message)
+            response_length = 5 + (quantity_of_registers * 2) + 2
+            response = ser.read(response_length)
+            if response:
+                #logger.debug(f"Received: {response}")
+                status = decode_modbus_response(response, slave_address, datatype, parameter)
+                if status != "Incorrect CRC":
+                    break
             else:
-                logger.error("Failed to get response after retries")
-                continue
+                logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
+        else:
+            logger.error("Failed to get response after retries")
+            continue
 
             
 

@@ -5,6 +5,7 @@ import datetime
 from datetime import timezone
 import os
 import csv
+from decode_modbus import modbus_commands
 
 #Conexión con el medidor mediante modbus
 client = ModbusSerialClient(
@@ -42,117 +43,116 @@ def info_backup(data,file_path):
 
 #obtención y envío de datos de información del medidor
 def meter_param(model,mbdadd):     
+    rows, reset_command = modbus_commands(model=model)
 
-    with open('modbusrtu_commands.csv',newline='') as csvfile:
-        rows = csv.DictReader(csvfile) 
-        #print(rows)
-        table_name = {}
-        table_name["table"] = "meters"
-        settings = {}
-        
-        if client.connect():
-            print("Conexión exitosa")
-            print("rows: ",rows)
-            try:
-                for row in rows: 
+    print(rows)
+    table_name = {}
+    table_name["table"] = "meters"
+    settings = {}
+    
+    if client.connect():
+        print("Conexión exitosa")
+        print("rows: ",rows)
+        try:
+            for row in rows: 
+                
+                if model==row["model"]:
+                    print('aqui')
+                    if row["setupRead"] == "t":
+                        setup = True
+                    elif row["setupRead"] == "f":
+                        setup = False
                     
-                    if model==row["model"]:
+                    #print(setup, type(setup))
+                    if setup == True: 
+                        print(row)
+                        print(row["parameter"],row["modbus_address"])      
+                        print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["setupRead"])) )
+                        print("--------------------------------------------------------------------------------")
+                        print(row["model"]) 
+                        print(model==row["model"])    
                         print('aqui')
-                        if row["setupRead"] == "t":
-                            setup = True
-                        elif row["setupRead"] == "f":
-                            setup = False
-                        
-                        #print(setup, type(setup))
-                        if setup == True: 
-                            print(row)
-                            print(row["parameter"],row["modbus_address"])      
-                            print(row["setupRead"],type(row["setupRead"]), bool(row["setupRead"]),type(bool(row["setupRead"])) )
-                            print("--------------------------------------------------------------------------------")
-                            print(row["model"]) 
-                            print(model==row["model"])    
-                            print('aqui')
-                            #print("parameter: ", row["parameter_description"] )
-                            parameter = row['parameter']
-                            #print("Parameter: ",parameter)
-                            set_val = ""
-                            #print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
-            
-                            modbus_address = int(row["modbus_address"])
-                            #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
-                            print(row["register_length"])
-                            print('aqui')
-                            if int(row["register_length"])>1:
-                                
+                        #print("parameter: ", row["parameter_description"] )
+                        parameter = row['parameter']
+                        #print("Parameter: ",parameter)
+                        set_val = ""
+                        #print("modbus_address: ", row['modbus_address'],type(row["modbus_address"]))
+        
+                        modbus_address = int(row["modbus_address"])
+                        #print("modbus_addresses: ", modbus_addresses,type(modbus_addresses))
+                        print(row["register_length"])
+                        print('aqui')
+                        if int(row["register_length"])>1:
                             
-                                #print("Modbus Address: ", modbus_address)
-                                print('aquibt')
-                                try:
-                                    print(str(modbus_address)+str(mbdadd))
-                                    result = client.read_holding_registers(modbus_address,int(row["register_length"]),mbdadd)
-                                    print('aquisetv')
-                                    if not result.isError():
-                                        
-                                        for i in result.registers:
-                                            
-                                            (set_val) += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
-                                            
-                                        set_val = set_val.replace('\x00', '')
-                                        print(set_val)
-                                        settings[f'{parameter}'] = set_val  
-                                        print('aquisetv')
-                                    else:
-                                        print(f"Error de lectura ({parameter}):", result)
-                                except ValueError:
-                                    print(f"Invalid address for {parameter}: {str(modbus_address)}")
-                                    continue
-                                print(f"Adquirido valor para {parameter}: {set_val}")
-                            else:
-                                print('aquielse')
-                                print(modbus_address)
-                                #print("Integer Modbus Address: ", modbus_address)
-                                modbus_address = int(modbus_address)
-                                result = client.read_holding_registers(modbus_address,1, mbdadd)
+                        
+                            #print("Modbus Address: ", modbus_address)
+                            print('aquibt')
+                            try:
+                                print(str(modbus_address)+str(mbdadd))
+                                result = client.read_holding_registers(modbus_address,int(row["register_length"]),mbdadd)
+                                print('aquisetv')
                                 if not result.isError():
-                                    set_val = str(result.registers[0])
-                                    settings[f"{parameter}"] = set_val
-                                    print(f"{parameter}: {set_val}")
+                                    
+                                    for i in result.registers:
+                                        
+                                        (set_val) += chr((i & 0b1111111100000000) >> 8) + chr(i & 0b0000000011111111)
+                                        
+                                    set_val = set_val.replace('\x00', '')
+                                    print(set_val)
+                                    settings[f'{parameter}'] = set_val  
+                                    print('aquisetv')
                                 else:
-                                    print(f"Error de lectura {parameter} en {modbus_address}", result)       
-            except Exception as e:
-                print("Exception:", e)
-            finally:
-                client.close()
-                #Solo para probar sn diferente
-                #settings["serial_number"] = "E3T15060694"
+                                    print(f"Error de lectura ({parameter}):", result)
+                            except ValueError:
+                                print(f"Invalid address for {parameter}: {str(modbus_address)}")
+                                continue
+                            print(f"Adquirido valor para {parameter}: {set_val}")
+                        else:
+                            print('aquielse')
+                            print(modbus_address)
+                            #print("Integer Modbus Address: ", modbus_address)
+                            modbus_address = int(modbus_address)
+                            result = client.read_holding_registers(modbus_address,1, mbdadd)
+                            if not result.isError():
+                                set_val = str(result.registers[0])
+                                settings[f"{parameter}"] = set_val
+                                print(f"{parameter}: {set_val}")
+                            else:
+                                print(f"Error de lectura {parameter} en {modbus_address}", result)       
+        except Exception as e:
+            print("Exception:", e)
+        finally:
+            client.close()
+            #Solo para probar sn diferente
+            #settings["serial_number"] = "E3T15060694"
 
-                settings["client_id"] = "not_set"
-                settings["facturation_interval_months"] = 1
-                timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
-                settings["register_date"] = timestamp
-                settings["facturation_day"]=datetime.datetime.now().day
+            settings["client_id"] = "not_set"
+            settings["facturation_interval_months"] = 1
+            timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
+            settings["register_date"] = timestamp
+            settings["facturation_day"]=datetime.datetime.now().day
 
-                json_data = settings
-                data = json.dumps(json_data)
-                print(table_name)
-                print(settings)
+            json_data = settings
+            data = json.dumps(json_data)
+            print(table_name)
+            print(settings)
 
-                print(data)
-                print(settings.get("serial_number", "serial_number not found"))
-                url = "https://powertick-api-js.azurewebsites.net/api/RegisterNewMeter"
-                response = requests.post(url, json=json_data)
+            print(data)
+            print(settings.get("serial_number", "serial_number not found"))
+            url = "https://powertick-api-js.azurewebsites.net/api/RegisterNewMeter"
+            response = requests.post(url, json=json_data)
 
-                if response.status_code == 200:
-                    print('Success:')
-                else:
-                    print('Error:', response.status_code, response.text)
+            if response.status_code == 200:
+                print('Success:')
+            else:
+                print('Error:', response.status_code, response.text)
 
-                    file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
-                    info_backup(data=json_data, file_path=file_path)
+                file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
+                info_backup(data=json_data, file_path=file_path)
 
 
-        else:
-            print("Error de conexión con el medidor")
+    else:
+        print("Error de conexión con el medidor")
 
     return settings.get('serial_number'), table_name.get("table")
 

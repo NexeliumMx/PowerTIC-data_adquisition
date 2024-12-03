@@ -47,7 +47,7 @@ def compute_crc(data):
                 crc >>= 1
     return crc
 
-def decode_modbus_response(response, slave_address: int, datatype: str):
+def decode_modbus_response(response, slave_address: int, datatype: str, parameter: str):
     """Decode a Modbus response based on the specified data type."""
     if not response:
         logger.error("No response received")
@@ -98,12 +98,16 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() in ['uint16', 'Uint16']:
-            """if len(data_bytes) > 2:
-                logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
-                return
-            data_value = struct.unpack('>H', data_bytes[:2])[0]"""
-            value = int.from_bytes(data_bytes, 'big')
-            data_value = value
+            if parameter != "serial_number":
+                if len(data_bytes) > 2:
+                    logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
+                    return
+                data_value = struct.unpack('>H', data_bytes[:2])[0]
+            elif parameter == "serial_number":
+                data_value = str(data_bytes)       
+            
+            """value = int.from_bytes(data_bytes, 'big')
+            data_value = value"""
         elif datatype.lower() == 'int':
             if len(data_bytes) < 4:
                 logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")

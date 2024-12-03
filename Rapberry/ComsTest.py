@@ -291,7 +291,7 @@ def reading_meter(sn,mbdadd,model):
                                 # 'modbus_address' is a single address
                                 meas_val = ''
                                 try:
-                                    meas = client.read_holding_registers(modbus_address, mbdadd)
+                                    meas = client.read_holding_registers(modbus_address, int(registers),mbdadd)
                                     if not meas.isError():
                                         meas_val = meas.registers[0]
                                         measurement[f"{parameter_description}"] = meas_val

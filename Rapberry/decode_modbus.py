@@ -111,7 +111,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             value = int.from_bytes(data_bytes, 'little')
             bit_length = value.bit_length()
             if bit_length > 4:
-                data_value = data_bytes << (4-len(data_bytes))
+                data_value = data_bytes << (4-bit_length)
                 logger.info(f"Int32 padded value: {data_value}                                         int32")
                 #logger.error(f"Invalid data length for int32 {len(data_bytes)} ------------------------------------")
                 #return

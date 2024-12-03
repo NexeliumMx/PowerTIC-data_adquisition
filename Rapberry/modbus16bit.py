@@ -1,5 +1,7 @@
 import serial
 from decode_modbus import decode_modbus_response, modbus_commands
+import subprocess
+
 
 ser = serial.Serial(
     port='/dev/ttyUSB0',
@@ -199,7 +201,20 @@ def reset_instruction(slave_address:int,model:str):
             return True
 
 def kill_processes():
-    print(ser.port)
+    serial_port = ser.port
+    print(serial_port)
+    try:
+        bash_rsp = subprocess.run(
+            ['./kill_process.sh', serial_port],
+            text=True,
+            capture_output=True,
+            check=True
+        )
+        print(bash_rsp.stdout)
+        return bash_rsp.stdout
+    except subprocess.CalledProcessError as e:
+        print("Error: ", e.stderr)
+        return None
 
 #Reset meter attempt
 #write_modbus(slave_address=0x05,function_code=0x10,starting_address=0x209,quantity_of_registers=0x05,byte_count=0xA,payload1=0x0000,payload2=0x0000,payload3=0x0000,payload4=0x0000,payload5=0x0000)

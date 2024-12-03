@@ -2,7 +2,6 @@ import serial
 import struct
 import csv
 import logging
-import numpy as np
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -240,6 +239,9 @@ def modbus_read_meter(slave_address: int, model: str):
 
 
 def meter_param(model:str,mbadd:int):
+    #Read function
+    function_code = 0x04
+    #Filter Setup Read rows
     rows, reset_command = modbus_commands(model=model)
     #print(rows)
     set_params = []
@@ -248,5 +250,58 @@ def meter_param(model:str,mbadd:int):
             set_params.append(row)
     
     print("setup parameters: ", set_params)
+
+    for address in set_params:
+        try:
+            parameter = address.get('parameter', 'Unknown')
+            logger.info(f"Parameter: {parameter}")
+            datatype = address.get("data_type", "raw")
+            quantity_of_registers = int(address.get("register_length", "0"), 0)
+            modbus_address = eval(address["modbus_address"])
+            starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
+        except KeyError as e:
+            logger.error(f"Missing key in address: {e}")
+            continue
+        except ValueError as e:
+            logger.error(f"Invalid value in address: {e}")
+            continue
+
+        # Build the message
+        message = bytearray()
+        message.append(mbadd)
+        message.append(function_code)
+        message.append((starting_address >> 8) & 0xFF)
+        message.append(starting_address & 0xFF)
+        message.append((quantity_of_registers >> 8) & 0xFF)
+        message.append(quantity_of_registers & 0xFF)
+
+        # Compute CRC16 checksum
+        crc = compute_crc(message)
+        crc_low = crc & 0xFF
+        crc_high = (crc >> 8) & 0xFF
+
+        # Append CRC to the message
+        message.append(crc_low)
+        message.append(crc_high)
+
+        #logger.debug(f"Sent: {message}")
+
+        # Send the message over serial port
+        max_retries = 10
+        for attempt in range(max_retries):
+            ser.write(message)
+            response_length = 5 + (quantity_of_registers * 2) + 2
+            response = ser.read(response_length)
+            if response:
+                #logger.debug(f"Received: {response}")
+                status = decode_modbus_response(response, mbadd, datatype, parameter)
+                if status != "Incorrect CRC":
+                    break
+            else:
+                logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
+        else:
+            logger.error("Failed to get response after retries")
+            continue
+
             
 meter_param("EM210-72D.MV5.3.X.OS.X",3)

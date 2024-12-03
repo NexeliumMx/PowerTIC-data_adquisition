@@ -164,7 +164,7 @@ def modbus_multiple_read(slave_address: int):
     #print("Commands: ", commands)
     #print("Reset command: ", reset)
     #print("Modbus Command: ", commands)
-    function_code = 0x03  # Read holding registers
+    function_code = 0x04  # Read holding registers
 
     with serial.Serial(
         port='/dev/ttyUSB0',

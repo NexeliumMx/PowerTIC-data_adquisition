@@ -77,7 +77,7 @@ def meter_param(model:str,mbadd:int):
             if row.get('setupread') == 't':
                 set_params.append(row)
         
-        print("setup parameters: ", set_params)
+        #print("setup parameters: ", set_params)
 
         for address in set_params:
             try:
@@ -374,7 +374,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
             if row.get('setupread') == 'f':
                 meas_params.append(row)
         
-        print("measurement parameters: ", meas_params)
+        #print("measurement parameters: ", meas_params)
         for address in meas_params:
             try:
                 parameter = address.get('parameter', 'Unknown')
@@ -421,7 +421,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
                     status = decode_modbus_response(response, mbadd, datatype, parameter)
                     if status != "Incorrect CRC":
                         measurement[f"{parameter}"] = status
-                        print(measurement)
+                        #print(measurement)
                         break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")

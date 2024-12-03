@@ -7,7 +7,7 @@ import os
 import csv
 import logging
 from decode_modbus import modbus_commands, compute_crc, decode_modbus_response
-from modbus16bit import modbus_read
+from modbus16bit import modbus_read, kill_processes
 import serial
 
 # Configure logging
@@ -128,6 +128,7 @@ def meter_param(model:str,mbadd:int):
                         #print(settings)
                         break
                 else:
+                    kill_processes()
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
             else:
                 logger.error("Failed to get response after retries")
@@ -279,6 +280,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
                         #print(measurement)
                         break
                 else:
+                    kill_processes()
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
             else:
                 logger.error("Failed to get response after retries")

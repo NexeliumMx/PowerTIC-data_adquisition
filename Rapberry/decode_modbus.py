@@ -109,8 +109,10 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
             data_value = struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() == 'int32':
             if len(data_bytes) > 4:
-                logger.error(f"Invalid data length for int32 {len(data_bytes)} ------------------------------------")
-                return
+                data_value = data_bytes << (4-len(data_bytes))
+                logger.info(f"Int32 padded value: {data_value}                                         int32")
+                #logger.error(f"Invalid data length for int32 {len(data_bytes)} ------------------------------------")
+                #return
             data_value = struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() in ['int16', 'sunssf']:
             if len(data_bytes) != 2:

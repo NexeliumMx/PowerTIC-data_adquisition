@@ -126,13 +126,11 @@ def meter_param(model,mbdadd):
                 #Solo para probar sn diferente
                 #settings["serial_number"] = "E3T15060694"
 
-                settings["client"] = "not_set"
-                settings["branch"] = "not_set"
-                settings["location"] = "not_set"
-                settings["load_center"] = "not_set"
-                settings["facturation_intervalmonths"] = 1
+                settings["client_id"] = "not_set"
+                settings["facturation_interval_months"] = 1
                 timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
                 settings["register_date"] = timestamp
+                settings["facturation_day"]=datetime.datetime.now().day
 
                 json_data = settings
                 data = json.dumps(json_data)

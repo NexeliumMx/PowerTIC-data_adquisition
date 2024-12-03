@@ -63,7 +63,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
     calculated_crc_bytes = calculated_crc.to_bytes(2, byteorder='little')
     if received_crc != calculated_crc_bytes:
         logger.error("CRC mismatch in response")
-        return
+        return "Incorrect CRC"
 
     # Extract header information
     device_address = response[0]
@@ -217,14 +217,16 @@ def modbus_multiple_read(slave_address: int):
                 response = ser.read(response_length)
                 if response:
                     #logger.debug(f"Received: {response}")
-                    break
+                    status = decode_modbus_response(response, slave_address, datatype, parameter)
+                    if status != "Incorrect CRC":
+                        break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
             else:
                 logger.error("Failed to get response after retries")
                 continue
 
-            decode_modbus_response(response, slave_address, datatype, parameter)
+            
 
 if __name__ == "__main__":
     try:

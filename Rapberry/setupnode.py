@@ -4,7 +4,7 @@ import subprocess
 import requests
 from ComsTest import meter_param
 import random
-from initialwrittenconfig import initialaddres,ctvtsetup
+#from initialwrittenconfig import initialaddres,ctvtsetup
 import ast
 def initialize(models):
     direction=[]
@@ -55,7 +55,7 @@ def initialize(models):
                 if tempadd not in direction and tempadd>5:
                     temp["address"]=tempadd
                     direction.append(tempadd)
-                    initialaddres(temp["model"],tempadd)
+                    #initialaddres(temp["model"],tempadd)
                     
                     break
                 elif len(direction)==240: 
@@ -66,7 +66,7 @@ def initialize(models):
         print("llegue")
         temp["ct"]=int(10*float(input("Current Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
         temp["vt"]=int(10*float(input("Voltage Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
-        ctvtsetup(temp["model"],temp["address"],temp["ct"],temp["vt"])
+        #ctvtsetup(temp["model"],temp["address"],temp["ct"],temp["vt"])
         
         SN=meter_param(temp["model"],temp["address"])
         temp["serialNumber"]=SN[0]

@@ -239,7 +239,7 @@ def modbus_read_meter(slave_address: int, model: str):
         logger.error(f"Unhandled exception: {e}")"""
 
 
-def meter_param(model:str,mbadd):
+def meter_param(model:str,mbadd:int):
     rows, reset_command = modbus_commands(model=model)
     print(rows)
     set_params = []
@@ -248,4 +248,4 @@ def meter_param(model:str,mbadd):
             set_params.append(row)
             print("setup row: ", row)
             
-meter_param("EM210-72D.MV5.3.X.OS.X")
+meter_param("EM210-72D.MV5.3.X.OS.X",3)

@@ -120,11 +120,20 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
     # Send the message over serial port
     ser.write(message)
 
-    # Read the response
+    # validate response
+    
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
-    print("Received:", response)
-    ser.close()
-    return response
+    if response:
+        print("Received:", response)
+        ser.close()
+        return response 
+    
+    else: 
+        print("Wirte process failed")
+        ser.close()  
+        return None 
+    
+
 
 def reset_instruction(slave_address:int,model:str):
     if not ser.is_open:

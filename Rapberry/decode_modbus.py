@@ -108,7 +108,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
                 return
             data_value = struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() == 'int32':
-            value = int.from_bytes(data_bytes, 'little')
+            value = int.from_bytes(data_bytes, 'big')
             bit_length = value.bit_length()
             if bit_length > 4:
                 data_value = value << (4-bit_length)

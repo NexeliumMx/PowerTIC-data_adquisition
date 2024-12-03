@@ -128,8 +128,8 @@ def meter_param(model:str,mbadd:int):
                         #print(settings)
                         break
                 else:
-                    kill_processes()
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
+                    #kill_processes()
             else:
                 logger.error("Failed to get response after retries")
                 continue
@@ -282,7 +282,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
                 else:
                     
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
-                    kill_processes()
+                    #kill_processes()
                     continue
             else:
                 logger.error("Failed to get response after retries")

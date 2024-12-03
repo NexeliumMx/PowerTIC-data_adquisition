@@ -175,6 +175,6 @@ def reset_instruction(slave_address:int,model:str):
 #write_single_modbus(slave_address=0x03,function_code=0x06,starting_address=0x4000,quantity_of_registers=0x0001,payload=0x0001)
 
 modbus_read(slave_address=0x03,function_code=0x04,starting_address=0x0002,quantity_of_registers=0x0001)
-#reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
+reset_instruction(0x03,"EM210-72D.MV5.3.X.OS.X")
 # Close the serial port
 ser.close()

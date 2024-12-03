@@ -246,6 +246,7 @@ def meter_param(model:str,mbadd:int):
     for row in rows:
         if row.get('setupread') == 't':
             set_params.append(row)
-            print("setup row: ", row)
+    
+    print("setup parameters: ", set_params)
             
 meter_param("EM210-72D.MV5.3.X.OS.X",3)

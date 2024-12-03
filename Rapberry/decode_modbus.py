@@ -244,7 +244,7 @@ def meter_param(model:str,mbadd:int):
     #print(rows)
     set_params = []
     for row in rows:
-        if row.get('setupRead') == 't':
+        if row.get('setupread') == 't':
             set_params.append(row)
             print("setup row: ", row)
             

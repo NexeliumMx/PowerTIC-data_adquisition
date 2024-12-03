@@ -210,7 +210,7 @@ def kill_processes():
             capture_output=True,
             check=True
         )
-        print(bash_rsp.stdout)
+        print("Bash response: ",bash_rsp.stdout)
         return bash_rsp.stdout
     except subprocess.CalledProcessError as e:
         print("Error: ", e.stderr)

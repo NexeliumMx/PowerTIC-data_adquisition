@@ -207,7 +207,7 @@ def modbus_multiple_read(slave_address: int):
             message.append(crc_low)
             message.append(crc_high)
 
-            logger.debug(f"Sent: {message.hex()}")
+            logger.debug(f"Sent: {message}")
 
             # Send the message over serial port
             max_retries = 3
@@ -216,7 +216,7 @@ def modbus_multiple_read(slave_address: int):
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    logger.debug(f"Received: {response.hex()}")
+                    logger.debug(f"Received: {response}")
                     break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")

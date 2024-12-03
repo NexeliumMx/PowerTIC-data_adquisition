@@ -165,7 +165,7 @@ def meter_param(model:str,mbadd:int):
 
 
             
-#meter_param("EM210-72D.MV5.3.X.OS.X",3)
+
 
 def timestamp_adquisition(sn,mbdadd,model):
     if client.connect():
@@ -471,3 +471,8 @@ def reading_meter(sn:str, mbadd: int, model: str):
             return None
     
     return data  # Return the Python object, not the serialized string
+mbadd = 0x03
+model = "EM210-72D.MV5.3.X.OS.X"
+sn, table_name = meter_param(model=model,mbadd=mbadd)
+
+reading_meter(sn=sn,mbadd=mbadd,model=model)

@@ -202,7 +202,7 @@ def reset_instruction(slave_address:int,model:str):
 
 def kill_processes():
     serial_port = ser.port
-    print(serial_port)
+    #print(serial_port)
     try:
         bash_rsp = subprocess.run(
             ['./kill_process.sh', serial_port],

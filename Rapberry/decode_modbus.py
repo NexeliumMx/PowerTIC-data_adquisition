@@ -82,8 +82,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
     data_bytes = response[3:-2]
 
     # Debugging: Show raw data bytes
-    logger.debug(f"Data type: {datatype}")
-    logger.debug(f"Raw data bytes: {data_bytes}")
+    #logger.debug(f"Data type: {datatype}")
+    #logger.debug(f"Raw data bytes: {data_bytes}")
 
     # Decode data based on datatype
     try:
@@ -110,7 +110,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
         elif datatype.lower() in ['int32','uint32']:
             value = int.from_bytes(data_bytes, 'big')
             bit_length = value.bit_length()
-            logger.info(f"value: {value}, length: {bit_length}")
+            #logger.info(f"value: {value}, length: {bit_length}")
             data_value = value#struct.unpack('>i', data_bytes[:4])[0]
         elif datatype.lower() in ['int16', 'sunssf']:
             if len(data_bytes) != 2:
@@ -147,7 +147,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str):
         return
 
     # Display the results
-    logger.info(f"Byte Count: {byte_count}")
+    #logger.info(f"Byte Count: {byte_count}")
     logger.info(f"Data Value: {data_value}")
     return data_value
 
@@ -200,7 +200,7 @@ def modbus_multiple_read(slave_address: int):
             message.append(crc_low)
             message.append(crc_high)
 
-            logger.debug(f"Sent: {message}")
+            #logger.debug(f"Sent: {message}")
 
             # Send the message over serial port
             max_retries = 3
@@ -209,7 +209,7 @@ def modbus_multiple_read(slave_address: int):
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    logger.debug(f"Received: {response}")
+                    #logger.debug(f"Received: {response}")
                     break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")

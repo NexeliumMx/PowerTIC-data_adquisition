@@ -246,3 +246,7 @@ def modbus_read_meter(slave_address: int, model: str):
         logger.error(f"Unhandled exception: {e}")"""
 
 
+
+
+
+

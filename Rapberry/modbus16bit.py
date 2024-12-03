@@ -21,6 +21,8 @@ def compute_crc(data):
                     crc >>= 1
         return crc
 def modbus_read(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int):
+    if not ser.is_open:
+        ser.open()
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|CRC16 Hi|CRC16 Lo
     message = bytearray()
@@ -48,17 +50,25 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
 
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
-    print("Received:", response)
-    decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='int32',parameter="reset")
 
-    # Close the serial port
-    ser.close()
-    return decoded_response
+    # validate response
+    
+    if response:
+        print("Received:", response)
+        decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='int32',parameter="reset")    decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='int32',parameter="reset")
+        ser.close()
+        return decoded_response 
+    
+    else: 
+        print("Wirte process failed")
+        ser.close()  
+        return None 
 
 def write_modbus_multiple(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, byte_count:int, payload:list):
     # Build the message (adjusted if necessary)
     #format: Addr|Fun|Data start reg hi|Data start reg lo|Data # of regs hi|Data # of regs lo|Byte Count|Value Hi|Value Lo|CRC16 Hi|CRC16 Lo
-    ser.open()
+    if not ser.is_open:
+        ser.open()
     message = bytearray()
     message.append(slave_address)
     message.append(function_code)
@@ -85,11 +95,18 @@ def write_modbus_multiple(slave_address:int, function_code:int, starting_address
     # Send the message over serial port
     ser.write(message)
 
-    # Read the response
+    # validate response
+    
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
-    print("Received:", response)
-    ser.close()
-    return response
+    if response:
+        print("Received:", response)
+        ser.close()
+        return response 
+    
+    else: 
+        print("Wirte process failed")
+        ser.close()  
+        return None 
 
 def write_single_modbus(slave_address:int, function_code:int, starting_address:int, quantity_of_registers:int, payload:int):
     # Build the message (adjusted if necessary)

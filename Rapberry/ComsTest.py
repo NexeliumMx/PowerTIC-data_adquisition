@@ -125,7 +125,7 @@ def meter_param(model:str,mbadd:int):
                     status = decode_modbus_response(response, mbadd, datatype, parameter)
                     if status != "Incorrect CRC":
                         settings[f"{parameter}"] = status
-                        print(settings)
+                        #print(settings)
                         break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")

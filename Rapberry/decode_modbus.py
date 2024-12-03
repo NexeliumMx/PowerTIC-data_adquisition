@@ -9,7 +9,7 @@ from datetime import timezone
 import json
 
 
-from ComsTest import info_backup
+#from ComsTest import info_backup
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)

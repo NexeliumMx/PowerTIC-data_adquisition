@@ -1,4 +1,4 @@
-model,modbus_address,parameter,unit,register_length,data_type,r_w,data_range,industry_standard,indb,setupRead,setupWrite,timestamp,read_command,write_command,value_weight,address
+series,modbus_address,parameter,unit,register_length,data_type,r_w,data_range,industry_standard,indb,setupRead,setupWrite,timestamp,read_command,write_command,value_weight,address
 acurev-1313-5a-x0,4148,serial_number,,16,utf-8,r,,Acurev 1300,f,t,f,f,3,,,
 acurev-1313-5a-x0,4096,sunspec_id,,2,Uint16,r,,sunspec,f,f,f,f,3,,,
 acurev-1313-5a-x0,4098,id,,1,Uint16,r,,Acurev 1300,f,f,f,f,3,,,

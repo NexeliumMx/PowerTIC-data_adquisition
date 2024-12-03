@@ -205,7 +205,7 @@ def kill_processes():
     print(serial_port)
     try:
         bash_rsp = subprocess.run(
-            ['/home/pi/MICO/PowerTIC-data_adquisition/Rapberry/kill_process.sh', serial_port],
+            ['/home/pi/MICO/PowerTIC-data_adquisition/Rapberry/kill_porcess.sh ', serial_port],
             text=True,
             capture_output=True,
             check=True

@@ -216,7 +216,7 @@ def modbus_multiple_read(slave_address: int):
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    #logger.debug(f"Received: {response}")
+                    logger.debug(f"Received: {response}")
                     status = decode_modbus_response(response, slave_address, datatype, parameter)
                     if status != "Incorrect CRC":
                         break

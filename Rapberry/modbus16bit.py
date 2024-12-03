@@ -49,7 +49,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
     # Read the response
     response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
     print("Received:", response)
-    decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='int32')
+    decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='int32',parameter="reset")
 
     # Close the serial port
     ser.close()

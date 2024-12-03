@@ -163,7 +163,6 @@ def modbus_multiple_read(slave_address: int):
     #print("Commands: ", commands)
     #print("Reset command: ", reset)
     #print("Modbus Command: ", commands)
-    parameter = commands['parameter']
     function_code = 0x04  # Read holding registers
 
     with serial.Serial(

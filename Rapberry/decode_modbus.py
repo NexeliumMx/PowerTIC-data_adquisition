@@ -241,7 +241,7 @@ def modbus_read_meter(slave_address: int, model: str):
 
 def meter_param(model:str,mbadd:int):
     rows, reset_command = modbus_commands(model=model)
-    print(rows)
+    #print(rows)
     set_params = []
     for row in rows:
         if row.get('setupRead') == 't':

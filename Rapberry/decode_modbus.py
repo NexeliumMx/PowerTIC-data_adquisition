@@ -104,7 +104,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
                     return
                 data_value = struct.unpack('>H', data_bytes[:2])[0]
             elif parameter == "serial_number":
-                data_value = str(data_bytes)       
+                decoded_data = data_bytes.decode('utf-8')
+                data_value = decoded_data.rstrip('\x00')       
 
             """value = int.from_bytes(data_bytes, 'big')
             data_value = value"""

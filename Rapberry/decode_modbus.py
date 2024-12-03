@@ -347,6 +347,8 @@ def meter_param(model:str,mbadd:int):
 
             file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
             info_backup(data=json_data, file_path=file_path)
+    
+    return settings.get('serial_number'), table_name.get("table")
 
 
             

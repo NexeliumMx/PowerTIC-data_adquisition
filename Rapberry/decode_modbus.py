@@ -62,7 +62,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
     calculated_crc = compute_crc(response_data)
     calculated_crc_bytes = calculated_crc.to_bytes(2, byteorder='little')
     if received_crc != calculated_crc_bytes:
-        logger.error("CRC mismatch in response")
+        #logger.error("CRC mismatch in response")
         return "Incorrect CRC"
 
     # Extract header information

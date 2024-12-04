@@ -2,7 +2,11 @@
 
 # Activate virtual environment
 source /home/pi/MICO/.venv/bin/activate || { echo "Failed to activate virtual environment"; exit 1; }
-cd /home/pi/MICO/PowerTIC-data_adquisition/Rapberry/
+path="/home/pi/MICO/PowerTIC-data_adquisition/Rapberry"
+
+if [ "$PWD" != "$path" ]; then
+    cd "$path" || exit
+fi
 # Run modbus16bit.py
 if ! python ./modbus16bit.py; then
     free -h

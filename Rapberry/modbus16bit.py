@@ -220,7 +220,8 @@ def kill_processes():
         return None
 
 #Reset meter attempt
-write_single_modbus(slave_address=0x03,function_code=0x06,starting_address=0x1002,quantity_of_registers=0x0001,payload=0x0002)
+kill_processes()
+#write_single_modbus(slave_address=0x03,function_code=0x06,starting_address=0x1002,quantity_of_registers=0x0001,payload=0x0002)
 
 #current transform set
 #read

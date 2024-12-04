@@ -1,4 +1,3 @@
-from pymodbus.client import ModbusSerialClient
 import json
 import requests
 import datetime
@@ -21,17 +20,6 @@ ser =  serial.Serial(
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     timeout=0.07)
-
-
-#Conexión con el medidor mediante modbus
-client = ModbusSerialClient(
-    port='/dev/ttyUSB0',
-    baudrate=19200,
-    parity='N',
-    stopbits=1,
-    bytesize=8,
-    timeout=5
-)
 
 def info_backup(data,file_path):
     

@@ -52,9 +52,6 @@ def meter_param(model:str,mbadd:int):
         ser.open()
     #Read function
     function_code = 0x04
-
-    table_name = {}
-    table_name["table"] = "meters"
     settings = {}
     try:
         #Filter Setup Read rows
@@ -134,7 +131,6 @@ def meter_param(model:str,mbadd:int):
 
         json_data = settings
         data = json.dumps(json_data)
-        print(table_name)
         print(settings)
 
         print(data)
@@ -150,7 +146,7 @@ def meter_param(model:str,mbadd:int):
             file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
             info_backup(data=json_data, file_path=file_path)
     
-    return settings.get('serial_number'), table_name.get("table")
+    return settings.get('serial_number')
 
 
             
@@ -207,8 +203,6 @@ def reading_meter(sn:str, mbadd: int, model: str):
     function_code = 0x04
 
     measurement = {}
-    table_name = {"table": "measurements"}
-
     try:
         #Filter Setup Read rows
         rows, reset_command = modbus_commands(model=model)
@@ -288,8 +282,6 @@ def reading_meter(sn:str, mbadd: int, model: str):
         data = json.dumps(json_data)
         uniquekey=str(timestamp)+str(sn)
         
-        # Debug
-        print("Table to insert:", table_name)
         print("Obtained measurements:", measurement)
         print("JSON object: ", json_data)
         print("Built JSON: ", data)
@@ -320,6 +312,6 @@ def reading_meter(sn:str, mbadd: int, model: str):
     return data  # Return the Python object, not the serialized string
 mbadd = 0x03
 model = "EM210-72D.MV5.3.X.OS.X"
-sn, table_name = meter_param(model=model,mbadd=mbadd)
+sn= meter_param(model=model,mbadd=mbadd)
 
 reading_meter(sn=sn,mbadd=mbadd,model=model)

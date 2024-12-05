@@ -59,7 +59,7 @@ def meter_param(model:str,mbadd:int):
         #print(rows)
         set_params = []
         for row in rows:
-            if row.get('setup_read') == True:
+            if row.get('setup_read') == 'True':
                 set_params.append(row)
         
         #print("setup parameters: ", set_params)
@@ -207,7 +207,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
         #print(rows)
         meas_params = []
         for row in rows:
-            if row.get('setup_read') == False:
+            if row.get('setup_read') == 'False':
                 meas_params.append(row)
         
         #print("measurement parameters: ", meas_params)

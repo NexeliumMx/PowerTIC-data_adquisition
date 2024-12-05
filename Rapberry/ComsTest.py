@@ -128,7 +128,7 @@ def meter_param(model:str,mbadd:int):
         #settings["facturation_interval_months"] = 1
         timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         settings["register_date"] = timestamp
-        settings["facturation_day"]=datetime.datetime.now().day
+        #settings["facturation_day"]=datetime.datetime.now().day
 
         json_data = settings
         data = json.dumps(json_data)

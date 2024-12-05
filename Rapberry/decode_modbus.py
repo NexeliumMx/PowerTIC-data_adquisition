@@ -238,12 +238,12 @@ def modbus_read_meter(slave_address: int, model: str):
 
             
 
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     try:
         slave_address = 0x03
         modbus_read_meter(slave_address=slave_address,model="EM210-72D.MV5.3.X.OS.X")
     except Exception as e:
-        logger.error(f"Unhandled exception: {e}")"""
+        logger.error(f"Unhandled exception: {e}")
 
 
 

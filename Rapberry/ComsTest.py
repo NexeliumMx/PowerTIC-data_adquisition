@@ -62,7 +62,7 @@ def meter_param(model:str,mbadd:int):
             #print("Debug: ", row.get('setup_read'))
             if row.get('setup_read') == 'True':
                 set_params.append(row)
-                print(set_params)
+                #print(set_params)
         
         #print("setup parameters: ", set_params)
 

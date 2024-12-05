@@ -1,6 +1,6 @@
 .venv/
 .git*
-
+Rapberry/modbusrtu_commands.csv
 __azurite_db*__.json
 __blobstorage__
 __queuestorage__

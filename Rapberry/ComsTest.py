@@ -123,8 +123,7 @@ def meter_param(model:str,mbadd:int):
         print("Exception: ", e)
     finally:
         ser.close()
-        settings["client_id"] = "not_set"
-        settings["facturation_interval_months"] = 1
+        #settings["facturation_interval_months"] = 1
         timestamp = datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         settings["register_date"] = timestamp
         settings["facturation_day"]=datetime.datetime.now().day
@@ -184,7 +183,6 @@ def timestamp_adquisition(sn,mbdadd,model):
             except Exception as e:
                 print("Exception during data acquisition: ", e)
             finally:
-                client.close()
                 year = meter_time["clock: year"]
                 month = meter_time["clock: month"]
                 date = meter_time["clock: date"]

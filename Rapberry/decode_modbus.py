@@ -37,7 +37,7 @@ def modbus_commands(model:str):
                 if "modbus_address" in row and row["modbus_address"].startswith("[") and row["modbus_address"].endswith("]"):
                     row["modbus_address"] = row["modbus_address"][1:-1]  # Remove brackets
                 # Filter rows where model is "EM210-72D.MV5.3.X.OS.X"
-                if row.get("series") == model:
+                if row.get("model") == model:
                     rows.append(row)
                     if row.get("parameter") == "reset":
                         reset_command = row

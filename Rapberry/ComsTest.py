@@ -136,7 +136,7 @@ def meter_param(model:str,mbadd:int):
 
         print(data)
         print(settings.get("serial_number", "serial_number not found"))
-        url = "https://powertick-api-js.azurewebsites.net/api/RegisterNewMeter"
+        """url = "https://powertick-api-js.azurewebsites.net/api/RegisterNewMeter"
         response = requests.post(url, json=json_data)
 
         if response.status_code == 200:
@@ -145,7 +145,7 @@ def meter_param(model:str,mbadd:int):
             print('Error:', response.status_code, response.text)
 
             file_path = r"Raspberry_backup/parameters.json"  # Corrected directory name            
-            info_backup(data=json_data, file_path=file_path)
+            info_backup(data=json_data, file_path=file_path)"""
     
     return settings.get('serial_number')
 

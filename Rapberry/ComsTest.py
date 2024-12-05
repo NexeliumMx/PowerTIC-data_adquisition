@@ -56,10 +56,10 @@ def meter_param(model:str,mbadd:int):
     try:
         #Filter Setup Read rows
         rows, reset_command = modbus_commands(model=model)
-        print(rows)
+        #print(rows)
         set_params = []
         for row in rows:
-            print("Debug: ", row.get('setup_read'))
+            #print("Debug: ", row.get('setup_read'))
             if row.get('setup_read') == 'True':
                 set_params.append(row)
                 print(set_params)

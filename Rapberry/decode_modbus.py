@@ -101,71 +101,70 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
     #logger.debug(f"Raw data bytes: {data_bytes}")
 
     # Decode data based on datatype
-    try:
-        if parameter != "reset":    
-            if datatype.lower() == 'float':
-                if len(data_bytes) < 4:
-                    logger.error("Invalid data length for float------------------------------------")
-                    return
-                data_value = struct.unpack('>f', data_bytes[:4])[0]
-            elif datatype.lower() == 'word':
-                if len(data_bytes) < 2:
-                    logger.error("Invalid data length for word------------------------------------")
+    try: 
+        if datatype.lower() == 'float':
+            if len(data_bytes) < 4:
+                logger.error("Invalid data length for float------------------------------------")
+                return
+            data_value = struct.unpack('>f', data_bytes[:4])[0]
+        elif datatype.lower() == 'word':
+            if len(data_bytes) < 2:
+                logger.error("Invalid data length for word------------------------------------")
+                return
+            data_value = struct.unpack('>H', data_bytes[:2])[0]
+        elif datatype.lower() in ['uint16', 'Uint16']:
+            if parameter != "serial_number":
+                if len(data_bytes) > 2:
+                    logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
                     return
                 data_value = struct.unpack('>H', data_bytes[:2])[0]
-            elif datatype.lower() in ['uint16', 'Uint16']:
-                if parameter != "serial_number":
-                    if len(data_bytes) > 2:
-                        logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
-                        return
-                    data_value = struct.unpack('>H', data_bytes[:2])[0]
-                elif parameter == "serial_number":
-                    decoded_data = data_bytes.decode('utf-8')
-                    data_value = decoded_data.rstrip('\x00')       
+            elif parameter == "serial_number":
+                decoded_data = data_bytes.decode('utf-8')
+                data_value = decoded_data.rstrip('\x00')       
 
-                """value = int.from_bytes(data_bytes, 'big')
-                data_value = value"""
-            elif datatype.lower() == 'int':
-                if len(data_bytes) < 4:
-                    logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
-                    return
-                data_value = struct.unpack('>i', data_bytes[:4])[0]
-            elif datatype.lower() in ['int32','uint32']:
-                value = int.from_bytes(data_bytes, 'big')
-                bit_length = value.bit_length()
-                #logger.info(f"value: {value}, length: {bit_length}")
-                data_value = value#struct.unpack('>i', data_bytes[:4])[0]
-            elif datatype.lower() in ['int16', 'sunssf']:
-                if len(data_bytes) != 2:
-                    raise ValueError("int16 requires exactly 2 bytes of data------------------------------------")
-                data_value = struct.unpack('>h', data_bytes[:2])[0]
-            elif datatype.lower() == 'uint':
-                if len(data_bytes) < 4:
-                    logger.error("Invalid data length for uint------------------------------------")
-                    return
+            """value = int.from_bytes(data_bytes, 'big')
+            data_value = value"""
+        elif datatype.lower() == 'int':
+            if len(data_bytes) < 4:
+                logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")
+                return
+            data_value = struct.unpack('>i', data_bytes[:4])[0]
+        elif datatype.lower() in ['int32','uint32']:
+            value = int.from_bytes(data_bytes, 'big')
+            bit_length = value.bit_length()
+            #logger.info(f"value: {value}, length: {bit_length}")
+            data_value = value#struct.unpack('>i', data_bytes[:4])[0]
+        elif datatype.lower() in ['int16', 'sunssf']:
+            if len(data_bytes) != 2:
+                raise ValueError("int16 requires exactly 2 bytes of data------------------------------------")
+            data_value = struct.unpack('>h', data_bytes[:2])[0]
+        elif datatype.lower() == 'uint':
+            if len(data_bytes) < 4:
+                logger.error("Invalid data length for uint------------------------------------")
+                return
+            data_value = struct.unpack('>I', data_bytes[:4])[0]
+        elif datatype.lower() == 'string':
+            data_value = ''.join(chr(b) for b in data_bytes if b != 0)
+        elif datatype.lower() == 'acc32':
+            if len(data_bytes) > 4:
+                raise ValueError("ACC32 data length invalid------------------------------------")
+            data_value = struct.unpack('>I', data_bytes[:4])[0]
+        elif datatype.lower() in ['dword', 'Dword']:
+            if len(data_bytes) == 6:
+                logger.debug("Timestamp detected in Dword response------------------------------------")
+                data_value = struct.unpack('>I', data_bytes[:4])[0]  # Decode first 4 bytes
+                timestamp = struct.unpack('>H', data_bytes[4:6])[0]  # Remaining 2 bytes as timestamp
+                logger.info(f"Timestamp: {timestamp}")
+            elif len(data_bytes) == 4:
                 data_value = struct.unpack('>I', data_bytes[:4])[0]
-            elif datatype.lower() == 'string':
-                data_value = ''.join(chr(b) for b in data_bytes if b != 0)
-            elif datatype.lower() == 'acc32':
-                if len(data_bytes) > 4:
-                    raise ValueError("ACC32 data length invalid------------------------------------")
-                data_value = struct.unpack('>I', data_bytes[:4])[0]
-            elif datatype.lower() in ['dword', 'Dword']:
-                if len(data_bytes) == 6:
-                    logger.debug("Timestamp detected in Dword response------------------------------------")
-                    data_value = struct.unpack('>I', data_bytes[:4])[0]  # Decode first 4 bytes
-                    timestamp = struct.unpack('>H', data_bytes[4:6])[0]  # Remaining 2 bytes as timestamp
-                    logger.info(f"Timestamp: {timestamp}")
-                elif len(data_bytes) == 4:
-                    data_value = struct.unpack('>I', data_bytes[:4])[0]
-                else:
-                    logger.error("Invalid data length for Dword------------------------------------")
-                    return
             else:
-                data_value = data_bytes  # Raw bytes
-                logger.debug("Unprocessed data type------------------------------------------------------------------------")
+                logger.error("Invalid data length for Dword------------------------------------")
+                return
         else:
-            data_value = data_value
+            data_value = data_bytes  # Raw bytes
+            logger.debug("Unprocessed data type------------------------------------------------------------------------")
+
+    
     except struct.error as e:
         logger.error(f"Error decoding data: {e}")
         return

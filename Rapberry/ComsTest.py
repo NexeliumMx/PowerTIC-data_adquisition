@@ -131,6 +131,7 @@ def meter_param(model:str,mbadd:int):
         #settings["facturation_day"]=datetime.datetime.now().day
 
         json_data = settings
+        del json_data["reset"]
         data = json.dumps(json_data)
         print(settings)
 

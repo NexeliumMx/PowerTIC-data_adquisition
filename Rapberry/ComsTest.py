@@ -137,7 +137,7 @@ def meter_param(model:str,mbadd:int):
 
         print(data)
         print(settings.get("serial_number", "serial_number not found"))
-        url = "https://powertick-api-js.azurewebsites.net/api/RegisterNewMeter"
+        url = "https://powertick-api-js.azurewebsites.net/api/powermeter"
         response = requests.post(url, json=json_data)
 
         if response.status_code == 200:
@@ -150,52 +150,6 @@ def meter_param(model:str,mbadd:int):
     
     return settings.get('serial_number')
 
-
-            
-
-
-def timestamp_adquisition(sn,mbdadd,model):
-    if client.connect():
-        meter_time = {}
-        with open('modbusrtu_commands.csv', newline='') as csvfile:
-            rows = csv.DictReader(csvfile)
-
-            try:
-                for row in rows:
-                    if row["timestamp"] == "t":
-                        time = True
-                    elif row["timestamp"] == "f":
-                        time = False
-
-                    if time and row["model"]==model:
-                        parameter_description = row['parameter_description']
-
-                        modbus_address = row['modbus_address']
-                        registers = int(row['register_length'])
-                        value = ''
-                        try:
-                            meas = client.read_holding_registers(modbus_address, mbdadd)
-                            if not meas.isError():
-                                value = meas.registers[0]
-                                meter_time[f"{parameter_description}"] = value
-                                print(f"{parameter_description}: {value}")
-                            else:
-                                print(f"Error reading {parameter_description} at {modbus_address}: {meas}")
-                        except Exception as e:
-                            print(f"Invalid address for { parameter_description}: {modbus_address}")
-            except Exception as e:
-                print("Exception during data acquisition: ", e)
-            finally:
-                year = meter_time["clock: year"]
-                month = meter_time["clock: month"]
-                date = meter_time["clock: date"]
-                hour = meter_time["clock: hour"]
-                minute = meter_time["clock: minute"]
-                second = meter_time["clock: second"]
-                print(f"{year}-{month}-{date} {hour}:{minute}:{second}Z")
-                timestamp = f"{year}-{month}-{date} {hour}:{minute}:{second}Z"
-                print(timestamp)
-    return timestamp
 
 def reading_meter(sn:str, mbadd: int, model: str):
     if not ser.is_open:

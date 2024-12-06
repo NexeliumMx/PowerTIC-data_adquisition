@@ -1,5 +1,5 @@
 import os
-from ComsTest import meter_param,reading_meter,timestamp_adquisition,info_backup
+from ComsTest import meter_param,reading_meter,info_backup
 from deploy_copy import rundeploy
 import subprocess
 import time

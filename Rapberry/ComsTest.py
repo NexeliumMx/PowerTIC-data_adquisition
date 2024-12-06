@@ -237,7 +237,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
         data = json.dumps(json_data)
         uniquekey=str(timestamp)+str(sn)
         
-        print("Obtained measurements:", measurement)
+        #print("Obtained measurements:", measurement)
         #print("JSON object: ", json_data)
         print("Built JSON: ", data)
 

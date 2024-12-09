@@ -1,7 +1,7 @@
 import json
 import requests
 import datetime
-from datetime import timezone
+from datetime import timezone, datetime
 import os
 import csv
 import logging

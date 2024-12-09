@@ -268,7 +268,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
 
 def facturation_date ():
     f_date = './facturation_date.txt'
-    current_date = datetime.now().strftime("%Y-%m-%d")
+    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if not os.path.exists(f_date):
         with open(f_date, "w") as file:
             file.write(current_date)
@@ -278,6 +278,11 @@ def facturation_date ():
             stored_date =file.read()
         print("Current date: ", current_date, type(current_date))
         print("Stored date: ", stored_date, type(stored_date))
+        if current_date >= stored_date:
+            with open(f_date, "w") as file:
+                file.write(current_date)
+            print("Updated stored data")
+                
 
 mbadd = 0x03
 model = "EM210-72D.MV5.3.X.OS.X"

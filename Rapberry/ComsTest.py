@@ -288,6 +288,9 @@ def facturation_date ():
 
     if response.status_code == 200:
         print('Success:', response.status_code, response.text)
+        date = json.dumps(response.text)
+        print("API date: ", date)
+
     else:
         print('Error:', response.status_code, response.text)
 

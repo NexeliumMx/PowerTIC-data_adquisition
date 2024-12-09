@@ -267,42 +267,46 @@ def reading_meter(sn:str, mbadd: int, model: str):
     
     return data  # Return the Python object, not the serialized string
 
-def facturation_date (current_date:str, mbadd:int, model:str):
+def facturation_date(current_date: str, mbadd: int, model: str):
     f_date_file = './facturation_date.txt'
 
     if not os.path.exists(f_date_file):
-
         url = "https://powertick-api-js.azurewebsites.net/api/nextFacturationDay"
-        response = requests.get(url)
-
-        if response.status_code == 200:
+        
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+            
             print('Success:', response.status_code, response.text)
-            date = json.loads(response.text)
+            date = response.json()
             f_date = date["nextFacturationDay"]
-            print("API date: ", f_date , type(f_date))
-
-        else:
-            print('Error:', response.status_code, response.text)
+            print("API date:", f_date, type(f_date))
+        
+        except requests.RequestException as e:
+            print('Error during API call:', e)
+            return
 
         with open(f_date_file, "w") as file:
             file.write(f_date)
 
         print(f"{f_date_file} created with current date: {f_date}")
-    
+
     else:
-
         with open(f_date_file, "r") as file:
-            stored_date =file.read()
+            stored_date = file.read()
 
-        print("Current date: ", current_date, type(current_date))
-        print("Stored date: ", stored_date, type(stored_date))
+        print("Current date:", current_date, type(current_date))
+        print("Stored date:", stored_date, type(stored_date))
 
-        if current_date >= stored_date:
+        # Convert dates to datetime objects for accurate comparison
+        current_date_dt = datetime.strptime(current_date, "%Y-%m-%d")
+        stored_date_dt = datetime.strptime(stored_date, "%Y-%m-%d")
+
+        if current_date_dt >= stored_date_dt:
             with open(f_date_file, "w") as file:
                 file.write(current_date)
-                reset_instruction()
-            print("Updated stored data")
-            
+                reset_instruction(slave_address=mbadd, model=model)  # Ensure this function is defined
+            print("Updated stored date")
 
 
 mbadd = 0x03

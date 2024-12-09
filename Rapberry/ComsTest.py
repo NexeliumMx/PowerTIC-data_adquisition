@@ -284,8 +284,8 @@ def facturation_date ():
             print("Updated stored data")
                 
 
-mbadd = 0x03
-model = "EM210-72D.MV5.3.X.OS.X"
+mbadd = 0x05
+model = "acurev-1313-5a-x0"
 
 #sn= meter_param(model=model,mbadd=mbadd)
 

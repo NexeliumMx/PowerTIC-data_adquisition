@@ -229,7 +229,8 @@ def reading_meter(sn:str, mbadd: int, model: str):
         ser.close()
 
         timestamp = datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
-        facturation_date(current_date=timestamp, mbadd=mbadd, model=model)   
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        facturation_date(current_date=current_date, mbadd=mbadd, model=model)   
 
         print("timestamp: ", timestamp)
         measurement["timestamp"] = timestamp

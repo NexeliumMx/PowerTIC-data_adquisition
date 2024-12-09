@@ -282,7 +282,14 @@ def facturation_date ():
             with open(f_date, "w") as file:
                 file.write(current_date)
             print("Updated stored data")
-                
+            
+    url = "https://powertick-api-js.azurewebsites.net/api/powermeter"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        print('Success:', response)
+    else:
+        print('Error:', response.status_code, response.text)
 
 mbadd = 0x05
 model = "acurev-1313-5a-x0"

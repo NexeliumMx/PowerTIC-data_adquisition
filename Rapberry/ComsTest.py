@@ -288,7 +288,7 @@ def facturation_date ():
 
     if response.status_code == 200:
         print('Success:', response.status_code, response.text)
-        date = json.dumps(response.text)
+        date = json.loads(response.text)
         print("API date: ", date["nextFacturationDay"])
 
     else:

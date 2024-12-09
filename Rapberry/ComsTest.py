@@ -230,6 +230,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
         ser.close()
 
         timestamp =datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
+        
         print("timestamp: ", timestamp)
         measurement["timestamp"] = timestamp
         measurement["serial_number"] = sn
@@ -266,33 +267,42 @@ def reading_meter(sn:str, mbadd: int, model: str):
     
     return data  # Return the Python object, not the serialized string
 
-def facturation_date ():
+def facturation_date (current_date):
     f_date = './facturation_date.txt'
-    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     if not os.path.exists(f_date):
+
+        url = "https://powertick-api-js.azurewebsites.net/api/nextFacturationDay"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            print('Success:', response.status_code, response.text)
+            date = json.loads(response.text)
+            print("API date: ", date["nextFacturationDay"], type(date["nextFacturationDay"]))
+
+        else:
+            print('Error:', response.status_code, response.text)
+
         with open(f_date, "w") as file:
-            file.write(current_date)
-        print(f"{f_date} created with current date: {current_date}")
+            file.write(date["nextFacturationDay"])
+
+        print(f"{f_date} created with current date: {date["nextFacturationDay"]}")
+    
     else:
+
         with open(f_date, "r") as file:
             stored_date =file.read()
+
         print("Current date: ", current_date, type(current_date))
         print("Stored date: ", stored_date, type(stored_date))
+
         if current_date >= stored_date:
             with open(f_date, "w") as file:
                 file.write(current_date)
+
             print("Updated stored data")
             
-    url = "https://powertick-api-js.azurewebsites.net/api/nextFacturationDay"
-    response = requests.get(url)
 
-    if response.status_code == 200:
-        print('Success:', response.status_code, response.text)
-        date = json.loads(response.text)
-        print("API date: ", date["nextFacturationDay"], type(date["nextFacturationDay"]))
-
-    else:
-        print('Error:', response.status_code, response.text)
 
 mbadd = 0x03
 model = "EM210-72D.MV5.3.X.OS.X" #EM210-72D.MV5.3.X.OS.X  |  acurev-1313-5a-x0
@@ -300,4 +310,7 @@ model = "EM210-72D.MV5.3.X.OS.X" #EM210-72D.MV5.3.X.OS.X  |  acurev-1313-5a-x0
 #sn= meter_param(model=model,mbadd=mbadd)
 
 #reading_meter(sn=sn,mbadd=mbadd,model=model)
-facturation_date()
+current_date = datetime.now().strftime("%Y-%m-%d")
+print(f"Current Date: {current_date}")
+
+facturation_date(current_date=current_date)

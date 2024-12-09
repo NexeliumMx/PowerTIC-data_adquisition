@@ -1,6 +1,5 @@
 import json
 import requests
-import datetime
 from datetime import timezone, datetime
 import os
 import csv
@@ -229,7 +228,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
     finally:
         ser.close()
 
-        timestamp =datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
+        timestamp = datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         facturation_date(current_date=timestamp, mbadd=mbadd, model=model)   
 
         print("timestamp: ", timestamp)

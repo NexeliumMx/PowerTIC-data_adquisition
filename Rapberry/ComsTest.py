@@ -283,7 +283,7 @@ def facturation_date ():
                 file.write(current_date)
             print("Updated stored data")
             
-    url = "https://powertick-api-js.azurewebsites.net/api/powermeter"
+    url = "https://powertick-api-js.azurewebsites.net/api/nextFacturationDay"
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -291,10 +291,10 @@ def facturation_date ():
     else:
         print('Error:', response.status_code, response.text)
 
-mbadd = 0x05
-model = "acurev-1313-5a-x0"
+mbadd = 0x03
+model = "EM210-72D.MV5.3.X.OS.X" #EM210-72D.MV5.3.X.OS.X  |  acurev-1313-5a-x0
 
-sn= meter_param(model=model,mbadd=mbadd)
+#sn= meter_param(model=model,mbadd=mbadd)
 
-reading_meter(sn=sn,mbadd=mbadd,model=model)
-#facturation_date()
+#reading_meter(sn=sn,mbadd=mbadd,model=model)
+facturation_date()

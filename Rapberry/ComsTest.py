@@ -304,7 +304,7 @@ def facturation_date(current_date: str, mbadd: int, model: str):
 
         if current_date_dt >= stored_date_dt:
             with open(f_date_file, "w") as file:
-                file.write(current_date)
+                file.write(f_date)
                 reset_instruction(slave_address=mbadd, model=model)
             print("Updated stored date")
 

@@ -287,7 +287,7 @@ def facturation_date ():
     response = requests.get(url)
 
     if response.status_code == 200:
-        print('Success:', response)
+        print('Success:', response.status_code, response.text)
     else:
         print('Error:', response.status_code, response.text)
 

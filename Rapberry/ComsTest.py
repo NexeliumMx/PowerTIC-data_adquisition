@@ -303,10 +303,26 @@ def facturation_date(current_date: str, mbadd: int, model: str):
         stored_date_dt = datetime.strptime(stored_date, "%Y-%m-%d")
 
         if current_date_dt >= stored_date_dt:
+            url = "https://powertick-api-js.azurewebsites.net/api/nextFacturationDay"
+            
+            try:
+                response = requests.get(url)
+                response.raise_for_status()
+                print('Success:', response.status_code, response.text)
+                date = response.json()
+                f_date = date["nextFacturationDay"]
+                print("API date:", f_date, type(f_date))
+            
+            except requests.RequestException as e:
+                print('Error during API call:', e)
+                return
+
             with open(f_date_file, "w") as file:
                 file.write(f_date)
-                reset_instruction(slave_address=mbadd, model=model)
-            print("Updated stored date")
+
+
+            reset_instruction(slave_address=mbadd, model=model)
+            print(f"Updated ated with current date: {f_date}")
 
 
 mbadd = 0x03

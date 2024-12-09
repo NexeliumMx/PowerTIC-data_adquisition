@@ -268,9 +268,9 @@ def reading_meter(sn:str, mbadd: int, model: str):
     return data  # Return the Python object, not the serialized string
 
 def facturation_date (current_date):
-    f_date = './facturation_date.txt'
+    f_date_file = './facturation_date.txt'
 
-    if not os.path.exists(f_date):
+    if not os.path.exists(f_date_file):
 
         url = "https://powertick-api-js.azurewebsites.net/api/nextFacturationDay"
         response = requests.get(url)
@@ -278,26 +278,27 @@ def facturation_date (current_date):
         if response.status_code == 200:
             print('Success:', response.status_code, response.text)
             date = json.loads(response.text)
-            print("API date: ", date["nextFacturationDay"], type(date["nextFacturationDay"]))
+            f_date = date["nextFacturationDay"]
+            print("API date: ", f_date , type(f_date))
 
         else:
             print('Error:', response.status_code, response.text)
 
-        with open(f_date, "w") as file:
-            file.write(date["nextFacturationDay"])
+        with open(f_date_file, "w") as file:
+            file.write(f_date)
 
-        print(f"{f_date} created with current date: {date["nextFacturationDay"]}")
+        print(f"{f_date_file} created with current date: {f_date}")
     
     else:
 
-        with open(f_date, "r") as file:
+        with open(f_date_file, "r") as file:
             stored_date =file.read()
 
         print("Current date: ", current_date, type(current_date))
         print("Stored date: ", stored_date, type(stored_date))
 
         if current_date >= stored_date:
-            with open(f_date, "w") as file:
+            with open(f_date_file, "w") as file:
                 file.write(current_date)
 
             print("Updated stored data")

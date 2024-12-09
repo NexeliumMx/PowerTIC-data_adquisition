@@ -287,7 +287,7 @@ def facturation_date ():
 mbadd = 0x05
 model = "acurev-1313-5a-x0"
 
-#sn= meter_param(model=model,mbadd=mbadd)
+sn= meter_param(model=model,mbadd=mbadd)
 
-#reading_meter(sn=sn,mbadd=mbadd,model=model)
-facturation_date()
+reading_meter(sn=sn,mbadd=mbadd,model=model)
+#facturation_date()

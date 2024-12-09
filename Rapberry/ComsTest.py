@@ -276,8 +276,7 @@ def facturation_date(current_date: str, mbadd: int, model: str):
         
         try:
             response = requests.get(url)
-            response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
-            
+            response.raise_for_status()
             print('Success:', response.status_code, response.text)
             date = response.json()
             f_date = date["nextFacturationDay"]
@@ -294,7 +293,7 @@ def facturation_date(current_date: str, mbadd: int, model: str):
 
     else:
         with open(f_date_file, "r") as file:
-            stored_date = file.read()
+            stored_date = file.read().strip()  # Strip extra whitespace or newlines
 
         print("Current date:", current_date, type(current_date))
         print("Stored date:", stored_date, type(stored_date))
@@ -306,7 +305,7 @@ def facturation_date(current_date: str, mbadd: int, model: str):
         if current_date_dt >= stored_date_dt:
             with open(f_date_file, "w") as file:
                 file.write(current_date)
-                reset_instruction(slave_address=mbadd, model=model)  # Ensure this function is defined
+                reset_instruction(slave_address=mbadd, model=model)
             print("Updated stored date")
 
 

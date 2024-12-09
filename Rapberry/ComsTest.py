@@ -265,8 +265,23 @@ def reading_meter(sn:str, mbadd: int, model: str):
             return None
     
     return data  # Return the Python object, not the serialized string
+
+def facturation_date ():
+    f_date = './facturation_date.txt'
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    if not os.path.exists(f_date):
+        with open(f_date, "w") as file:
+            file.write(current_date)
+        print(f"{f_date} created with current date: {current_date}")
+    else:
+        with open(f_date, "r") as file:
+            stored_date =file.read()
+        print("Current date: ", current_date, type(current_date))
+        print("Stored date: ", stored_date, type(stored_date))
+
 mbadd = 0x03
 model = "EM210-72D.MV5.3.X.OS.X"
+
 sn= meter_param(model=model,mbadd=mbadd)
 
 reading_meter(sn=sn,mbadd=mbadd,model=model)

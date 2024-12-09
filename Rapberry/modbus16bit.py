@@ -186,8 +186,6 @@ def reset_instruction(slave_address:int,model:str):
     
     payload = int(reset.get("value_weight"))
     print("Reset payload: ", payload, type(payload))
-    
-    
     rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)
     if not rsp:
         print("Error during reset process. No response from slave device, verify slave device status and try again")

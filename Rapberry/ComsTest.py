@@ -6,7 +6,7 @@ import os
 import csv
 import logging
 from decode_modbus import modbus_commands, compute_crc, decode_modbus_response
-from modbus16bit import modbus_read, kill_processes
+from modbus16bit import modbus_read, kill_processes, reset_instruction
 import serial
 
 # Configure logging
@@ -230,7 +230,8 @@ def reading_meter(sn:str, mbadd: int, model: str):
         ser.close()
 
         timestamp =datetime.datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
-        
+        facturation_date(current_date=timestamp, mbadd=mbadd, model=model)   
+
         print("timestamp: ", timestamp)
         measurement["timestamp"] = timestamp
         measurement["serial_number"] = sn
@@ -267,7 +268,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
     
     return data  # Return the Python object, not the serialized string
 
-def facturation_date (current_date):
+def facturation_date (current_date:str, mbadd:int, model:str):
     f_date_file = './facturation_date.txt'
 
     if not os.path.exists(f_date_file):
@@ -300,7 +301,7 @@ def facturation_date (current_date):
         if current_date >= stored_date:
             with open(f_date_file, "w") as file:
                 file.write(current_date)
-
+                reset_instruction()
             print("Updated stored data")
             
 
@@ -308,10 +309,7 @@ def facturation_date (current_date):
 mbadd = 0x03
 model = "EM210-72D.MV5.3.X.OS.X" #EM210-72D.MV5.3.X.OS.X  |  acurev-1313-5a-x0
 
-#sn= meter_param(model=model,mbadd=mbadd)
+sn= meter_param(model=model,mbadd=mbadd)
+reading_meter(sn=sn,mbadd=mbadd,model=model)
 
-#reading_meter(sn=sn,mbadd=mbadd,model=model)
-current_date = datetime.now().strftime("%Y-%m-%d")
-print(f"Current Date: {current_date}")
 
-facturation_date(current_date=current_date)

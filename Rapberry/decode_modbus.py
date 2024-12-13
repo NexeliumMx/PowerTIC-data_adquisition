@@ -69,7 +69,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
         return
     if len(response) < 5:
         logger.error("Incomplete response received")
-        return
+        return "Incomplete response received"
 
     # Validate CRC
     received_crc = response[-2:]

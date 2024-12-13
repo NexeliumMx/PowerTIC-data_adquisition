@@ -110,7 +110,7 @@ def meter_param(model:str,mbadd:int):
                     #logger.debug(f"Received: {response}")
                     status = decode_modbus_response(response, mbadd, datatype, parameter)
                     if status != "Incorrect CRC":
-                        logger.debug(f"Status: ", status)
+                        #logger.debug(f"Status: ", status)
                         settings[f"{parameter}"] = status
                         #print(settings)
                         break

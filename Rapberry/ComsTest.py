@@ -109,11 +109,11 @@ def meter_param(model:str,mbadd:int):
                 if response:
                     #logger.debug(f"Received: {response}")
                     status = decode_modbus_response(response, mbadd, datatype, parameter)
-                    if status != "Incorrect CRC" and status != "Incomplete response received":
-                        #logger.debug(f"Status: ", status)
-                        settings[f"{parameter}"] = status
-                        #print(settings)
-                        break
+                    if status == "Incorrect CRC" or status != "Incomplete response received":
+                        logger.warning(f"Communication error, retrying ({attempt + 1}/{max_retries})")
+                        continue
+                    settings[f"{parameter}"] = status
+                    break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
                     kill_processes()

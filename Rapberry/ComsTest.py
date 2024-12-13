@@ -212,15 +212,14 @@ def reading_meter(sn:str, mbadd: int, model: str):
                 if response:
                     #logger.debug(f"Received: {response}")
                     status = decode_modbus_response(response, mbadd, datatype, parameter)
-                    if status != "Incorrect CRC":
-                        measurement[f"{parameter}"] = status
-                        #print(measurement)
-                        break
+                    if status == "Incorrect CRC" or status == "Incomplete response received":
+                        logger.warning(f"Communication error, retrying ({attempt + 1}/{max_retries})")
+                        continue
+                    measurement[f"{parameter}"] = status
+                    break
                 else:
-                    
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
-                    #kill_processes()
-                    continue
+                    kill_processes()
             else:
                 logger.error("Failed to get response after retries")
                 continue
@@ -332,6 +331,6 @@ model = "EM210-72D.MV5.3.X.OS.X" #EM210-72D.MV5.3.X.OS.X  |  acurev-1313-5a-x0
 for i in range(0,10):
     sn= meter_param(model=model,mbadd=mbadd)
     
-#reading_meter(sn=sn,mbadd=mbadd,model=model)
+    reading_meter(sn=sn,mbadd=mbadd,model=model)
 
 

@@ -92,6 +92,7 @@ def meter_param(model:str,mbadd:int):
             # Build the message
             message = bytearray()
             message.append(mbadd)
+            logger.info("-------------------")
             message.append(function_code)
             message.append((starting_address >> 8) & 0xFF)
             message.append(starting_address & 0xFF)

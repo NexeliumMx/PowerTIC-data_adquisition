@@ -125,7 +125,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
             logger.info(f"utf-8: {data_bytes}")
             logger.info(f"length: {len(data_bytes)}")
             data_length = len(data_bytes)
-            format_string = f'{data_length}'
+            format_string = f'{data_length}s'
             decoded_data = struct.unpack(format_string, data_bytes)[0]
             data_value = decoded_data.decode('utf-8').rstrip('\x00')
         elif datatype.lower() == 'int':

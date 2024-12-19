@@ -74,7 +74,7 @@ def meter_param(model:str,mbadd:int):
                 logger.info(f"Parameter: {parameter}")
 
                 datatype = address.get("data_type", "raw")
-                logger.info(f"data type: ", datatype)
+                #logger.info(f"data type: ", datatype)
 
                 quantity_of_registers = int(address.get("register_length", "0"), 0)
                 logger.info(f"Registers: {quantity_of_registers}")

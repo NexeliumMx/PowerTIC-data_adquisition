@@ -26,7 +26,9 @@ r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels
 a=r.json()
 
 if not os.path.exists(r'vals/set_up.txt'):
+    print('initializing.................................\n')
     initialize(a)
+    
     rundeploy()
 else:    
     rundeploy()

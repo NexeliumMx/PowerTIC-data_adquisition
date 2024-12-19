@@ -69,7 +69,7 @@ def meter_param(model:str,mbadd:int):
             try:
                 print("Executing Instruction: ", address)
                 parameter = address.get('parameter', 'Unknown')
-                function_code = address.get('read_command')
+                function_code = int(address.get('read_command'))
                 print("Function Code: ", function_code)
                 logger.info(f"Parameter: {parameter}")
 

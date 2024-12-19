@@ -72,10 +72,15 @@ def meter_param(model:str,mbadd:int):
                 function_code = address.get('read_command')
                 print("Function Code: ", function_code)
                 logger.info(f"Parameter: {parameter}")
+
                 datatype = address.get("data_type", "raw")
+                logger.info(f"data type: ", datatype)
+
                 quantity_of_registers = int(address.get("register_length", "0"), 0)
+                logger.info(f"Registers: {quantity_of_registers}")
                 modbus_address = eval(address["modbus_address"])
                 starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
+                logger.info(f"Starting Address: {starting_address}")
             except KeyError as e:
                 logger.error(f"Missing key in address: {e}")
                 continue
@@ -101,7 +106,7 @@ def meter_param(model:str,mbadd:int):
             message.append(crc_low)
             message.append(crc_high)
 
-            #logger.debug(f"Sent: {message}")
+            logger.debug(f"Sent: {message}")
 
             # Send the message over serial port
             max_retries = 10
@@ -110,7 +115,7 @@ def meter_param(model:str,mbadd:int):
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    #logger.debug(f"Received: {response}")
+                    logger.debug(f"Received: {response}")
                     status = decode_modbus_response(response, mbadd, datatype, parameter)
                     if status == "Incorrect CRC" or status == "Incomplete response received":
                         logger.warning(f"Communication error, retrying ({attempt + 1}/{max_retries})")

@@ -50,7 +50,7 @@ def meter_param(model:str,mbadd:int):
     if not ser.is_open:
         ser.open()
     #Read function
-    function_code = 0x04
+    #function_code = 0x04
     settings = {}
     try:
         #Filter Setup Read rows
@@ -68,6 +68,8 @@ def meter_param(model:str,mbadd:int):
         for address in set_params:
             try:
                 parameter = address.get('parameter', 'Unknown')
+                function_code = address.get('read_command')
+                print("Function Code: ", function_code)
                 logger.info(f"Parameter: {parameter}")
                 datatype = address.get("data_type", "raw")
                 quantity_of_registers = int(address.get("register_length", "0"), 0)
@@ -327,3 +329,4 @@ def facturation_date(current_date: str, mbadd: int, model: str):
 
 
 
+meter_param(model='acurev-1313-5a-x0',mbadd=0x05)

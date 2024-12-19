@@ -123,6 +123,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
                 data_value = decoded_data.rstrip('\x00')       
         elif datatype.lower() == 'utf-8':
             logger.info(f"utf-8: {data_bytes}")
+            logger.info(f"length: {len(data_bytes)}")
         elif datatype.lower() == 'int':
             if len(data_bytes) < 4:
                 logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")

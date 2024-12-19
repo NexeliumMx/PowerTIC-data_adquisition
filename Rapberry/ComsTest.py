@@ -63,7 +63,7 @@ def meter_param(model:str,mbadd:int):
                 set_params.append(row)
                 #print(set_params)
         
-        print("setup parameters: ", set_params)
+        #print("setup parameters: ", set_params)
 
         for address in set_params:
             try:

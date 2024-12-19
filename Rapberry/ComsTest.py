@@ -67,6 +67,7 @@ def meter_param(model:str,mbadd:int):
 
         for address in set_params:
             try:
+                print("Executing Instruction: ", address)
                 parameter = address.get('parameter', 'Unknown')
                 function_code = address.get('read_command')
                 print("Function Code: ", function_code)

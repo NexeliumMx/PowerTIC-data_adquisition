@@ -112,7 +112,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
                 logger.error("Invalid data length for word------------------------------------")
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]
-        elif datatype.lower() in ['uint16', 'Uint16','utf-8']:
+        elif datatype.lower() in ['uint16', 'Uint16']:
             if parameter != "serial_number":
                 if len(data_bytes) > 2:
                     logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
@@ -121,9 +121,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
             elif parameter == "serial_number":
                 decoded_data = data_bytes.decode('utf-8')
                 data_value = decoded_data.rstrip('\x00')       
-
-            """value = int.from_bytes(data_bytes, 'big')
-            data_value = value"""
+        elif datatype.lower() == 'utf-8':
+            logger.info(f"utf-8: {data_bytes}")
         elif datatype.lower() == 'int':
             if len(data_bytes) < 4:
                 logger.error(f"Invalid data length for int {len(data_bytes)} ------------------------------------")

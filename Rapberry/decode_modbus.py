@@ -98,7 +98,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
 
     # Debugging: Show raw data bytes
     logger.debug(f"Data type: {datatype}")
-    logger.debug(f"Raw data bytes: {data_bytes}")
+    #logger.debug(f"Raw data bytes: {data_bytes}")
 
     # Decode data based on datatype
     try: 
@@ -112,7 +112,7 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
                 logger.error("Invalid data length for word------------------------------------")
                 return
             data_value = struct.unpack('>H', data_bytes[:2])[0]
-        elif datatype.lower() in ['uint16', 'Uint16']:
+        elif datatype.lower() in ['uint16', 'Uint16','utf-8']:
             if parameter != "serial_number":
                 if len(data_bytes) > 2:
                     logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")

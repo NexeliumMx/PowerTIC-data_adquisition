@@ -69,6 +69,7 @@ def initialize(models):
         #ctvtsetup(temp["model"],temp["address"],temp["ct"],temp["vt"])
         
         SN=meter_param(temp["model"],temp["address"])
+        print(SN)
         temp["serialNumber"]=SN[0]
         f=open(fr"vals/meters/{temp['serialNumber']}data.json","w")
         (json.dump(temp,f))

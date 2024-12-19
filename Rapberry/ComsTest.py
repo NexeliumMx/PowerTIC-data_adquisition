@@ -325,12 +325,4 @@ def facturation_date(current_date: str, mbadd: int, model: str):
             print(f"Updated ated with current date: {f_date}")
 
 
-mbadd = 0x03
-model = "EM210-72D.MV5.3.X.OS.X" #EM210-72D.MV5.3.X.OS.X  |  acurev-1313-5a-x0
-
-
-sn= meter_param(model=model,mbadd=mbadd)
-
-reading_meter(sn=sn,mbadd=mbadd,model=model)
-
 

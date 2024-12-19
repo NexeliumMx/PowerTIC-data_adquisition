@@ -88,6 +88,7 @@ def meter_param(model:str,mbadd:int):
                 logger.error(f"Invalid value in address: {e}")
                 continue
 
+            logger.info("Building message")
             # Build the message
             message = bytearray()
             message.append(mbadd)

@@ -94,11 +94,13 @@ def meter_param(model:str,mbadd:int):
             message.append(mbadd)
             logger.info("-------------------")
             message.append(function_code)
+            logger.info("-------------------")
             message.append((starting_address >> 8) & 0xFF)
             message.append(starting_address & 0xFF)
+            logger.info("-------------------")
             message.append((quantity_of_registers >> 8) & 0xFF)
             message.append(quantity_of_registers & 0xFF)
-
+            logger.info("-------------------")
             # Compute CRC16 checksum
             crc = compute_crc(message)
             crc_low = crc & 0xFF

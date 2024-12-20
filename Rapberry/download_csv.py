@@ -1,7 +1,7 @@
 import requests
 
 def download_csv():
-    url = 'http://localhost:7071/api/csvDownload?model=acurev-1313-5a-x0'
+    url = 'https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv?model=acurev-1313-5a-x0'
     try:
         # Send a GET request to the API endpoint
         response = requests.get(url)

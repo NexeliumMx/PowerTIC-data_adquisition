@@ -10,7 +10,7 @@ def download_csv():
         filename = 'modbusqueries_acurev-1313-5a-x0.csv'
         print(response.content)
         # Save the response content to a CSV file
-        with open(filename, 'w') as file:
+        with open(filename, 'wb') as file:
             file.write(response.content)
 
         print(f"file downloaded successfully as '{filename}'.")

@@ -11,7 +11,7 @@ def download_csv():
         print(str(response.content))
         # Save the response content to a CSV file
         with open(filename, 'w') as file:
-            file.write(response.content)
+            file.write(str(response.content))
 
         print(f"file downloaded successfully as '{filename}'.")
 

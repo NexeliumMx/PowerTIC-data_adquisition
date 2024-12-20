@@ -170,7 +170,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
     if not ser.is_open:
         ser.open()
     #Read function
-    function_code = 0x04
+    #function_code = 0x04
 
     measurement = {}
     try:
@@ -186,6 +186,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
         for address in meas_params:
             try:
                 parameter = address.get('parameter', 'Unknown')
+                function_code = int(address.get('read_command'))
                 logger.info(f"Parameter: {parameter}")
                 datatype = address.get("data_type", "raw")
                 quantity_of_registers = int(address.get("register_length", "0"), 0)

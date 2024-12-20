@@ -144,7 +144,7 @@ def meter_param(model:str,mbadd:int):
 
         json_data = settings
         print("JSON data: ", json_data)
-
+        print("reset", json_data['reset'])
         if json_data['reset']:
             logger.info(f'reset command found')
             del json_data['reset']

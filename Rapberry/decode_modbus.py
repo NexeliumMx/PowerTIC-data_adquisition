@@ -114,9 +114,9 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() in ['uint16', 'Uint16']:
             if parameter != "serial_number":
-                if len(data_bytes) > 2:
+                """if len(data_bytes) > 2:
                     logger.error(f"Invalid data length for uint16 {len(data_bytes)} ------------------------------------")
-                    return
+                    return"""
                 data_value = struct.unpack('>H', data_bytes[:2])[0]
             elif parameter == "serial_number":
                 decoded_data = data_bytes.decode('utf-8')

@@ -7,7 +7,7 @@ def download_csv():
         response = requests.get(url)
         response.raise_for_status()  # Check for HTTP errors
 
-        filename = 'modbusqueries_acurev-1313-5a-x0.csv'
+        filename = 'modbusrtu_commands.csv'
         print(response.content)
         # Save the response content to a CSV file
         with open(filename, 'wb') as file:

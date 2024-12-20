@@ -191,6 +191,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
                 datatype = address.get("data_type", "raw")
                 quantity_of_registers = int(address.get("register_length", "0"), 0)
                 modbus_address = eval(address["modbus_address"])
+                logger.info(f"modbus Address: {modbus_address}")
                 starting_address = modbus_address[0] if isinstance(modbus_address, list) else modbus_address
             except KeyError as e:
                 logger.error(f"Missing key in address: {e}")

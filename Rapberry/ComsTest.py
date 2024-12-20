@@ -341,5 +341,7 @@ def facturation_date(current_date: str, mbadd: int, model: str):
 
 
 
-
-meter_param(model='acurev-1313-5a-x0',mbadd=0x05)
+mbadd = 0x05
+model = 'acurev-1313-5a-x0'
+meter_param(model=model,mbadd=mbadd)
+reading_meter(meter_param(), mbadd=mbadd, model=model)

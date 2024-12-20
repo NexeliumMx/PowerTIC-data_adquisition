@@ -80,7 +80,7 @@ def meter_param(model:str,mbadd:int):
                 #logger.info(f"Registers: {quantity_of_registers}")
                 modbus_address = eval(address["modbus_address"])
                 starting_address = int(modbus_address[0] if isinstance(modbus_address, list) else modbus_address)
-                #logger.info(f"Starting Address: {starting_address}")
+                logger.info(f"Starting Address: {starting_address}")
             except KeyError as e:
                 logger.error(f"Missing key in address: {e}")
                 continue

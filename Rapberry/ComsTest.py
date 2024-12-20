@@ -252,6 +252,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
         measurement["timestamp"] = timestamp
         measurement["serial_number"] = sn
         json_data =  measurement
+        print(json_data)
         data = json.dumps(json_data)
         uniquekey=str(timestamp)+str(sn)
         

@@ -249,7 +249,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
 
         timestamp = datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         current_date = datetime.now().strftime("%Y-%m-%d")
-        list_blob_details()
+        #list_blob_details()
         facturation_date(current_date=current_date, mbadd=mbadd, model=model)   
 
         print("timestamp: ", timestamp)
@@ -347,9 +347,9 @@ def facturation_date(current_date: str, mbadd: int, model: str):
 
 
 
-mbadd = 0x05
-model = 'acurev-1313-5a-x0' #"EM210-72D.MV5.3.X.OS.X" 
+#mbadd = 0x05
+#model = 'acurev-1313-5a-x0' #"EM210-72D.MV5.3.X.OS.X" 
 #mbadd = 0x03
 #model ="EM210-72D.MV5.3.X.OS.X" 
 
-reading_meter(meter_param(model=model,mbadd=mbadd), mbadd=mbadd, model=model)
+#reading_meter(meter_param(model=model,mbadd=mbadd), mbadd=mbadd, model=model)

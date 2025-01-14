@@ -105,5 +105,5 @@ def list_blob_details():
     else:
         print("Local version is up-to-date.")
 
-if __name__ == "__main__":
-    list_blob_details()
+"""if __name__ == "__main__":
+    list_blob_details()"""

@@ -6,6 +6,7 @@ import csv
 import logging
 from decode_modbus import modbus_commands, compute_crc, decode_modbus_response
 from modbus16bit import modbus_read, kill_processes, reset_instruction
+from version_extraction import list_blob_details
 import serial
 
 # Configure logging
@@ -248,6 +249,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
 
         timestamp = datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         current_date = datetime.now().strftime("%Y-%m-%d")
+        list_blob_details()
         facturation_date(current_date=current_date, mbadd=mbadd, model=model)   
 
         print("timestamp: ", timestamp)

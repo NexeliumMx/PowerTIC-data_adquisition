@@ -5,8 +5,7 @@ import os
 # Azure Function endpoint URL
 FUNCTION_URL = " https://power-tick-api-py.nexelium.mx/api/versioncheck?"
 
-# Local file to save the downloaded blob content
-DOWNLOAD_PATH = "./File_downloads/Coms.py"
+
 
 def post_blob_request(file_name):
     """
@@ -18,6 +17,8 @@ def post_blob_request(file_name):
     Returns:
         bool: True if successful, False otherwise.
     """
+    # Local file to save the downloaded blob content
+    DOWNLOAD_PATH = f"./File_downloads/{file_name}"
     try:
         # JSON payload
         payload = {"file": file_name}

@@ -1,3 +1,4 @@
+
 import json
 from azure.storage.blob import BlobServiceClient
 import subprocess
@@ -13,6 +14,7 @@ bash_script_path = "./version_update.sh"
 
 OUTPUT_JSON_FILE = "version.json"
 INPUT_JSON_FILE = "version.json"
+
 
 def run_bash_script(script_path):
     """Run a Bash script using subprocess."""
@@ -105,5 +107,5 @@ def list_blob_details():
     else:
         print("Local version is up-to-date.")
 
-"""if __name__ == "__main__":
-    list_blob_details()"""
+if __name__ == "__main__":
+    list_blob_details()

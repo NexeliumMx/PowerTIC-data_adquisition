@@ -38,4 +38,5 @@ def csv_version():
     else:
         print("RTU file not found")
 if __name__ == "__main__":
-    download_csv()
+   csv_version()
+   #download_csv()

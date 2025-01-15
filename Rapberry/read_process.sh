@@ -7,18 +7,10 @@ path="/home/pi/MICO/PowerTIC-data_adquisition/Rapberry"
 if [ "$PWD" != "$path" ]; then
     cd "$path" || exit
 fi
-# Run modbus16bit.py
-if ! python ./modbus16bit.py; then
-    free -h
-    echo "modbus16bit.py failed"
-    exit 1
-fi
 
-echo "Port processes killed"
-
-# Run ComsTest.py
-if ! python ./ComsTest.py; then
-    echo "ComsTest.py failed"
+# Run mainfun_copy.py
+if ! python ./mainfun_copy.py; then
+    echo "mainfun_copy.py failed"
     exit 1
 fi
 

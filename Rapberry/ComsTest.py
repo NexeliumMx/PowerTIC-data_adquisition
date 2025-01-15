@@ -6,7 +6,7 @@ import csv
 import logging
 from decode_modbus import modbus_commands, compute_crc, decode_modbus_response
 from modbus16bit import modbus_read, kill_processes, reset_instruction
-from version_extraction import list_blob_details
+from version_extraction import version_check
 import serial
 
 # Configure logging

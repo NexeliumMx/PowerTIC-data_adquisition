@@ -63,7 +63,7 @@ def call_api(api_url, params=None):
         print(f"An error occurred during API execution: {e}")
         return None
 
-def list_blob_details():
+def version_check():
     """Lists blob details, updates the JSON file if needed, and runs a Bash script."""
     stored_data = read_json_from_file()
     stored_version_date = None
@@ -77,7 +77,13 @@ def list_blob_details():
         return
 
     print("Response from API:", json.dumps(api_response, indent=4))
-
+    version_file = next((item for item in api_response if item["name"] == "Coms.py"), None)
+    if version_file:
+        print("version_file.csv\n", json.dumps(version_file, indent=4))
+    else:
+        print("RTU file not found")
+        return
+    
     if stored_data and len(stored_data) > 0:
         try:
             stored_version_date = datetime.fromisoformat(stored_data[0]['last_modified'])
@@ -89,7 +95,7 @@ def list_blob_details():
 
     # Parse the cloud version date
     try:
-        cloud_timestamp = api_response[0]['last_modified']
+        cloud_timestamp = version_file['last_modified']
         cloud_version_date = datetime.fromisoformat(cloud_timestamp)
         print(f"Cloud Version Date: {cloud_version_date}")
     except Exception as ex:
@@ -100,7 +106,7 @@ def list_blob_details():
     if not stored_version_date or stored_version_date < cloud_version_date:
         # Update the local JSON file
         with open(OUTPUT_JSON_FILE, "w") as json_file:
-            json.dump(api_response, json_file, indent=4)
+            json.dump(version_file, json_file, indent=4)
         print("Version data saved successfully to", OUTPUT_JSON_FILE)
 
         # Run the Bash script
@@ -108,5 +114,5 @@ def list_blob_details():
     else:
         print("Local version is up-to-date.")
 
-if __name__ == "__main__":
-    list_blob_details()
+#if __name__ == "__main__":
+ #   version_check()

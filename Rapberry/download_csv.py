@@ -36,7 +36,8 @@ def csv_version():
         print("No API response.")
         return
     print("Response from API:", json.dumps(api_response, indent=4))
-    rtu_file = next(item for item in api_response if item["name"] == "modbusrtu_commands.csv")
+    
+    rtu_file = next((item for item in api_response if item["name"] == "modbusrtu_commands.csv"), None)
     if rtu_file:
         print("modbusrtu_commands.csv\n", json.dumps(rtu_file, indent=4))
     else:
@@ -71,6 +72,6 @@ def csv_version():
     else:
         print("Local version is up-to-date.")
 
-if __name__ == "__main__":
-   csv_version()
+#if __name__ == "__main__":
+ #  csv_version()
    #download_csv()

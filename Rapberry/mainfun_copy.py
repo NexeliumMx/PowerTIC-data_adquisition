@@ -4,7 +4,8 @@ from deploy_copy import rundeploy
 import subprocess
 import time
 from setupnode import initialize
-from version_extraction import list_blob_details
+from version_extraction import version_check
+from download_csv import csv_version
 import requests
 import json
 version='0.0.3'
@@ -33,4 +34,6 @@ if not os.path.exists(r'vals/set_up.txt'):
     rundeploy()
 else:    
     rundeploy()
-    list_blob_details()
+    version_check()
+    csv_version()
+

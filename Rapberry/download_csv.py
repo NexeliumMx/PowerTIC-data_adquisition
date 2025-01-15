@@ -1,6 +1,7 @@
 import requests
 import json
 from  version_extraction import call_api, read_json_from_file
+from datetime import datetime
 
 api_url = "https://power-tick-api-py.nexelium.mx/api/versioncheck?"
 OUTPUT_JSON_FILE = "version.json"
@@ -37,6 +38,25 @@ def csv_version():
         print("modbusrtu_commands.csv\n", json.dumps(rtu_file, indent=4))
     else:
         print("RTU file not found")
+        return
+    
+    if stored_data and len(stored_data) > 0:
+        try:
+            stored_version_date = datetime.fromisoformat(stored_data[0]['last_modified'])
+            print(f"Stored Version Date: {stored_version_date}")
+        except Exception as ex:
+            print(f"Error parsing stored version date: {ex}")
+    else:
+        print("No valid stored data found. Proceeding with cloud data.")
+
+    try:
+        cloud_timestamp = rtu_file['last_modified']
+        cloud_version_date = datetime.fromisoformat(cloud_timestamp)
+        print(f"Cloud Version Date: {cloud_version_date}")
+    except Exception as ex:
+        print(f"Error parsing cloud version date: {ex}")
+        return
+
 if __name__ == "__main__":
    csv_version()
    #download_csv()

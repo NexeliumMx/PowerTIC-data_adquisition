@@ -27,6 +27,7 @@ def download_csv():
 
 def csv_version():
     stored_data = read_json_from_file(input_json)
+    print("Stored data: ", stored_data)
     api_response = call_api(api_url=api_url)
 
     if not api_response:

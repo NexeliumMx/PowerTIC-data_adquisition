@@ -70,7 +70,7 @@ def initialize(models):
         
         SN=meter_param(temp["model"],temp["address"])
         print("Serial Number: ", SN)
-        temp["serialNumber"]=SN[0]
+        temp["serialNumber"]=SN
         f=open(fr"vals/meters/{temp['serialNumber']}data.json","w")
         (json.dump(temp,f))
         f.close()

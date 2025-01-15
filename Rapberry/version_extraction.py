@@ -30,7 +30,8 @@ def run_bash_script(script_path):
         print("Error Output:")
         print(e.stderr)
 
-def read_json_from_file(input_json_file):
+def read_json_from_file(input_json):
+    print(f"extracting data from: ", input_json)
     """Reads and returns data from the specified JSON file."""
     try:
         with open(input_json, "r") as json_file:

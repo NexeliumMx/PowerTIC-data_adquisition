@@ -5,7 +5,7 @@ from datetime import datetime
 
 api_url = "https://power-tick-api-py.nexelium.mx/api/versioncheck?"
 OUTPUT_JSON_FILE = "modbusrtu_commands_version.json"
-INPUT_JSON_FILE = "modbusrtu_commands_version.json"
+input_json = "modbusrtu_commands_version.json"
 
 def download_csv():
     url = 'https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv?model=acurev-1313-5a-x0'
@@ -26,7 +26,7 @@ def download_csv():
         print(f"An error occurred while downloading the file: {e}")
 
 def csv_version():
-    stored_data = read_json_from_file(INPUT_JSON_FILE)
+    stored_data = read_json_from_file(input_json)
     api_response = call_api(api_url=api_url)
 
     if not api_response:

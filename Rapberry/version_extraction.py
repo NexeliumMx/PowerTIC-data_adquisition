@@ -41,7 +41,7 @@ def read_json_from_file(input_json):
             return data
     except FileNotFoundError:
         print(f"Error: The file '{input_json}' was not found.")
-        return None
+        return False
     except json.JSONDecodeError:
         print(f"Error: The file '{input_json}' is not a valid JSON file.")
         return None

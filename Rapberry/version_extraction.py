@@ -49,41 +49,43 @@ def read_json_from_file(input_json):
         print(f"An unexpected error occurred: {ex}")
         return None
 
-def call_api(api_url, params=None):
+def call_api():
+    api_url = " https://power-tick-api-py.nexelium.mx/api/versioncheck?"
     """Call an API and return the JSON response."""
     try:
-        response = requests.get(api_url, params=params)
+        response = requests.get(api_url, params=None)
         if response.status_code == 200:
             print("API executed successfully.")
-            return response.json()
+            print("Response from API:", json.dumps(response, indent=4))
+            
+            version_file = next((item for item in response if item["name"] == "Coms.py"), None)
+            if version_file:
+                print("version_file.csv\n", json.dumps(version_file, indent=4))
+            else:
+                print("Version file not found")
+                return
+            
+            rtu_file = next((item for item in response if item["name"] == "modbusrtu_commands.csv"), None)
+            if rtu_file:
+                print("modbusrtu_commands.csv\n", json.dumps(rtu_file, indent=4))
+            else:
+                print("RTU file not found")
+                return
+
+            return response.json(),rtu_file, version_file
         else:
             print(f"API execution failed, status code: {response.status_code}. Response: {response.text}")
             return None
     except requests.RequestException as e:
         print(f"An error occurred during API execution: {e}")
         return None
+    
 
-def version_check():
+def version_check(version_file):
     """Lists blob details, updates the JSON file if needed, and runs a Bash script."""
     stored_data = read_json_from_file(input_json=input_json)
     stored_version_date = None
-
-    api_url = " https://power-tick-api-py.nexelium.mx/api/versioncheck?"
-
-    # Call the API
-    api_response = call_api(api_url)
-    if not api_response:
-        print("No data returned from the API.")
-        return
-
-    print("Response from API:", json.dumps(api_response, indent=4))
-    version_file = next((item for item in api_response if item["name"] == "Coms.py"), None)
-    if version_file:
-        print("version_file.csv\n", json.dumps(version_file, indent=4))
-    else:
-        print("RTU file not found")
-        return
-    
+   
     if stored_data and len(stored_data) > 0:
         try:
             stored_version_date = datetime.fromisoformat(stored_data['last_modified'])

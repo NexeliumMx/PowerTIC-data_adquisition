@@ -22,28 +22,14 @@ def download_csv():
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while downloading the file: {e}")
 
-def csv_version():
-    api_url = "https://power-tick-api-py.nexelium.mx/api/versioncheck?"
+def csv_version(rtu_file):
     OUTPUT_JSON_FILE = "modbusrtu_commands_version.json"
     input_json = "modbusrtu_commands_version.json"
 
     stored_data = read_json_from_file(input_json)
     stored_version_date = None
     print("Stored data: ", stored_data)
-    api_response = call_api(api_url=api_url)
-
-    if not api_response:
-        print("No API response.")
-        return
-    print("Response from API:", json.dumps(api_response, indent=4))
-    
-    rtu_file = next((item for item in api_response if item["name"] == "modbusrtu_commands.csv"), None)
-    if rtu_file:
-        print("modbusrtu_commands.csv\n", json.dumps(rtu_file, indent=4))
-    else:
-        print("RTU file not found")
-        return
-    
+        
     if stored_data and len(stored_data) > 0:
         try:
             stored_version_date = datetime.fromisoformat(stored_data['last_modified'])

@@ -4,7 +4,7 @@ from deploy_copy import rundeploy
 import subprocess
 import time
 from setupnode import initialize
-from version_extraction import version_check
+from version_extraction import call_api, version_check
 from download_csv import csv_version
 import requests
 import json
@@ -34,6 +34,7 @@ if not os.path.exists(r'vals/set_up.txt'):
     rundeploy()
 else:    
     rundeploy()
-    version_check()
-    csv_version()
+    response, rtu_file, version_file = call_api()
+    version_check(version_file=version_file)
+    csv_version(rtu_file=rtu_file)
 

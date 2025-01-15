@@ -65,7 +65,7 @@ def call_api(api_url, params=None):
 
 def version_check():
     """Lists blob details, updates the JSON file if needed, and runs a Bash script."""
-    stored_data = read_json_from_file()
+    stored_data = read_json_from_file(input_json=input_json)
     stored_version_date = None
 
     api_url = " https://power-tick-api-py.nexelium.mx/api/versioncheck?"

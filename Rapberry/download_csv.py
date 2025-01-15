@@ -34,7 +34,7 @@ def csv_version():
     print("Response from API:", json.dumps(api_response, indent=4))
     rtu_file = next(item for item in api_response if item["name"] == "modbusrtu_commands.csv")
     if rtu_file:
-        print(json.dumps(rtu_file, indent=4))
+        print("modbusrtu_commands.csv\n", json.dumps(rtu_file, indent=4))
     else:
         print("RTU file not found")
 if __name__ == "__main__":

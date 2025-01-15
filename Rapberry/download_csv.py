@@ -4,8 +4,8 @@ from  version_extraction import call_api, read_json_from_file
 from datetime import datetime
 
 api_url = "https://power-tick-api-py.nexelium.mx/api/versioncheck?"
-OUTPUT_JSON_FILE = "version.json"
-INPUT_JSON_FILE = "version.json"
+OUTPUT_JSON_FILE = "modbusrtu_commands_version.json"
+INPUT_JSON_FILE = "modbusrtu_commands_version.json"
 
 def download_csv():
     url = 'https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv?model=acurev-1313-5a-x0'
@@ -56,6 +56,17 @@ def csv_version():
     except Exception as ex:
         print(f"Error parsing cloud version date: {ex}")
         return
+    # Compare the stored version date with the cloud version date
+    if not stored_version_date or stored_version_date < cloud_version_date:
+        # Update the local JSON file
+        with open(OUTPUT_JSON_FILE, "w") as json_file:
+            json.dump(api_response, json_file, indent=4)
+        print("Version data saved successfully to", OUTPUT_JSON_FILE)
+
+        # Run the Bash script
+        download_csv()
+    else:
+        print("Local version is up-to-date.")
 
 if __name__ == "__main__":
    csv_version()

@@ -3,11 +3,8 @@ import json
 from  version_extraction import call_api, read_json_from_file
 from datetime import datetime
 
-api_url = "https://power-tick-api-py.nexelium.mx/api/versioncheck?"
-OUTPUT_JSON_FILE = "modbusrtu_commands_version.json"
-input_json = "modbusrtu_commands_version.json"
-
 def download_csv():
+
     url = 'https://powertick-api-py.azurewebsites.net/api/downloadModbusRTUcsv?model=acurev-1313-5a-x0'
     try:
         # Send a GET request to the API endpoint
@@ -26,7 +23,12 @@ def download_csv():
         print(f"An error occurred while downloading the file: {e}")
 
 def csv_version():
+    api_url = "https://power-tick-api-py.nexelium.mx/api/versioncheck?"
+    OUTPUT_JSON_FILE = "modbusrtu_commands_version.json"
+    input_json = "modbusrtu_commands_version.json"
+
     stored_data = read_json_from_file(input_json)
+    stored_version_date = None
     print("Stored data: ", stored_data)
     api_response = call_api(api_url=api_url)
 
@@ -41,7 +43,7 @@ def csv_version():
         print("RTU file not found")
         return
     
-    if stored_data != False and len(stored_data) > 0:
+    if stored_data and len(stored_data) > 0:
         try:
             stored_version_date = datetime.fromisoformat(stored_data['last_modified'])
             print(f"Stored Version Date: {stored_version_date}")

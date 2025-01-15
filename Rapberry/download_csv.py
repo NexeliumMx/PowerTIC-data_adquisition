@@ -26,7 +26,7 @@ def download_csv():
         print(f"An error occurred while downloading the file: {e}")
 
 def csv_version():
-    stored_data = read_json_from_file()
+    stored_data = read_json_from_file(INPUT_JSON_FILE)
     api_response = call_api(api_url=api_url)
 
     if not api_response:

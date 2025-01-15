@@ -13,7 +13,7 @@ bash_script_path = "./version_update.sh"
 
 
 OUTPUT_JSON_FILE = "version.json"
-INPUT_JSON_FILE = "version.json"
+input_json = "version.json"
 
 
 def run_bash_script(script_path):
@@ -30,19 +30,19 @@ def run_bash_script(script_path):
         print("Error Output:")
         print(e.stderr)
 
-def read_json_from_file():
+def read_json_from_file(input_json_file):
     """Reads and returns data from the specified JSON file."""
     try:
-        with open(INPUT_JSON_FILE, "r") as json_file:
+        with open(input_json, "r") as json_file:
             data = json.load(json_file)
             print("JSON data successfully loaded:")
             print(json.dumps(data, indent=4))
             return data
     except FileNotFoundError:
-        print(f"Error: The file '{INPUT_JSON_FILE}' was not found.")
+        print(f"Error: The file '{input_json}' was not found.")
         return None
     except json.JSONDecodeError:
-        print(f"Error: The file '{INPUT_JSON_FILE}' is not a valid JSON file.")
+        print(f"Error: The file '{input_json}' is not a valid JSON file.")
         return None
     except Exception as ex:
         print(f"An unexpected error occurred: {ex}")

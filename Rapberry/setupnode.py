@@ -69,7 +69,7 @@ def initialize(models):
         #ctvtsetup(temp["model"],temp["address"],temp["ct"],temp["vt"])
         
         SN=meter_param(temp["model"],temp["address"])
-        print(SN)
+        print("Serial Number: ", SN)
         temp["serialNumber"]=SN[0]
         f=open(fr"vals/meters/{temp['serialNumber']}data.json","w")
         (json.dump(temp,f))
@@ -79,7 +79,7 @@ def initialize(models):
     f.write(str(laa))
     f=open(fr"vals/directions.json","x")
     json.dump(direction,f)
-    print(temp)
+    print("temp: ", temp)
     f=open(fr"vals/set_up.txt","x")
     json.dump(direction.append(laa),f)
-    print(temp)           
+    print("temp", temp)           

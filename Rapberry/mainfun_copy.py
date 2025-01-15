@@ -32,6 +32,9 @@ if not os.path.exists(r'vals/set_up.txt'):
     initialize(a)
     
     rundeploy()
+    response, rtu_file, version_file = call_api()
+    version_check(version_file=version_file)
+    csv_version(rtu_file=rtu_file)
 else:    
     rundeploy()
     response, rtu_file, version_file = call_api()

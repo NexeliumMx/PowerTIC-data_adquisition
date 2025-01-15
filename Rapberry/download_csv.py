@@ -32,7 +32,7 @@ def csv_version():
         print("No API response.")
         return
     print("Response from API:", json.dumps(api_response, indent=4))
-    rtu_file = next(item for item in api_response if item["name"] = "modbusrtu_commands.csv")
+    rtu_file = next(item for item in api_response if item["name"] == "modbusrtu_commands.csv")
     if rtu_file:
         print(json.dumps(rtu_file, indent=4))
     else:

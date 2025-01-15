@@ -49,32 +49,39 @@ def read_json_from_file(input_json):
         print(f"An unexpected error occurred: {ex}")
         return None
 
+import requests
+import json
+
 def call_api():
-    api_url = " https://power-tick-api-py.nexelium.mx/api/versioncheck?"
+    api_url = "https://power-tick-api-py.nexelium.mx/api/versioncheck"
     """Call an API and return the JSON response."""
     try:
-        response = requests.get(api_url, params=None)
+        response = requests.get(api_url)
         if response.status_code == 200:
             print("API executed successfully.")
-            print("Response from API:", json.dumps(response, indent=4))
+            api_response = response.json()  # Parse the JSON response
+            print("Response from API:", json.dumps(api_response, indent=4))
             
-            version_file = next((item for item in response if item["name"] == "Coms.py"), None)
+            # Find the "Coms.py" file
+            version_file = next((item for item in api_response if item["name"] == "Coms.py"), None)
             if version_file:
-                print("version_file.csv\n", json.dumps(version_file, indent=4))
+                print("Found version file (Coms.py):")
+                print(json.dumps(version_file, indent=4))
             else:
-                print("Version file not found")
-                return
+                print("Version file not found.")
             
-            rtu_file = next((item for item in response if item["name"] == "modbusrtu_commands.csv"), None)
+            # Find the "modbusrtu_commands.csv" file
+            rtu_file = next((item for item in api_response if item["name"] == "modbusrtu_commands.csv"), None)
             if rtu_file:
-                print("modbusrtu_commands.csv\n", json.dumps(rtu_file, indent=4))
+                print("Found RTU file (modbusrtu_commands.csv):")
+                print(json.dumps(rtu_file, indent=4))
             else:
-                print("RTU file not found")
-                return
+                print("RTU file not found.")
 
-            return response.json(),rtu_file, version_file
+            # Return the parsed data
+            return api_response, rtu_file, version_file
         else:
-            print(f"API execution failed, status code: {response.status_code}. Response: {response.text}")
+            print(f"API execution failed. Status code: {response.status_code}. Response: {response.text}")
             return None
     except requests.RequestException as e:
         print(f"An error occurred during API execution: {e}")

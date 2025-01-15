@@ -86,7 +86,7 @@ def version_check():
     
     if stored_data and len(stored_data) > 0:
         try:
-            stored_version_date = datetime.fromisoformat(stored_data[0]['last_modified'])
+            stored_version_date = datetime.fromisoformat(stored_data['last_modified'])
             print(f"Stored Version Date: {stored_version_date}")
         except Exception as ex:
             print(f"Error parsing stored version date: {ex}")

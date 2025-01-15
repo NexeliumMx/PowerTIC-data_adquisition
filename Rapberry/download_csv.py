@@ -60,7 +60,7 @@ def csv_version():
     if not stored_version_date or stored_version_date < cloud_version_date:
         # Update the local JSON file
         with open(OUTPUT_JSON_FILE, "w") as json_file:
-            json.dump(api_response, json_file, indent=4)
+            json.dump(rtu_file, json_file, indent=4)
         print("Version data saved successfully to", OUTPUT_JSON_FILE)
 
         # Run the Bash script

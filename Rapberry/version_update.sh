@@ -24,7 +24,7 @@ echo "File Downloaded successfully" >> $LOG_FILE
 # Log the final stat command output
 echo "Checking final file status..." >> $LOG_FILE
 stat ./mainfun_copy.dist/Powertick.bin >> $LOG_FILE 2>&1
-
+chmod ./mainfun_copy.dist/Powertick.bin >> $LOG_FILE 
 # Log the ending time
 echo "Execution ended at $(date)" >> $LOG_FILE
 

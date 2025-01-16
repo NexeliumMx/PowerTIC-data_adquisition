@@ -9,8 +9,8 @@ if [ "$PWD" != "$path" ]; then
 fi
 
 # Run mainfun_copy.py
-if ! python ./mainfun_copy.py; then
-    echo "mainfun_copy.py failed"
+if ! ./Powertick.dist/Powertick.bin; then
+    echo "Powertick.bin failed"
     exit 1
 fi
 

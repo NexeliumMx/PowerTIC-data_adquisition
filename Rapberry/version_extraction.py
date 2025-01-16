@@ -62,10 +62,10 @@ def call_api():
             api_response = response.json()  # Parse the JSON response
             print("Response from API:", json.dumps(api_response, indent=4))
             
-            # Find the "Coms.py" file
-            version_file = next((item for item in api_response if item["name"] == "Coms.py"), None)
+            # Find the "Powertick.bin" file
+            version_file = next((item for item in api_response if item["name"] == "Powertick.bin"), None)
             if version_file:
-                print("Found version file (Coms.py):")
+                print("Found version file (Powertick.bin):")
                 print(json.dumps(version_file, indent=4))
             else:
                 print("Version file not found.")

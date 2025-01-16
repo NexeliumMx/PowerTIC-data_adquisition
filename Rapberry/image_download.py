@@ -18,7 +18,7 @@ def post_blob_request(file_name):
         bool: True if successful, False otherwise.
     """
     # Local file to save the downloaded blob content
-    DOWNLOAD_PATH = f"./{file_name}"
+    DOWNLOAD_PATH = f"./Powertick.dist/{file_name}"
     try:
         # JSON payload
         payload = {"file": file_name}

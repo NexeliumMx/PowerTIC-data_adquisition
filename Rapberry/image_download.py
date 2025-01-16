@@ -52,7 +52,7 @@ def post_blob_request(file_name):
 
 if __name__ == "__main__":
     # File name to download (update with a valid blob name from your container)
-    blob_name = "Coms.py"
+    blob_name = "Powertick.bin"
 
     # Call the POST request function
     success = post_blob_request(blob_name)

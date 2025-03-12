@@ -146,11 +146,8 @@ def meter_param(model:str,mbadd:int):
 
         json_data = settings
         print("JSON data: ", json_data)
-        if json_data.get('reset', None):
-            print("No reset command")
-        else:
+        if 'reset' in json_data:
             del json_data['reset']
-
 
         data = json.dumps(json_data)
         print(settings)

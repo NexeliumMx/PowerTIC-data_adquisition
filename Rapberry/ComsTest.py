@@ -60,7 +60,7 @@ def meter_param(model:str,mbadd:int):
         set_params = []
         for row in rows:
             #print("Debug: ", row.get('setup_read'))
-            if row.get('setup_read') == 'True':
+            if row.get('setup_read') == 't':
                 set_params.append(row)
                 #print(set_params)
         

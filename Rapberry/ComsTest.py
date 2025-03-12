@@ -181,7 +181,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
         #print(rows)
         meas_params = []
         for row in rows:
-            if row.get('setup_read') == 'False':
+            if row.get('setup_read') == 'f':
                 meas_params.append(row)
         
         #print("measurement parameters: ", meas_params)

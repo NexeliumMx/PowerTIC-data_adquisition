@@ -1,15 +1,11 @@
 #!/bin/bash
 
 # Activate virtual environment
-source /home/pi/MICO/.venv/bin/activate || { echo "Failed to activate virtual environment"; exit 1; }
-path="/home/pi/MICO/PowerTIC-data_adquisition/Rapberry"
+source venv/bin/activate || { echo "Failed to activate virtual environment"; exit 1; }
 
-if [ "$PWD" != "$path" ]; then
-    cd "$path" || exit
-fi
 
 # Run mainfun_copy.py
-if ! ./Powertick.dist/Powertick.bin; then
+if ! ./Powertick.bin; then
     echo "Powertick.bin failed"
     exit 1
 fi

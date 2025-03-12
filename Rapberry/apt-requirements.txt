@@ -25,6 +25,7 @@ build-essential
 busybox
 bzip2
 ca-certificates
+ccache
 cifs-utils
 console-setup
 console-setup-linux
@@ -304,6 +305,7 @@ libgtk-3-common
 libgudev-1.0-0:arm64
 libharfbuzz0b:arm64
 libheif1:arm64
+libhiredis0.14:arm64
 libhogweed6:arm64
 libhwasan0:arm64
 libhyphen0:arm64
@@ -641,6 +643,7 @@ parted
 passwd
 pastebinit
 patch
+patchelf
 pci.ids
 pciutils
 perl

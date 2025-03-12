@@ -693,6 +693,7 @@ python3-pyqt5.qtwebkit
 python3-pyqt5.sip
 python3-requests
 python3-rpi-lgpio
+python3-serial
 python3-setuptools
 python3-setuptools-whl
 python3-six

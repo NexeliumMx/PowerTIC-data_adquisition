@@ -41,6 +41,9 @@ def modbus_commands(model:str):
                     rows.append(row)
                     if row.get("parameter") == "reset":
                         reset_command = row
+
+            print("Rows: ", rows)
+            print("Reset Command: ", reset_command)
             return rows, reset_command
     except FileNotFoundError as e:
         logger.error(f"CSV file not found: {e}")

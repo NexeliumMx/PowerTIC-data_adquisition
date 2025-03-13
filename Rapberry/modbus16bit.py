@@ -55,7 +55,7 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
         response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
         if response:
             print("Received:", response)
-            decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='int32',parameter="reset")  
+            decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='uint16',parameter="serial_number")  
             ser.close()
             return decoded_response 
         else:

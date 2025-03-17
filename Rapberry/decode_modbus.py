@@ -14,6 +14,7 @@ import json
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler())
 
 ser =  serial.Serial(
     port='/dev/ttyUSB0',

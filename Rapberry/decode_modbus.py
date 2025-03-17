@@ -105,6 +105,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
 
     # Decode data based on datatype
     try: 
+        # Debugging: Show Parameter
+        logger.debug(f"Parameter: {parameter}")
         if datatype.lower() == 'float':
             if len(data_bytes) < 4:
                 logger.error("Invalid data length for float------------------------------------")

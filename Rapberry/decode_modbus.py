@@ -108,6 +108,8 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
     try: 
         # Debugging: Show Parameter
         logger.debug(f"Parameter: {parameter}")
+
+        
         if datatype.lower() == 'float':
             if len(data_bytes) < 4:
                 logger.error("Invalid data length for float------------------------------------")
@@ -120,9 +122,9 @@ def decode_modbus_response(response, slave_address: int, datatype: str, paramete
             data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() in ['uint16', 'Uint16']:
             if parameter == "serial_number":
-                # Take every other byte (skip null bytes)
-                ascii_bytes = data_bytes[::2]
-                data_value = ascii_bytes.decode('ascii')
+                # Remove null bytes and decode ASCII
+                filtered_bytes = bytes(x for x in data_bytes if x != 0)
+                data_value = filtered_bytes.decode('ascii')
             else:
                 data_value = struct.unpack('>H', data_bytes[:2])[0]
         elif datatype.lower() == 'utf-8':

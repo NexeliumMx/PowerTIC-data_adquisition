@@ -1,4 +1,4 @@
-model,modbus_address,parameter,parameter_manual_reference,unit,register_length,data_type,r_w,indb,setup_read,setup_write,timestamp,read_command,write_command,value_weight,address
+﻿model,modbus_address,parameter,parameter_manual_reference,unit,register_length,data_type,r_w,indb,setup_read,setup_write,timestamp,read_command,write_command,value_weight,address
 acurev-1313-5a-x0,523,reset,reset,NULL,3,word,W,f,t,t,f,3,16,0,NULL
 acurev-1313-5a-x0,530,ct2_value,ct2_value,NULL,1,word,r/w,f,t,f,f,3,16,0,NULL
 acurev-1313-5a-x0,531,ct,ct1_value,NULL,1,word,r/w,f,t,f,f,3,16,1,NULL
@@ -98,15 +98,15 @@ EM210-72D.MV5.3.X.OS.X,28,va_l3,VA L3,VA,1,int32,r,t,f,f,f,3,NULL,10,NULL
 EM210-72D.MV5.3.X.OS.X,30,var_l1,VAR L1,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
 EM210-72D.MV5.3.X.OS.X,32,var_l2,VAR L2,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
 EM210-72D.MV5.3.X.OS.X,34,var_l3,VAR L3,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
-EM210-72D.MV5.3.X.OS.X,36,voltage_ln,V L-N _,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
-EM210-72D.MV5.3.X.OS.X,38,voltage_ll,V L-L _,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
-EM210-72D.MV5.3.X.OS.X,40,watts,W _,W,1,int32,r,t,f,f,f,3,NULL,10,NULL
-EM210-72D.MV5.3.X.OS.X,42,va,VA _,VA,1,int32,r,t,f,f,f,3,NULL,10,NULL
-EM210-72D.MV5.3.X.OS.X,44,var,VAR _,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,36,voltage_ln,V L-N Σ,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,38,voltage_ll,V L-L Σ,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,40,watts,W Σ,W,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,42,va,VA Σ,VA,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,44,var,VAR Σ,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
 EM210-72D.MV5.3.X.OS.X,46,pf_l1,PF L1,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
 EM210-72D.MV5.3.X.OS.X,47,pf_l2,PF L2,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
 EM210-72D.MV5.3.X.OS.X,48,pf_l3,PF L3,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
-EM210-72D.MV5.3.X.OS.X,49,power_factor,PF _,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,49,power_factor,PF Σ,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
 EM210-72D.MV5.3.X.OS.X,50,phase_sequence,Phase sequence,NULL,1,int16,r,f,f,f,f,3,NULL,,NULL
 EM210-72D.MV5.3.X.OS.X,51,frequency,Hz,Hz,1,int16,r,t,f,f,f,3,NULL,1,NULL
 EM210-72D.MV5.3.X.OS.X,52,kwh_imported_total,kWh(+) TOT,kWh,1,int32,r,t,f,f,f,3,NULL,10,NULL
@@ -117,11 +117,11 @@ EM210-72D.MV5.3.X.OS.X,92,hour_m_exported_kwh,Hour counter meter neg,NULL,1,int3
 EM210-72D.MV5.3.X.OS.X,130,thd_current_l1,THD(16h) A L1,A,1,int32,r,f,f,f,f,3,NULL,100,NULL
 EM210-72D.MV5.3.X.OS.X,132,thd_current_l2,THD(16h) A L2,A,1,int32,r,f,f,f,f,3,NULL,100,NULL
 EM210-72D.MV5.3.X.OS.X,134,thd_current_l3,THD(16h) A L3,A,1,int32,r,f,f,f,f,3,NULL,100,NULL
-EM210-72D.MV5.3.X.OS.X,136,thd_voltage_ll,THD(16h) V L-N _,V,1,int32,r,f,f,f,f,3,NULL,0,NULL
+EM210-72D.MV5.3.X.OS.X,136,thd_voltage_ll,THD(16h) V L-N Σ,V,1,int32,r,f,f,f,f,3,NULL,0,NULL
 EM210-72D.MV5.3.X.OS.X,138,thd_voltage_ln,THD(16h) V1-N,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
 EM210-72D.MV5.3.X.OS.X,140,thd_voltage_l1-l2,THD(16h) V2-N,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
 EM210-72D.MV5.3.X.OS.X,142,thd_voltage_l1,THD(16h) V3-N,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
-EM210-72D.MV5.3.X.OS.X,144,thd_voltage_l2-l3,THD(16h) V L-L _,V,1,int32,r,f,f,f,f,3,NULL,0,NULL
+EM210-72D.MV5.3.X.OS.X,144,thd_voltage_l2-l3,THD(16h) V L-L Σ,V,1,int32,r,f,f,f,f,3,NULL,0,NULL
 EM210-72D.MV5.3.X.OS.X,146,thd_voltage_l2,THD(16h) V12,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
 EM210-72D.MV5.3.X.OS.X,148,thd_voltage_l3-l1,THD(16h) V23,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
 EM210-72D.MV5.3.X.OS.X,150,thd_voltage_l3,THD(16h) V31,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
@@ -213,7 +213,7 @@ EM330DINAV53HS1X,4099,ct,Current transformer ratio,NULL,1,uint32,r/w,f,t,t,f,3,6
 EM330DINAV53HS1X,4101,vt,Voltage transformer ratio,NULL,1,uint32,r/w,f,t,t,f,3,6,01,NULL
 EM330DINAV53HS1X,4358,thd_enable,THD calculation enabling,NULL,1,uint16,r/w,f,t,t,f,3,6,58,NULL
 EM330DINAV53HS1X,8192,device_address,RS485 instrument address,NULL,1,uint16,r/w,f,t,t,f,3,6,92,1
-EM330DINAV53HS1X,16384,reset,reset,NULL,3,uint16,r/w,f,t,t,f,3,6,384,NULL
+EM330DINAV53HS1X,16384,reset,reset,NULL,3,uint16,r/w,f,t,t,f,3,6,1,NULL
 EM330DINAV53HS1X,20480,serial_number,Serial number,NULL,7,uint16,r,t,t,f,f,3,NULL,480,NULL
 EM24-DIN,0,voltage_l1,V L1-N,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
 EM24-DIN,2,voltage_l2,V L2-N,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
@@ -235,21 +235,21 @@ EM24-DIN,28,va_l3,VA L3,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
 EM24-DIN,30,var_l1,VAR L1,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
 EM24-DIN,32,var_l2,VAR L2,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
 EM24-DIN,34,var_l3,VAR L3,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,36,voltage_ln,V L-N _,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,38,voltage_ll,V L-L _,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,40,watts,W _,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,42,va,VA _,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,44,var,VAR _,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,46,w_dmd_total,DMD W _,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,48,va_dmd_total,DMD VA _,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,36,voltage_ln,V L-N Σ,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,38,voltage_ll,V L-L Σ,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,40,watts,W Σ,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,42,va,VA Σ,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,44,var,VAR Σ,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,46,w_dmd_total,DMD W Σ,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,48,va_dmd_total,DMD VA Σ,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
 EM24-DIN,50,pf_l1,PF L1,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
 EM24-DIN,51,pf_l2,PF L2,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
 EM24-DIN,52,pf_l3,PF L3,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
-EM24-DIN,53,power_factor,PF _,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,53,power_factor,PF Σ,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
 EM24-DIN,54,phase_sequence,Phase sequence,NULL,1,int16,r,f,f,f,f,3,NULL,,NULL
 EM24-DIN,55,frequency,Hz,Hz,1,int16,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,56,w_dmd_max,DMD W _ max,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
-EM24-DIN,58,va_dmd_max,DMD VA _ max,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,56,w_dmd_max,DMD W Σ max,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,58,va_dmd_max,DMD VA Σ max,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
 EM24-DIN,60,current_dmd_peak,DMD A max,A,1,int32,r,f,f,f,f,3,NULL,1000,NULL
 EM24-DIN,62,kwh_imported_total,KWh(+) TOT,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
 EM24-DIN,64,varh_imported_total,Kvarh(+) TOT,kVARh,1,int32,r,f,f,f,f,3,NULL,10,NULL

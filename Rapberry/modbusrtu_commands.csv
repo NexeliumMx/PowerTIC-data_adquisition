@@ -208,9 +208,9 @@ EM330DINAV53HS1X,152,current_n,An,A,1,int32,r,t,f,f,f,3,NULL,2,NULL
 EM330DINAV53HS1X,770,firmware_v,Version code,NULL,1,uint16,r,f,t,f,f,3,NULL,0,NULL
 EM330DINAV53HS1X,771,revision_code,Revision code,NULL,1,uint16,r,f,t,f,f,3,NULL,1,NULL
 EM330DINAV53HS1X,4096,password,PASSWORD (EM only),NULL,1,uint16,r/w,f,t,t,f,3,6,96,NULL
-EM330DINAV53HS1X,4098,meas_system,Measurement mode selection,NULL,1,uint16,r/w,f,t,t,f,3,6,98,NULL
-EM330DINAV53HS1X,4099,ct,Current transformer ratio,NULL,1,uint32,r/w,f,t,t,f,3,6,99,NULL
-EM330DINAV53HS1X,4101,vt,Voltage transformer ratio,NULL,1,uint32,r/w,f,t,t,f,3,6,01,NULL
+EM330DINAV53HS1X,4098,meas_system,Measurement mode selection,NULL,1,uint16,r/w,f,f,t,f,3,6,98,NULL
+EM330DINAV53HS1X,4099,ct,Current transformer ratio,NULL,1,uint32,r/w,f,f,t,f,3,6,99,NULL
+EM330DINAV53HS1X,4101,vt,Voltage transformer ratio,NULL,1,uint32,r/w,f,f,t,f,3,6,01,NULL
 EM330DINAV53HS1X,4358,thd_enable,THD calculation enabling,NULL,1,uint16,r/w,f,t,t,f,3,6,58,NULL
 EM330DINAV53HS1X,8192,device_address,RS485 instrument address,NULL,1,uint16,r/w,f,t,t,f,3,6,92,1
 EM330DINAV53HS1X,16384,reset,reset,NULL,3,uint16,r/w,f,t,t,f,3,6,1,NULL
@@ -285,7 +285,7 @@ EM24-DIN,4388,digital_input_1_prescaler,Digital input 1 prescaler,NULL,1,uint16,
 EM24-DIN,4389,digital_input_2_prescaler,Digital input 2 prescaler,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
 EM24-DIN,4390,digital_input_3_prescaler,Digital input 3 prescaler,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
 EM24-DIN,4391,tariff_managed_via_serial_communication,Tariff managed via serial communication,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
-EM24-DIN,4396,ct,Current transformer ratio,NULL,1,uint32,r/w,f,t,f,f,3,6,NULL,NULL
-EM24-DIN,4398,vt,Voltage transformer ratio,NULL,1,uint32,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4396,ct,Current transformer ratio,NULL,1,uint32,r/w,f,f,f,f,3,6,NULL,NULL
+EM24-DIN,4398,vt,Voltage transformer ratio,NULL,1,uint32,r/w,f,f,f,f,3,6,NULL,NULL
 EM24-DIN,12288,reset,"Reset of all meters (hour
 counter excluded)",NULL,1,uint16,w,f,t,f,f,3,6,NULL,NULL

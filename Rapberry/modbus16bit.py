@@ -56,7 +56,12 @@ def modbus_read(slave_address:int, function_code:int, starting_address:int, quan
         response = ser.read(5 + (quantity_of_registers * 2) + 2)  # Adjust length as needed
         if response:
             print("Received:", response)
-            decoded_response = decode_modbus_response(response=response,slave_address=slave_address,datatype='uint16',parameter="serial_number")  
+            decoded_response = decode_modbus_response(
+                response=response,
+                slave_address=slave_address,
+                datatype='uint16',  # Keep as uint16 for reset validation
+                parameter="reset_validation"  # Changed from "serial_number"
+            )
             ser.close()
             return decoded_response 
         else:
@@ -189,18 +194,25 @@ def reset_instruction(slave_address:int,model:str):
     print("Reset payload: ", payload, type(payload))
     rsp = write_single_modbus(slave_address=slave_address,function_code=write_function,starting_address=address,quantity_of_registers=register_length,payload=payload)
     if not rsp:
-        print("Error during reset process. No response from slave device, verify slave device status and try again")
+        print("Error during reset process. No response from slave device")
         return False
     elif rsp:
-        validation = modbus_read(slave_address=slave_address,function_code=read_function,starting_address=address,quantity_of_registers=register_length)
-        print("Validation: ", validation)
-
-        if validation != 0x0000:
-            print("Reset process failed. Try again")
+        validation = modbus_read(slave_address=slave_address,
+                               function_code=read_function,
+                               starting_address=address,
+                               quantity_of_registers=register_length)
+        print("Validation response:", validation)
+        
+        # Fix: Compare actual value, not hex string
+        if validation is None:
+            print("Reset validation failed - no response")
             return False
-        elif validation == 0x0000:
-            print("Device reset process successfull")
+        elif validation == 0:  # Changed from 0x0000
+            print("Device reset process successful")
             return True
+        else:
+            print(f"Reset process failed. Got value: {validation}")
+            return False
 
 def kill_processes():
     serial_port = ser.port

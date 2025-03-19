@@ -1,339 +1,540 @@
-model,modbus_address,parameter,unit,register_length,data_type,r_w,data_range,industry_standard,indb,setup_read,setup_write,timestamp,read_command,write_command,value_weight,address
-EM330DINAV53HS1X,0,phase_voltage_an,V,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,2,phase_voltage_bn,V,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,4,phase_voltage_cn,V,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,6,phase_voltage_ab,V,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,8,phase_voltage_bc,V,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,10,phase_voltage_ca,V,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,12,amps_phase_a,A,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,14,amps_phase_b,A,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,16,amps_phase_c,A,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,18,watts_phase_a,W,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,20,watts_phase_b,W,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,22,watts_phase_c,W,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,24,va_phase_a,VA,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,26,va_phase_b,VA,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,28,va_phase_c,VA,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,30,var_phase_a,VAR,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,32,var_phase_b,VAR,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,34,var_phase_c,VAR,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,36,voltage_ln_average,V,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,38,voltage_ll_average,V,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,40,total_real_power,W,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,42,ac_apparent_power_va,VA,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,44,reactive_power_var,VAR,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,46,pf_phase_a,,1,int16,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,47,pf_phase_b,,1,int16,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,48,pf_phase_c,,1,int16,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,49,power_factor,,1,int16,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,50,phase_sequence,,1,int16,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,51,frequency,Hz,1,int16,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,52,input_active_power_total_demand,kWh,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,54,input_reactive_power_total_demand,kVARh,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,56,DMD_w,W,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,58,DMD_w_max,W,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,60,input_active_power_demand_partial,kWh,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,62,input_reactive_power_demand_partial,kVARh,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,64,input_active_power_phase_a,kWh,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,66,input_active_power_phase_b,kWh,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,68,input_active_power_phase_c,kWh,1,int32,r,,,t,f,f,f,3,,,
-EM330DINAV53HS1X,70,input_active_power_tariff_1,kWh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,72,input_active_power_tariff_2,kWh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,74,input_active_power_tariff_3,kWh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,76,input_active_power_tariff_4,kWh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,78,output_active_power_total_demand,kWh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,80,output_reactive_power_total_demand,kVARh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,82,output_active_power_demand_partial,kWh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,84,output_va_power_demand_partial,kVAh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,86,hour_counter,,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,88,hour_counter_neg,,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,92,output_active_power_phase_a,kWh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,98,output_active_power_phase_b,kWh,1,int32,r,,,f,f,f,f,3,,,
-EM330DINAV53HS1X,100,output_active_power_phase_c,kWh,1,int32,r,,,f,f,f,f,3,,0,
-EM330DINAV53HS1X,102,input_active_power_tariff_5,kWh,1,int32,r,,,f,f,f,f,3,,2,
-EM330DINAV53HS1X,104,input_active_power_tariff_6,kWh,1,int32,r,,,f,f,f,f,3,,4,
-EM330DINAV53HS1X,106,input_active_power_tariff_7,kWh,1,int32,r,,,f,f,f,f,3,,6,
-EM330DINAV53HS1X,108,input_active_power_tariff_8,kWh,1,int32,r,,,f,f,f,f,3,,8,
-EM330DINAV53HS1X,130,thd_current_phase_a,,1,int32,r,,,f,f,f,f,3,,0,
-EM330DINAV53HS1X,132,thd_current_phase_b,,1,int32,r,,,f,f,f,f,3,,2,
-EM330DINAV53HS1X,134,thd_current_phase_c,,1,int32,r,,,f,f,f,f,3,,4,
-EM330DINAV53HS1X,136,thd_voltage_average_ln,,1,int32,r,,,f,f,f,f,3,,6,
-EM330DINAV53HS1X,138,thd_voltage_phase_an,,1,int32,r,,,f,f,f,f,3,,8,
-EM330DINAV53HS1X,140,thd_voltage_phase_bn,,1,int32,r,,,f,f,f,f,3,,0,
-EM330DINAV53HS1X,142,thd_voltage_phase_cn,,1,int32,r,,,f,f,f,f,3,,2,
-EM330DINAV53HS1X,144,thd_voltage_average_ll,,1,int32,r,,,f,f,f,f,3,,4,
-EM330DINAV53HS1X,146,thd_voltage_phase_ab,,1,int32,r,,,f,f,f,f,3,,6,
-EM330DINAV53HS1X,148,thd_voltage_phase_bc,,1,int32,r,,,f,f,f,f,3,,8,
-EM330DINAV53HS1X,150,thd_voltage_phase_ca,,1,int32,r,,,f,f,f,f,3,,0,
-EM330DINAV53HS1X,152,amps_neutral,A,1,int32,r,,,t,f,f,f,3,,2,
-EM330DINAV53HS1X,770,firmware_v,,1,uint16,r,,,f,t,f,f,3,,0,
-EM330DINAV53HS1X,771,revision_code,,1,uint16,r,,,f,t,f,f,3,,1,
-EM330DINAV53HS1X,20480,serial_number,,7,uint16,r,,,t,t,f,f,3,,480,
-EM330DINAV53HS1X,4096,password,,1,uint16,r/w,,,f,t,t,f,3,6,96,
-EM330DINAV53HS1X,4099,ct_ratio,,1,uint32,r/w,,,f,t,t,f,3,6,99,
-EM330DINAV53HS1X,4101,vt_ratio,,1,uint32,r/w,,,f,t,t,f,3,6,1,
-EM330DINAV53HS1X,4112,integration_time_dmd_real_power,,1,uint32,r/w,,,f,t,t,f,3,6,12,
-EM330DINAV53HS1X,4358,thd_calculation_enable,,1,uint16,r/w,,,f,t,t,f,3,6,58,
-EM330DINAV53HS1X,8192,device_address,,1,uint16,r/w,,,f,t,t,f,3,6,92,1
-EM330DINAV53HS1X,8193,baud_rate,,1,uint16,r/w,,,f,t,t,f,3,6,93,
-EM330DINAV53HS1X,8194,bit_parity,,1,uint16,r/w,,,f,t,t,f,3,6,94,
-EM330DINAV53HS1X,8195,stop_bit,,1,uint16,r/w,,,f,t,t,f,3,6,95,
-EM330DINAV53HS1X,16384,reset_partial_meters,,1,uint16,r/w,,,f,t,t,f,3,6,384,
-EM330DINAV53HS1X,16385,reset_total_meters,,1,uint16,r/w,,,f,t,t,f,3,6,385,
-EM330DINAV53HS1X,16386,reset_counters,,1,uint16,r/w,,,f,t,t,f,3,6,386,
-EM330DINAV53HS1X,20496,production_year,,1,uint16,r,,,f,t,f,f,3,,496,
-EM330DINAV53HS1X,4098,measuring_system,,1,uint16,r/w,,,f,t,t,f,3,6,98,
-acurev-1313-5a-x0,523,reset,,3,word,W,,,f,t,t,f,3,16,0,
-acurev-1313-5a-x0,530,ct2_value,,1,word,r/w,,,f,t,f,f,3,16,0,
-acurev-1313-5a-x0,531,ct1_value,,1,word,r/w,,,f,t,f,f,3,"16
-",1,
-acurev-1313-5a-x0,532,ctn_value,,1,word,r/w,,,f,t,f,f,3,16,2,
-acurev-1313-5a-x0,533,pt2_value,,1,word,r/w,,,f,t,f,f,3,16,3,
-acurev-1313-5a-x0,534,pt1_value,,2,word,r/w,,,f,t,f,f,3,16,4,
-EM210-72D.MV5.3.X.OS.X,4099,ct_ratio,,1,uint32,r,,,f,t,f,f,3,16,,
-EM210-72D.MV5.3.X.OS.X,4101,vt_ratio,,1,uint32,r,,,f,t,f,f,3,16,,
-EM210-72D.MV5.3.X.OS.X,4358,thd_enable,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM210-72D.MV5.3.X.OS.X,8192,device_address,,1,uint16,r/w,,,f,t,t,f,3,6,,
-EM210-72D.MV5.3.X.OS.X,16384,reset,,1,uint16,r/w,,,f,t,t,f,3,6,1,
-acurev-1313-5a-x0,4140,firmware_v,,8,utf-8,r,,Acurev 1300,t,t,f,f,3,,,
-acurev-1313-5a-x0,4096,sunspec_id,,2,Uint16,r,,sunspec,f,t,f,f,3,,,
-acurev-1313-5a-x0,4099,lenth,,1,Uint16,r,,Acurev 1300,f,t,f,f,3,,,
-acurev-1313-5a-x0,4164,device_address,,1,uint16,r,,Acurev 1300,t,t,t,f,3,,,
-acurev-1313-5a-x0,4165,id,,1,Uint16,r,,Acurev 1300,t,t,f,f,3,,,
-acurev-1313-5a-x0,4166,lenth,,1,Uint16,r,,Acurev 1300,t,t,f,f,3,,,
-acurev-1313-5a-x0,4171,current_scale_factor,,1,sunssf,r,,sunspec,t,t,t,f,3,,,
-acurev-1313-5a-x0,4180,voltage_scale_factor,,1,sunssf,r,,sunspec,t,t,t,f,3,,,
-acurev-1313-5a-x0,4182,frequency_scale_factor,,1,sunssf,r,,Acurev 1300,t,t,t,f,3,,,
-acurev-1313-5a-x0,4187,real_power_scale_factor,,1,sunssf,r,,sunspec,t,t,t,f,3,,,
-acurev-1313-5a-x0,4192,apparent_power_scale_factor,,1,sunssf,r,,sunspec,t,t,t,f,3,,,
-acurev-1313-5a-x0,4197,reactive_power_scale_factor,,1,sunssf,r,,sunspec,t,t,t,f,3,,,
-acurev-1313-5a-x0,4202,power_factor_scale_factor,,1,sunssf,r,,sunspec,t,t,t,f,3,,,
-acurev-1313-5a-x0,4219,totwh_sf,,1,sunssf,r,,sunspec,t,t,f,f,3,,,
-acurev-1313-5a-x0,4236,totvah_sf_sunspec,,1,sunssf,r,,sunspec,t,t,f,f,3,,,
-acurev-1313-5a-x0,4269,totvarh_sf,,1,sunssf,r,,sunspec,t,t,f,f,3,,,
-acurev-1313-5a-x0,4270,meter_event_flags,,2,bitfield32,r,,NULL,t,t,f,f,3,,,
-acurev-1313-5a-x0,4098,device_address,,1,Uint16,r,,Acurev 1300,f,t,f,f,3,,,
-acurev-1313-5a-x0,4132,model,,8,utf-8,r,,Acurev 1300,t,t,f,f,3,,,
-acurev-1313-5a-x0,4148,serial_number,,16,utf-8,r,,Acurev 1300,f,t,f,f,3,,,
-acurev-1313-5a-x0,4100,manufacturer,,16,utf-8,r,,Acurev 1300,f,t,f,f,3,,,
-acurev-1313-5a-x0,4167,amps_total,A,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4168,amps_phase_a,A,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4169,amps_phase_b,A,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4170,amps_phase_c,A,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4172,voltage_ln_average,V,1,int16,r,"[0, 9999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4173,phase_voltage_an,V,1,int16,r,"[0, 9999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4174,phase_voltage_bn,V,1,int16,r,"[0, 9999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4175,phase_voltage_cn,V,1,int16,r,"[0, 9999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4176,voltage_ll_average,V,1,int16,r,"[0, 9999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4177,phase_voltage_ab,V,1,int16,r,"[0, 9999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4178,phase_voltage_bc,V,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4179,phase_voltage_ca,V,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4181,frequency,Hz,1,int16,r,"[45 , 65]",Acurev 1300,t,f,f,f,3,,,
-acurev-1313-5a-x0,4183,total_real_power,W,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4184,watts_phase_a,W,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4185,watts_phase_b,W,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4186,watts_phase_c,W,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4188,ac_apparent_power_va,VA,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4189,va_phase_a,VA,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4190,va_phase_b,VA,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4191,va_phase_c,VA,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4193,reactive_power_var,VAR,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4194,var_phase_a,VAR,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4195,var_phase_b,VAR,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4196,var_phase_c,VAR,1,int16,r,"[0, 9999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4198,power_factor,,1,int16,r,"[-1000, 1000]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4199,pf_phase_a,,1,int16,r,"[-1000, 1000]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4272,sunspec_end_id_sunspec,,1,uint16,r,,sunspec,t,t,f,f,3,,,
-acurev-1313-5a-x0,4273,sunspec_end_lenth_sunspec,,1,uint16,r,,sunspec,t,t,f,f,3,,,
-acurev-1313-5a-x0,4200,pf_phase_b,,1,int16,r,"[-1000, 1000]",sunspec,f,f,f,f,3,,,
-EM210-72D.MV5.3.X.OS.X,770,firmware_v,,1,uint16,r,,,f,t,f,f,3,,,
-acurev-1313-5a-x0,4201,pf_phase_c,,1,int16,r,"[-1000, 1000]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4203,total_real_energy_exported,Wh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4205,total_watt_hours_exported_in_phase_a,Wh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4207,total_watt_hours_exported_in_phase_b,Wh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4209,total_watt_hours_exported_in_phase_c,Wh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4211,total_real_energy_imported,Wh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4213,total_watt_hours_imported_phase_a,Wh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4215,total_watt_hours_imported_phase_b,Wh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4217,total_watt_hours_imported_phase_c,Wh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4220,total_va_hours_exported,VAh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4222,total_va_hours_exported_phase_a,VAh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4224,total_va_hours_exported_phase_b,VAh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4226,total_va_hours_exported_phase_c,VAh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4228,total_va_hours_imported,VAh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4230,total_va_hours_imported_phase_a,VAh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4232,total_va_hours_imported_phase_b,VAh,2,acc32,r,"[0, 999999999]",sunspec,f,f,f,f,3,,,
-acurev-1313-5a-x0,4234,total_va_hours_imported_phase_c,VAh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4237,total_var_hours_imported_q1,VARh,2,bitfield32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4239,total_var_hours_imported_q1_phase_a,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4241,total_var_hours_imported_q1_phase_b,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4243,total_var_hours_imported_q1_phase_c,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4245,total_var_hours_imported_q2,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4247,total_var_hours_imported_q2_phase_a,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4249,total_var_hours_imported_q2_phase_b,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4251,total_var_hours_imported_q2_phase_c,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4253,total_var_hours_exported_q3,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4255,total_var_hours_exported_q3_phase_a,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4257,total_var_hours_exported_q3_phase_b,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4259,total_var_hours_exported_q3_phase_c,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4261,total_var_hours_exported_q4,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4263,total_var_hours_exported_q4_phase_a,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4265,total_var_hours_exported_q4_phase_b,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,4267,total_var_hours_exported_q4_phase_c,VARh,2,acc32,r,"[0, 999999999]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,5632,input_active_power_total_max_demand ,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5634,input_active_power_total_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,5637,input_active_power_rate1_max_demand_and_occur_time,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5639,input_active_power_rate1_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,5642,input_active_power_rate2_max_demand_and_occur_time,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5644,input_active_power_rate2_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,5647,input_active_power_rate3_max_demand_and_occur_time,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5649,input_active_power_rate3_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-EM210-72D.MV5.3.X.OS.X,20480,serial_number,,7,uint16,r,,,f,t,f,f,3,,,
-EM210-72D.MV5.3.X.OS.X,134,thd_current_phase_c,A,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,136,thd_voltage_average_ln,V,1,int32,r,,,f,f,f,f,3,,0,
-acurev-1313-5a-x0,5652,input_active_power_rate4_max_demand_and_occur_time,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5654,input_active_power_rate4_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,5657,output_active_power_total_max_demand,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5659,output_active_power_total_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,5662,output_active_power_rate1_max_demand ,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5664,output_active_power_rate1_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,5667,output_active_power_rate2_max_demand ,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5669,output_active_power_rate2_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,5672,output_active_power_rate3_max_demand ,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5674,output_active_power_rate3_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,5677,output_active_power_rate4_max_demand ,,2,Float ,r,,none,t,f,f,f,3,,,
-acurev-1313-5a-x0,5679,output_active_power_rate4_max_demand_occur_time,,3,Dword,r,,none,t,f,f,t,3,,,
-acurev-1313-5a-x0,768,clock_year,,1,word,r,"[2000, 2099]",sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,769,clock_month,,1,word,r,,sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,770,clock_date,,1,word,r,,sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,771,clock_hour,,1,word,r,0-23,sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,772,clock_minute,,1,word,r,0-59,sunspec,t,f,f,f,3,,,
-acurev-1313-5a-x0,773,clock_second,,1,word,r,0-59,sunspec,t,f,f,f,3,,,
-EM210-72D.MV5.3.X.OS.X,0,phase_voltage_an,V,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,46,pf_phase_a,,1,int32,r,,,t,f,f,f,3,,1000,
-EM210-72D.MV5.3.X.OS.X,47,pf_phase_b,,1,int32,r,,,t,f,f,f,3,,1000,
-EM210-72D.MV5.3.X.OS.X,48,pf_phase_c,,1,int32,r,,,t,f,f,f,3,,1000,
-EM210-72D.MV5.3.X.OS.X,49,power_factor,,1,int32,r,,,t,f,f,f,3,,1000,
-EM210-72D.MV5.3.X.OS.X,50,phase_sequence,,1,int16,r,,,f,f,f,f,3,,,
-EM210-72D.MV5.3.X.OS.X,51,frequency,Hz,1,int16,r,,,t,f,f,f,3,,1,
-EM210-72D.MV5.3.X.OS.X,2,phase_voltage_bn,V,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,4,phase_voltage_cn,V,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,6,phase_voltage_ab,V,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,8,phase_voltage_bc,V,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,10,phase_voltage_ca,V,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,12,amps_phase_a,A,1,int32,r,,,t,f,f,f,3,,1000,
-EM210-72D.MV5.3.X.OS.X,14,amps_phase_b,A,1,int32,r,,,t,f,f,f,3,,1000,
-EM210-72D.MV5.3.X.OS.X,16,amps_phase_c,A,1,int32,r,,,t,f,f,f,3,,1000,
-EM210-72D.MV5.3.X.OS.X,18,watts_phase_a,W,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,20,watts_phase_b,W,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,22,watts_phase_c,W,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,24,va_phase_a,VA,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,26,va_phase_b,VA,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,28,va_phase_c,VA,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,30,var_phase_a,VAR,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,32,var_phase_b,VAR,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,34,var_phase_c,VAR,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,36,voltage_ln_average,V,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,38,voltage_ll_average,V,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,40,total_real_power,W,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,42,ac_apparent_power_va,VA,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,44,reactive_power_var,VAR,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,52,total_real_energy_imported,kWh,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,54,total_var_hours_imported_q1,kVARh,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,78,total_real_energy_exported,kVWh,1,int32,r,,,t,f,f,f,3,,10,
-EM210-72D.MV5.3.X.OS.X,90,hour_counter,,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,92,hour_counter_neg,,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,130,thd_current_phase_a,A,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,132,thd_current_phase_b,A,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,138,thd_voltage_phase_an,V,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,140,thd_voltage_phase_bn,V,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,142,thd_voltage_phase_cn,V,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,144,thd_voltage_average_ll,V,1,int32,r,,,f,f,f,f,3,,0,
-EM210-72D.MV5.3.X.OS.X,146,thd_voltage_phase_ab,V,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,148,thd_voltage_phase_bc,V,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,150,thd_voltage_phase_ca,V,1,int32,r,,,f,f,f,f,3,,100,
-EM210-72D.MV5.3.X.OS.X,152,amps_neutral,A,1,int32,r,,,f,f,f,f,3,,1000,
-EM24-DIN,0,phase_voltage_an,V,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,2,phase_voltage_bn,V,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,4,phase_voltage_cn,V,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,6,phase_voltage_ab,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,8,phase_voltage_bc,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,10,phase_voltage_ca,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,12,amps_phase_a,,1,int32,,,,f,f,f,f,3,,1000,
-EM24-DIN,14,amps_phase_b,,1,int32,,,,f,f,f,f,3,,1000,
-EM24-DIN,16,amps_phase_c,,1,int32,,,,f,f,f,f,3,,1000,
-EM24-DIN,18,watts_phase_a,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,20,watts_phase_b,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,22,watts_phase_c,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,24,va_phase_a,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,26,va_phase_b,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,28,va_phase_c,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,30,var_phase_a,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,32,var_phase_b,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,34,var_phase_c,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,36,voltage_ln_average,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,38,voltage_ll_average,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,40,total_real_power,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,42,ac_apparent_power_va,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,44,reactive_power_var,,1,int32,,,,f,f,f,f,3,,10,
-EM24-DIN,46,DMD_w,,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,48,DMD_va,,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,50,pf_phase_a,,1,int16,r,,,f,f,f,f,3,,1000,
-EM24-DIN,51,pf_phase_b,,1,int16,r,,,f,f,f,f,3,,1000,
-EM24-DIN,52,pf_phase_c,,1,int16,r,,,f,f,f,f,3,,1000,
-EM24-DIN,53,power_factor,,1,int16,r,,,f,f,f,f,3,,1000,
-EM24-DIN,54,phase_sequence,,1,int16,r,,,f,f,f,f,3,,,
-EM24-DIN,55,frequency,hz,1,int16,r,,,f,f,f,f,3,,10,
-EM24-DIN,56,DMD_watts_total,W,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,58,DMD_va_total,VA,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,60,DMD_A_max,A,1,int32,r,,,f,f,f,f,3,,1000,
-EM24-DIN,62,input_active_power_total_demand,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,64,input_reactive_power_total_demand,kVARh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,66,input_active_power_par,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,68,input_reactive_power_par,kVARh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,70,input_active_power_phase_a,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,72,input_active_power_phase_b,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,74,input_active_power_phase_c,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,76,input_active_power_tariff_1,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,78,input_active_power_tariff_2,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,80,input_active_power_tariff_3,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,82,input_active_power_tariff_4,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,84,input_reactive_power_tariff_1,kVARh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,86,input_reactive_power_tariff_2,kVARh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,88,input_reactive_power_tariff_3,kVARh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,90,input_reactive_power_tariff_4,kVARh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,92,Output_active_power_total_demand,kWh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,94,Output_reactive_power_total_demand,kVARh,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,96,hour_counter,,1,int32,r,,,f,f,f,t,3,,100,
-EM24-DIN,98,Counter_1,,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,100,Counter_2,,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,102,Counter_3,,1,int32,r,,,f,f,f,f,3,,10,
-EM24-DIN,768,Digital_input_status,,1,uint16,r,,,f,t,f,f,3,,,
-EM24-DIN,769,Current_tariff,,1,uint16,r,,,f,t,f,f,3,,,
-EM24-DIN,770,serial_number,,1,uint16,r,,,f,t,f,f,3,,,
-EM24-DIN,771,Revision_code,,1,uint16,r,,,f,t,f,f,3,,,
-EM24-DIN,772,Front_selector_status,,1,uint16,r,,,f,t,f,f,3,,,
-EM24-DIN,11,Carlo_Gavazzi_Controls_identification_Code,,1,uint16,r,,,f,t,f,f,3,,,
-EM24-DIN,4352,password,,1,uint16,r/w,,,f,t,f,f,3,6,0,
-EM24-DIN,4353,Type_application,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4354,Measirung_system,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4355,DMD_Interval_time,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4360,Filter_span_parameter,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4361,Filter_coefficient,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4362,device_address,,1,uint16,r/w,,,f,t,f,f,3,6,,1
-EM24-DIN,4363,baud_rate,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4385,Digital_input_1_type,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4386,Digital_input_2_type,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4387,Digital_input_3_type,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4388,Digital_input_1_prescaler,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4389,Digital_input_2_prescaler,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4390,Digital_input_3_prescaler,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4391,Tariff_managed_via_serial_communication,,1,uint16,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4396,ct,,1,uint32,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,4398,vt,,1,uint32,r/w,,,f,t,f,f,3,6,,
-EM24-DIN,12288,reset,,1,uint16,w,,,f,t,f,f,,6,,
-EM24-DIN,12289,reset_total_meters,,1,uint16,w,,,f,t,f,f,,6,,
-EM24-DIN,12290,reset_partial_meters,,1,uint16,w,,,f,t,f,f,,6,,
-EM24-DIN,12291,reset_hour_counter,,1,uint16,w,,,f,t,f,f,,6,,
-EM24-DIN,12292,reset_counters,,1,uint16,w,,,f,t,f,f,,6,,
-EM24-DIN,12293,reset_dmd_max,,1,uint16,w,,,f,t,f,f,,6,,
+model,modbus_address,parameter,parameter_manual_reference,unit,register_length,data_type,r_w,indb,setup_read,setup_write,timestamp,read_command,write_command,value_weight,address
+acurev-1313-5a-x0,523,reset,reset,NULL,3,word,W,f,t,t,f,3,16,0,NULL
+acurev-1313-5a-x0,530,ct2_value,ct2_value,NULL,1,word,r/w,f,t,f,f,3,16,0,NULL
+acurev-1313-5a-x0,531,ct,ct1_value,NULL,1,word,r/w,f,t,f,f,3,16,1,NULL
+acurev-1313-5a-x0,532,ctn_value,ctn_value,NULL,1,word,r/w,f,t,f,f,3,16,2,NULL
+acurev-1313-5a-x0,533,vt2,pt2_value,NULL,1,word,r/w,f,t,f,f,3,16,3,NULL
+acurev-1313-5a-x0,534,vt,pt1_value,NULL,2,word,r/w,f,t,f,f,3,16,4,NULL
+acurev-1313-5a-x0,4100,manufacturer,manufacturer,NULL,16,utf-8,r,f,t,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4140,firmware_v,firmware_v,NULL,8,utf-8,r,t,t,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4148,serial_number,serial_number,NULL,16,utf-8,r,f,t,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4164,device_address,device_address,NULL,1,uint16,r,t,t,t,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4165,id,id,NULL,1,Uint16,r,t,t,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4167,current_total,amps_total,A,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4168,current_l1,amps_phase_a,A,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4169,current_l2,amps_phase_b,A,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4170,current_l3,amps_phase_c,A,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4171,current_scale_factor,current_scale_factor,NULL,1,sunssf,r,t,t,t,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4172,voltage_ll,voltage_ln_average,V,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4173,voltage_l1,phase_voltage_an,V,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4174,voltage_l2,phase_voltage_bn,V,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4175,voltage_l3,phase_voltage_cn,V,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4176,voltage_ln,voltage_ll_average,V,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4177,voltage_l1-l2,phase_voltage_ab,V,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4178,voltage_l2-l3,phase_voltage_bc,V,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4179,voltage_l3-l1,phase_voltage_ca,V,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4180,voltage_scale_factor,voltage_scale_factor,NULL,1,sunssf,r,t,t,t,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4181,frequency,frequency,Hz,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4182,frequency_scale_factor,frequency_scale_factor,NULL,1,sunssf,r,t,t,t,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4183,watts,total_real_power,W,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4184,watts_l1,watts_phase_a,W,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4185,watts_l2,watts_phase_b,W,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4186,watts_l3,watts_phase_c,W,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4187,real_power_scale_factor,real_power_scale_factor,NULL,1,sunssf,r,t,t,t,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4188,va,ac_apparent_power_va,VA,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4189,va_l1,va_phase_a,VA,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4190,va_l2,va_phase_b,VA,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4191,va_l3,va_phase_c,VA,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4192,apparent_power_scale_factor,apparent_power_scale_factor,NULL,1,sunssf,r,t,t,t,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4193,var,reactive_power_var,VAR,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4194,var_l1,var_phase_a,VAR,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4195,var_l2,var_phase_b,VAR,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4196,var_l3,var_phase_c,VAR,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4197,reactive_power_scale_factor,reactive_power_scale_factor,NULL,1,sunssf,r,t,t,t,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4198,power_factor,power_factor,NULL,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4199,pf_l1,pf_phase_a,NULL,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4200,pf_l2,pf_phase_b,NULL,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4201,pf_l3,pf_phase_c,NULL,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4202,power_factor_scale_factor,power_factor_scale_factor,NULL,1,sunssf,r,t,t,t,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4203,kwh_exported_total,total_real_energy_exported,Wh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4205,kwh_exported_l1,total_watt_hours_exported_in_phase_a,Wh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4207,kwh_exported_l2,total_watt_hours_exported_in_phase_b,Wh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4209,kwh_exported_l3,total_watt_hours_exported_in_phase_c,Wh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4211,kwh_imported_total,total_real_energy_imported,Wh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4213,kwh_imported_l1,total_watt_hours_imported_phase_a,Wh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4215,kwh_imported_l2,total_watt_hours_imported_phase_b,Wh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4217,kwh_imported_l3,total_watt_hours_imported_phase_c,Wh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4219,kw_dmd,totwh_sf,Wh,1,sunssf,r,t,t,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4220,vah_exported_total,total_va_hours_exported,VAh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4222,vah_exported_l1,total_va_hours_exported_phase_a,VAh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4224,vah_exported_l2,total_va_hours_exported_phase_b,VAh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4226,vah_exported_l3,total_va_hours_exported_phase_c,VAh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4228,vah_imported_total,total_va_hours_imported,VAh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4230,vah_imported_l1,total_va_hours_imported_phase_a,VAh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4232,vah_imported_l2,total_va_hours_imported_phase_b,VAh,2,acc32,r,f,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4234,vah_imported_l3,total_va_hours_imported_phase_c,VAh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4237,varh_imported_q1,total_var_hours_imported_q1,VARh,2,bitfield32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4239,varh_imported_q1_l1,total_var_hours_imported_q1_phase_a,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4241,varh_imported_q1_l2,total_var_hours_imported_q1_phase_b,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4243,varh_imported_q1_l3,total_var_hours_imported_q1_phase_c,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4245,varh_imported_q2,total_var_hours_imported_q2,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4247,varh_imported_q2_l1,total_var_hours_imported_q2_phase_a,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4249,varh_imported_q2_l2,total_var_hours_imported_q2_phase_b,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4251,varh_imported_q2_l3,total_var_hours_imported_q2_phase_c,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4253,vah_exported_q3,total_var_hours_exported_q3,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4255,vah_exported_q3_l1,total_var_hours_exported_q3_phase_a,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4257,vah_exported_q3_l2,total_var_hours_exported_q3_phase_b,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4259,vah_exported_q3_l3,total_var_hours_exported_q3_phase_c,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4261,varh_exported_q4,total_var_hours_exported_q4,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4263,varh_exported_q4_l1,total_var_hours_exported_q4_phase_a,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4265,varh_exported_q4_l2,total_var_hours_exported_q4_phase_b,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4267,varh_exported_q4_l3,total_var_hours_exported_q4_phase_c,VARh,2,acc32,r,t,f,f,f,3,NULL,NULL,NULL
+acurev-1313-5a-x0,4269,varh_imported_total,totvarh_sf,VARh,1,sunssf,r,t,t,f,f,3,NULL,NULL,NULL
+EM210-72D.MV5.3.X.OS.X,0,voltage_l1,V L1-N,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,2,voltage_l2,V L2-N,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,4,voltage_l3,V L3-N,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,6,voltage_l1-l2,V L1-L2,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,8,voltage_l2-l3,V L2-L3,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,10,voltage_l3-l1,V L3-L1,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,12,current_l1,A L1,A,1,int32,r,t,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,14,current_l2,A L2,A,1,int32,r,t,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,16,current_l3,A L3,A,1,int32,r,t,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,18,watts_l1,W L1,W,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,20,watts_l2,W L2,W,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,22,watts_l3,W L3,W,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,24,va_l1,VA L1,VA,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,26,va_l2,VA L2,VA,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,28,va_l3,VA L3,VA,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,30,var_l1,VAR L1,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,32,var_l2,VAR L2,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,34,var_l3,VAR L3,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,36,voltage_ln,V L-N _,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,38,voltage_ll,V L-L _,V,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,40,watts,W _,W,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,42,va,VA _,VA,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,44,var,VAR _,VAR,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,46,pf_l1,PF L1,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,47,pf_l2,PF L2,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,48,pf_l3,PF L3,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,49,power_factor,PF _,NULL,1,int32,r,t,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,50,phase_sequence,Phase sequence,NULL,1,int16,r,f,f,f,f,3,NULL,,NULL
+EM210-72D.MV5.3.X.OS.X,51,frequency,Hz,Hz,1,int16,r,t,f,f,f,3,NULL,1,NULL
+EM210-72D.MV5.3.X.OS.X,52,kwh_imported_total,kWh(+) TOT,kWh,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,54,varh_imported_q1,kvarh(+) TOT,kVARh,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,78,kwh_exported_total,kWh(-) TOT,kVWh,1,int32,r,t,f,f,f,3,NULL,10,NULL
+EM210-72D.MV5.3.X.OS.X,90,hour_m,Hour counter meter,NULL,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,92,hour_m_exported_kwh,Hour counter meter neg,NULL,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,130,thd_current_l1,THD(16h) A L1,A,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,132,thd_current_l2,THD(16h) A L2,A,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,134,thd_current_l3,THD(16h) A L3,A,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,136,thd_voltage_ll,THD(16h) V L-N _,V,1,int32,r,f,f,f,f,3,NULL,0,NULL
+EM210-72D.MV5.3.X.OS.X,138,thd_voltage_ln,THD(16h) V1-N,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,140,thd_voltage_l1-l2,THD(16h) V2-N,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,142,thd_voltage_l1,THD(16h) V3-N,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,144,thd_voltage_l2-l3,THD(16h) V L-L _,V,1,int32,r,f,f,f,f,3,NULL,0,NULL
+EM210-72D.MV5.3.X.OS.X,146,thd_voltage_l2,THD(16h) V12,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,148,thd_voltage_l3-l1,THD(16h) V23,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,150,thd_voltage_l3,THD(16h) V31,V,1,int32,r,f,f,f,f,3,NULL,100,NULL
+EM210-72D.MV5.3.X.OS.X,152,current_n,Neutral current (In),A,1,int32,r,f,f,f,f,3,NULL,1000,NULL
+EM210-72D.MV5.3.X.OS.X,770,firmware_v,Version code,NULL,1,uint16,r,f,t,f,f,3,NULL,NULL,NULL
+EM210-72D.MV5.3.X.OS.X,4099,ct,Current transformer ratio,NULL,1,uint32,r,f,t,f,f,3,16,NULL,NULL
+EM210-72D.MV5.3.X.OS.X,4101,vt,Voltage transformer ratio,NULL,1,uint32,r,f,t,f,f,3,16,NULL,NULL
+EM210-72D.MV5.3.X.OS.X,4358,thd_enable,THD calculation enabling,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM210-72D.MV5.3.X.OS.X,8192,device_address,RS485 instrument address,NULL,1,uint16,r/w,f,t,t,f,3,6,NULL,NULL
+EM210-72D.MV5.3.X.OS.X,16384,reset,"Reset of all meters (kWhTOT,
+kvarhTOT, positive
+HoursCounter, negative
+HoursCounter)",NULL,1,uint16,r/w,f,t,t,f,3,6,1,NULL
+EM210-72D.MV5.3.X.OS.X,20480,serial_number,Serial number,NULL,7,uint16,r,f,t,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,0,voltage_l1,V L1-N,V,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,2,voltage_l2,V L2-N,V,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,4,voltage_l3,V L3-N,V,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,6,voltage_l1-l2,V L1-L2,V,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,8,voltage_l2-l3,V L2-L3,V,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,10,voltage_l3-l1,V L3-L1,V,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,12,current_l1,A L1,A,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,14,current_l2,A L2,A,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,16,current_l3,A L3,A,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,18,watts_l1,W L1,W,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,20,watts_l2,W L2,W,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,22,watts_l3,W L3,W,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,24,va_l1,VA L1,VA,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,26,va_l2,VA L2,VA,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,28,va_l3,VA L3,VA,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,30,var_l1,VAR L1,VAR,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,32,var_l2,VAR L2,VAR,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,34,var_l3,VAR L3,VAR,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,36,voltage_ln,V L-N sys,V,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,38,voltage_ll,V L-L sys,V,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,40,watts,W sys,W,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,42,va,VA sys,VA,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,44,var,VAR sys,VAR,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,46,pf_l1,PF L1,NULL,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,47,pf_l2,PF L2,NULL,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,48,pf_l3,PF L3,NULL,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,49,power_factor,PF sys,NULL,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,50,phase_sequence,Phase sequence,NULL,1,int16,r,f,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,51,frequency,Hz,Hz,1,int16,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,52,kwh_imported_total,kWh (+) TOT,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,54,varh_imported_total,Kvarh (+) TOT,kVARh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,56,kw_dmd,kW dmd,W,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,58,kw_dmd_peak,kW dmd peak,W,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,60,kwh_imported_partial,kWh (+) partial,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,62,varh_imported_partial,Kvarh (+) PARTIAL,kVARh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,64,kwh_imported_l1,kWh (+) L1,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,66,kwh_imported_l2,kWh (+) L2,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,68,kwh_imported_l3,kWh (+) L3,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,70,kwh_imported_tariff1,kWh (+) t1,kWh,1,int32,r,f,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,72,kwh_imported_tariff2,kWh (+) t2,kWh,1,int32,r,f,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,74,kwh_imported_tariff3,kWh (+) t3,kWh,1,int32,r,f,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,76,kwh_imported_tariff4,kWh (+) t4,kWh,1,int32,r,f,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,78,kwh_exported_total,kWh (-) TOT,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,80,varh_exported_total,kvarh (-) TOT,kVARh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,82,kwh_exported_partial,kWh (-) PARTIAL,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,84,varh_exported_partial,Kvarh (-) PARTIAL,Kvarh ,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,86,vah_imported_total,kVAh TOT,kVAh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,88,vah_exported_partial,kVAh PARTIAL,kVAh ,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,90,hour_m,Run hour meter,NULL,1,int32,r,f,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,88,hour_m_exported_kwh,Run hour meter kWh (-),NULL,1,int32,r,f,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,96,kwh_exported_l1,kWh (-) L1,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,98,kwh_exported_l2,kWh (-) L2,kWh,1,int32,r,t,f,f,f,3,NULL,NULL,NULL
+EM330DINAV53HS1X,100,kwh_exported_l3,kWh (-) L3,kWh,1,int32,r,t,f,f,f,3,NULL,0,NULL
+EM330DINAV53HS1X,102,kwh_imported_tariff5,kWh (+) t5,kWh,1,int32,r,f,f,f,f,3,NULL,2,NULL
+EM330DINAV53HS1X,104,kwh_imported_tariff6,kWh (+) t6,kWh,1,int32,r,f,f,f,f,3,NULL,4,NULL
+EM330DINAV53HS1X,106,kwh_imported_tariff7,kWh (+) t7,kWh,1,int32,r,f,f,f,f,3,NULL,6,NULL
+EM330DINAV53HS1X,108,kwh_imported_tariff8,kWh (+) t8,kWh,1,int32,r,f,f,f,f,3,NULL,8,NULL
+EM330DINAV53HS1X,130,thd_current_l1,THD A L1,NULL,1,int32,r,t,f,f,f,3,NULL,0,NULL
+EM330DINAV53HS1X,132,thd_current_l2,THD A L2,NULL,1,int32,r,t,f,f,f,3,NULL,2,NULL
+EM330DINAV53HS1X,134,thd_current_l3,THD A L3,NULL,1,int32,r,t,f,f,f,3,NULL,4,NULL
+EM330DINAV53HS1X,136,thd_voltage_l2-l3,THDV L-L sys,NULL,1,int32,r,t,f,f,f,3,NULL,6,NULL
+EM330DINAV53HS1X,138,thd_voltage_ll,THD V L-N sys,NULL,1,int32,r,t,f,f,f,3,NULL,8,NULL
+EM330DINAV53HS1X,140,thd_voltage_ln,THD V L1-N,NULL,1,int32,r,t,f,f,f,3,NULL,0,NULL
+EM330DINAV53HS1X,142,thd_voltage_l2,THD V L1-L2,NULL,1,int32,r,t,f,f,f,3,NULL,2,NULL
+EM330DINAV53HS1X,144,thd_voltage_l1-l2,THD V L2-N,NULL,1,int32,r,t,f,f,f,3,NULL,4,NULL
+EM330DINAV53HS1X,146,thd_voltage_l3-l1,THD V L2-L3,NULL,1,int32,r,t,f,f,f,3,NULL,6,NULL
+EM330DINAV53HS1X,148,thd_voltage_l1,THD V L3-N,NULL,1,int32,r,t,f,f,f,3,NULL,8,NULL
+EM330DINAV53HS1X,150,thd_voltage_l3,THD V L3-L1,NULL,1,int32,r,t,f,f,f,3,NULL,0,NULL
+EM330DINAV53HS1X,152,current_n,An,A,1,int32,r,t,f,f,f,3,NULL,2,NULL
+EM330DINAV53HS1X,770,firmware_v,Version code,NULL,1,uint16,r,f,t,f,f,3,NULL,0,NULL
+EM330DINAV53HS1X,771,revision_code,Revision code,NULL,1,uint16,r,f,t,f,f,3,NULL,1,NULL
+EM330DINAV53HS1X,4096,password,PASSWORD (EM only),NULL,1,uint16,r/w,f,t,t,f,3,6,96,NULL
+EM330DINAV53HS1X,4098,meas_system,Measurement mode selection,NULL,1,uint16,r/w,f,t,t,f,3,6,98,NULL
+EM330DINAV53HS1X,4099,ct,Current transformer ratio,NULL,1,uint32,r/w,f,t,t,f,3,6,99,NULL
+EM330DINAV53HS1X,4101,vt,Voltage transformer ratio,NULL,1,uint32,r/w,f,t,t,f,3,6,01,NULL
+EM330DINAV53HS1X,4358,thd_enable,THD calculation enabling,NULL,1,uint16,r/w,f,t,t,f,3,6,58,NULL
+EM330DINAV53HS1X,8192,device_address,RS485 instrument address,NULL,1,uint16,r/w,f,t,t,f,3,6,92,1
+EM330DINAV53HS1X,16384,reset,reset,NULL,3,uint16,r/w,f,t,t,f,3,6,384,NULL
+EM330DINAV53HS1X,20480,serial_number,Serial number,NULL,7,uint16,r,t,t,f,f,3,NULL,480,NULL
+EM24-DIN,0,voltage_l1,V L1-N,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,2,voltage_l2,V L2-N,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,4,voltage_l3,V L3-N,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,6,voltage_l1-l2,V L1-L2,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,8,voltage_l2-l3,V L2-L3,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,10,voltage_l3-l1,V L3-L1,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,11,serial_number,"Carlo Gavazzi Controls
+identification code",NULL,1,uint16,r,t,t,f,f,3,NULL,NULL,NULL
+EM24-DIN,12,current_l1,A L1,A,1,int32,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,14,current_l2,A L2,A,1,int32,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,16,current_l3,A L3,A,1,int32,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,18,watts_l1,W L1,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,20,watts_l2,W L2,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,22,watts_l3,W L3,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,24,va_l1,VA L1,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,26,va_l2,VA L2,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,28,va_l3,VA L3,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,30,var_l1,VAR L1,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,32,var_l2,VAR L2,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,34,var_l3,VAR L3,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,36,voltage_ln,V L-N _,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,38,voltage_ll,V L-L _,V,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,40,watts,W _,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,42,va,VA _,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,44,var,VAR _,VAR,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,46,w_dmd_total,DMD W _,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,48,va_dmd_total,DMD VA _,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,50,pf_l1,PF L1,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,51,pf_l2,PF L2,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,52,pf_l3,PF L3,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,53,power_factor,PF _,NULL,1,int16,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,54,phase_sequence,Phase sequence,NULL,1,int16,r,f,f,f,f,3,NULL,,NULL
+EM24-DIN,55,frequency,Hz,Hz,1,int16,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,56,w_dmd_max,DMD W _ max,W,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,58,va_dmd_max,DMD VA _ max,VA,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,60,current_dmd_peak,DMD A max,A,1,int32,r,f,f,f,f,3,NULL,1000,NULL
+EM24-DIN,62,kwh_imported_total,KWh(+) TOT,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,64,varh_imported_total,Kvarh(+) TOT,kVARh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,66,kwh_imported_partial,KWh(+) PAR,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,68,varh_imported_partial,Kvarh(+) PAR,kVARh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,70,kwh_imported_l1,KWh(+) L1,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,72,kwh_imported_l2,KWh(+) L2,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,74,kwh_imported_l3,KWh(+) L3,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,76,kwh_imported_tariff1,KWh(+) T1,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,78,kwh_imported_tariff2,KWh(+) T2,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,80,kwh_imported_tariff3,KWh(+) T3,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,82,kwh_imported_tariff4,KWh(+) T4,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,84,reactive_power_tariff_imported_1,Kvarh(+) T1,kVARh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,86,reactive_power_tariff_imported_2,Kvarh(+) T2,kVARh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,88,reactive_power_tariff_imported_3,Kvarh(+) T3,kVARh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,90,reactive_power_tariff_imported_4,Kvarh(+) T4,kVARh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,92,kwh_exported_total,KWh(-) TOT,kWh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,94,varh_exported_total,Kvarh(-) TOT,kVARh,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,96,hour_m,Hour,NULL,1,int32,r,f,f,f,t,3,NULL,100,NULL
+EM24-DIN,98,counter_1,Counter 1,NULL,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,100,counter_2,Counter 2,NULL,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,102,counter_3,Counter 3,NULL,1,int32,r,f,f,f,f,3,NULL,10,NULL
+EM24-DIN,768,digital_input_status,Digital input status,NULL,1,uint16,r,f,t,f,f,3,NULL,NULL,NULL
+EM24-DIN,769,current_tariff,Current tariff,NULL,1,uint16,r,f,t,f,f,3,NULL,NULL,NULL
+EM24-DIN,770,firmware_v,Version code,NULL,1,uint16,r,f,t,f,f,3,NULL,NULL,NULL
+EM24-DIN,4352,password,PASSWORD,NULL,1,uint16,r/w,f,t,f,f,3,6,0,NULL
+EM24-DIN,4353,type_application,Type of application,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4362,device_address,RS485 instrument address,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,1
+EM24-DIN,4385,digital_input_1_type,Digital input 1 type,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4386,digital_input_2_type,Digital input 2 type,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4387,digital_input_3_type,Digital input 3 type,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4388,digital_input_1_prescaler,Digital input 1 prescaler,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4389,digital_input_2_prescaler,Digital input 2 prescaler,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4390,digital_input_3_prescaler,Digital input 3 prescaler,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4391,tariff_managed_via_serial_communication,Tariff managed via serial communication,NULL,1,uint16,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4396,ct,Current transformer ratio,NULL,1,uint32,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,4398,vt,Voltage transformer ratio,NULL,1,uint32,r/w,f,t,f,f,3,6,NULL,NULL
+EM24-DIN,12288,reset,"Reset of all meters (hour
+counter excluded)",NULL,1,uint16,w,f,t,f,f,3,6,NULL,NULL
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,

@@ -9,7 +9,8 @@ ser = serial.Serial(
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
-    timeout=0.070
+    #timeout=0.070
+    timeout=1
 )
 def compute_crc(data):
         crc = 0xFFFF
@@ -158,7 +159,7 @@ def write_single_modbus(slave_address:int, function_code:int, starting_address:i
             return response 
         else:
             kill_processes()
-            print(f"Error wirting, retrying ({attempt+1}/{max_retries})")
+            print(f"Error writing, retrying ({attempt+1}/{max_retries})")
     else: 
         print("Wirte process failed")
         ser.close()  

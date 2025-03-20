@@ -13,13 +13,13 @@ import serial
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-"""ser =  serial.Serial(
+ser =  serial.Serial(
     port='/dev/ttyUSB0',
     baudrate=19200,
     bytesize=serial.EIGHTBITS,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
-    timeout=0.1)"""
+    timeout=0.1)
 
 def info_backup(data,file_path):
     

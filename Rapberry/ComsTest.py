@@ -229,9 +229,8 @@ def reading_meter(sn:str, mbadd: int, model: str):
                 response_length = 5 + (quantity_of_registers * 2) + 2
                 response = ser.read(response_length)
                 if response:
-                    #logger.debug(f"Received: {response}")
+                    logger.debug(f"Received: {response}")
                     status = decode_modbus_response(response, mbadd, datatype, parameter)
-                    logger.info(f"response: {response}")
                     logger.info(f"Status: {status}")
                     if status == "Incorrect CRC" or status == "Incomplete response received":
                         logger.warning(f"Communication error, retrying ({attempt + 1}/{max_retries})")

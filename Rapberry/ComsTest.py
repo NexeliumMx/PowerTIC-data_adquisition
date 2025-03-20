@@ -19,7 +19,7 @@ ser =  serial.Serial(
     bytesize=serial.EIGHTBITS,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
-    timeout=0.1)
+    timeout=0.070)
 
 def info_backup(data,file_path):
     

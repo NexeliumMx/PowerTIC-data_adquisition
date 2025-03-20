@@ -1,9 +1,18 @@
 from ComsTest import reading_meter
-
+import serial
 import os
 import json
 from encript import encript
 from uploadback import uploadbackup
+
+ser =  serial.Serial(
+    port='/dev/ttyUSB0',
+    baudrate=19200,
+    bytesize=serial.EIGHTBITS,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    timeout=0.1)
+
 def rundeploy():
     if  os.path.isdir(r'vals/meters'):
         

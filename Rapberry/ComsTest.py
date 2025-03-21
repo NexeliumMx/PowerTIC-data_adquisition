@@ -130,7 +130,7 @@ def meter_param(model:str,mbadd:int):
                     break
                 else:
                     logger.warning(f"No response, retrying ({attempt+1}/{max_retries})")
-                    kill_processes()
+                    #kill_processes()
             else:
                 logger.error("Failed to get response after retries")
                 continue

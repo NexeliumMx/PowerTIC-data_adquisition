@@ -7,9 +7,11 @@ import random
 #from initialwrittenconfig import initialaddres,ctvtsetup
 import ast
 def initialize(models):
+    r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedTimeZones')
+    tz=r.json()
     direction=[]
     laa=240
-    keys=("serialNumber","model","address","cloudConfig","ct","vt")
+    keys=("serialNumber","model","address","cloudConfig","ct","vt","dev","tz_identifier")
     print(subprocess.run(["mkdir", "vals/meters"], 
                      capture_output=True))
     while(1):
@@ -67,7 +69,28 @@ def initialize(models):
         temp["ct"]=int(10*float(input("Current Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
         temp["vt"]=int(10*float(input("Voltage Transformer relation \n(Just numbers max 1 decimal place e.g. 100:1=100 2500:5=500 Max 999 Min 1):\n ")))
         #ctvtsetup(temp["model"],temp["address"],temp["ct"],temp["vt"])
-        
+        while(1):
+            tib=input("Is it for dev (y/n): ")
+            if tib=="y":
+                temp["dev"]=True
+                break
+            elif tib=="n":
+                temp["dev"]=False
+                break
+            print("Invalid input ")
+        print("Select your timezone")
+        for i in range(0,len(tz)):
+            print(f"{i+1} : {tz[i]["tz_identifier"]}")
+        while(1):
+            try:
+                tib=int(input("Input the number of your time zone in the list: "))
+                temp["tz_identifier"]=tz[tib-1]["tz_identifier"]
+                break
+            except:
+                print("Invalid input ")    
+            
+                
+            
         SN=meter_param(temp["model"],temp["address"])
         print("Serial Number: ", SN)
         temp["serialNumber"]=SN

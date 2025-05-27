@@ -80,7 +80,8 @@ def initialize(models):
             print("Invalid input ")
         print("Select your timezone")
         for i in range(0,len(tz)):
-            print(f"{i+1} : {tz[i]["tz_identifier"]}")
+            tmp=tz[i]["tz_identifier"]
+            print(f"{i+1} : {tmp}")
         while(1):
             try:
                 tib=int(input("Input the number of your time zone in the list: "))

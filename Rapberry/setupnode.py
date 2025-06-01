@@ -92,7 +92,7 @@ def initialize(models):
             
                 
             
-        SN=meter_param(temp["model"],temp["address"])
+        SN=meter_param(temp["model"],temp["address"],temp["dev"],temp["tz_identifier"])
         print("Serial Number: ", SN)
         temp["serialNumber"]=SN
         f=open(fr"vals/meters/{temp['serialNumber']}data.json","w")

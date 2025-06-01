@@ -47,7 +47,7 @@ def info_backup(data,file_path):
 
 #obtención y envío de datos de información del medidor
 
-def meter_param(model:str,mbadd:int):
+def meter_param(model:str,mbadd:int,dev,tz):
     if not ser.is_open:
         ser.open()
     #Read function
@@ -142,6 +142,8 @@ def meter_param(model:str,mbadd:int):
         #settings["facturation_interval_months"] = 1
         timestamp = datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z"
         settings["register_date"] = timestamp
+        settings["dev"]=dev
+        settings["time_zone"]=tz
         #settings["facturation_day"]=datetime.datetime.now().day
 
         json_data = settings
@@ -268,7 +270,7 @@ def reading_meter(sn:str, mbadd: int, model: str):
         print("Built JSON: ", data)
 
         # Send data
-        url = "https://powertick-api-js.azurewebsites.net/api/postReading"
+        url = "https://power-tick-api-js.nexelium.mx/api/postMeasurement"
         try:
             response = requests.post(url, json=json_data)
             if response.status_code == 200:

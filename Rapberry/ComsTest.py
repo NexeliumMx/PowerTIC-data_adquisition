@@ -144,7 +144,6 @@ def meter_param(model:str,mbadd:int,dev,tz):
         settings["register_date"] = timestamp
         settings["dev"]=dev
         settings["time_zone"]=tz
-        settings["model"]=model
         #settings["facturation_day"]=datetime.datetime.now().day
 
         json_data = settings

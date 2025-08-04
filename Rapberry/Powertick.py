@@ -36,8 +36,13 @@ if not os.path.exists(r'vals/set_up.txt'):
     version_check(version_file=version_file)
     csv_version(rtu_file=rtu_file)
 else:    
-    rundeploy()
-    response, rtu_file, version_file = call_api()
-    version_check(version_file=version_file)
-    csv_version(rtu_file=rtu_file)
+    try: 
+        rundeploy()
+    except Exception as e:
+        r = requests.get('https://powertick-api-js.azurewebsites.net/api/supportedModels')
+    finally:
+         response, rtu_file, version_file = call_api()
+         version_check(version_file=version_file)
+         csv_version(rtu_file=rtu_file)
+
 

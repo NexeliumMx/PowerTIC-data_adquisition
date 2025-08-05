@@ -1,0 +1,145 @@
+Execution started at Sun  3 Aug 19:05:25 CST 2025
+Checking initial file status...
+  File: ./Powertick.bin
+  Size: 16350460  	Blocks: 31904      IO Block: 4096   regular file
+Device: 179,2	Inode: 799         Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2025-06-02 12:34:48.819457774 -0600
+Modify: 2025-06-02 12:34:48.835457681 -0600
+Change: 2025-06-02 12:34:48.835457681 -0600
+ Birth: 2025-06-02 12:34:48.819457774 -0600
+Removing file...
+Running image_download.py...
+python: can't open file '/home/powertick/./image_download.py': [Errno 2] No such file or directory
+File Downloaded successfully
+Checking final file status...
+stat: cannot statx './Powertick.bin': No such file or directory
+Execution ended at Sun  3 Aug 19:05:25 CST 2025
+Execution started at Tue  5 Aug 12:12:56 CST 2025
+Checking initial file status...
+  File: ./Powertick.bin
+  Size: 16333982  	Blocks: 31904      IO Block: 4096   regular file
+Device: 179,2	Inode: 21982       Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/powertick)   Gid: ( 1000/powertick)
+Access: 2025-08-05 12:11:39.456977000 -0600
+Modify: 2025-08-05 12:11:40.408972111 -0600
+Change: 2025-08-05 12:11:40.408972111 -0600
+ Birth: 2025-08-05 12:11:39.456977000 -0600
+Removing file...
+Running image_download.py...
+python: can't open file '/home/powertick/./image_download.py': [Errno 2] No such file or directory
+File Downloaded successfully
+Checking final file status...
+stat: cannot statx './Powertick.bin': No such file or directory
+Execution ended at Tue  5 Aug 12:12:56 CST 2025
+Execution started at Tue  5 Aug 12:28:29 CST 2025
+Checking initial file status...
+  File: ./Powertick.bin
+  Size: 16333982  	Blocks: 31904      IO Block: 4096   regular file
+Device: 179,2	Inode: 21982       Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: ( 1000/powertick)   Gid: ( 1000/powertick)
+Access: 2025-08-05 12:16:15.315591382 -0600
+Modify: 2025-08-05 12:16:16.243586809 -0600
+Change: 2025-08-05 12:16:43.511452660 -0600
+ Birth: 2025-08-05 12:16:15.315591382 -0600
+Removing file...
+Running image_download.py...
+python: can't open file '/home/powertick/./image_download.py': [Errno 2] No such file or directory
+File Downloaded successfully
+Checking final file status...
+stat: cannot statx './Powertick.bin': No such file or directory
+Execution ended at Tue  5 Aug 12:28:29 CST 2025
+Execution started at Tue  5 Aug 12:31:02 CST 2025
+Checking initial file status...
+  File: ./Powertick.bin
+  Size: 16333982  	Blocks: 31904      IO Block: 4096   regular file
+Device: 179,2	Inode: 21982       Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: ( 1000/powertick)   Gid: ( 1000/powertick)
+Access: 2025-08-05 12:29:44.615721005 -0600
+Modify: 2025-08-05 12:29:45.387717380 -0600
+Change: 2025-08-05 12:30:03.783631019 -0600
+ Birth: 2025-08-05 12:29:44.615721005 -0600
+Removing file...
+Running image_download.py...
+python: can't open file '/home/powertick/image_download.py': [Errno 2] No such file or directory
+File Downloaded successfully
+Checking final file status...
+stat: cannot statx './Powertick.bin': No such file or directory
+Execution ended at Tue  5 Aug 12:31:02 CST 2025
+Execution started at Tue  5 Aug 12:45:06 CST 2025
+Checking initial file status...
+  File: ./Powertick.bin
+  Size: 16333982  	Blocks: 31904      IO Block: 4096   regular file
+Device: 179,2	Inode: 21982       Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: ( 1000/powertick)   Gid: ( 1000/powertick)
+Access: 2025-08-05 12:36:16.461888098 -0600
+Modify: 2025-08-05 12:36:17.405883696 -0600
+Change: 2025-08-05 12:36:24.045852731 -0600
+ Birth: 2025-08-05 12:36:16.461888098 -0600
+Removing file...
+Running image_download.py...
+python: can't open file '/home/powertick/image_download.py': [Errno 2] No such file or directory
+File Downloaded successfully
+Checking final file status...
+stat: cannot statx './Powertick.bin': No such file or directory
+Execution ended at Tue  5 Aug 12:45:06 CST 2025
+Execution started at Tue  5 Aug 13:22:06 CST 2025
+Checking initial file status...
+  File: ./Powertick.bin
+  Size: 16351757  	Blocks: 31944      IO Block: 4096   regular file
+Device: 179,2	Inode: 277154      Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: ( 1000/powertick)   Gid: ( 1000/powertick)
+Access: 2025-08-05 13:14:50.127017630 -0600
+Modify: 2025-08-05 13:16:00.182724205 -0600
+Change: 2025-08-05 13:17:09.422170232 -0600
+ Birth: 2025-08-05 13:16:00.170724304 -0600
+Removing file...
+Running image_download.py...
+python: can't open file '/home/powertick/Powertickexe/image_download.py': [Errno 2] No such file or directory
+File Downloaded successfully
+Checking final file status...
+stat: cannot statx './Powertick.bin': No such file or directory
+Execution ended at Tue  5 Aug 13:22:06 CST 2025
+Execution started at Tue  5 Aug 13:47:13 CST 2025
+Checking initial file status...
+  File: ./Powertick.bin
+  Size: 16366887  	Blocks: 31968      IO Block: 4096   regular file
+Device: 179,2	Inode: 291570      Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: ( 1000/powertick)   Gid: ( 1000/powertick)
+Access: 2025-08-05 13:44:05.280543286 -0600
+Modify: 2025-08-05 13:45:20.842172923 -0600
+Change: 2025-08-05 13:45:36.038564680 -0600
+ Birth: 2025-08-05 13:45:20.826172520 -0600
+Removing file...
+Running image_download.py...
+python: can't open file '/home/powertick/Powertickexe/image_download.py': [Errno 2] No such file or directory
+File Downloaded successfully
+Checking final file status...
+stat: cannot statx './Powertick.bin': No such file or directory
+Execution ended at Tue  5 Aug 13:47:13 CST 2025
+Execution started at Tue  5 Aug 13:49:32 CST 2025
+Checking initial file status...
+  File: ./Powertick.bin
+  Size: 16366887  	Blocks: 31968      IO Block: 4096   regular file
+Device: 179,2	Inode: 291570      Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: ( 1000/powertick)   Gid: ( 1000/powertick)
+Access: 2025-08-05 13:44:05.280543286 -0600
+Modify: 2025-08-05 13:49:05.441554172 -0600
+Change: 2025-08-05 13:49:05.633546708 -0600
+ Birth: 2025-08-05 13:49:05.425554794 -0600
+Removing file...
+Running image_download.py...
+Blob 'Powertick.bin' downloaded successfully.
+Blob content saved to: /home/powertick/Powertickexe/Powertick.bin
+Blob processing completed.
+File Downloaded successfully
+Checking final file status...
+  File: ./Powertick.bin
+  Size: 16366887  	Blocks: 31968      IO Block: 4096   regular file
+Device: 179,2	Inode: 291575      Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/powertick)   Gid: ( 1000/powertick)
+Access: 2025-08-05 13:49:36.480463785 -0600
+Modify: 2025-08-05 13:49:36.480463785 -0600
+Change: 2025-08-05 13:49:36.480463785 -0600
+ Birth: 2025-08-05 13:49:36.480463785 -0600
+Execution ended at Tue  5 Aug 13:49:36 CST 2025
